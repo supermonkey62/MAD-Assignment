@@ -238,7 +238,7 @@ public class timer extends AppCompatActivity {
                     {
                         Toast.makeText(timer.this, "5 seconds remaining!", Toast.LENGTH_SHORT).show();
                     }
-                    int progress = (int) (((startTimeInMillis - millisUntilFinished) / (float) startTimeInMillis) * 100);
+                    int progress = 100 - (int) (((startTimeInMillis - millisUntilFinished) / (float) startTimeInMillis) * 100);
 
                     progressBar.setProgress(progress);
                 }
@@ -248,7 +248,7 @@ public class timer extends AppCompatActivity {
                     isTimerRunning = false;
                     button.setText("Start Timer");
                     timeLeftInMillis = 0;
-                    progressBar.setProgress(100);
+                    progressBar.setProgress(0);
                 }
             }.start();
 
