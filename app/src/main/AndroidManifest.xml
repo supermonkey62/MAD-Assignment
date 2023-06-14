@@ -16,7 +16,7 @@
             android:name=".timer"
             android:exported="false" />
         <activity
-            android:name=".LoginPage"
+            android:name=".MainActivity"
             android:exported="true" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
