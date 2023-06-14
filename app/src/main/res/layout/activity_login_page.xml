@@ -6,5 +6,119 @@
     android:layout_height="match_parent"
     android:background="#335A44">
 
+    <ImageView
+        android:id="@+id/loginpagepic"
+        android:layout_width="413dp"
+        android:layout_height="191dp"
+        android:layout_marginTop="50dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/appnametext"
+        app:srcCompat="@drawable/lr" />
+
+    <ImageView
+        android:id="@+id/whitebox"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        android:layout_marginTop="200dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/loginpagepic"
+        app:srcCompat="@drawable/white_square_with_rounded_corners" />
+
+    <TextView
+        android:id="@+id/appnametext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:gravity="center"
+        android:text="Kukubird"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_margin="50dp"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <TextView
+        android:id="@+id/logintext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Login"
+        android:textColor="#335A44"
+        android:gravity="center"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="@id/whitebox"
+         />
+
+    <ImageView
+        android:id="@+id/usernamebox"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        app:layout_constraintTop_toBottomOf="@id/logintext"
+        android:layout_marginTop="15dp"
+        app:srcCompat="@drawable/hollow"
+        android:gravity="center"
+         />
+
+    <ImageView
+        android:id="@+id/passwordbox"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        app:layout_constraintTop_toBottomOf="@id/usernamebox"
+        app:srcCompat="@drawable/hollow"
+        />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Login"
+        app:layout_constraintTop_toBottomOf="@id/passwordbox"
+        android:layout_marginTop="20dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        />
+
+    <TextView
+        android:id="@+id/textView4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="New User? Register Here!"
+        app:layout_constraintTop_toBottomOf="@id/whitebox"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp" />
+
+    <EditText
+        android:id="@+id/usernameedit"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:inputType="text"
+        android:hint="Username"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintTop_toBottomOf="@id/logintext"
+        android:layout_marginTop="20dp" />
+
+    <EditText
+        android:id="@+id/passwordedit"
+        android:layout_width="match_parent"
+        android:hint="Password"
+        android:layout_height="50dp"
+        android:inputType="text"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintTop_toBottomOf="@id/usernamebox"
+        android:layout_marginTop="30dp" /> />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
