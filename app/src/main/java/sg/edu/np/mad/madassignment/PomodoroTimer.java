@@ -28,10 +28,9 @@ public class PomodoroTimer extends AppCompatActivity {
     private CountDownTimer countDownTimer;
     private boolean isTimerRunning;
     private long timeLeftInMillis;
-
-    private static final long POMODORO_DURATION = 25 * 60 * 1000; // 25 minutes
-    private static final long SHORT_BREAK_DURATION = 5 * 60 * 1000; // 5 minutes
-    private static final long LONG_BREAK_DURATION = 15 * 60 * 1000; // 15 minutes
+    private long POMODORO_DURATION ;
+    private long SHORT_BREAK_DURATION;
+    private long LONG_BREAK_DURATION;
 
     private static final int POMODORO_STATE = 0;
     private static final int SHORT_BREAK_STATE = 1;
@@ -56,6 +55,7 @@ public class PomodoroTimer extends AppCompatActivity {
         longRestSeekBar = findViewById(R.id.seekBar3);
         longRestDurationTextView = findViewById(R.id.longRestDuration);
 
+
         workSeekBar.setProgress(24);
         restSeekBar.setProgress(4);
         longRestSeekBar.setProgress(14);
@@ -64,12 +64,12 @@ public class PomodoroTimer extends AppCompatActivity {
         workSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                workDurationTextView.setText(""+progress+"Mins");
-                long workDurationInMillis = (progress + 1) * 60 * 1000; // Convert minutes to milliseconds
+                workDurationTextView.setText(""+(progress + 1) +"Mins");
+                POMODORO_DURATION = (progress + 1) * 60 * 1000; // Convert minutes to milliseconds
 
                 // Update the timer duration if the current state is POMODORO_STATE
                 if (currentState == POMODORO_STATE) {
-                    timeLeftInMillis = workDurationInMillis;
+                    timeLeftInMillis = POMODORO_DURATION;
                     updateTimerText();
                     updateProgressBar();
                 }
@@ -90,12 +90,12 @@ public class PomodoroTimer extends AppCompatActivity {
         restSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                restDurationTextView.setText("" + progress + "Mins");
-                long restDurationInMillis = (progress + 1) * 60 * 1000; // Convert minutes to milliseconds
+                restDurationTextView.setText("" + (progress +1) + "Mins");
+                SHORT_BREAK_DURATION = (progress + 1) * 60 * 1000; // Convert minutes to milliseconds
 
                 // Update the rest duration if the current state is SHORT_BREAK_STATE
                 if (currentState == SHORT_BREAK_STATE) {
-                    timeLeftInMillis = restDurationInMillis;
+                    timeLeftInMillis = SHORT_BREAK_DURATION;
                     updateTimerText();
                     updateProgressBar();
                 }
@@ -117,11 +117,11 @@ public class PomodoroTimer extends AppCompatActivity {
         longRestSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                longRestDurationTextView.setText("" + progress + "Mins");
-                long restDurationInMillis = (progress + 1) * 60 * 1000; // Convert minutes to milliseconds
+                longRestDurationTextView.setText("" + (progress+1) + "Mins");
+                LONG_BREAK_DURATION = (progress + 1) * 60 * 1000; // Convert minutes to milliseconds
 
                 if (currentState == SHORT_BREAK_STATE) {
-                    timeLeftInMillis = restDurationInMillis;
+                    timeLeftInMillis = LONG_BREAK_DURATION;
                     updateTimerText();
                     updateProgressBar();
                 }
@@ -243,6 +243,9 @@ public class PomodoroTimer extends AppCompatActivity {
     private void updateProgressBar() {
         int progress = (int) ((timeLeftInMillis / (float) getCurrentTimerDuration()) * 100);
         progressBar.setProgress(progress);
+
+
+
     }
 
     private long getCurrentTimerDuration() {
