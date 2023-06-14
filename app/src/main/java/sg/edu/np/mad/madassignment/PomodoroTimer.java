@@ -234,9 +234,18 @@ public class PomodoroTimer extends AppCompatActivity {
     }
 
     private void updateTimerText() {
-        int minutes = (int) (timeLeftInMillis / 1000) / 60;
-        int seconds = (int) (timeLeftInMillis / 1000) % 60;
-        String timeLeftFormatted = String.format("%02d:%02d", minutes, seconds);
+//
+        int hours = (int) ((timeLeftInMillis / 1000) / 3600);
+        int minutes = (int) (((timeLeftInMillis / 1000) % 3600) / 60);
+        int seconds = (int) ((timeLeftInMillis / 1000) % 60);
+
+
+        String timeLeftFormatted;
+        if (hours > 0) {
+            timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
+        } else {
+            timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
+        }
         timerTextView.setText(timeLeftFormatted);
     }
 
