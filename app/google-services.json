@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "678522114881",
+    "firebase_url": "https://mad-assignment-a22e7-default-rtdb.firebaseio.com",
+    "project_id": "mad-assignment-a22e7",
+    "storage_bucket": "mad-assignment-a22e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:678522114881:android:14614c873fd90679b007c0",
+        "android_client_info": {
+          "package_name": "sg.edu.np.mad.madassignment"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "678522114881-6d9o7thnqbtiu34ee4m5egs49meahjrj.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDY84Q2Qv91fYj0XMyhp466Pmzo6PMAZuY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "678522114881-6d9o7thnqbtiu34ee4m5egs49meahjrj.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

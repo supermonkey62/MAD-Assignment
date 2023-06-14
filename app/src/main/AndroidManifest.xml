@@ -13,23 +13,29 @@
         android:theme="@style/Theme.MADAssignment"
         tools:targetApi="31">
         <activity
+            android:name=".MainPage"
+            android:exported="false" />
+        <activity
+            android:name=".RegisterUser"
+            android:exported="false" />
+        <activity
             android:name=".TodoList"
             android:exported="false" />
         <activity
             android:name=".LoginPage"
-            android:exported="false" />
+            android:exported="true" >
+            <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
         <activity
             android:name=".timer"
             android:exported="false" />
         <activity
             android:name=".PomodoroTimer"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:exported="true"/>
     </application>
 
 </manifest>
