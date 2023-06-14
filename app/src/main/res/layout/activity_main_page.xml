@@ -11,8 +11,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="108dp"
-        android:layout_marginTop="89dp"
+        android:layout_marginTop="104dp"
         android:text="Go to Pomodoro Timer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <Button
+        android:id="@+id/NormalTimerBttn"
+        android:layout_width="191dp"
+        android:layout_height="48dp"
+        android:layout_marginStart="111dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginEnd="109dp"
+        android:text="Go to Normal Timer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pomobutton" />
 </androidx.constraintlayout.widget.ConstraintLayout>

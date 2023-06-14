@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#8CCDA9"
     tools:context=".PomodoroTimer">
 
 
@@ -12,7 +13,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="329dp"
         android:layout_height="304dp"
-        android:layout_marginStart="33dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="16dp"
         android:indeterminate="false"
         android:max="100"
@@ -25,29 +26,29 @@
         android:id="@+id/button"
         android:layout_width="108dp"
         android:layout_height="68dp"
-        android:layout_marginStart="151dp"
+        android:layout_marginStart="140dp"
         android:text="Start"
+        android:textColorHighlight="#D18DC8"
         app:layout_constraintBottom_toTopOf="@id/button2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/progressBar" />
-
 
     <TextView
         android:id="@+id/pomotext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="140dp"
-        android:text="peepee"
         app:layout_constraintEnd_toEndOf="@+id/progressBar"
         app:layout_constraintHorizontal_bias="0.477"
         app:layout_constraintStart_toStartOf="@+id/progressBar"
         app:layout_constraintTop_toTopOf="@+id/progressBar" />
 
+
     <Button
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="161dp"
+        android:layout_marginStart="148dp"
         android:text="reset"
         app:layout_constraintBottom_toTopOf="@id/seekBar1"
         app:layout_constraintStart_toStartOf="parent"
@@ -57,17 +58,19 @@
         android:id="@+id/seekBar1"
         android:layout_width="329dp"
         android:layout_height="44dp"
-        android:layout_marginStart="18dp"
+        android:layout_marginStart="16dp"
+        android:backgroundTint="#987C7C"
+        android:progressTint="#F498AD"
         app:layout_constraintBottom_toTopOf="@id/seekBar2"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/button2" />
-
 
     <SeekBar
         android:id="@+id/seekBar2"
         android:layout_width="329dp"
         android:layout_height="44dp"
         android:layout_marginStart="16dp"
+        android:progressTint="#F498AD"
         app:layout_constraintBottom_toTopOf="@id/seekBar3"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/seekBar1" />
@@ -77,6 +80,7 @@
         android:layout_width="329dp"
         android:layout_height="44dp"
         android:layout_marginStart="16dp"
+        android:progressTint="#F498AD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/seekBar2" />
@@ -85,8 +89,11 @@
         android:id="@+id/workDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="46dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginBottom="44dp"
         android:text="Work"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/restDuration"
         app:layout_constraintStart_toEndOf="@+id/seekBar1" />
 
@@ -94,20 +101,26 @@
         android:id="@+id/restDuration"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginStart="12dp"
         android:layout_marginTop="35dp"
         android:layout_marginBottom="55dp"
         android:text="Rest"
         android:textAlignment="center"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toTopOf="@+id/longRestDuration"
         app:layout_constraintStart_toEndOf="@+id/seekBar2"
         app:layout_constraintTop_toBottomOf="@+id/seekBar1" />
 
     <TextView
         android:id="@+id/longRestDuration"
-        android:layout_width="53dp"
-        android:layout_height="33dp"
-        android:layout_marginTop="44dp"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="28dp"
         android:text="Long Rest"
+        android:textSize="16sp"
+        android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/seekBar3"
         app:layout_constraintTop_toBottomOf="@+id/restDuration" />
 
