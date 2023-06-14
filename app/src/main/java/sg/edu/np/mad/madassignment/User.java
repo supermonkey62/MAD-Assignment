@@ -1,28 +1,29 @@
 package sg.edu.np.mad.madassignment;
 
 public class User {
-    private String name, description;
-    private int id;
-    private boolean followed;
+    private String username, password;
 
-    public User(String name, String description, int id, boolean followed) {
-        this.name = name;
-        this.description = description;
-        this.id = id;
-        this.followed = followed;
+    public User() {
     }
 
-    public String getName() { return name; }
-    public String getDescription() { return description; }
-    public int getId() { return id; }
-    public boolean isFollowed() { return followed; }
+    public User(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
-    public void setName(String name) { this.name = name; }
-    public void setDescription(String description) { this.description = description; }
-    public void setId(int id) { this.id = id; }
-    public void setFollowed(boolean followed) { this.followed = followed; }
+    public String getUsername() {
+        return username;
+    }
 
-    public boolean isFollowed(User user) {
-        return user.isFollowed();
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 }
