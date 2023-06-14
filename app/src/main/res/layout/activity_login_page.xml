@@ -4,13 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginPage">
+    android:background="#335A44">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="413dp"
-        android:layout_height="588dp"
-        app:srcCompat="@drawable/loginpage"
-        tools:layout_editor_absoluteX="-1dp"
-        tools:layout_editor_absoluteY="144dp" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
