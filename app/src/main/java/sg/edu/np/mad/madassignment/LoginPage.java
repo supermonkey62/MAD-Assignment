@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -20,6 +21,8 @@ public class LoginPage extends AppCompatActivity {
 
     EditText usernameEdit, passwordEdit;
     Button loginbutton;
+
+    TextView registertext;
 
     FirebaseDatabase fdb = FirebaseDatabase.getInstance();
     DatabaseReference userRef;
@@ -36,6 +39,7 @@ public class LoginPage extends AppCompatActivity {
         usernameEdit = findViewById(R.id.usernameedit);
         passwordEdit = findViewById(R.id.passwordedit);
         loginbutton = findViewById(R.id.loginbutton);
+        registertext = findViewById(R.id.registertext);
 
         loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -69,6 +73,14 @@ public class LoginPage extends AppCompatActivity {
                         Log.v("LoginPage", "Error: " + databaseError.getMessage());
                     }
                 });
+            }
+        });
+
+        registertext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(LoginPage.this, RegisterUser.class);
+                startActivity(intent);
             }
         });
     }
