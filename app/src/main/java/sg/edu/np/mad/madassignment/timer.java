@@ -95,19 +95,19 @@ public class timer extends AppCompatActivity {
             button.setText("Stop Timer");
 
             if (timeLeftInMillis == 0) {
-                timeLeftInMillis = startTimeInMillis; // Set the initial time from startTimeInMillis variable
+                timeLeftInMillis = startTimeInMillis;
             }
 
             countDownTimer = new CountDownTimer(timeLeftInMillis, 1000) {
                 public void onTick(long millisUntilFinished) {
                     timeLeftInMillis = millisUntilFinished;
 
-                    // Calculate hours, minutes, and seconds remaining
+
                     int hours = (int) ((timeLeftInMillis / 1000) / 3600);
                     int minutes = (int) (((timeLeftInMillis / 1000) % 3600) / 60);
                     int seconds = (int) ((timeLeftInMillis / 1000) % 60);
 
-                    // Format the time as a string
+
                     String timeLeftFormatted;
                     if (hours > 0) {
                         timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d:%02d", hours, minutes, seconds);
