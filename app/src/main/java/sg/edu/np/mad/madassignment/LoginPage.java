@@ -11,7 +11,7 @@ public class LoginPage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
-        Intent intent = new Intent(LoginPage.this,PomodoroTimer.class);
+        Intent intent = new Intent(LoginPage.this, timer.class);
         startActivity(intent);
     }
 }
