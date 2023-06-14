@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+
+    <!--*******Top Tool Bar**********-->
+    <Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentTop="true"
+        android:id="@+id/accountSettingToolbar"
+        android:background="@color/white"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme"
+        android:elevation="6dp"
+        android:layout_alignParentStart="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:id="@+id/linearlayout">
+
+            <TextView
+                android:id="@+id/profileName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="5dp"
+                android:layout_weight="1"
+                android:fontFamily="cursive"
+                android:text="Option"
+                android:textColor="@color/black"
+                android:textSize="25sp" />
+
+
+
+        </LinearLayout>
+
+
+
+
+    </Toolbar>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/accountSettingToolbar"
+        android:padding="10dp"
+        android:background="@color/white">
+
+        <!--*******Account Setting**********-->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="20dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
+            android:fontFamily="cursive"
+            android:text="@string/my_text"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+        <!--*******Logout**********-->
+        <TextView
+            android:id="@+id/logout"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:drawableLeft="@drawable/ic_logout_exit"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/black"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Logout"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/black"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+        <!--*******Edit Profile**********-->
+        <TextView
+            android:id="@+id/edit_profile"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:drawableLeft="@drawable/ic_edit_profile"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/black"
+            android:fontFamily="sans-serif-smallcaps"
+            android:text="Edit Profile"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="@color/aqua"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"/>
+
+
+    </LinearLayout>
+
+
+
+
+</RelativeLayout>

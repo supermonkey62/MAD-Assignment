@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">MAD Assignment</string>
+    <string name="my_text"><u>Account Settings</u>.</string>
 </resources>
