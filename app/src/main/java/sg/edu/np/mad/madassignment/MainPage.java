@@ -25,9 +25,8 @@ import java.util.List;
 
 public class MainPage extends AppCompatActivity {
     String title = "MainPage";
-    Button pomodorotimer, normaltimer;
+    Button pomodorotimer, normaltimer ,Profile;
 
-    Button pomodorotimer, normaltimer,Profile;
 
     TextView usernametext;
     ImageView calendarexpand;
@@ -122,7 +121,6 @@ public class MainPage extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "Entering Calendar", Toast.LENGTH_SHORT).show();
                 Intent toCalendar = new Intent(MainPage.this, TaskCalendar.class);
-                toCalendar.putExtra("EVENTLIST", new ArrayList<>(eventList));
                 startActivity(toCalendar);
             }
         });
