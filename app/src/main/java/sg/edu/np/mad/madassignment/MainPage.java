@@ -112,6 +112,7 @@ public class MainPage extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, " Entering Profile Page", Toast.LENGTH_SHORT).show();
                 Intent intent3 = new Intent(MainPage.this, ProfilePage.class);
+                intent3.putExtra("username", usernametext.getText().toString());
                 startActivity(intent3);
             }
         });
