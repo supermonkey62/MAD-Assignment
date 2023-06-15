@@ -7,13 +7,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 import android.widget.Toast;
 
 public class MainPage extends AppCompatActivity {
 
-    Button pomodorotimer;
-    Button normaltimer;
+    Button pomodorotimer, normaltimer;
 
+    TextView usernametext;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -23,6 +24,10 @@ public class MainPage extends AppCompatActivity {
 
         pomodorotimer = findViewById(R.id.pomobutton);
         normaltimer = findViewById(R.id.NormalTimerBttn);
+        usernametext = findViewById(R.id.usernametext);
+
+        String username = getIntent().getStringExtra("USERNAME");
+        usernametext.setText(username);
 
         pomodorotimer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,8 +46,5 @@ public class MainPage extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
-
-//        Intent intent3 = new Intent(MainPage.this,TodoList.class);
-//        startActivity(intent3);
     }
 }
