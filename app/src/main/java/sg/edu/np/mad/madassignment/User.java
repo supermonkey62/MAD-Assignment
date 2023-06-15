@@ -3,6 +3,7 @@ package sg.edu.np.mad.madassignment;
 public class User {
     private String username, password;
 
+
     public User() {
     }
 

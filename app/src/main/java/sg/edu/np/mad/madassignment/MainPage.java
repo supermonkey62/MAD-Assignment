@@ -26,6 +26,9 @@ import java.util.List;
 public class MainPage extends AppCompatActivity {
     String title = "MainPage";
     Button pomodorotimer, normaltimer;
+
+    Button pomodorotimer, normaltimer,Profile;
+
     TextView usernametext;
     ImageView calendarexpand;
     List<Event> eventList;
@@ -79,6 +82,7 @@ public class MainPage extends AppCompatActivity {
         pomodorotimer = findViewById(R.id.pomobutton);
         normaltimer = findViewById(R.id.NormalTimerBttn);
         usernametext = findViewById(R.id.usernametext);
+        Profile = findViewById(R.id.profilepageBttn);
         calendarexpand = findViewById(R.id.calendarexpand);
 
         String username = getIntent().getStringExtra("USERNAME");
@@ -104,6 +108,15 @@ public class MainPage extends AppCompatActivity {
             }
         });
 
+        Profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(MainPage.this, " Entering Profile Page", Toast.LENGTH_SHORT).show();
+                Intent intent3 = new Intent(MainPage.this, ProfilePage.class);
+                startActivity(intent3);
+            }
+        });
+
         calendarexpand.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -115,4 +128,3 @@ public class MainPage extends AppCompatActivity {
         });
     }
 }
-

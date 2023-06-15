@@ -136,5 +136,15 @@
         android:layout_marginEnd="20dp"
          />
 
+    <Button
+        android:id="@+id/profilepageBttn"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="200dp"
+        android:layout_marginTop="50dp"
+        android:text="Go to Profile Page"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/NormalTimerBttn" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
