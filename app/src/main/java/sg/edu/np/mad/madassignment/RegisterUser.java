@@ -18,11 +18,16 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RegisterUser extends AppCompatActivity {
 
     EditText usernameEdit, passwordEdit, confirmPasswordEdit;
     Button registerButton;
     TextView cancelButton;
+
+    ArrayList<TodoModel> tasklist;
 
     FirebaseDatabase fdb = FirebaseDatabase.getInstance();
     DatabaseReference userRef;
@@ -41,6 +46,7 @@ public class RegisterUser extends AppCompatActivity {
         confirmPasswordEdit = findViewById(R.id.confirmpasswordedit);
         registerButton = findViewById(R.id.registerbutton);
         cancelButton = findViewById(R.id.canceltext);
+        tasklist = new ArrayList<>();
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -58,7 +64,7 @@ public class RegisterUser extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
                             } else {
                                 // Create a new user
-                                User newUser = new User(username, password);
+                                User newUser = new User(username, password,tasklist);
                                 userRef.child(username).setValue(newUser);
                                 Log.v("RegisterPage", "User registered successfully");
                                 Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();

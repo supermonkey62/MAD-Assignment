@@ -13,8 +13,6 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
         task = view.findViewById(R.id.checkbox);
     }
 
-
-
-
-
+    public void bind(TodoModel task) {
+    }
 }

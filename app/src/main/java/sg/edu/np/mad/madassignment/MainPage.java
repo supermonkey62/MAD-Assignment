@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 public class MainPage extends AppCompatActivity {
 
-    Button pomodorotimer, normaltimer;
+    Button pomodorotimer, normaltimer,tasklist;
 
     TextView usernametext;
 
@@ -24,6 +24,7 @@ public class MainPage extends AppCompatActivity {
 
         pomodorotimer = findViewById(R.id.pomobutton);
         normaltimer = findViewById(R.id.NormalTimerBttn);
+        tasklist = findViewById(R.id.button3);
         usernametext = findViewById(R.id.usernametext);
 
         String username = getIntent().getStringExtra("USERNAME");
@@ -44,6 +45,13 @@ public class MainPage extends AppCompatActivity {
                 Toast.makeText(MainPage.this,"Entering Timer",Toast.LENGTH_SHORT).show();
                 Intent intent2 = new Intent(MainPage.this, timer.class);
                 startActivity(intent2);
+            }
+        });
+        tasklist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent3 = new Intent(MainPage.this,TodoList.class);
+                startActivity(intent3);
             }
         });
     }
