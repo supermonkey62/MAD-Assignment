@@ -9,15 +9,20 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.auth.FirebaseAuth;
 
 public class ProfilePage extends AppCompatActivity {
 
     TextView profilepagesetting,profilepageback,profileusername;
-
+    DatabaseReference databaseReference;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -27,10 +32,8 @@ public class ProfilePage extends AppCompatActivity {
         profilepageback = findViewById(R.id.profilepageback);
         profileusername = findViewById(R.id.profileusername);
 
-
-        String username = getIntent().getStringExtra("USERNAME");
+        String username = getIntent().getStringExtra("username");
         profileusername.setText(username);
-
         profilepageback.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

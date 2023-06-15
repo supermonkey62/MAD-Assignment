@@ -1,7 +1,8 @@
 package sg.edu.np.mad.madassignment;
 
 public class User {
-    private String username, password;
+    private static String username;
+    private String password;
 
 
     public User() {
@@ -12,7 +13,7 @@ public class User {
         this.password = password;
     }
 
-    public String getUsername() {
+    public static String getUsername() {
         return username;
     }
 
