@@ -13,6 +13,8 @@ public class MainPage extends AppCompatActivity {
 
     Button pomodorotimer;
     Button normaltimer;
+
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,5 +41,8 @@ public class MainPage extends AppCompatActivity {
                 startActivity(intent2);
             }
         });
+
+//        Intent intent3 = new Intent(MainPage.this,TodoList.class);
+//        startActivity(intent3);
     }
 }
