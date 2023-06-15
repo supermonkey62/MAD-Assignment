@@ -67,19 +67,9 @@
         android:id="@+id/todobox"
         android:layout_width="match_parent"
         android:layout_height="300dp"
-        android:layout_marginTop="25dp"
+        android:layout_marginTop="20dp"
         android:paddingStart="10dp"
-        android:paddingEnd="215dp"
-        app:layout_constraintTop_toBottomOf="@id/calendarbox"
-        app:srcCompat="@drawable/white_square_with_rounded_corners" />
-
-    <ImageView
-        android:id="@+id/timer"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:layout_marginTop="25dp"
         android:paddingEnd="10dp"
-        android:paddingStart="215dp"
         app:layout_constraintTop_toBottomOf="@id/calendarbox"
         app:srcCompat="@drawable/white_square_with_rounded_corners" />
 
@@ -102,6 +92,49 @@
         android:text="Go to Normal Timer"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/pomobutton" />
+
+    <ImageView
+        android:id="@+id/settingicon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="325dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_settings_24"
+        />
+
+    <TextView
+        android:id="@+id/datetext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Today"
+        app:layout_constraintTop_toBottomOf="@id/usernametext"
+        android:layout_marginTop="20dp"
+        android:paddingStart="40dp"
+        android:textSize="25dp"
+        android:textStyle="bold"
+        android:textColor="@color/white"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/calenderrecycler"
+        android:layout_width="390dp"
+        android:layout_height="180dp"
+        android:layout_marginTop="5dp"
+        app:layout_constraintTop_toTopOf="@id/calendarbox"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginLeft="10dp"/>
+
+    <ImageView
+        android:id="@+id/calendarexpand"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/baseline_add_24"
+        app:layout_constraintTop_toTopOf="@id/calendarbox"
+        android:layout_marginTop="10dp"
+        app:layout_constraintEnd_toEndOf="@id/calendarbox"
+        android:layout_marginEnd="20dp"
+         />
 
     <Button
         android:id="@+id/profilepageBttn"
