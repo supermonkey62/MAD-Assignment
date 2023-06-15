@@ -22,6 +22,10 @@
             android:name=".TodoList"
             android:exported="false" />
         <activity
+            android:name=".Profile_Setting"
+            android:exported="false"/>
+
+        <activity
             android:name=".LoginPage"
             android:exported="true" >
             <intent-filter>
@@ -31,11 +35,18 @@
         </intent-filter>
         </activity>
         <activity
+            android:name=".ProfilePage"
+            android:exported="false" />
+        <activity
             android:name=".timer"
             android:exported="false" />
+
         <activity
             android:name=".PomodoroTimer"
             android:exported="true"/>
+
+
+
     </application>
 
 </manifest>

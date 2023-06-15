@@ -64,8 +64,8 @@
         android:id="@+id/textView4"
         android:layout_width="74dp"
         android:layout_height="65dp"
-        android:layout_marginTop="396dp"
-        android:layout_marginEnd="297dp"
+        android:layout_marginTop="400dp"
+        android:layout_marginEnd="280dp"
         android:fontFamily="sans-serif-condensed"
         android:text="Goal"
         android:textAlignment="center"
@@ -84,7 +84,7 @@
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
-        android:id="@+id/user"
+        android:id="@+id/profileusername"
         android:layout_width="236dp"
         android:layout_height="46dp"
         android:layout_marginStart="15dp"
