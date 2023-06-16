@@ -47,7 +47,6 @@
         <activity
             android:name=".PomodoroTimer"
             android:exported="true" />
-            android:exported="true"/>
 
 
 
