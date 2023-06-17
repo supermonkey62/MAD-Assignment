@@ -98,4 +98,6 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         int numEntities = taskList.size();
         Log.v("Task Details", "Number of entities: " + numEntities);
     }
+
+    //push
 }
