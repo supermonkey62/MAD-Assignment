@@ -29,6 +29,6 @@ public class User {
         this.password = password;
     }
 
-    public String getDisplayname(){return  username;};
-    public void setDisplayname(String displayname){this.displayname=displayname;}
+    public String getDisplayname(){return  displayname;};
+    public void setDisplayname(String displayname){this.displayname = displayname;}
 }

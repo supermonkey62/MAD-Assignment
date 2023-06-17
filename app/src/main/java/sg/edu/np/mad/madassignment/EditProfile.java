@@ -3,14 +3,10 @@ package sg.edu.np.mad.madassignment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.ContactsContract;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import org.w3c.dom.Text;
 
 
 public class EditProfile extends AppCompatActivity {
@@ -43,7 +39,7 @@ public class EditProfile extends AppCompatActivity {
         changeusername.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent2 = new Intent(EditProfile.this, changeprofile.class);
+                Intent intent2 = new Intent(EditProfile.this, ChangeDisplayName.class);
                 intent2.putExtra("USERNAME", username);
                 intent2.putExtra("Password",password);
                 startActivity(intent2);

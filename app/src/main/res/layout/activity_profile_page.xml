@@ -96,22 +96,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="184dp"
+        android:layout_marginTop="40dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toTopOf="@id/whitebox"
         tools:srcCompat="@tools:sample/avatars" />
 
     <TextView
         android:id="@+id/profileusername"
-        android:layout_width="221dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="224dp"
+        android:layout_width="150dp"
+        android:layout_height="46dp"
+        android:layout_marginTop="70dp"
         android:text="Username"
-        android:textAlignment="viewStart"
-        android:textSize="34sp"
-        app:layout_constraintStart_toEndOf="@+id/imageView"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:textSize="30sp"
+        app:layout_constraintLeft_toRightOf="@+id/imageView"
+        app:layout_constraintTop_toTopOf="@id/whitebox" />
 
     <TableRow
         android:layout_width="362dp"
@@ -126,6 +124,15 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/editUsername"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_marginTop="75dp"
+        app:layout_constraintLeft_toRightOf="@id/profileusername"
+        app:layout_constraintTop_toTopOf="@id/whitebox"
+        app:srcCompat="@drawable/baseline_edit_24" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
