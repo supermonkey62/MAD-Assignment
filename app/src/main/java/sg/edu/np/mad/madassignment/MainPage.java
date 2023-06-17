@@ -39,7 +39,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
 
         pomodorotimer = findViewById(R.id.pomobutton);
         normaltimer = findViewById(R.id.NormalTimerBttn);
-        usernametext = findViewById(R.id.usernametext);
+        usernametext = findViewById(R.id.displaynametext);
         Profile = findViewById(R.id.profilepageBttn);
         calendarexpand = findViewById(R.id.calendarexpand);
         recyclerView = findViewById(R.id.calenderrecycler);
