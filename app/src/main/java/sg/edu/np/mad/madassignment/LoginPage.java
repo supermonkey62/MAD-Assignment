@@ -53,6 +53,8 @@ public class LoginPage extends AppCompatActivity {
                         if (dataSnapshot.exists()) {
                             String savedUsername = dataSnapshot.child("username").getValue(String.class);
                             String savedPassword = dataSnapshot.child("password").getValue(String.class);
+                            String displayName = dataSnapshot.child("displayname").getValue(String.class);
+
 
                             if (savedUsername.equals(username) && savedPassword.equals(password)) {
                                 Log.v("LoginPage", "Login successful");
@@ -60,7 +62,8 @@ public class LoginPage extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginPage.this, MainPage.class);
                                 intent.putExtra("USERNAME", username);
-                                intent.putExtra("Password",password);
+                                intent.putExtra("PASSWORD",password);
+                                intent.putExtra("DISPLAYNAME", displayName);
 
                                 startActivity(intent);
                             } else {

@@ -23,18 +23,13 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDataCallback,UserDataHolder.UserDataCallback{
+public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDataCallback, UserDataHolder.UserDataCallback {
     String title = "MainPage";
     Button pomodorotimer, normaltimer, Profile;
     TextView displaynametext;
     ImageView calendarexpand;
     List<Task> taskList;
-
-    String Displayname;
-
-
-
-
+    String displayname;
     RecyclerView recyclerView;
 
     @Override
@@ -49,26 +44,16 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         calendarexpand = findViewById(R.id.calendarexpand);
         recyclerView = findViewById(R.id.calenderrecycler);
 
-
-
-
-        String password = getIntent().getStringExtra("Password");
+        String password = getIntent().getStringExtra("PASSWORD");
         String username = getIntent().getStringExtra("USERNAME");
 
+        UserDataHolder.getInstance().fetchUserTasks(username, this);
         TaskDataHolder.getInstance().fetchUserTasks(username, this);
-        UserDataHolder.getInstance().fetchUserTasks(username,this);
-
-        Log.v("Text Displayname", "+" + Displayname);
-
-
-
-
-
 
         pomodorotimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), " Entering Pomodoro Timer", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Entering Pomodoro Timer", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(MainPage.this, PomodoroTimer.class);
                 startActivity(intent);
             }
@@ -82,12 +67,14 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
                 startActivity(intent2);
             }
         });
+
         Profile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainPage.this, " Entering Profile Page", Toast.LENGTH_SHORT).show();
+                Toast.makeText(MainPage.this, "Entering Profile Page", Toast.LENGTH_SHORT).show();
                 Intent intent3 = new Intent(MainPage.this, ProfilePage.class);
-                intent3.putExtra("USERNAME", displaynametext.getText().toString());
+                intent3.putExtra("DISPLAYNAME", displayname);
+                intent3.putExtra("USERNAME", username);
                 intent3.putExtra("Password", password);
                 startActivity(intent3);
             }
@@ -107,8 +94,6 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
     @Override
     public void onTaskDataFetched(List<Task> tasks) {
         taskList = tasks;
-
-        // Update the RecyclerView adapter with the populated taskList
         recyclerView.setLayoutManager(new LinearLayoutManager(MainPage.this));
         recyclerView.setAdapter(new Adapter(MainPage.this, taskList));
 
@@ -117,16 +102,8 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
     }
 
     @Override
-    public void onUserDataFetched(String displayname){
-
-        Displayname = displayname;
-
-        Log.v("Fetch Displayname",Displayname);
-        displaynametext.setText(Displayname);
-        //hi
+    public void onUserDataFetched(String displayname) {
+        this.displayname = displayname;
+        displaynametext.setText(displayname);
     }
-
-
-
-
 }

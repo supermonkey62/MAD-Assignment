@@ -2,6 +2,7 @@ package sg.edu.np.mad.madassignment;
 
 import android.hardware.usb.UsbRequest;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -53,6 +54,10 @@ public class UserDataHolder {
                 // You can show an error message or handle it as per your requirements
             }
         });
+    }
+
+    public void fetchUserTasks(String username, View.OnClickListener onClickListener) {
+
     }
 
     public interface UserDataCallback {
