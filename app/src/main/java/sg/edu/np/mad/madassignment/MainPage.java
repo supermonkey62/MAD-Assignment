@@ -32,14 +32,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
 
     String Displayname;
 
-    @Override
-    public String onUserDataFetched(String displayname){
 
-        Displayname = displayname;
-
-        Log.v("Fetch Displayname",Displayname);
-        return Displayname;
-    }
 
 
     RecyclerView recyclerView;
@@ -66,7 +59,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         UserDataHolder.getInstance().fetchUserTasks(username,this);
 
         Log.v("Text Displayname", "+" + Displayname);
-        displaynametext.setText(onUserDataFetched(username));
+
 
 
 
@@ -121,6 +114,15 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
 
         int numEntities = taskList.size();
         Log.v("Task Details", "Number of entities: " + numEntities);
+    }
+
+    @Override
+    public void onUserDataFetched(String displayname){
+
+        Displayname = displayname;
+
+        Log.v("Fetch Displayname",Displayname);
+        displaynametext.setText(Displayname);
     }
 
 

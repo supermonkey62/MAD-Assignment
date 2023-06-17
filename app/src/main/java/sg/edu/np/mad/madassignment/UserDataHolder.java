@@ -56,7 +56,7 @@ public class UserDataHolder {
     }
 
     public interface UserDataCallback {
-        String onUserDataFetched(String displayname);
+        void onUserDataFetched(String displayname);
     }
 }
 
