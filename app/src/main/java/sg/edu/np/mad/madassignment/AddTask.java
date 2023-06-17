@@ -33,6 +33,8 @@ public class AddTask extends AppCompatActivity {
 
     String selectedDate, username, taskCountString, taskObjectName;
 
+    Boolean status;
+
     TextView selectedOption;
 
     DatabaseReference userTask, userTaskCount;
@@ -52,6 +54,7 @@ public class AddTask extends AppCompatActivity {
         radioGroup = findViewById(R.id.addtaskradiogroup);
         Button addTask = findViewById(R.id.addtaskbutton);
         cancelText = findViewById(R.id.canceltasktext);
+        status = false;
 
         taskDate.setText(selectedDate);
         // Load the database
@@ -90,8 +93,8 @@ public class AddTask extends AppCompatActivity {
                                     }
                                     else {
                                         Log.v("Username", taskObjectName);
-                                        Log.v("CreateTask","Task: " + taskTitle + " , " + typeTitle + " , " + selectedDate + " , " + username);
-                                        Task newTask = new Task(username, taskTitle, typeTitle, selectedDate);
+                                        Log.v("CreateTask","Task: " + taskTitle + " , " + typeTitle + " , " + selectedDate + " , " + username + " , " + status);
+                                        Task newTask = new Task(username, taskTitle, typeTitle, selectedDate,false);
                                         userTask.child(taskObjectName).setValue(newTask);
                                         finish();
 

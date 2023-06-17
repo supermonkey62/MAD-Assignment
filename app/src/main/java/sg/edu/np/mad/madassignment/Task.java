@@ -3,15 +3,25 @@ package sg.edu.np.mad.madassignment;
 public class Task {
 
     String username, title, type, date;
+    Boolean Status;
 
     public Task() {
     }
 
-    public Task(String username, String title, String type, String date) {
+    public Task(String username, String title, String type, String date,Boolean status) {
         this.username = username;
         this.title = title;
         this.type = type;
         this.date = date;
+        this.Status = status;
+    }
+
+    public Boolean getStatus() {
+        return Status;
+    }
+
+    public void setStatus(Boolean status) {
+        Status = status;
     }
 
     public String getUsername() {

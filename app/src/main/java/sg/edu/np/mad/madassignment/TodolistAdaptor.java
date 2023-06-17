@@ -11,11 +11,12 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
-    private ArrayList<TodoModel> todolist;
+    private List<Task> todolist;
     private TodoList activity;
 
-    public TodolistAdaptor(TodoList activity){
+    public TodolistAdaptor(TodoList activity,List<Task> todolist){
         this.activity = activity;
+        this.todolist = todolist;
     }
     public TodoViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tasklist,parent,false);
@@ -25,16 +26,11 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
 
     @Override
     public void onBindViewHolder(TodoViewHolder holder, int position) {
-        TodoModel item = todolist.get(position);
-        holder.task.setText(item.getTask());
-        holder.task.setChecked(item.isStatus());
-
+        Task item = todolist.get(position);
+        holder.task.setText(item.getTitle());
+        holder.task.setChecked(item.getStatus());
     }
 
-    public void setTask(ArrayList<TodoModel> todolist){
-        this.todolist = todolist;
-        notifyDataSetChanged();
-    }
 
     @Override
     public int getItemCount() {

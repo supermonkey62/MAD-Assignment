@@ -25,7 +25,7 @@ import java.util.List;
 
 public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDataCallback {
     String title = "MainPage";
-    Button pomodorotimer, normaltimer, Profile;
+    Button pomodorotimer, normaltimer, Profile,tasks;
     TextView usernametext;
     ImageView calendarexpand;
     List<Task> taskList;
@@ -43,6 +43,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         Profile = findViewById(R.id.profilepageBttn);
         calendarexpand = findViewById(R.id.calendarexpand);
         recyclerView = findViewById(R.id.calenderrecycler);
+        tasks = findViewById(R.id.tasks);
 
         String username = getIntent().getStringExtra("USERNAME");
         usernametext.setText(username);
@@ -85,7 +86,18 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
                 startActivity(toCalendar);
             }
         });
+
+        tasks.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent totasklist = new Intent(MainPage.this,TodoList.class);
+                totasklist.putExtra("USERNAME",username);
+                startActivity(totasklist);
+
+            }
+        });
     }
+
 
     @Override
     public void onTaskDataFetched(List<Task> tasks) {

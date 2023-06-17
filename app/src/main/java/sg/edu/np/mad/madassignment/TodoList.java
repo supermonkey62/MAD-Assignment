@@ -4,34 +4,70 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
-public class TodoList extends AppCompatActivity {
+public class TodoList extends AppCompatActivity implements TaskDataHolder.TaskDataCallback {
     private RecyclerView taskRecyclerview;
     private TodolistAdaptor taskadapter;
-    private ArrayList<TodoModel> tasklist;
+    private List<Task> tasklist;
+
+    private String username;
+
+    private FloatingActionButton addtask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todo_list);
+        Intent mainpageintent = getIntent();
+        if (mainpageintent.hasExtra("USERNAME")) {
+            username = mainpageintent.getStringExtra("USERNAME");
+        }
         tasklist = new ArrayList<>();
-
+        addtask = findViewById(R.id.floatingActionButton2);
         taskRecyclerview = findViewById(R.id.tasksRecyclerView);
+
+        TaskDataHolder.getInstance().fetchUserTasks(username, this);
+        addtask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TodoList.this, AddTask.class);
+                intent.putExtra("USERNAME", username);
+                startActivity(intent);
+            }
+        });
+
+        TaskDataHolder.getInstance().fetchUserTasks(username, new TaskDataHolder.TaskDataCallback() {
+            @Override
+            public void onTaskDataFetched(List<Task> tasks) {
+                tasklist = tasks;
+
+                // Set RecyclerView adapter with filtered tasks
+                taskRecyclerview.setLayoutManager(new LinearLayoutManager(TodoList.this));
+                taskadapter = new TodolistAdaptor(TodoList.this,tasklist);
+                taskRecyclerview.setAdapter(taskadapter);
+            }
+        });
+
+
+    }
+
+    @Override
+    public void onTaskDataFetched(List<Task> tasks) {
+        tasklist = tasks;
         taskRecyclerview.setLayoutManager(new LinearLayoutManager(this));
-        taskadapter = new TodolistAdaptor(this);
         taskRecyclerview.setAdapter(taskadapter);
-        TodoModel task = new TodoModel(10,true,"testtask");
-
-        tasklist.add(task);
-        tasklist.add(task);
-        tasklist.add(task);
-
-        taskadapter.setTask(tasklist);
-
-
+        taskadapter.notifyDataSetChanged();
     }
 }
