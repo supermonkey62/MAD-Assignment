@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.text.method.PasswordTransformationMethod;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -22,7 +23,7 @@ public class RegisterUser extends AppCompatActivity {
 
     EditText usernameEdit, passwordEdit, confirmPasswordEdit;
     Button registerButton;
-    TextView cancelButton;
+    TextView cancelButton, back;
 
     FirebaseDatabase fdb = FirebaseDatabase.getInstance();
     DatabaseReference userRef;
@@ -41,6 +42,19 @@ public class RegisterUser extends AppCompatActivity {
         confirmPasswordEdit = findViewById(R.id.confirmpasswordedit);
         registerButton = findViewById(R.id.registerbutton);
         cancelButton = findViewById(R.id.canceltext);
+        back = findViewById(R.id.back2);
+
+        passwordEdit.setTransformationMethod(new PasswordTransformationMethod());
+        confirmPasswordEdit.setTransformationMethod(new PasswordTransformationMethod());
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Back to Main Page", Toast.LENGTH_SHORT).show();
+
+                finish();
+            }
+        });
 
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override

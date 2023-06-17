@@ -29,11 +29,9 @@ public class AddTask extends AppCompatActivity {
     RadioGroup radioGroup;
     EditText titleEdit;
 
-    TextView taskDate, cancelText;
+    TextView taskDate, cancelText,selectedOption, profilepageback;
 
     String selectedDate, username, taskCountString, taskObjectName, tag;
-
-    TextView selectedOption;
 
     DatabaseReference userTask, userTaskCount;
 
@@ -53,11 +51,20 @@ public class AddTask extends AppCompatActivity {
         radioGroup = findViewById(R.id.addtaskradiogroup);
         Button addTask = findViewById(R.id.addtaskbutton);
         cancelText = findViewById(R.id.canceltasktext);
+        profilepageback = findViewById(R.id.profilepageback2);
 
         taskDate.setText(selectedDate);
         // Load the database
 
 
+        profilepageback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Back to Main Page", Toast.LENGTH_SHORT).show();
+
+                finish();
+            }
+        });
 
         addTask.setOnClickListener(new View.OnClickListener() {
             @Override

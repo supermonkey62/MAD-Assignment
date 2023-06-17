@@ -1,6 +1,8 @@
 package sg.edu.np.mad.madassignment;
 
 
+import static sg.edu.np.mad.madassignment.R.id.profilepageback2;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,9 +12,11 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class Profile_Setting extends AppCompatActivity {
     TextView editProfile,logout;
+
 
 
     @Override

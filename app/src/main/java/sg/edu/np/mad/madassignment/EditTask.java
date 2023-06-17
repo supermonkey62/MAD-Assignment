@@ -23,7 +23,7 @@ public class EditTask extends AppCompatActivity {
     RadioGroup radioGroup;
     EditText titleEdit;
 
-    TextView taskDate, cancelText;
+    TextView taskDate, cancelText, profileback;
 
     String selectedDate, username, tag;
 

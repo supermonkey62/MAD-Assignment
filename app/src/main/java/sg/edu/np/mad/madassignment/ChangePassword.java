@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.text.method.PasswordTransformationMethod;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,7 +22,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ChangePassword extends AppCompatActivity {
 
     EditText changepassword,confirmedpassword,currentpassword;
-    TextView cancel,authenticationstatus;
+    TextView cancel,authenticationstatus, profilepageback;
     Button changepasswordbutton,authenticatebutton;
     DatabaseReference userRef;
 
@@ -33,6 +34,10 @@ public class ChangePassword extends AppCompatActivity {
 
         changepassword = findViewById(R.id.passwordedit);
         confirmedpassword = findViewById(R.id.confirmpasswordedit);
+
+        changepassword.setTransformationMethod(new PasswordTransformationMethod());
+        confirmedpassword.setTransformationMethod(new PasswordTransformationMethod());
+
 
         changepasswordbutton = findViewById(R.id.changepasswordbutton);
         authenticatebutton = findViewById(R.id.Authenticate);
@@ -50,7 +55,16 @@ public class ChangePassword extends AppCompatActivity {
         userRef = FirebaseDatabase.getInstance().getReference("Users");
         Log.v("Password User","+" + username);
 
+        profilepageback = findViewById(R.id.profilepageback4);
 
+        profilepageback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Back to Main Page", Toast.LENGTH_SHORT).show();
+
+                finish();
+            }
+        });
 
 
         authenticatebutton.setOnClickListener(new View.OnClickListener() {
