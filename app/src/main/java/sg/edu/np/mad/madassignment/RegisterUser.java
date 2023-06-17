@@ -58,7 +58,7 @@ public class RegisterUser extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
                             } else {
                                 // Create a new user
-                                User newUser = new User(username, password);
+                                User newUser = new User(username, password,username);
                                 userRef.child(username).setValue(newUser);
                                 Log.v("RegisterPage", "User registered successfully");
                                 Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();

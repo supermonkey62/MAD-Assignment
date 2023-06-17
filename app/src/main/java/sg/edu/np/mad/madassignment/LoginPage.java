@@ -60,6 +60,8 @@ public class LoginPage extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginPage.this, MainPage.class);
                                 intent.putExtra("USERNAME", username);
+                                intent.putExtra("Password",password);
+
                                 startActivity(intent);
                             } else {
                                 Log.v("LoginPage", "Invalid username or password");
