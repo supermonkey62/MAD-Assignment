@@ -81,8 +81,7 @@ public class RegisterUser extends AppCompatActivity {
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(RegisterUser.this, LoginPage.class);
-                startActivity(intent);
+                finish();
             }
         });
 

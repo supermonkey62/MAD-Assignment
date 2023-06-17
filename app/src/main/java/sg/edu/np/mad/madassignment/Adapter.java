@@ -12,18 +12,18 @@ import java.util.List;
 public class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
     private Context context;
-    private List<Event> eventList;
+    private List<Task> taskList;
 
-    public Adapter(Context context, List<Event> eventList) {
+    public Adapter(Context context, List<Task> eventList) {
         this.context = context;
-        this.eventList = eventList;
+        this.taskList = eventList;
 
     }
 
     @Override
     public int getItemViewType(int position) {
-        Event event = eventList.get(position);
-        String task = event.getTitle();
+        Task task = taskList.get(position);
+        String tasktitle = task.getTitle();
         return R.layout.item_view;
     }
 
@@ -36,9 +36,9 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
-        Event event = eventList.get(position);
-        holder.box1View.setText(event.getDate());
-        holder.box2View.setText(event.getDate());
+        Task task = taskList.get(position);
+        holder.box1View.setText(task.getTitle());
+        holder.box2View.setText(task.getType());
 
         // Do this: From date derive day, and also take the day date from the full date
 
@@ -46,6 +46,6 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
     @Override
     public int getItemCount() {
-        return eventList.size();
+        return taskList.size();
     }
 }

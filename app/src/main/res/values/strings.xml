@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">MAD Assignment</string>
     <string name="my_text"><u>Account Settings</u>.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="no_tasks_set">No Tasks Set</string>
+    <string name="lets_get_started">Lets Start Some Tasks!</string>
 </resources>

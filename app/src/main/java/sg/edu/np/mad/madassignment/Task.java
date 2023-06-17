@@ -1,13 +1,13 @@
 package sg.edu.np.mad.madassignment;
 
-public class Event {
+public class Task {
 
     String username, title, type, date;
 
-    public Event() {
+    public Task() {
     }
 
-    public Event(String username, String title, String type, String date) {
+    public Task(String username, String title, String type, String date) {
         this.username = username;
         this.title = title;
         this.type = type;
