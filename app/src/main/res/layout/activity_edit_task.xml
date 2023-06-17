@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddTask"
+    android:background="#335A44">
+
+    <TextView
+        android:id="@+id/edittaskheader"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="80dp"
+        android:gravity="center"
+        android:text="Edit Task"
+        android:textColor="@color/white"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
+    <ImageView
+        android:id="@+id/whitebox"
+        android:layout_width="match_parent"
+        android:layout_height="350dp"
+        android:layout_marginTop="150dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/edittaskheader"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        app:srcCompat="@drawable/white_square_with_rounded_corners" />
+
+    <TextView
+        android:id="@+id/canceltasktext"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textStyle="bold"
+        android:text="Cancel"
+        app:layout_constraintTop_toBottomOf="@id/whitebox"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp" />
+
+
+    <TextView
+        android:id="@+id/taskdate"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Date and Day"
+        android:textSize="15sp"
+        app:layout_constraintTop_toTopOf="@id/whitebox"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="40dp"
+        />
+
+    <EditText
+        android:id="@+id/titleEdit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Title"
+        app:layout_constraintTop_toTopOf="@id/titlebox"
+        app:layout_constraintStart_toStartOf="@id/taskdate"
+        android:layout_marginStart="50dp"
+        android:layout_marginEnd="30dp"
+        android:background="@color/transparent"
+
+        />
+
+    <ImageView
+        android:id="@+id/titlebox"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center"
+        android:paddingStart="30dp"
+        android:paddingEnd="30dp"
+        app:layout_constraintTop_toBottomOf="@id/taskdate"
+        app:srcCompat="@drawable/hollow"
+        tools:layout_editor_absoluteX="16dp" />
+
+    <RadioGroup
+        android:id="@+id/addtaskradiogroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/titlebox"
+        app:layout_constraintLeft_toLeftOf="@id/whitebox"
+        android:layout_marginLeft="30dp">
+
+        <RadioButton
+            android:id="@+id/workButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Work"
+            tools:layout_editor_absoluteX="47dp"
+            tools:layout_editor_absoluteY="331dp"
+            app:layout_constraintTop_toBottomOf="@id/titlebox"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="50dp"
+            android:checked="true"
+            />
+
+        <RadioButton
+            android:id="@+id/eventButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Event"
+            app:layout_constraintTop_toBottomOf="@id/workButton"
+            android:layout_marginTop="20dp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="50dp" />
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/edittaskbutton"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="Edit Task"
+        app:layout_constraintBottom_toBottomOf="@id/whitebox"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="30dp"
+        />
+
+    <TextView
+        android:id="@+id/selectedoption"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        app:layout_constraintTop_toBottomOf="@id/addtaskradiogroup"
+        android:gravity="center"
+        android:layout_marginTop="20dp"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>
