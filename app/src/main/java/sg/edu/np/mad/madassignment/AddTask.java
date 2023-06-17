@@ -31,7 +31,7 @@ public class AddTask extends AppCompatActivity {
 
     TextView taskDate, cancelText;
 
-    String selectedDate, username, taskCountString, taskObjectName;
+    String selectedDate, username, taskCountString, taskObjectName, tag;
 
     TextView selectedOption;
 
@@ -42,10 +42,11 @@ public class AddTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
-
+        Log.v("AddTask", "Entered Add Task");
         selectedDate = getIntent().getStringExtra("DATE");
 
         username = getIntent().getStringExtra("USERNAME");
+        tag = getIntent().getStringExtra("TAG");
         taskDate = findViewById(R.id.taskdate);
         titleEdit = findViewById(R.id.titleEdit);
         selectedOption = findViewById(R.id.selectedoption);
@@ -90,8 +91,8 @@ public class AddTask extends AppCompatActivity {
                                     }
                                     else {
                                         Log.v("Username", taskObjectName);
-                                        Log.v("CreateTask","Task: " + taskTitle + " , " + typeTitle + " , " + selectedDate + " , " + username);
-                                        Task newTask = new Task(username, taskTitle, typeTitle, selectedDate);
+                                        Log.v("CreateTask","Task: " + taskTitle + " , " + typeTitle + " , " + selectedDate + " , " + username + " , " + taskObjectName);
+                                        Task newTask = new Task(username, taskTitle, typeTitle, selectedDate, taskObjectName, false);
                                         userTask.child(taskObjectName).setValue(newTask);
                                         finish();
 

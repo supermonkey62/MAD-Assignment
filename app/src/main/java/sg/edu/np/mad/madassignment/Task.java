@@ -2,16 +2,19 @@ package sg.edu.np.mad.madassignment;
 
 public class Task {
 
-    String username, title, type, date;
+    String username, title, type, date, tag;
+    Boolean status;
 
     public Task() {
     }
 
-    public Task(String username, String title, String type, String date) {
+    public Task(String username, String title, String type, String date, String tag, boolean status) {
         this.username = username;
         this.title = title;
         this.type = type;
         this.date = date;
+        this.tag = tag;
+        this.status = status;
     }
 
     public String getUsername() {
@@ -44,5 +47,20 @@ public class Task {
 
     public void setDate(String date) {
         this.date = date;
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
+    public Boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(Boolean status) {
+        this.status = status;
     }
 }
