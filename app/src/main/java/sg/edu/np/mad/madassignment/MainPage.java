@@ -48,7 +48,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         String username = getIntent().getStringExtra("USERNAME");
 
         UserDataHolder.getInstance().fetchUserTasks(username, this);
-        TaskDataHolder.getInstance().fetchUserTasks(username, this);
+        TaskDataHolder.getInstance().fetchUserTasks(displayname, this);
 
         pomodorotimer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -75,6 +75,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
                 Intent intent3 = new Intent(MainPage.this, ProfilePage.class);
                 intent3.putExtra("DISPLAYNAME", displayname);
                 intent3.putExtra("USERNAME", username);
+                Log.v("Main User","+" + username);
                 intent3.putExtra("Password", password);
                 startActivity(intent3);
             }

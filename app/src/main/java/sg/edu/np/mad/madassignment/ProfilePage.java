@@ -15,6 +15,8 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
     ImageView editUsername;
     String displayname;
     String username;
+
+    String password;
     String TITLE = "Profile Page";
 
     @Override
@@ -24,6 +26,7 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
 
         username = getIntent().getStringExtra("USERNAME");
         displayname = getIntent().getStringExtra("DISPLAYNAME");
+        password = getIntent().getStringExtra("Password");
 
         profilepagesetting = findViewById(R.id.profilepagesettings);
         profilepageback = findViewById(R.id.profilepageback);
@@ -59,7 +62,9 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
             public void onClick(View v) {
                 Toast.makeText(ProfilePage.this, "Going to Profile Settings", Toast.LENGTH_SHORT).show();
                 Intent intent2 = new Intent(ProfilePage.this, Profile_Setting.class);
-                intent2.putExtra("USERNAME", profileusername.getText().toString());
+                intent2.putExtra("displayname", profileusername.getText().toString());
+                intent2.putExtra("Password",password);
+                intent2.putExtra("USERNAME",username);
                 startActivity(intent2);
             }
         });

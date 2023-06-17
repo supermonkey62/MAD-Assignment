@@ -3,6 +3,7 @@ package sg.edu.np.mad.madassignment;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ public class EditProfile extends AppCompatActivity {
                 Intent intent = new Intent(EditProfile.this, ChangePassword.class);
                 intent.putExtra("USERNAME", username);
                 intent.putExtra("Password",password);
+                Log.v("Edit","+"+username);
                 startActivity(intent);
             }
         });

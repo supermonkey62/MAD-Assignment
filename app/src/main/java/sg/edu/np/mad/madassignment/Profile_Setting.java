@@ -7,6 +7,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ public class Profile_Setting extends AppCompatActivity {
                 Intent intent = new Intent(Profile_Setting.this,EditProfile.class);
                 intent.putExtra("USERNAME", username);
                 intent.putExtra("Password",password);
+                Log.v("settings","+"+username);
                 startActivity(intent);
             }
         });
