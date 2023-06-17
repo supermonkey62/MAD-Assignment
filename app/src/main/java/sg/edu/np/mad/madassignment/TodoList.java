@@ -38,15 +38,6 @@ public class TodoList extends AppCompatActivity implements TaskDataHolder.TaskDa
         addtask = findViewById(R.id.floatingActionButton2);
         taskRecyclerview = findViewById(R.id.tasksRecyclerView);
 
-        TaskDataHolder.getInstance().fetchUserTasks(username, this);
-        addtask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(TodoList.this, AddTask.class);
-                intent.putExtra("USERNAME", username);
-                startActivity(intent);
-            }
-        });
 
         TaskDataHolder.getInstance().fetchUserTasks(username, new TaskDataHolder.TaskDataCallback() {
             @Override
@@ -60,6 +51,15 @@ public class TodoList extends AppCompatActivity implements TaskDataHolder.TaskDa
             }
         });
 
+        addtask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(TodoList.this, AddTask.class);
+                intent.putExtra("USERNAME", username);
+                startActivity(intent);
+            }
+        });
+
 
     }
 
@@ -67,7 +67,11 @@ public class TodoList extends AppCompatActivity implements TaskDataHolder.TaskDa
     public void onTaskDataFetched(List<Task> tasks) {
         tasklist = tasks;
         taskRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+
+        // Initialize taskadapter before setting it to the RecyclerView
+        taskadapter = new TodolistAdaptor(TodoList.this, tasklist);
         taskRecyclerview.setAdapter(taskadapter);
         taskadapter.notifyDataSetChanged();
     }
+
 }

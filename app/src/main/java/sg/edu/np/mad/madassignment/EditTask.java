@@ -76,7 +76,7 @@ public class EditTask extends AppCompatActivity {
                         if (dataSnapshot.exists()) {
                             Log.v("Username", tag);
                             Log.v("CreateTask","Task: " + taskTitle + " , " + typeTitle + " , " + selectedDate + " , " + username + " , " + tag + " , " + status);
-                            Task newTask = new Task(username, taskTitle, typeTitle, selectedDate, tag, status);
+                            Task newTask = new Task(username, taskTitle, typeTitle, selectedDate, status);
                             userTask.child(tag).setValue(newTask);
                             finish();
 
