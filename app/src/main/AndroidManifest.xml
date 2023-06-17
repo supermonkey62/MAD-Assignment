@@ -31,6 +31,15 @@
             android:name=".Profile_Setting"
             android:exported="false" />
         <activity
+            android:name=".EditProfile"
+            android:exported="false" />
+        <activity
+            android:name=".changeprofile"
+            android:exported="false" />
+        <activity
+            android:name=".ChangePassword"
+            android:exported="false" />
+        <activity
             android:name=".LoginPage"
             android:exported="true">
             <intent-filter>

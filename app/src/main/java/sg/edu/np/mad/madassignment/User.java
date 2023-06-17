@@ -1,15 +1,16 @@
 package sg.edu.np.mad.madassignment;
 
 public class User {
-    private String username, password;
+    private String username, password,displayname;
 
 
     public User() {
     }
 
-    public User(String username, String password) {
+    public User(String username, String password,String displayname) {
         this.username = username;
         this.password = password;
+        this.displayname = displayname;
     }
 
     public String getUsername() {
@@ -27,4 +28,7 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    public String getDisplayname(){return  username;};
+    public void setDisplayname(String displayname){this.displayname=displayname;}
 }
