@@ -2,6 +2,7 @@ package sg.edu.np.mad.madassignment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -42,7 +43,6 @@ public class AddTask extends AppCompatActivity {
         setContentView(R.layout.activity_add_task);
         Log.v("AddTask", "Entered Add Task");
         selectedDate = getIntent().getStringExtra("DATE");
-
         username = getIntent().getStringExtra("USERNAME");
         tag = getIntent().getStringExtra("TAG");
         taskDate = findViewById(R.id.taskdate);

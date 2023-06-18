@@ -37,22 +37,15 @@ public class TaskDataHolder {
                     Task task = eventSnapshot.getValue(Task.class);
                     if (task != null && task.getUsername().equals(username)) {
                         taskList.add(task);
-                        Log.v("Task Details", "Title: " + task.getTitle() + ", Date: " + task.getDate());
                     }
                 }
 
                 if (taskList.isEmpty()) {
                     Log.v("Task Details", "No items in the list");
-                } else {
-                    for (Task task : taskList) {
-                        Log.v("Task Details", "Title: " + task.getTitle() + ", Date: " + task.getDate());
-                    }
                 }
-
                 // Invoke the callback method with the retrieved taskList
                 callback.onTaskDataFetched(taskList);
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
                 // Handle the error case if the listener is canceled or fails to retrieve data
