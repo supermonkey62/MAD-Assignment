@@ -24,6 +24,7 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
+
 public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
 
     private Context context;
@@ -55,49 +56,58 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
     @Override
     public void onBindViewHolder(TodoViewHolder holder, int position) {
         Task task = taskList.get(position);
+        holder.task.setText(task.getTitle());
         holder.username = task.getUsername();
         holder.date = task.getDate();
         holder.tag = task.getTag();
         holder.status = task.getStatus();
         holder.title = task.getTitle();
         holder.type = task.getType();
-        userTask = FirebaseDatabase.getInstance().getReference("Task");
-        if (task.getStatus() == false) {
+
+       userTask = FirebaseDatabase.getInstance().getReference("Task");
+       if (task.getStatus() == false) {
             holder.itemView.setVisibility(View.VISIBLE);
             holder.task.setText(task.getTitle());
-        } else {
+       } else {
             holder.itemView.setVisibility(View.GONE);
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(
+                   ViewGroup.LayoutParams.MATCH_PARENT,
+                   ViewGroup.LayoutParams.WRAP_CONTENT));
+
         }
-        holder.task.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+       holder.task.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 task.setStatus(true);
                 if (isChecked) {
                     int adapterPosition = holder.getAdapterPosition();
                     if (adapterPosition != RecyclerView.NO_POSITION) {
-                        taskList.remove(adapterPosition);
-                        notifyItemRemoved(adapterPosition);
-                        notifyItemRangeChanged(adapterPosition, taskList.size());
-                    }
-                }
+                        notifyItemChanged(adapterPosition);
+//                    int adapterPosition = holder.getAdapterPosition();
+//                    if (adapterPosition != RecyclerView.NO_POSITION) {
+//                       taskList.remove(adapterPosition);
+//                       notifyItemRemoved(adapterPosition);
+//                      notifyItemRangeChanged(adapterPosition, taskList.size());
+                  }
+              }
                 userTask.child(holder.tag).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            Task updateTask = new Task(holder.username, holder.title, holder.type, holder.date, holder.tag, true);
+                   public void onDataChange(DataSnapshot dataSnapshot) {
+                       if (dataSnapshot.exists()) {
+                           Task updateTask = new Task(holder.username, holder.title, holder.type, holder.date, holder.tag, true);
                             userTask.child(holder.tag).setValue(updateTask);
-                        }
-                        else {
-                            Log.v("TaskCount", holder.tag + " does not  exists.");
-                        }
-                    }
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
+                      }
+                       else {
+                          Log.v("TaskCount", holder.tag + " does not  exists.");
+                      }
+                   }
+                 @Override
+                   public void onCancelled(DatabaseError databaseError) {
                         Log.v("LoginPage", "Error: " + databaseError.getMessage());
-                    }
-                });
+                   }
+               });
 
-            }
+          }
         });
     }
 

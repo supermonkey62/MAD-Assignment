@@ -29,6 +29,7 @@ public class TodoList extends AppCompatActivity implements TaskDataHolder.TaskDa
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_todo_list);
         Intent mainpageintent = getIntent();
         if (mainpageintent.hasExtra("USERNAME")) {
@@ -43,10 +44,6 @@ public class TodoList extends AppCompatActivity implements TaskDataHolder.TaskDa
             @Override
             public void onTaskDataFetched(List<Task> tasks) {
                 tasklist = tasks;
-                tasklist.clear();
-                tasklist.addAll(tasks);
-
-
                 // Initialize taskadapter before setting it to the RecyclerView
                 taskRecyclerview.setLayoutManager(new LinearLayoutManager(TodoList.this));
                 taskRecyclerview.setAdapter(new TodolistAdaptor(TodoList.this, tasklist));
@@ -71,10 +68,6 @@ public class TodoList extends AppCompatActivity implements TaskDataHolder.TaskDa
     @Override
     public void onTaskDataFetched(List<Task> tasks) {
         tasklist = tasks;
-        tasklist.clear();
-        tasklist.addAll(tasks);
-
-
         // Initialize taskadapter before setting it to the RecyclerView
         taskRecyclerview.setLayoutManager(new LinearLayoutManager(TodoList.this));
         taskRecyclerview.setAdapter(new TodolistAdaptor(TodoList.this, tasklist));
