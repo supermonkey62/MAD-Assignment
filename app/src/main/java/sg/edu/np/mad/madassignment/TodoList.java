@@ -43,11 +43,15 @@ public class TodoList extends AppCompatActivity implements TaskDataHolder.TaskDa
             @Override
             public void onTaskDataFetched(List<Task> tasks) {
                 tasklist = tasks;
+                tasklist.clear();
+                tasklist.addAll(tasks);
 
-                // Set RecyclerView adapter with filtered tasks
+
+                // Initialize taskadapter before setting it to the RecyclerView
                 taskRecyclerview.setLayoutManager(new LinearLayoutManager(TodoList.this));
-                taskadapter = new TodolistAdaptor(TodoList.this,tasklist);
-                taskRecyclerview.setAdapter(taskadapter);
+                taskRecyclerview.setAdapter(new TodolistAdaptor(TodoList.this, tasklist));
+
+
             }
         });
 
@@ -56,6 +60,7 @@ public class TodoList extends AppCompatActivity implements TaskDataHolder.TaskDa
             public void onClick(View v) {
                 Intent intent = new Intent(TodoList.this, AddTask.class);
                 intent.putExtra("USERNAME", username);
+                intent.putExtra("DATE", "18/06/2023");
                 startActivity(intent);
             }
         });
@@ -66,11 +71,13 @@ public class TodoList extends AppCompatActivity implements TaskDataHolder.TaskDa
     @Override
     public void onTaskDataFetched(List<Task> tasks) {
         tasklist = tasks;
-        taskRecyclerview.setLayoutManager(new LinearLayoutManager(this));
+        tasklist.clear();
+        tasklist.addAll(tasks);
+
 
         // Initialize taskadapter before setting it to the RecyclerView
-        taskadapter = new TodolistAdaptor(TodoList.this, tasklist);
-        taskRecyclerview.setAdapter(taskadapter);
+        taskRecyclerview.setLayoutManager(new LinearLayoutManager(TodoList.this));
+        taskRecyclerview.setAdapter(new TodolistAdaptor(TodoList.this, tasklist));
         taskadapter.notifyDataSetChanged();
     }
 

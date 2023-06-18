@@ -41,7 +41,7 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
         holder.box2View.setText(task.getType());
         holder.username = task.getUsername();
         holder.date = task.getDate();
-//        holder.tag = task.getTag();
+        holder.tag = task.getTag();
         holder.status = task.getStatus();
 
         // Do this: From date derive day, and also take the day date from the full date

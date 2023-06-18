@@ -25,7 +25,7 @@ import java.util.List;
 
 public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDataCallback, UserDataHolder.UserDataCallback {
     String title = "MainPage";
-    Button pomodorotimer, normaltimer, Profile;
+    Button pomodorotimer, normaltimer, Profile, todolist;
     TextView displaynametext;
     ImageView calendarexpand;
     List<Task> taskList;
@@ -43,6 +43,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         Profile = findViewById(R.id.profilepageBttn);
         calendarexpand = findViewById(R.id.calendarexpand);
         recyclerView = findViewById(R.id.calenderrecycler);
+        todolist = findViewById(R.id.tasks);
 
         String password = getIntent().getStringExtra("PASSWORD");
         String username = getIntent().getStringExtra("USERNAME");
@@ -89,14 +90,24 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
                 startActivity(toCalendar);
             }
         });
+
+        todolist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent totodolist = new Intent(MainPage.this,TodoList.class);
+                totodolist.putExtra("USERNAME",username);
+                startActivity(totodolist);
+            }
+        });
     }
+
+
 
     @Override
     public void onTaskDataFetched(List<Task> tasks) {
         taskList = tasks;
         recyclerView.setLayoutManager(new LinearLayoutManager(MainPage.this));
         recyclerView.setAdapter(new Adapter(MainPage.this, taskList));
-
         int numEntities = taskList.size();
         Log.v("Task Details", "Number of entities: " + numEntities);
     }
