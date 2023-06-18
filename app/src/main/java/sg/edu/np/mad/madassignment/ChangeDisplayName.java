@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,6 +26,8 @@ public class ChangeDisplayName extends AppCompatActivity {
     String username;
     String password;
 
+    TextView profilepageback;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -35,6 +38,16 @@ public class ChangeDisplayName extends AppCompatActivity {
         password = getIntent().getStringExtra("PASSWORD");
         userRef = FirebaseDatabase.getInstance().getReference("Users");
         confirmDisplayName = findViewById(R.id.confirm_button);
+        profilepageback = findViewById(R.id.profilepageback3);
+
+        profilepageback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getApplicationContext(), "Back to Main Page", Toast.LENGTH_SHORT).show();
+
+                finish();
+            }
+        });
 
         confirmDisplayName.setOnClickListener(new View.OnClickListener() {
             @Override

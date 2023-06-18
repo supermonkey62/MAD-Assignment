@@ -8,6 +8,7 @@
 
 
     <!--*******Top Tool Bar**********-->
+
     <Toolbar
         android:layout_width="match_parent"
         android:layout_height="50dp"
@@ -39,7 +40,6 @@
                 android:textSize="25sp" />
 
 
-
         </LinearLayout>
 
 
@@ -56,6 +56,7 @@
         android:background="@color/white">
 
         <!--*******Account Setting**********-->
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -109,8 +110,6 @@
 
 
     </LinearLayout>
-
-
 
 
 </RelativeLayout>
