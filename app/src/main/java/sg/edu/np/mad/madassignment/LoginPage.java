@@ -84,6 +84,7 @@ public class LoginPage extends AppCompatActivity {
                             String displayName = dataSnapshot.child("displayname").getValue(String.class);
 
 
+
                             if (savedUsername.equals(username) && savedPassword.equals(password)) {
                                 Log.v("LoginPage", "Login successful");
 

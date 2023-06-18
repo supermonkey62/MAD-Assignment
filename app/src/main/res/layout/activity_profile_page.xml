@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#004B49">
+    android:background="#335A44">
 
 
     <ImageView
@@ -16,7 +16,7 @@
         android:paddingEnd="10dp"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/white_square_with_rounded_corners"
-        tools:layout_editor_absoluteX="1dp" />
+        tools:layout_editor_absoluteX="0dp" />
 
     <TextView
         android:id="@+id/profilepageback"
@@ -30,109 +30,106 @@
 
 
     <TextView
-        android:id="@+id/profilepagesettings"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="152dp"
-        android:layout_marginEnd="32dp"
-        android:drawableLeft="@drawable/baseline_settings_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/goal"
         android:layout_width="196dp"
         android:layout_height="121dp"
-        android:layout_marginStart="195dp"
-        android:layout_marginTop="376dp"
-        android:layout_marginEnd="20dp"
+        android:layout_marginStart="8dp"
+        android:layout_marginBottom="84dp"
         android:background="@drawable/border"
+
         android:shadowColor="#000000"
-        android:shadowDx="0.0"
-        android:shadowDy="0.0"
-        android:shadowRadius="2.0"
+
         android:text="Goals"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/progressBar"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintBottom_toBottomOf="@+id/whitebox"
+        app:layout_constraintStart_toEndOf="@+id/progressBar" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="159dp"
         android:layout_height="148dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="356dp"
-        android:layout_marginEnd="223dp"
-        android:layout_marginBottom="227dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="96dp"
         android:indeterminate="false"
         android:max="100"
-        android:progress="100"
-        android:progressDrawable="@drawable/circular_progress_bar"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
+
+        android:progress="100"
+
+        android:progressDrawable="@drawable/circular_progress_bar"
+        app:layout_constraintStart_toStartOf="@id/whitebox"
+        app:layout_constraintTop_toBottomOf="@id/image_view" />
 
     <TextView
         android:id="@+id/textView4"
-        android:layout_width="84dp"
-        android:layout_height="65dp"
-        android:layout_marginStart="65dp"
-        android:layout_marginTop="402dp"
-        android:layout_marginEnd="262dp"
+        android:layout_width="80dp"
+        android:layout_height="101dp"
+
         android:fontFamily="sans-serif-condensed"
-        android:text="Goal"
+        android:text="Year Goal"
         android:textAlignment="center"
         android:textSize="30dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+
+        app:layout_constraintBottom_toBottomOf="@id/progressBar"
+        app:layout_constraintEnd_toEndOf="@id/progressBar"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="@id/progressBar"
+        app:layout_constraintTop_toTopOf="@id/progressBar"
+        app:layout_constraintVertical_bias="0.595" />
 
     <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:id="@+id/image_view"
+        android:layout_width="126dp"
+        android:layout_height="125dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="56dp"
+        android:background="@drawable/round_image_view"
+        android:backgroundTint="@color/gray"
+        android:src="@drawable/baseline_image_24"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/whitebox"
-        tools:srcCompat="@tools:sample/avatars" />
+        app:layout_constraintTop_toTopOf="@id/whitebox" />
+
+
+    <TableRow
+        android:layout_width="380dp"
+        android:layout_height="2dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="60dp"
+
+        android:background="@color/black"
+        android:padding="10dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/image_view" />
 
     <TextView
         android:id="@+id/profileusername"
-        android:layout_width="150dp"
-        android:layout_height="46dp"
-        android:layout_marginTop="70dp"
+        android:layout_width="240dp"
+        android:layout_height="50dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="96dp"
         android:text="Username"
         android:textSize="30sp"
-        app:layout_constraintLeft_toRightOf="@+id/imageView"
+        app:layout_constraintLeft_toRightOf="@+id/image_view"
         app:layout_constraintTop_toTopOf="@id/whitebox" />
-
-    <TableRow
-        android:layout_width="362dp"
-        android:layout_height="1dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="333dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="398dp"
-        android:background="@color/black"
-        android:visibility="visible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/editUsername"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:layout_marginTop="75dp"
-        app:layout_constraintLeft_toRightOf="@id/profileusername"
-        app:layout_constraintTop_toTopOf="@id/whitebox"
-        app:srcCompat="@drawable/baseline_edit_24" />
+        android:layout_width="23dp"
+        android:layout_height="27dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintEnd_toEndOf="@id/whitebox"
+        app:layout_constraintTop_toTopOf="@id/profileusername"
+        app:srcCompat="@drawable/baseline_edit_24"/>
+
+    <TextView
+        android:id="@+id/profilepagesettings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="32dp"
+        android:drawableLeft="@drawable/baseline_settings_24"
+        app:layout_constraintEnd_toEndOf="@id/whitebox"
+        app:layout_constraintTop_toTopOf="@id/whitebox" />/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

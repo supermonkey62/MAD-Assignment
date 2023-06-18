@@ -17,10 +17,13 @@ import java.util.List;
 public class UserDataHolder {
     private static UserDataHolder instance;
     private  String Displayname;
+
+    private  String Image_URI;
     private DatabaseReference userRef;
 
     private UserDataHolder() {
         Displayname = new String();
+
         userRef = FirebaseDatabase.getInstance().getReference("Users");
     }
 
@@ -39,12 +42,14 @@ public class UserDataHolder {
                     Displayname = dataSnapshot.child("displayname").getValue(String.class);
                     Log.v("User Display Name", "Display Updated" + Displayname);
 
+
                 }
 
 
 
                 // Invoke the callback method with the retrieved taskList
                 callback.onUserDataFetched(Displayname);
+
                 Log.v("callback Value",Displayname);
             }
 
@@ -62,6 +67,7 @@ public class UserDataHolder {
 
     public interface UserDataCallback {
         void onUserDataFetched(String displayname);
+
     }
 }
 

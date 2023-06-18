@@ -120,10 +120,12 @@
         android:id="@+id/calenderrecycler"
         android:layout_width="350dp"
         android:layout_height="150dp"
-        android:layout_marginLeft="28dp"
-        android:layout_marginTop="5dp"
-        app:layout_constraintLeft_toLeftOf="@id/calendarbox"
+        android:layout_marginTop="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
 
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintLeft_toLeftOf="@id/calendarbox"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/calendarexpand" />
 
     <ImageView
@@ -146,6 +148,18 @@
         android:text="Go to Profile Page"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/NormalTimerBttn" />
+
+    <Button
+        android:id="@+id/tasks"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="77dp"
+        android:layout_marginTop="472dp"
+        android:text="Button"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.506"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -2,7 +2,10 @@ package sg.edu.np.mad.madassignment;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -19,11 +22,15 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.net.URI;
+
 public class RegisterUser extends AppCompatActivity {
 
     EditText usernameEdit, passwordEdit, confirmPasswordEdit;
     Button registerButton;
     TextView cancelButton, back;
+
+
 
     FirebaseDatabase fdb = FirebaseDatabase.getInstance();
     DatabaseReference userRef;
@@ -56,12 +63,21 @@ public class RegisterUser extends AppCompatActivity {
             }
         });
 
+
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String username = usernameEdit.getText().toString();
                 final String password = passwordEdit.getText().toString();
                 String confirmPassword = confirmPasswordEdit.getText().toString();
+                Resources resources = getResources();
+                int imageResId = R.drawable.dog;  // Replace with your image resource ID
+                Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                        "://" + resources.getResourcePackageName(imageResId)
+                        + '/' + resources.getResourceTypeName(imageResId)
+                        + '/' + resources.getResourceEntryName(imageResId));
+                Log.v("Register","+"+imageUri.toString());
+                String IMAGEURI = imageUri.toString();
 
                 if (password.equals(confirmPassword)) {
                     userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -72,7 +88,9 @@ public class RegisterUser extends AppCompatActivity {
                                 Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
                             } else {
                                 // Create a new user
-                                User newUser = new User(username, password,username);
+
+                                User newUser = new User(username, password,username,IMAGEURI);
+                                Log.v("Register","+" + IMAGEURI);
                                 userRef.child(username).setValue(newUser);
                                 Log.v("RegisterPage", "User registered successfully");
                                 Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
