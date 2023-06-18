@@ -36,7 +36,7 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
 
 
 
-        UserDataHolder.getInstance().fetchUserTasks(username, this);
+        UserDataHolder.getInstance().fetchUserData(username, this);
         profileusername.setText(displayname);
         editUsername.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,14 +76,6 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
 
     }
 
-
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-        Log.v(TITLE, "On Start!");
-    }
-
     @Override
     protected void onPause(){
         super.onPause();
@@ -94,20 +86,7 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
     protected void onResume() {
         super.onResume();
         // Fetch user data again when the activity resumes
-        UserDataHolder.getInstance().fetchUserTasks(username, this);
+        UserDataHolder.getInstance().fetchUserData(username, this);
         profileusername.setText(displayname);
     }
-
-    @Override
-    protected void onStop(){
-        super.onStop();
-        Log.v(TITLE, "On Stop!");
-    }
-
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        Log.v(TITLE, "On Destroy!");
-    }
-
 }

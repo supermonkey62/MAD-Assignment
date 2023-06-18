@@ -31,9 +31,9 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
     TextView totaltasks;
 
     String selectedDateString;
+    String TITLE = "TaskCalendar";
     String username;
     FloatingActionButton addTasks;
-
     RecyclerView taskshower;
     private List<Task> taskList;
 
@@ -47,7 +47,6 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
         taskshower = findViewById(R.id.taskshower);
         addTasks = findViewById(R.id.addtask);
         setDateToToday();
-
 
         totaltasks = findViewById(R.id.totaltasks);
 
@@ -127,16 +126,28 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
     }
 
 
+    @Override
     public void onTaskDataFetched(List<Task> tasks) {
         taskList = tasks;
 
-        // Update the RecyclerView adapter with the populated taskList
-        taskshower.setLayoutManager(new LinearLayoutManager(TaskCalendar.this));
-        taskshower.setAdapter(new Adapter(TaskCalendar.this, taskList));
+        // Filter tasks based on the initially selected date
+        Calendar selectedDate = Calendar.getInstance();
+        selectedDate.setTimeInMillis(calendarView.getDate());
+        List<Task> filteredTasks = filterTasksByDate(selectedDate);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        selectedDateString = dateFormat.format(selectedDate.getTime());
 
-        int numEntities = taskList.size();
+        // Set RecyclerView adapter with filtered tasks
+        taskshower.setLayoutManager(new LinearLayoutManager(TaskCalendar.this));
+        taskshower.setAdapter(new Adapter(TaskCalendar.this, filteredTasks));
+
+        int numEntities = filteredTasks.size();
+
+        // Update the total tasks TextView
+        totaltasks.setText("Total Tasks: " + numEntities);
         Log.v("Task Details", "Number of entities: " + numEntities);
     }
+
 
     private List<Task> filterTasksByDate(Calendar selectedDate) {
         List<Task> filteredTasks = new ArrayList<>();
@@ -144,14 +155,16 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
 
         for (Task task : taskList) {
             try {
-                Calendar taskCalendar = Calendar.getInstance();
-                taskCalendar.setTime(dateFormat.parse(task.getDate()));
+                if (task.getDate() != null) {
+                    Calendar taskCalendar = Calendar.getInstance();
+                    taskCalendar.setTime(dateFormat.parse(task.getDate()));
 
-                // Check if the task date matches the selected date
-                if (selectedDate.get(Calendar.YEAR) == taskCalendar.get(Calendar.YEAR) &&
-                        selectedDate.get(Calendar.MONTH) == taskCalendar.get(Calendar.MONTH) &&
-                        selectedDate.get(Calendar.DAY_OF_MONTH) == taskCalendar.get(Calendar.DAY_OF_MONTH)) {
-                    filteredTasks.add(task);
+                    // Check if the task date matches the selected date
+                    if (selectedDate.get(Calendar.YEAR) == taskCalendar.get(Calendar.YEAR) &&
+                            selectedDate.get(Calendar.MONTH) == taskCalendar.get(Calendar.MONTH) &&
+                            selectedDate.get(Calendar.DAY_OF_MONTH) == taskCalendar.get(Calendar.DAY_OF_MONTH)) {
+                        filteredTasks.add(task);
+                    }
                 }
             } catch (ParseException e) {
                 e.printStackTrace();
@@ -160,7 +173,63 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
 
         return filteredTasks;
     }
+
+    @Override
+    protected void onStart(){
+        super.onStart();
+        Log.v(TITLE, "On Start!");
+    }
+
+    @Override
+    protected void onPause(){
+        super.onPause();
+        Log.v(TITLE, "On Pause!");
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.v(TITLE, "On Resume!");
+
+        // Fetch the most recent tasks when the activity resumes
+        TaskDataHolder.getInstance().fetchUserTasks(username, new TaskDataHolder.TaskDataCallback() {
+
+
+            @Override
+            public void onTaskDataFetched(List<Task> tasks) {
+                taskList = tasks;
+
+                // Filter tasks based on the selected date
+                Calendar selectedDate = Calendar.getInstance();
+                selectedDate.setTimeInMillis(calendarView.getDate());
+                List<Task> filteredTasks = filterTasksByDate(selectedDate);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                selectedDateString = dateFormat.format(selectedDate.getTime());
+                Log.v("OnResume", selectedDateString);
+
+                // Update the RecyclerView adapter with the filtered tasks
+                taskshower.setAdapter(new Adapter(TaskCalendar.this, filteredTasks));
+
+                int numEntities = filteredTasks.size();
+
+                // Update the total tasks TextView
+                totaltasks.setText("Total Tasks: " + numEntities);
+                Log.v("Task Details", "Number of entities: " + numEntities);
+            }
+        });
+    }
+
+
+    @Override
+    protected void onStop(){
+        super.onStop();
+        Log.v(TITLE, "On Stop!");
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+        Log.v(TITLE, "On Destroy!");
+    }
+
 }
-
-
-
