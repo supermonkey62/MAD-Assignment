@@ -2,6 +2,7 @@ package sg.edu.np.mad.madassignment;
 
 import static java.lang.Boolean.TRUE;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -15,6 +16,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -23,98 +25,223 @@ import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
-
-
 public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
 
     private Context context;
     private List<Task> taskList;
-
-    DatabaseReference userTask;
+    private DatabaseReference userTask;
+    private Task removedTask;
 
     public TodolistAdaptor(Context context, List<Task> eventList) {
         this.context = context;
         this.taskList = eventList;
-
+        userTask = FirebaseDatabase.getInstance().getReference("Task");
     }
 
     @Override
     public int getItemViewType(int position) {
         Task task = taskList.get(position);
-        String tasktitle = task.getTitle();
+        String taskTitle = task.getTitle();
         return R.layout.item_view;
     }
 
     @Override
-    public TodoViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tasklist,parent,false);
+    public TodoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tasklist, parent, false);
         TodoViewHolder holder = new TodoViewHolder(view);
         return holder;
     }
-
 
     @Override
     public void onBindViewHolder(TodoViewHolder holder, int position) {
         Task task = taskList.get(position);
         holder.task.setText(task.getTitle());
         holder.username = task.getUsername();
+        holder.dateoftask.setText(task.getDate());
         holder.date = task.getDate();
         holder.tag = task.getTag();
         holder.status = task.getStatus();
         holder.title = task.getTitle();
         holder.type = task.getType();
 
-       userTask = FirebaseDatabase.getInstance().getReference("Task");
-       if (task.getStatus() == false) {
+        if (task.getStatus() == false) {
             holder.itemView.setVisibility(View.VISIBLE);
             holder.task.setText(task.getTitle());
-       } else {
+        } else {
             holder.itemView.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
         }
+
         holder.task.setOnCheckedChangeListener(null);
         holder.task.setChecked(task.getStatus());
-       holder.task.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        holder.task.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 task.setStatus(true);
-//                if (isChecked) {
-//                    int adapterPosition = holder.getAdapterPosition();
-//                    if (adapterPosition != RecyclerView.NO_POSITION) {
-//                       taskList.remove(adapterPosition);
-//                       notifyItemRemoved(adapterPosition);
-//                      notifyItemRangeChanged(adapterPosition, taskList.size());
-//                  }
-//              }
+                removedTask = task;
                 userTask.child(holder.tag).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                   public void onDataChange(DataSnapshot dataSnapshot) {
-                       if (dataSnapshot.exists()) {
-                           Task updateTask = new Task(holder.username, holder.title, holder.type, holder.date, holder.tag, true);
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            Task updateTask = new Task(holder.username, holder.title, holder.type, holder.date, holder.tag, true);
                             userTask.child(holder.tag).setValue(updateTask);
-                      }
-                       else {
-                          Log.v("TaskCount", holder.tag + " does not  exists.");
-                      }
-                   }
-                 @Override
-                   public void onCancelled(DatabaseError databaseError) {
-                        Log.v("LoginPage", "Error: " + databaseError.getMessage());
-                   }
-               });
+                        } else {
+                            Log.v("TaskCount", holder.tag + " does not exist.");
+                        }
+                    }
 
-          }
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.v("LoginPage", "Error: " + databaseError.getMessage());
+                    }
+                });
+
+                showUndoPopup();
+            }
         });
     }
-
-
-
 
     @Override
     public int getItemCount() {
         return taskList.size();
     }
+
+    private void showUndoPopup() {
+        Snackbar snackbar = Snackbar.make(((Activity) context).getWindow().getDecorView().findViewById(android.R.id.content),
+                        "Task removed", Snackbar.LENGTH_LONG)
+                .setAction("Undo", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (removedTask != null) {
+                            removedTask.setStatus(false);
+                            userTask.child(removedTask.getTag()).setValue(removedTask);
+                            removedTask = null;
+                        }
+                    }
+                });
+
+        snackbar.addCallback(new Snackbar.Callback() {
+            @Override
+            public void onDismissed(Snackbar snackbar, int event) {
+                if (event == Snackbar.Callback.DISMISS_EVENT_TIMEOUT ||
+                        event == Snackbar.Callback.DISMISS_EVENT_SWIPE ||
+                        event == Snackbar.Callback.DISMISS_EVENT_ACTION) {
+                    if (removedTask != null) {
+                        removedTask = null;
+                    }
+                }
+            }
+        });
+
+        snackbar.show();
+    }
 }
+
+
+//public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
+//
+//    private Context context;
+//    private List<Task> taskList;
+//
+//    DatabaseReference userTask;
+//
+//    private Task removedTask;
+//
+//
+//    public TodolistAdaptor(Context context, List<Task> eventList) {
+//        this.context = context;
+//        this.taskList = eventList;
+//
+//    }
+//
+//    @Override
+//    public int getItemViewType(int position) {
+//        Task task = taskList.get(position);
+//        String tasktitle = task.getTitle();
+//        return R.layout.item_view;
+//    }
+//
+//    @Override
+//    public TodoViewHolder onCreateViewHolder(ViewGroup parent, int viewType){
+//        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.tasklist,parent,false);
+//        TodoViewHolder holder = new TodoViewHolder(view);
+//        return holder;
+//    }
+//
+//
+//    @Override
+//    public void onBindViewHolder(TodoViewHolder holder, int position) {
+//        Task task = taskList.get(position);
+//        holder.task.setText(task.getTitle());
+//        holder.username = task.getUsername();
+//        holder.dateoftask.setText(task.getDate());
+//        holder.date = task.getDate();
+//        holder.tag = task.getTag();
+//        holder.status = task.getStatus();
+//        holder.title = task.getTitle();
+//        holder.type = task.getType();
+//
+//       userTask = FirebaseDatabase.getInstance().getReference("Task");
+//       if (task.getStatus() == false) {
+//            holder.itemView.setVisibility(View.VISIBLE);
+//            holder.task.setText(task.getTitle());
+//       } else {
+//            holder.itemView.setVisibility(View.GONE);
+//            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+//        }
+//        holder.task.setOnCheckedChangeListener(null);
+//        holder.task.setChecked(task.getStatus());
+//       holder.task.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+//            @Override
+//            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+//                task.setStatus(true);
+//                removedTask = task;
+//                showUndoPopup(removedTask);
+//                userTask.child(holder.tag).addListenerForSingleValueEvent(new ValueEventListener() {
+//                    @Override
+//                   public void onDataChange(DataSnapshot dataSnapshot) {
+//                       if (dataSnapshot.exists()) {
+//                           Task updateTask = new Task(holder.username, holder.title, holder.type, holder.date, holder.tag, true);
+//                            userTask.child(holder.tag).setValue(updateTask);
+//                      }
+//                       else {
+//                          Log.v("TaskCount", holder.tag + " does not  exists.");
+//                      }
+//                   }
+//                 @Override
+//                   public void onCancelled(DatabaseError databaseError) {
+//                        Log.v("LoginPage", "Error: " + databaseError.getMessage());
+//                   }
+//               });
+//
+//          }
+//        });
+//    }
+//
+//
+//
+//
+//    @Override
+//    public int getItemCount() {
+//        return taskList.size();
+//    }
+//
+//    private void showUndoPopup(Task removedTask) {
+//
+//        Snackbar snackbar = Snackbar.make(((Activity) context).getWindow().getDecorView().findViewById(android.R.id.content),
+//                        "Task removed", Snackbar.LENGTH_LONG)
+//                .setAction("Undo", new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        removedTask.setStatus(false);
+//                        notifyDataSetChanged();
+//                    }
+//                });
+//
+//        snackbar.show();
+//    }
+//
+//}
 
 
 //public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {

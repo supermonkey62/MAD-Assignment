@@ -16,13 +16,13 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/tasktimer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="54dp"
+        android:layout_height="59dp"
         android:layout_marginEnd="14dp"
         android:clickable="true"
         app:backgroundTint="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/expandtaskbutton1"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toEndOf="@+id/checkbox"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_recent_history" />
@@ -59,6 +59,15 @@
         app:layout_constraintEnd_toEndOf="@+id/expandtaskbutton1"
         app:layout_constraintTop_toBottomOf="@id/edittaskbutton1"
         android:layout_marginTop="20dp"/>
+
+    <TextView
+        android:id="@+id/taskdatetodo"
+        android:layout_width="204dp"
+        android:layout_height="27dp"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/checkbox" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -18,6 +18,8 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
     CheckBox task;
     FloatingActionButton tasktimerlink;
 
+    TextView dateoftask;
+
     boolean status;
     String username, date, tag,title,type;
 
@@ -33,6 +35,7 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
         expandButton = itemView.findViewById(R.id.expandtaskbutton1);
         editButton = itemView.findViewById(R.id.edittaskbutton1);
         deleteButton = itemView.findViewById(R.id.deletetaskbutton1);
+        dateoftask = view.findViewById(R.id.taskdatetodo);
 
         expandButton.setOnClickListener(new View.OnClickListener() {
             @Override
