@@ -14,8 +14,13 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class Profile_Setting extends AppCompatActivity {
-    TextView editProfile,logout;
+    TextView editProfile,logout,deleteuser;
+
+    DatabaseReference userRef;
 
 
 
@@ -28,6 +33,9 @@ public class Profile_Setting extends AppCompatActivity {
 
         logout = (TextView)findViewById(R.id.logout);
         editProfile = (TextView)findViewById(R.id.edit_profile);
+        deleteuser = findViewById(R.id.deleteuser);
+
+        userRef = FirebaseDatabase.getInstance().getReference("Users");
 
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +64,15 @@ public class Profile_Setting extends AppCompatActivity {
                         })
                         .setNegativeButton("No", null)
                         .show();
+            }
+        });
+
+        deleteuser.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void  onClick(View v){
+                userRef.child(username).removeValue();
+                Intent intent5 = new Intent(Profile_Setting.this,LoginPage.class);
+                startActivity(intent5);
             }
         });
     }

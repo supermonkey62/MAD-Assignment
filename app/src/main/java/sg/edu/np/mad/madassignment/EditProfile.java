@@ -9,8 +9,13 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 
 public class EditProfile extends AppCompatActivity {
+
+    DatabaseReference userRef;
 
     TextView changepassword,changeusername,changepfp,goback,editgoal;
     @SuppressLint("MissingInflatedId")
@@ -23,8 +28,12 @@ public class EditProfile extends AppCompatActivity {
         changepfp = findViewById(R.id.change_pfp);
         editgoal = findViewById(R.id.edit_goal);
         goback = findViewById(R.id.back);
+
+
         String username = getIntent().getStringExtra("USERNAME");
         String password = getIntent().getStringExtra("Password");
+
+        userRef = FirebaseDatabase.getInstance().getReference("Users");
 
 
         changepassword.setOnClickListener(new View.OnClickListener() {
@@ -57,6 +66,19 @@ public class EditProfile extends AppCompatActivity {
                 startActivity(intent3);
             }
         });
+
+        changepfp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent4 = new Intent(EditProfile.this, ChooseImageForpfp.class);
+                intent4.putExtra("USERNAME", username);
+                intent4.putExtra("Password",password);
+                startActivity(intent4);
+            }
+        });
+
+
+
 
 
 

@@ -17,7 +17,11 @@
     <color name="blue">#0000FF</color>
     <color name="navy">#000080</color>
     <color name="transparent">#00000000</color>
-
+    <style name="EditTextWhiteStyle" parent="@android:style/Widget.EditText">
+        <item name="android:textColorHint">#FFFFFF</item>
+        <item name="colorControlNormal">#FFFFFF</item>
+        <item name="colorControlActivated">#FFFFFF</item>
+    </style>
     <color name="app_theme">#009dff</color>
     <color name="app_theme_light">#f6fbff</color>
     <color name="edit_text_border">#03A9F4</color>

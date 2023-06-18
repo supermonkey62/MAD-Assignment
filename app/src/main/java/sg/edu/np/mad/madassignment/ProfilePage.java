@@ -1,6 +1,7 @@
 package sg.edu.np.mad.madassignment;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,15 +10,25 @@ import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
 public class ProfilePage extends AppCompatActivity implements UserDataHolder.UserDataCallback {
 
     TextView profilepagesetting, profilepageback, profileusername, goal;
-    ImageView editUsername;
+    ImageView editUsername,pfp;
     String displayname;
+
+    String ImageURI;
     String username;
 
     String password;
     String TITLE = "Profile Page";
+
+    DatabaseReference userRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +43,29 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
         profilepageback = findViewById(R.id.profilepageback);
         profileusername = findViewById(R.id.profileusername);
         editUsername = findViewById(R.id.editUsername);
+        pfp = findViewById(R.id.image_view);
         goal = findViewById(R.id.goal);
+
+        userRef = FirebaseDatabase.getInstance().getReference("Users");
+
+        userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ImageURI = dataSnapshot.child("imageURI").getValue().toString();
+                    Uri uri = Uri.parse(ImageURI);
+                    pfp.setImageURI(uri);
+
+
+                } else {
+                    Log.v("ChangeDisplayName", "User not found");
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.v("ChangePassword", "Error: " + databaseError.getMessage());
+            }
+        });
 
 
 
@@ -88,5 +121,23 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
         // Fetch user data again when the activity resumes
         UserDataHolder.getInstance().fetchUserData(username, this);
         profileusername.setText(displayname);
+        userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ImageURI = dataSnapshot.child("imageURI").getValue().toString();
+                    Uri uri = Uri.parse(ImageURI);
+                    pfp.setImageURI(uri);
+
+
+                } else {
+                    Log.v("ChangeDisplayName", "User not found");
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.v("ChangePassword", "Error: " + databaseError.getMessage());
+            }
+        });
     }
 }
