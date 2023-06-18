@@ -22,7 +22,7 @@
         android:clickable="true"
         app:backgroundTint="@color/white"
         app:layout_constraintEnd_toStartOf="@+id/expandtaskbutton1"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/checkbox"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@android:drawable/ic_menu_recent_history" />

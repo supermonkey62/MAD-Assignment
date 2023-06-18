@@ -70,26 +70,22 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
             holder.task.setText(task.getTitle());
        } else {
             holder.itemView.setVisibility(View.GONE);
-            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(
-                   ViewGroup.LayoutParams.MATCH_PARENT,
-                   ViewGroup.LayoutParams.WRAP_CONTENT));
-
+            holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
         }
+        holder.task.setOnCheckedChangeListener(null);
+        holder.task.setChecked(task.getStatus());
        holder.task.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 task.setStatus(true);
-                if (isChecked) {
-                    int adapterPosition = holder.getAdapterPosition();
-                    if (adapterPosition != RecyclerView.NO_POSITION) {
-                        notifyItemChanged(adapterPosition);
+//                if (isChecked) {
 //                    int adapterPosition = holder.getAdapterPosition();
 //                    if (adapterPosition != RecyclerView.NO_POSITION) {
 //                       taskList.remove(adapterPosition);
 //                       notifyItemRemoved(adapterPosition);
 //                      notifyItemRangeChanged(adapterPosition, taskList.size());
-                  }
-              }
+//                  }
+//              }
                 userTask.child(holder.tag).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                    public void onDataChange(DataSnapshot dataSnapshot) {
