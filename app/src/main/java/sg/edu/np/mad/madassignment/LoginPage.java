@@ -1,13 +1,16 @@
 package sg.edu.np.mad.madassignment;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.text.method.PasswordTransformationMethod;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -23,9 +26,20 @@ public class LoginPage extends AppCompatActivity {
     Button loginbutton;
 
     TextView registertext;
+    CheckBox remember_me_checkbox;
 
     FirebaseDatabase fdb = FirebaseDatabase.getInstance();
     DatabaseReference userRef;
+
+
+    SharedPreferences loginPreferences;
+    SharedPreferences.Editor loginPrefsEditor;
+    boolean remember;
+
+    private static final String PREF_NAME = "LoginPrefs";
+    private static final String PREF_USERNAME = "username";
+    private static final String PREF_PASSWORD = "password";
+    private static final String PREF_REMEMBER = "remember";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +54,20 @@ public class LoginPage extends AppCompatActivity {
         passwordEdit = findViewById(R.id.passwordedit);
         loginbutton = findViewById(R.id.loginbutton);
         registertext = findViewById(R.id.registertext);
+        remember_me_checkbox = findViewById(R.id.checkBox);
+
+        passwordEdit.setTransformationMethod(new PasswordTransformationMethod());
+
+        loginPreferences = getSharedPreferences(PREF_NAME, MODE_PRIVATE);
+        loginPrefsEditor = loginPreferences.edit();
+
+        remember = loginPreferences.getBoolean(PREF_REMEMBER, false);
+        if (remember) {
+            usernameEdit.setText(loginPreferences.getString(PREF_USERNAME, ""));
+            passwordEdit.setText(loginPreferences.getString(PREF_PASSWORD, ""));
+            remember_me_checkbox.setChecked(true);
+        }
+
 
         loginbutton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,9 +87,19 @@ public class LoginPage extends AppCompatActivity {
                             if (savedUsername.equals(username) && savedPassword.equals(password)) {
                                 Log.v("LoginPage", "Login successful");
 
+                                if (remember_me_checkbox.isChecked()) {
+                                    loginPrefsEditor.putBoolean(PREF_REMEMBER, true);
+                                    loginPrefsEditor.putString(PREF_USERNAME, username);
+                                    loginPrefsEditor.putString(PREF_PASSWORD, password);
+                                } else {
+                                    loginPrefsEditor.clear();
+                                }
+                                loginPrefsEditor.apply();
+
                                 Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(LoginPage.this, MainPage.class);
                                 intent.putExtra("USERNAME", username);
+                                Log.v("Login Username","+"+username);
                                 intent.putExtra("PASSWORD",password);
                                 intent.putExtra("DISPLAYNAME", displayName);
 

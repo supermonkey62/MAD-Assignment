@@ -31,7 +31,7 @@ public class UserDataHolder {
         return instance;
     }
 
-    public void fetchUserTasks(String username, final UserDataCallback callback) {
+    public void fetchUserData(String username, final UserDataCallback callback) {
         userRef.child(username).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {

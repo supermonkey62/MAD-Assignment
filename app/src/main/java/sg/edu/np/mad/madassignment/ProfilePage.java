@@ -15,6 +15,8 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
     ImageView editUsername;
     String displayname;
     String username;
+
+    String password;
     String TITLE = "Profile Page";
 
     @Override
@@ -24,6 +26,7 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
 
         username = getIntent().getStringExtra("USERNAME");
         displayname = getIntent().getStringExtra("DISPLAYNAME");
+        password = getIntent().getStringExtra("Password");
 
         profilepagesetting = findViewById(R.id.profilepagesettings);
         profilepageback = findViewById(R.id.profilepageback);
@@ -33,7 +36,7 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
 
 
 
-        UserDataHolder.getInstance().fetchUserTasks(username, this);
+        UserDataHolder.getInstance().fetchUserData(username, this);
         profileusername.setText(displayname);
         editUsername.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,7 +62,9 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
             public void onClick(View v) {
                 Toast.makeText(ProfilePage.this, "Going to Profile Settings", Toast.LENGTH_SHORT).show();
                 Intent intent2 = new Intent(ProfilePage.this, Profile_Setting.class);
-                intent2.putExtra("USERNAME", profileusername.getText().toString());
+                intent2.putExtra("displayname", profileusername.getText().toString());
+                intent2.putExtra("Password",password);
+                intent2.putExtra("USERNAME",username);
                 startActivity(intent2);
             }
         });
@@ -69,14 +74,6 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
     public void onUserDataFetched(String displayname) {
         this.displayname = displayname;
 
-    }
-
-
-
-    @Override
-    protected void onStart(){
-        super.onStart();
-        Log.v(TITLE, "On Start!");
     }
 
     @Override
@@ -89,20 +86,7 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
     protected void onResume() {
         super.onResume();
         // Fetch user data again when the activity resumes
-        UserDataHolder.getInstance().fetchUserTasks(username, this);
+        UserDataHolder.getInstance().fetchUserData(username, this);
         profileusername.setText(displayname);
     }
-
-    @Override
-    protected void onStop(){
-        super.onStop();
-        Log.v(TITLE, "On Stop!");
-    }
-
-    @Override
-    protected void onDestroy(){
-        super.onDestroy();
-        Log.v(TITLE, "On Destroy!");
-    }
-
 }
