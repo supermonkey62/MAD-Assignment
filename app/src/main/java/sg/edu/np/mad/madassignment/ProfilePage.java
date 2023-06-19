@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class ProfilePage extends AppCompatActivity implements UserDataHolder.UserDataCallback {
 
     TextView profilepagesetting, profilepageback, profileusername;
-    ImageView editUsername,pfp;
+    ImageView editProfile,pfp;
     String displayname;
 
     String ImageURI;
@@ -57,7 +57,7 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
         profilepagesetting = findViewById(R.id.profilepagesettings);
         profilepageback = findViewById(R.id.profilepageback);
         profileusername = findViewById(R.id.profileusername);
-        editUsername = findViewById(R.id.editUsername);
+        editProfile = findViewById(R.id.editUsername);
         pfp = findViewById(R.id.image_view);
 
         listView = findViewById(R.id.goal_list);
@@ -121,13 +121,13 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
 
         UserDataHolder.getInstance().fetchUserData(username, this);
         profileusername.setText(displayname);
-        editUsername.setOnClickListener(new View.OnClickListener() {
+        editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent toChangeDisplayName = new Intent(ProfilePage.this, ChangeDisplayName.class);
-                toChangeDisplayName.putExtra("DISPLAYNAME", displayname);
-                toChangeDisplayName.putExtra("USERNAME", username);
-                startActivity(toChangeDisplayName);
+                Intent EditProfile = new Intent(ProfilePage.this, EditProfile.class);
+                EditProfile.putExtra("DISPLAYNAME", displayname);
+                EditProfile.putExtra("USERNAME", username);
+                startActivity(EditProfile);
             }
         });
 

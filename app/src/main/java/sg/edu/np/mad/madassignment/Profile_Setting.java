@@ -18,7 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 public class Profile_Setting extends AppCompatActivity {
-    TextView editProfile,logout,deleteuser;
+    TextView editProfile,logout,deleteuser,back;
 
     DatabaseReference userRef;
 
@@ -34,6 +34,7 @@ public class Profile_Setting extends AppCompatActivity {
         logout = (TextView)findViewById(R.id.logout);
         editProfile = (TextView)findViewById(R.id.edit_profile);
         deleteuser = findViewById(R.id.deleteuser);
+        back = findViewById(R.id.profileNameback);
 
         userRef = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -73,6 +74,13 @@ public class Profile_Setting extends AppCompatActivity {
                 userRef.child(username).removeValue();
                 Intent intent5 = new Intent(Profile_Setting.this,LoginPage.class);
                 startActivity(intent5);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }

@@ -15,6 +15,7 @@
         android:layout_marginEnd="1dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
+        android:background="#335A44"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/white_square_with_rounded_corners" />
@@ -23,18 +24,17 @@
         android:id="@+id/editUsername"
         android:layout_width="23dp"
         android:layout_height="27dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginEnd="12dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="@color/black"
         app:layout_constraintEnd_toEndOf="@id/whitebox"
-        app:layout_constraintTop_toTopOf="@id/profileusername"
+        app:layout_constraintTop_toTopOf="@id/whitebox"
         app:srcCompat="@drawable/baseline_edit_24" />
 
     <TextView
         android:id="@+id/goal"
-        android:layout_width="367dp"
-        android:layout_height="356dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="8dp"
+        android:layout_width="379dp"
+        android:layout_height="351dp"
         android:background="@drawable/border"
         android:shadowColor="#000000"
         android:shadowDx="0.0"
@@ -43,8 +43,15 @@
         android:text="Goals"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/tableRow" />
+        tools:layout_editor_absoluteX="17dp"
+        tools:layout_editor_absoluteY="306dp"
+        app:layout_constraintEnd_toEndOf="@id/whitebox"
+        app:layout_constraintStart_toStartOf="@id/whitebox"
+        app:layout_constraintTop_toBottomOf="@id/tableRow"
+
+
+
+/>
 
     <Button
         android:id="@+id/goal_button"
@@ -72,13 +79,15 @@
 
     <TableRow
         android:id="@+id/tableRow"
-        android:layout_width="380dp"
+        android:layout_width="500dp"
         android:layout_height="2dp"
         android:layout_marginStart="16dp"
 
         android:layout_marginTop="12dp"
-        android:background="@color/black"
+
+        android:background="#335A44"
         android:padding="10dp"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/image_view" />
 
@@ -86,11 +95,11 @@
         android:id="@+id/profilepagesettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="32dp"
-        android:layout_marginEnd="24dp"
+        android:layout_marginTop="6dp"
+        android:layout_marginEnd="12dp"
         android:drawableLeft="@drawable/baseline_settings_24"
-        app:layout_constraintEnd_toEndOf="@id/whitebox"
-        app:layout_constraintTop_toTopOf="@id/whitebox" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/image_view"
@@ -106,8 +115,8 @@
 
     <TextView
         android:id="@+id/profileusername"
-        android:layout_width="240dp"
-        android:layout_height="50dp"
+        android:layout_width="211dp"
+        android:layout_height="55dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="116dp"
         android:text="Username"
@@ -117,11 +126,17 @@
 
     <TextView
         android:id="@+id/profilepageback"
-        android:layout_width="40dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
+        android:layout_width="140dp"
+        android:layout_height="33dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginTop="6dp"
+        android:layout_weight="1"
         android:drawableLeft="@drawable/baseline_arrow_back_24"
+        android:drawableTint="@color/white"
+        android:fontFamily="cursive"
+        android:text="Back"
+        android:textColor="@color/white"
+        android:textSize="25sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
