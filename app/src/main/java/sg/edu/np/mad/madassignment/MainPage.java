@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -19,8 +20,8 @@ import java.util.Map;
 
 public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDataCallback, UserDataHolder.UserDataCallback {
     String title = "MainPage";
-    Button pomodorotimer, todolist;
-    FloatingActionButton normalTimer, profilePage, calendarOverview;
+    Button pomodorotimer;
+    FloatingActionButton normalTimer, profilePage, calendarOverview, toDoList;
     TextView displaynametext;
     List<Task> taskList;
     String displayname;
@@ -38,8 +39,10 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         calendarOverview = findViewById(R.id.calendarOverview);
         displaynametext = findViewById(R.id.displaynametext);
         recyclerView = findViewById(R.id.upcomingEventRecycler);
-        todolist = findViewById(R.id.tasks);
+        toDoList = findViewById(R.id.toDoList);
         todorecycler = findViewById(R.id.mainpagetodo);
+
+        user_greeting();
 
         String password = getIntent().getStringExtra("PASSWORD");
         String username = getIntent().getStringExtra("USERNAME");
@@ -97,7 +100,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
             }
         });
 
-        todolist.setOnClickListener(new View.OnClickListener() {
+        toDoList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent totodolist = new Intent(MainPage.this,TodolistFragmentholder.class);
@@ -105,6 +108,24 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
                 startActivity(totodolist);
             }
         });
+    }
+
+    private void user_greeting() {
+        Calendar calendar = Calendar.getInstance();
+        int hour = calendar.get(Calendar.HOUR_OF_DAY);
+
+        String greeting = "Hello there";
+
+        if (hour >= 0 && hour < 12) {
+            greeting = "Good morning";
+        } else if (hour >= 12 && hour < 18) {
+            greeting = "Good afternoon";
+        } else if(hour >= 18){
+            greeting = "Good evening";
+        }
+
+        TextView greetingText = findViewById(R.id.greeting_text);
+        greetingText.setText(greeting);
     }
 
 

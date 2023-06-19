@@ -34,14 +34,16 @@ public class RegisterUser extends AppCompatActivity {
 
     FirebaseDatabase fdb = FirebaseDatabase.getInstance();
     DatabaseReference userRef;
+    DatabaseReference taskcountRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_user);
 
-        // Load the database
+        // Load the databases
         userRef = FirebaseDatabase.getInstance().getReference("Users");
+        taskcountRef= FirebaseDatabase.getInstance().getReference("TaskCount");
 
         // Get layout file stuff
         usernameEdit = findViewById(R.id.usernameedit);
@@ -90,8 +92,10 @@ public class RegisterUser extends AppCompatActivity {
                                 // Create a new user
 
                                 User newUser = new User(username, password,username,IMAGEURI);
+                                TaskCount newTaskCount = new TaskCount(username,0);
                                 Log.v("Register","+" + IMAGEURI);
                                 userRef.child(username).setValue(newUser);
+                                taskcountRef.child(username).setValue(newTaskCount);
                                 Log.v("RegisterPage", "User registered successfully");
                                 Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
                                 finish(); // Finish the activity and go back to the login page
