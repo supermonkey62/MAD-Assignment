@@ -25,7 +25,7 @@ import com.google.firebase.database.ValueEventListener;
 public class ChooseImageForpfp extends AppCompatActivity {
 
     TextView cancel;
-
+    EditText ImageName;
     String ImageURI;
     Button confirm;
     ImageView Image1, Image2, Image3, Image4, Image5;
@@ -38,13 +38,16 @@ public class ChooseImageForpfp extends AppCompatActivity {
         setContentView(R.layout.activity_available);
 
 
-        cancel = findViewById(R.id.choosepfpback);
+        cancel = findViewById(R.id.changepfpcancel);
         confirm = findViewById(R.id.choosepfpconfirm);
         Image1 = findViewById(R.id.smoke);
         Image2 = findViewById(R.id.tiger);
         Image3 = findViewById(R.id.dog);
         Image4 = findViewById(R.id.mountainsnow);
         Image5 = findViewById(R.id.holiday);
+        ImageName = findViewById(R.id.ImageNameEditText);
+
+        ImageName.setEnabled(false);
 
 
         String password = getIntent().getStringExtra("PASSWORD");
@@ -77,6 +80,8 @@ public class ChooseImageForpfp extends AppCompatActivity {
 
                 ImageURI = imageUri.toString();
 
+                ImageName.setText("Smoke");
+
 
                 // Apply scale animation
                 v.animate().scaleX(scaleFactor).scaleY(scaleFactor).setDuration(200).start();
@@ -105,7 +110,9 @@ public class ChooseImageForpfp extends AppCompatActivity {
                 Log.v("Register","+"+imageUri.toString());
                 ImageURI = imageUri.toString();
 
-                confirm.setEnabled(true);
+
+
+                ImageName.setText("Tiger");
 
 
 
@@ -137,7 +144,7 @@ public class ChooseImageForpfp extends AppCompatActivity {
                 Log.v("Register","+"+imageUri.toString());
                 ImageURI = imageUri.toString();
 
-                confirm.setEnabled(true);
+                ImageName.setText("Dog");
 
 
 
@@ -169,7 +176,7 @@ public class ChooseImageForpfp extends AppCompatActivity {
                 Log.v("Register","+"+imageUri.toString());
                 ImageURI = imageUri.toString();
 
-                confirm.setEnabled(true);
+                ImageName.setText("Mountains");
 
 
 
@@ -201,7 +208,7 @@ public class ChooseImageForpfp extends AppCompatActivity {
                 Log.v("Register","+"+imageUri.toString());
                 ImageURI = imageUri.toString();
 
-                confirm.setEnabled(true);
+                ImageName.setText("Holiday");
 
 
 
@@ -224,32 +231,42 @@ public class ChooseImageForpfp extends AppCompatActivity {
             public void onClick(View v) {
                 Log.v("Confirm","+" + username);
 
+                if (ImageURI != null && !ImageURI.equals("")){
+
+                    userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                dataSnapshot.getRef().child("imageURI").setValue(ImageURI);
+                                Log.v("URI","+" + dataSnapshot.child("imageURI").getValue());
+                                Toast.makeText(getApplicationContext(), "Profile Picture Successfully Changed", Toast.LENGTH_SHORT).show();
+                                finish();
 
 
-
-                userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
-
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            dataSnapshot.getRef().child("imageURI").setValue(ImageURI);
-                            Log.v("URI","+" + dataSnapshot.child("imageURI").getValue());
-                            Toast.makeText(getApplicationContext(), "Profile Picture Successfully Changed", Toast.LENGTH_SHORT).show();
-
+                            }
+                            else{
+                                Log.d("ChooseImageForpfp", "DataSnapshot: " + username);
+                            }
 
                         }
-                        else{
-                            Log.d("ChooseImageForpfp", "DataSnapshot: " + username);
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.v("LoginPage", "Error: " + databaseError.getMessage());
                         }
 
-                    }
+                    });
+                }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.v("LoginPage", "Error: " + databaseError.getMessage());
-                    }
+                else{
+                    Toast.makeText(getApplicationContext(), "No Profile Picture is Selected", Toast.LENGTH_SHORT).show();
+                }
 
-                });
+
+
+
+
             }
 
 

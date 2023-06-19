@@ -31,6 +31,7 @@
         app:layout_constraintTop_toTopOf="@id/whitebox"
         app:srcCompat="@drawable/baseline_edit_24" />
 
+
     <TextView
         android:id="@+id/goal"
         android:layout_width="365dp"

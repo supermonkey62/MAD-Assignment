@@ -71,9 +71,20 @@ public class Profile_Setting extends AppCompatActivity {
         deleteuser.setOnClickListener(new View.OnClickListener(){
             @Override
             public void  onClick(View v){
-                userRef.child(username).removeValue();
-                Intent intent5 = new Intent(Profile_Setting.this,LoginPage.class);
-                startActivity(intent5);
+                new AlertDialog.Builder(Profile_Setting.this)
+                        .setMessage("Warning, Are You Sure You want to Delete?")
+                        .setCancelable(false)
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int id) {
+
+                                userRef.child(username).removeValue();
+                                Intent intent5 = new Intent(Profile_Setting.this,LoginPage.class);
+                                startActivity(intent5);
+                            }
+                        })
+                        .setNegativeButton("No", null)
+                        .show();
+
             }
         });
 
