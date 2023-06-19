@@ -106,7 +106,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         todolist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent totodolist = new Intent(MainPage.this,TodoList.class);
+                Intent totodolist = new Intent(MainPage.this,TodolistFragmentholder.class);
                 totodolist.putExtra("USERNAME",username);
                 startActivity(totodolist);
             }
