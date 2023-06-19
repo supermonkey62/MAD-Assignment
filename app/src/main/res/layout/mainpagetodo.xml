@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+android:layout_width="match_parent"
+android:layout_height="wrap_content"
+xmlns:tool="http://schemas.android.com/tools"
+
+xmlns:app="http://schemas.android.com/apk/res-auto">
+
+<CheckBox
+    android:id="@+id/mainpagecheckbox"
+    android:layout_width="281dp"
+    android:layout_height="58dp"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    tool:text="This is a task" />
+
+<TextView
+    android:id="@+id/mainpagetaskdatetodo"
+    android:layout_width="204dp"
+    android:layout_height="27dp"
+    android:text="TextView"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@+id/mainpagecheckbox" />
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

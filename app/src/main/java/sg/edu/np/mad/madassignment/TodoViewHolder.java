@@ -37,6 +37,7 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
         deleteButton = itemView.findViewById(R.id.deletetaskbutton1);
         dateoftask = view.findViewById(R.id.taskdatetodo);
 
+
         expandButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -51,7 +52,6 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
                 editButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        // Start the EditTask activity
                         Context context = v.getContext();
                         Intent toEditTask = new Intent(context, EditTask.class);
                         toEditTask.putExtra("USERNAME", username);
@@ -105,13 +105,15 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
 
         Context context = itemView.getContext();
         Intent intent = new Intent(context, PomodoroTimer.class);
+        intent.putExtra("TITLE", task.getText());
         context.startActivity(intent);
     }
 
     private void startActivity2() {
 
         Context context = itemView.getContext();
-        Intent intent = new Intent(context, Timer.class);
+        Intent intent = new Intent(context, timer.class);
+        intent.putExtra("TTITLE", task.getText());
         context.startActivity(intent);
     }
 
