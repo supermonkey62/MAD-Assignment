@@ -132,8 +132,8 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         TextView greetingText = findViewById(R.id.greeting_text);
         greetingText.setText(greeting);
 
-        ImageView greetingImage = findViewById(R.id.avatarimage);
-        greetingImage.setImageResource(imageId);
+        ImageView greetingImage = findViewById(R.id.greenbox);
+        greetingImage.setImageResource(R.drawable.afternoon);
     }
 
 
