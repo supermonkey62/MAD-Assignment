@@ -30,7 +30,7 @@
         app:srcCompat="@drawable/white_square_with_rounded_corners" />
 
     <TextView
-        android:id="@+id/hellotext"
+        android:id="@+id/greeting_text"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Hello!"
@@ -46,7 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="User"
-        app:layout_constraintTop_toBottomOf="@id/hellotext"
+        app:layout_constraintTop_toBottomOf="@id/greeting_text"
         android:layout_marginTop="15dp"
         android:paddingStart="40dp"
         android:textSize="30dp"
@@ -55,13 +55,13 @@
 
     <ImageView
         android:id="@+id/avatarimage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/round_bg_256"
-        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="393dp"
+        android:layout_height="118dp"
         android:layout_marginTop="30dp"
         android:paddingStart="150dp"
-        />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/round_bg_256" />
 
     <ImageView
         android:id="@+id/todobox"
