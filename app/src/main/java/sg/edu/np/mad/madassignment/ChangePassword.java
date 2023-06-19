@@ -57,7 +57,7 @@ public class ChangePassword extends AppCompatActivity {
         userRef = FirebaseDatabase.getInstance().getReference("Users");
         Log.v("Password User","+" + Password);
 
-        profilepageback = findViewById(R.id.profilepageback4);
+        profilepageback = findViewById(R.id.change_passwordback);
 
         userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override

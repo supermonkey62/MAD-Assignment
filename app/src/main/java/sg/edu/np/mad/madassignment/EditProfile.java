@@ -32,7 +32,7 @@ public class EditProfile extends AppCompatActivity {
         changepassword = findViewById(R.id.change_password);
         changeusername = findViewById(R.id.change_username);
         changepfp = findViewById(R.id.change_pfp);
-        
+
         goback = findViewById(R.id.back);
 
 
