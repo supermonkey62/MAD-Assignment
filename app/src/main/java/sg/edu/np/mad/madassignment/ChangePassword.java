@@ -26,6 +26,8 @@ public class ChangePassword extends AppCompatActivity {
     Button changepasswordbutton,authenticatebutton;
     DatabaseReference userRef;
 
+    String originalpassword;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +55,23 @@ public class ChangePassword extends AppCompatActivity {
         confirmedpassword.setEnabled(false);
         changepasswordbutton.setEnabled(false);
         userRef = FirebaseDatabase.getInstance().getReference("Users");
-        Log.v("Password User","+" + username);
+        Log.v("Password User","+" + Password);
 
-        profilepageback = findViewById(R.id.profilepageback4);
+        profilepageback = findViewById(R.id.change_passwordback);
+
+        userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    originalpassword = dataSnapshot.child("password").getValue().toString();
+                    Log.v("Passowrd","+" + originalpassword);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.v("ChangePassword", "Error: " + databaseError.getMessage());
+            }
+        });
 
         profilepageback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,8 +89,11 @@ public class ChangePassword extends AppCompatActivity {
 
 
                 final String current = currentpassword.getText().toString();
+                Log.v("Username Password","+"+current);
 
-                if (Password.equals(current)){
+
+
+                if (current.equals(originalpassword)){
                     changepassword.setEnabled(true);
                     confirmedpassword.setEnabled(true);
                     changepasswordbutton.setEnabled(true);
@@ -90,37 +109,46 @@ public class ChangePassword extends AppCompatActivity {
 
                             final String newpassword = changepassword.getText().toString();
                             final String confirmnewpassword = confirmedpassword.getText().toString();
-                            if(newpassword.equals(confirmnewpassword)) {
-                                userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        if (dataSnapshot.exists()) {
-                                            dataSnapshot.getRef().child("password").setValue(confirmnewpassword);
-                                            Toast.makeText(getApplicationContext(), "Password Successfully Changed", Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        } else {
-                                            Log.v("ChangeDisplayName", "User not found");
+                            if(newpassword.equals(confirmnewpassword) ) {
+                                if (newpassword != null && !newpassword.equals("")){
+                                    userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            if (dataSnapshot.exists()) {
+                                                dataSnapshot.getRef().child("password").setValue(confirmnewpassword);
+                                                Toast.makeText(getApplicationContext(), "Password Successfully Changed", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            } else {
+                                                Log.v("ChangeDisplayName", "User not found");
+                                            }
                                         }
-                                    }
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-                                        Log.v("ChangePassword", "Error: " + databaseError.getMessage());
-                                    }
-                                });
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            Log.v("ChangePassword", "Error: " + databaseError.getMessage());
+                                        }
+                                    });
+
+                                }else{
+                                    confirmedpassword.setError("Password cannot be Empty");
+                                    confirmedpassword.requestFocus();
+                                }
 
                             }else{
                                 Toast.makeText(getApplicationContext(),"Password do not match",Toast.LENGTH_SHORT).show();
                                 confirmedpassword.setError("Password do not match");
                                 confirmedpassword.requestFocus();
-
-
                             }
+
                         }
                     });
 
 
-                }
-                else{
+                } else if (current == null || current.equals("") ) {
+
+                    currentpassword.setError("Please Input a password");
+                    currentpassword.requestFocus();
+
+                } else{
                     Toast.makeText(getApplicationContext(),"Incorrect Password",Toast.LENGTH_SHORT).show();
                     currentpassword.setError("Incorrect Password");
                     currentpassword.requestFocus();
@@ -142,6 +170,8 @@ public class ChangePassword extends AppCompatActivity {
 
         });
     }
+
+
 
 
 

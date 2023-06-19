@@ -5,4 +5,6 @@
     <string name="no_tasks_set">No Tasks Set</string>
     <string name="lets_get_started">Lets Start Some Tasks!</string>
     <string name="remember_me">Remember me</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

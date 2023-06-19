@@ -25,6 +25,8 @@ public class PomodoroTimer extends AppCompatActivity {
     private SeekBar longRestSeekBar;
     private TextView longRestDurationTextView;
 
+    private TextView timertitle;
+
     private CountDownTimer countDownTimer;
     private boolean isTimerRunning;
     private long timeLeftInMillis;
@@ -39,6 +41,7 @@ public class PomodoroTimer extends AppCompatActivity {
     private int currentState;
     private int completedPomodoros;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,6 +57,12 @@ public class PomodoroTimer extends AppCompatActivity {
         restDurationTextView = findViewById(R.id.restDuration);
         longRestSeekBar = findViewById(R.id.seekBar3);
         longRestDurationTextView = findViewById(R.id.longRestDuration);
+        timertitle = findViewById(R.id.Ptimertitle);
+
+        String title = getIntent().getStringExtra("TITLE");
+
+        timertitle.setText(title);
+
 
 
         workSeekBar.setProgress(24);

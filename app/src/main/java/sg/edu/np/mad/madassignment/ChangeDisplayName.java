@@ -38,7 +38,7 @@ public class ChangeDisplayName extends AppCompatActivity {
         password = getIntent().getStringExtra("PASSWORD");
         userRef = FirebaseDatabase.getInstance().getReference("Users");
         confirmDisplayName = findViewById(R.id.confirm_button);
-        profilepageback = findViewById(R.id.profilepageback3);
+        profilepageback = findViewById(R.id.back);
 
         profilepageback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -53,29 +53,47 @@ public class ChangeDisplayName extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final String displayName = changeDisplayName.getText().toString();
-                if(displayName != null) {
-                    userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                dataSnapshot.getRef().child("displayname").setValue(displayName);
-                                Toast.makeText(getApplicationContext(), "Display Name Successfully Changed", Toast.LENGTH_SHORT).show();
-                                finish();
-                            } else {
-                                Log.v("ChangeDisplayName", "User not found");
-                            }
-                        }
+                if(displayName == null) {
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            Log.v("ChangeDisplayName", "Error: " + databaseError.getMessage());
-                        }
-                    });
-                }
-                else{
                     Log.v("DisplayName", "displayName is null");
+
+                } else if (displayName.length() > 12) {
+                    changeDisplayName.setError("Display Name can only Accept 12 Characters");
+                    changeDisplayName.requestFocus();
+                } else if (displayName.contains(" ")) {
+
+                    changeDisplayName.setError("Spaces are not allowed");
+                    changeDisplayName.requestFocus();
+                    
+                } else{
+                    
+                        userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    dataSnapshot.getRef().child("displayname").setValue(displayName);
+                                    Toast.makeText(getApplicationContext(), "Display Name Successfully Changed", Toast.LENGTH_SHORT).show();
+                                    finish();
+                                } else {
+                                    Log.v("ChangeDisplayName", "User not found");
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Log.v("ChangeDisplayName", "Error: " + databaseError.getMessage());
+                            }
+                        });
+                    }
                 }
 
+
+        });
+
+        profilepageback.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
             }
         });
     }

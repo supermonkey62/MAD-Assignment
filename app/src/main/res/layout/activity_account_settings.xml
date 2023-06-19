@@ -30,7 +30,7 @@
             android:background="#335A44">
 
             <TextView
-                android:id="@+id/profileName"
+                android:id="@+id/profileNameback"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"

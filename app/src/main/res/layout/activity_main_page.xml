@@ -158,5 +158,26 @@
 
 
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/mainpagetodo"
+        android:layout_width="176dp"
+        android:layout_height="260dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="40dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/todobox" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="231dp"
+        android:text="TODO LIST"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/calendarbox" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

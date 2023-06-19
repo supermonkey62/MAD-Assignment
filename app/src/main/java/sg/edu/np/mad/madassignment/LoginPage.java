@@ -72,51 +72,71 @@ public class LoginPage extends AppCompatActivity {
             public void onClick(View v) {
                 final String username = usernameEdit.getText().toString();
                 final String password = passwordEdit.getText().toString();
+                Log.v("Username","+"+username);
 
-                userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.exists()) {
-                            String savedUsername = dataSnapshot.child("username").getValue(String.class);
-                            String savedPassword = dataSnapshot.child("password").getValue(String.class);
-                            String displayName = dataSnapshot.child("displayname").getValue(String.class);
+                if (username != null && !username.equals("") && password != null && !password.equals("")){
+
+                    userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                String savedUsername = dataSnapshot.child("username").getValue(String.class);
+                                String savedPassword = dataSnapshot.child("password").getValue(String.class);
+                                String displayName = dataSnapshot.child("displayname").getValue(String.class);
 
 
 
-                            if (savedUsername.equals(username) && savedPassword.equals(password)) {
-                                Log.v("LoginPage", "Login successful");
+                                if (savedUsername.equals(username) && savedPassword.equals(password)) {
+                                    Log.v("LoginPage", "Login successful");
 
-                                if (remember_me_checkbox.isChecked()) {
-                                    loginPrefsEditor.putBoolean(PREF_REMEMBER, true);
-                                    loginPrefsEditor.putString(PREF_USERNAME, username);
-                                    loginPrefsEditor.putString(PREF_PASSWORD, password);
+                                    if (remember_me_checkbox.isChecked()) {
+                                        loginPrefsEditor.putBoolean(PREF_REMEMBER, true);
+                                        loginPrefsEditor.putString(PREF_USERNAME, username);
+                                        loginPrefsEditor.putString(PREF_PASSWORD, password);
+                                    } else {
+                                        loginPrefsEditor.clear();
+                                    }
+                                    loginPrefsEditor.apply();
+
+                                    Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
+                                    Intent intent = new Intent(LoginPage.this, MainPage.class);
+                                    intent.putExtra("USERNAME", username);
+                                    Log.v("Login Username","+"+username);
+                                    intent.putExtra("PASSWORD",password);
+                                    intent.putExtra("DISPLAYNAME", displayName);
+
+                                    startActivity(intent);
                                 } else {
-                                    loginPrefsEditor.clear();
+                                    Log.v("LoginPage", "Invalid username or password");
+                                    Toast.makeText(getApplicationContext(), "Invalid Username or Password", Toast.LENGTH_SHORT).show();
                                 }
-                                loginPrefsEditor.apply();
-
-                                Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(LoginPage.this, MainPage.class);
-                                intent.putExtra("USERNAME", username);
-                                Log.v("Login Username","+"+username);
-                                intent.putExtra("PASSWORD",password);
-                                intent.putExtra("DISPLAYNAME", displayName);
-
-                                startActivity(intent);
                             } else {
-                                Log.v("LoginPage", "Invalid username or password");
-                                Toast.makeText(getApplicationContext(), "Invalid Username or Password", Toast.LENGTH_SHORT).show();
+                                Log.v("LoginPage", "User not found");
+                                usernameEdit.setError("Username Do not Exist");
+                                usernameEdit.requestFocus();
                             }
-                        } else {
-                            Log.v("LoginPage", "User not found");
                         }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.v("LoginPage", "Error: " + databaseError.getMessage());
+                        }
+                    });
+
+                } else if (username == null || username.equals("")) {
+                    usernameEdit.setError("Username is Empty");
+                    usernameEdit.requestFocus();
+                    if (password == null || password.equals("")){
+                        passwordEdit.setError("Password is Empty");
+                        passwordEdit.requestFocus();
                     }
 
-                    @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.v("LoginPage", "Error: " + databaseError.getMessage());
-                    }
-                });
+                } else{
+                    passwordEdit.setError("Password is Empty");
+                    passwordEdit.requestFocus();
+                }
+
+
             }
         });
 

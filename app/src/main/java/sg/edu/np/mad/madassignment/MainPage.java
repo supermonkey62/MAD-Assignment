@@ -24,7 +24,8 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
     TextView displaynametext;
     List<Task> taskList;
     String displayname;
-    RecyclerView recyclerView;
+    RecyclerView recyclerView,todorecycler;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +39,22 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         displaynametext = findViewById(R.id.displaynametext);
         recyclerView = findViewById(R.id.upcomingEventRecycler);
         todolist = findViewById(R.id.tasks);
+        todorecycler = findViewById(R.id.mainpagetodo);
 
         String password = getIntent().getStringExtra("PASSWORD");
         String username = getIntent().getStringExtra("USERNAME");
 
         UserDataHolder.getInstance().fetchUserData(username, this);
         TaskDataHolder.getInstance().fetchUserTasks(username, this);
+
+        TaskDataHolder.getInstance().fetchUserTasks(username, new TaskDataHolder.TaskDataCallback() {
+            @Override
+            public void onTaskDataFetched(List<Task> tasks) {
+                taskList = tasks;
+                todorecycler.setLayoutManager(new LinearLayoutManager(MainPage.this));
+                todorecycler.setAdapter(new MainpagetodoAdaptor(MainPage.this, taskList));
+            }
+        });
 
         pomodorotimer.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +100,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         todolist.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent totodolist = new Intent(MainPage.this,TodoList.class);
+                Intent totodolist = new Intent(MainPage.this,TodolistFragmentholder.class);
                 totodolist.putExtra("USERNAME",username);
                 startActivity(totodolist);
             }

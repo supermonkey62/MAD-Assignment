@@ -8,16 +8,6 @@
     tools:context=".RegisterUser">
 
     <TextView
-        android:id="@+id/profilepageback3"
-        android:layout_width="40dp"
-        android:layout_height="51dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:drawableLeft="@drawable/baseline_arrow_back_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <TextView
         android:id="@+id/back"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -32,18 +22,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
+
     <TextView
         android:id="@+id/cutextview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="60dp"
         android:gravity="center"
-        android:text="Change Username"
+        android:text="Change Display Name"
         android:textColor="@color/white"
         android:textSize="30dp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="parent" />
-
+        app:layout_constraintTop_toTopOf="parent"
+        tools:layout_editor_absoluteX="0dp" />
 
     <ImageView
         android:id="@+id/changeDisplayNameBox"
@@ -75,17 +66,17 @@
         style="@style/EditTextWhiteStyle"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginStart="40dp"
         android:layout_marginTop="138dp"
-        android:layout_marginEnd="40dp"
         android:layout_marginBottom="543dp"
+        android:gravity="center"
         android:hint="Enter New Display Name"
         android:inputType="text"
 
         android:textColor="@color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:layout_editor_absoluteX="0dp" />
+        app:layout_constraintVertical_bias="1.0"
+        tools:layout_editor_absoluteX="31dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -134,24 +134,6 @@
             android:layout_marginBottom="10dp"
             android:background="@color/white" />
 
-        <TextView
-            android:id="@+id/edit_goal"
-            android:layout_width="match_parent"
-            android:layout_height="25dp"
-            android:drawableLeft="@drawable/baseline_star_24"
-            android:drawablePadding="10dp"
-            android:drawableTint="@color/white"
-            android:fontFamily="sans-serif-smallcaps"
-            android:text="edit_goal"
-            android:textColor="@color/white"
-            android:textSize="18sp" />
-
-        <TableRow
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="10dp"
-            android:background="@color/white" />
 
 
 

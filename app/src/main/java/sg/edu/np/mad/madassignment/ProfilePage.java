@@ -1,11 +1,18 @@
 package sg.edu.np.mad.madassignment;
 
+import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,10 +23,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+
 public class ProfilePage extends AppCompatActivity implements UserDataHolder.UserDataCallback {
 
-    TextView profilepagesetting, profilepageback, profileusername, goal;
-    ImageView editUsername,pfp;
+    TextView profilepagesetting, profilepageback, profileusername;
+    ImageView editProfile,pfp;
     String displayname;
 
     String ImageURI;
@@ -27,6 +36,12 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
 
     String password;
     String TITLE = "Profile Page";
+
+    private ArrayList<String> goals;
+    private ArrayAdapter<String> goalsAdapter;
+    private ListView listView;
+    private Button addGoalsButton;
+    @SuppressLint("WrongViewCast")
 
     DatabaseReference userRef;
 
@@ -42,9 +57,44 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
         profilepagesetting = findViewById(R.id.profilepagesettings);
         profilepageback = findViewById(R.id.profilepageback);
         profileusername = findViewById(R.id.profileusername);
-        editUsername = findViewById(R.id.editUsername);
+        editProfile = findViewById(R.id.editUsername);
         pfp = findViewById(R.id.image_view);
-        goal = findViewById(R.id.goal);
+
+        listView = findViewById(R.id.goal_list);
+        addGoalsButton = findViewById(R.id.goal_button);
+
+
+        //Display user's previously added goals from database
+        DatabaseReference userGoalsRef = FirebaseDatabase.getInstance().getReference("Users").child(username).child("goals");
+        userGoalsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                goals.clear();
+
+                for (DataSnapshot goalSnapshot : dataSnapshot.getChildren()) {
+                    String goal = goalSnapshot.getValue(String.class);
+                    goals.add(goal);
+                }
+
+                goalsAdapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.v("ProfilePage", "Error: " + databaseError.getMessage());
+            }
+        });
+        addGoalsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                addgoal(view);
+            }
+        });
+
+        goals = new ArrayList<>();
+        goalsAdapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, goals);
+        listView.setAdapter(goalsAdapter);
+        listViewListener();
 
         userRef = FirebaseDatabase.getInstance().getReference("Users");
 
@@ -71,13 +121,13 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
 
         UserDataHolder.getInstance().fetchUserData(username, this);
         profileusername.setText(displayname);
-        editUsername.setOnClickListener(new View.OnClickListener() {
+        editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent toChangeDisplayName = new Intent(ProfilePage.this, ChangeDisplayName.class);
-                toChangeDisplayName.putExtra("DISPLAYNAME", displayname);
-                toChangeDisplayName.putExtra("USERNAME", username);
-                startActivity(toChangeDisplayName);
+                Intent EditProfile = new Intent(ProfilePage.this, EditProfile.class);
+                EditProfile.putExtra("Password",password);
+                EditProfile.putExtra("USERNAME", username);
+                startActivity(EditProfile);
             }
         });
 
@@ -99,6 +149,59 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
                 intent2.putExtra("Password",password);
                 intent2.putExtra("USERNAME",username);
                 startActivity(intent2);
+            }
+        });
+    }
+
+    private void addgoal(View view){
+        EditText user_input = findViewById(R.id.goal_input);
+        String input_text = user_input.getText().toString();
+
+        if(!(input_text.equals(""))){
+            goalsAdapter.add(input_text);
+            user_input.setText("");
+
+            //Saving goal to database
+            DatabaseReference userGoalsRef = FirebaseDatabase.getInstance().getReference("Users").child(username).child("goals");
+            String goalId = userGoalsRef.push().getKey();
+            userGoalsRef.child(goalId).setValue(input_text);
+        }
+        else{
+            Toast.makeText(getApplicationContext(), "Empty input. Please enter a goal.", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void listViewListener() {
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> adapterView, View view, int i, long l) {
+                Context context = getApplicationContext();
+                Toast.makeText(context, "Goal Removed", Toast.LENGTH_LONG).show();
+
+                String deleteGoal = goals.get(i);
+
+                goals.remove(i);
+                goalsAdapter.notifyDataSetChanged();
+
+                DatabaseReference userGoalsRef = FirebaseDatabase.getInstance().getReference("Users").child(username).child("goals");
+                userGoalsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot goalSnapshot : dataSnapshot.getChildren()) {
+                            String goal = goalSnapshot.getValue(String.class);
+                            if (goal.equals(deleteGoal)) {
+                                goalSnapshot.getRef().removeValue();
+                                break;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.v("ProfilePage", "Error: " + databaseError.getMessage());
+                    }
+                });
+                return true;
             }
         });
     }
