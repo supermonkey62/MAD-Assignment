@@ -32,7 +32,7 @@ public class EditProfile extends AppCompatActivity {
         changepassword = findViewById(R.id.change_password);
         changeusername = findViewById(R.id.change_username);
         changepfp = findViewById(R.id.change_pfp);
-        editgoal = findViewById(R.id.edit_goal);
+        
         goback = findViewById(R.id.back);
 
 
@@ -67,9 +67,7 @@ public class EditProfile extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent intent3 = new Intent(EditProfile.this, Profile_Setting.class);
-                intent3.putExtra("USERNAME", username);
-                intent3.putExtra("Password",password);
-                startActivity(intent3);
+                finish();
             }
         });
 
