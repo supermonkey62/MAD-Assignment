@@ -28,7 +28,9 @@ public class timer extends AppCompatActivity {
     private EditText mEditTextInput;
     private Button buttonSet;
     private ProgressBar progressBar;
+    private TextView timertitle;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,6 +41,11 @@ public class timer extends AppCompatActivity {
         mEditTextInput = findViewById(R.id.settimer);
         buttonSet = findViewById(R.id.button_set);
         progressBar = findViewById(R.id.progressBar);
+        timertitle = findViewById(R.id.timertitle);
+
+        String title = getIntent().getStringExtra("TTITLE");
+
+        timertitle.setText(title);
 
         buttonSet.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#8CCDA9"
+    android:background="#D1DCD5"
     tools:context=".PomodoroTimer">
 
 
@@ -13,8 +13,8 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="329dp"
         android:layout_height="304dp"
-        android:layout_marginStart="28dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="60dp"
         android:indeterminate="false"
         android:max="100"
         android:progress="100"
@@ -26,7 +26,7 @@
         android:id="@+id/button"
         android:layout_width="108dp"
         android:layout_height="68dp"
-        android:layout_marginStart="140dp"
+        android:layout_marginStart="148dp"
         android:text="Start"
         android:textColorHighlight="#D18DC8"
         app:layout_constraintBottom_toTopOf="@id/button2"
@@ -48,7 +48,7 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="148dp"
+        android:layout_marginStart="160dp"
         android:text="reset"
         app:layout_constraintBottom_toTopOf="@id/seekBar1"
         app:layout_constraintStart_toStartOf="parent"
@@ -123,6 +123,17 @@
         android:textStyle="bold"
         app:layout_constraintStart_toEndOf="@+id/seekBar3"
         app:layout_constraintTop_toBottomOf="@+id/restDuration" />
+
+    <EditText
+        android:id="@+id/Ptimertitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TextView"
+        android:textSize="34sp"
+        android:textStyle="normal|bold"
+        app:layout_constraintBottom_toTopOf="@id/progressBar"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
