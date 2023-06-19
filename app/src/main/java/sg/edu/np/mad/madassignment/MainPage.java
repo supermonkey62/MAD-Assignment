@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -115,17 +116,24 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         int hour = calendar.get(Calendar.HOUR_OF_DAY);
 
         String greeting = "Hello there";
+        int imageId = R.drawable.morning;
 
         if (hour >= 0 && hour < 12) {
             greeting = "Good morning";
+            imageId = R.drawable.morning;
         } else if (hour >= 12 && hour < 18) {
             greeting = "Good afternoon";
-        } else if(hour >= 18){
+            imageId = R.drawable.afternoon;
+        } else{
             greeting = "Good evening";
+            imageId = R.drawable.evening;
         }
 
         TextView greetingText = findViewById(R.id.greeting_text);
         greetingText.setText(greeting);
+
+        ImageView greetingImage = findViewById(R.id.avatarimage);
+        greetingImage.setImageResource(imageId);
     }
 
 
