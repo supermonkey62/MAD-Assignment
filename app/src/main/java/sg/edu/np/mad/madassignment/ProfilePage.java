@@ -178,8 +178,29 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
                 Context context = getApplicationContext();
                 Toast.makeText(context, "Goal Removed", Toast.LENGTH_LONG).show();
 
+                String deleteGoal = goals.get(i);
+
                 goals.remove(i);
                 goalsAdapter.notifyDataSetChanged();
+
+                DatabaseReference userGoalsRef = FirebaseDatabase.getInstance().getReference("Users").child(username).child("goals");
+                userGoalsRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot goalSnapshot : dataSnapshot.getChildren()) {
+                            String goal = goalSnapshot.getValue(String.class);
+                            if (goal.equals(deleteGoal)) {
+                                goalSnapshot.getRef().removeValue();
+                                break;
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.v("ProfilePage", "Error: " + databaseError.getMessage());
+                    }
+                });
                 return true;
             }
         });
