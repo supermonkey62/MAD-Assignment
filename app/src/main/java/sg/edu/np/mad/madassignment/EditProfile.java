@@ -2,6 +2,7 @@ package sg.edu.np.mad.madassignment;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -9,8 +10,11 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 
 public class EditProfile extends AppCompatActivity {
@@ -18,6 +22,8 @@ public class EditProfile extends AppCompatActivity {
     DatabaseReference userRef;
 
     TextView changepassword,changeusername,changepfp,goback,editgoal;
+
+    String TITLE = "Edit Profile";
     @SuppressLint("MissingInflatedId")
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,6 +90,7 @@ public class EditProfile extends AppCompatActivity {
 
 
     }
+
 }
 
 

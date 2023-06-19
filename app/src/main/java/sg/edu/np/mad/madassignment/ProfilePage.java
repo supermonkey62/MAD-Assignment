@@ -125,7 +125,7 @@ public class ProfilePage extends AppCompatActivity implements UserDataHolder.Use
             @Override
             public void onClick(View v) {
                 Intent EditProfile = new Intent(ProfilePage.this, EditProfile.class);
-                EditProfile.putExtra("DISPLAYNAME", displayname);
+                EditProfile.putExtra("Password",password);
                 EditProfile.putExtra("USERNAME", username);
                 startActivity(EditProfile);
             }

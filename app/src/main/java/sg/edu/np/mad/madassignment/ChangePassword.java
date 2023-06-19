@@ -26,6 +26,8 @@ public class ChangePassword extends AppCompatActivity {
     Button changepasswordbutton,authenticatebutton;
     DatabaseReference userRef;
 
+    String originalpassword;
+
     @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,9 +55,23 @@ public class ChangePassword extends AppCompatActivity {
         confirmedpassword.setEnabled(false);
         changepasswordbutton.setEnabled(false);
         userRef = FirebaseDatabase.getInstance().getReference("Users");
-        Log.v("Password User","+" + username);
+        Log.v("Password User","+" + Password);
 
         profilepageback = findViewById(R.id.profilepageback4);
+
+        userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    originalpassword = dataSnapshot.child("password").getValue().toString();
+                    Log.v("Passowrd","+" + originalpassword);
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.v("ChangePassword", "Error: " + databaseError.getMessage());
+            }
+        });
 
         profilepageback.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -73,8 +89,11 @@ public class ChangePassword extends AppCompatActivity {
 
 
                 final String current = currentpassword.getText().toString();
+                Log.v("Username Password","+"+current);
 
-                if (Password.equals(current)){
+
+
+                if (current.equals(originalpassword)){
                     changepassword.setEnabled(true);
                     confirmedpassword.setEnabled(true);
                     changepasswordbutton.setEnabled(true);
@@ -119,8 +138,12 @@ public class ChangePassword extends AppCompatActivity {
                     });
 
 
-                }
-                else{
+                } else if (current == null ) {
+
+                    currentpassword.setError("Please Input a password");
+                    currentpassword.requestFocus();
+
+                } else{
                     Toast.makeText(getApplicationContext(),"Incorrect Password",Toast.LENGTH_SHORT).show();
                     currentpassword.setError("Incorrect Password");
                     currentpassword.requestFocus();
@@ -142,6 +165,8 @@ public class ChangePassword extends AppCompatActivity {
 
         });
     }
+
+
 
 
 
