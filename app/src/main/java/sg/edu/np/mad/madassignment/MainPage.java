@@ -133,7 +133,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         greetingText.setText(greeting);
 
         ImageView greetingImage = findViewById(R.id.greenbox);
-        greetingImage.setImageResource(R.drawable.afternoon);
+        greetingImage.setImageResource(imageId);
     }
 
 
