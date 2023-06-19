@@ -3,31 +3,25 @@ package sg.edu.np.mad.madassignment;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDataCallback, UserDataHolder.UserDataCallback {
     String title = "MainPage";
-    Button pomodorotimer, normaltimer, Profile, todolist;
+    Button pomodorotimer, todolist;
+    FloatingActionButton normalTimer, profilePage, calendarOverview;
     TextView displaynametext;
-    ImageView calendarexpand;
     List<Task> taskList;
     String displayname;
     RecyclerView recyclerView;
@@ -38,11 +32,11 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         setContentView(R.layout.activity_main_page);
 
         pomodorotimer = findViewById(R.id.pomobutton);
-        normaltimer = findViewById(R.id.NormalTimerBttn);
+        normalTimer = findViewById(R.id.normalTimer);
+        profilePage = findViewById(R.id.profilePage);
+        calendarOverview = findViewById(R.id.calendarOverview);
         displaynametext = findViewById(R.id.displaynametext);
-        Profile = findViewById(R.id.profilepageBttn);
-        calendarexpand = findViewById(R.id.calendarexpand);
-        recyclerView = findViewById(R.id.calenderrecycler);
+        recyclerView = findViewById(R.id.upcomingEventRecycler);
         todolist = findViewById(R.id.tasks);
 
         String password = getIntent().getStringExtra("PASSWORD");
@@ -60,7 +54,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
             }
         });
 
-        normaltimer.setOnClickListener(new View.OnClickListener() {
+        normalTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "Entering Timer", Toast.LENGTH_SHORT).show();
@@ -69,7 +63,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
             }
         });
 
-        Profile.setOnClickListener(new View.OnClickListener() {
+        profilePage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "Entering Profile Page", Toast.LENGTH_SHORT).show();
@@ -82,7 +76,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
             }
         });
 
-        calendarexpand.setOnClickListener(new View.OnClickListener() {
+        calendarOverview.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Toast.makeText(MainPage.this, "Entering Calendar", Toast.LENGTH_SHORT).show();
@@ -104,18 +98,76 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
 
 
 
+
     @Override
     public void onTaskDataFetched(List<Task> tasks) {
         taskList = tasks;
-        recyclerView.setLayoutManager(new LinearLayoutManager(MainPage.this));
-        recyclerView.setAdapter(new Adapter(MainPage.this, taskList));
+
+        List<String> dateList = new ArrayList<>();
+        List<String> taskCountList = new ArrayList<>();
         int numEntities = taskList.size();
-        Log.v("Task Details", "Number of entities: " + numEntities);
+        Log.v(title, "Number of entities: " + numEntities);
+
+        // Create a HashMap to store the date and task count
+        HashMap<String, HashMap<String, Integer>> dateTaskStatusCountMap = new HashMap<>();
+
+        for (Task task : taskList) {
+            String date = task.getDate(); // Replace this with the appropriate getter method for the date in your Task class
+            String status = String.valueOf(task.getStatus()); // Replace this with the appropriate getter method for the status in your Task class
+
+            if (!dateTaskStatusCountMap.containsKey(date)) {
+                // Date doesn't exist in the HashMap, create a new inner HashMap for the status counts
+                dateTaskStatusCountMap.put(date, new HashMap<>());
+            }
+
+            HashMap<String, Integer> statusCountMap = dateTaskStatusCountMap.get(date);
+
+            if (statusCountMap.containsKey(status)) {
+                // Status already exists in the inner HashMap, increment the task count for that status
+                int taskCount = statusCountMap.get(status);
+                statusCountMap.put(status, taskCount + 1);
+            } else {
+                // Status doesn't exist in the inner HashMap, add it with task count 1
+                statusCountMap.put(status, 1);
+            }
+        }
+
+        // Iterate over the HashMap entries and construct the task count strings
+        for (Map.Entry<String, HashMap<String, Integer>> dateEntry : dateTaskStatusCountMap.entrySet()) {
+            String date = dateEntry.getKey();
+            HashMap<String, Integer> statusCountMap = dateEntry.getValue();
+
+            StringBuilder taskCountStringBuilder = new StringBuilder();
+            for (Map.Entry<String, Integer> statusEntry : statusCountMap.entrySet()) {
+                String status = statusEntry.getKey();
+                int taskCount = statusEntry.getValue();
+                taskCountStringBuilder.append(taskCount).append(" ").append(status).append(", ");
+            }
+
+            // Remove the trailing comma and space
+            if (taskCountStringBuilder.length() > 2) {
+                taskCountStringBuilder.setLength(taskCountStringBuilder.length() - 2);
+            }
+
+            // Add the date and task count string to the respective lists
+            dateList.add(date);
+            taskCountList.add(taskCountStringBuilder.toString());
+        }
+
+        // Sort the dateList in ascending order
+        Collections.sort(dateList);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(MainPage.this));
+        MainPageCalendarAdapter adapter = new MainPageCalendarAdapter(MainPage.this, dateList, taskCountList);
+        recyclerView.setAdapter(adapter);
     }
+
+
 
     @Override
     public void onUserDataFetched(String displayname) {
         this.displayname = displayname;
         displaynametext.setText(displayname);
+
     }
 }

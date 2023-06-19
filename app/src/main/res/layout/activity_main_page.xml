@@ -75,40 +75,33 @@
 
     <Button
         android:id="@+id/pomobutton"
-        android:layout_width="200dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="200dp"
-        android:layout_marginTop="50dp"
-        android:text="Go to Pomodoro Timer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/calendarbox" />
+        android:text="Pomodoro Timer"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="@id/todobox"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintTop_toBottomOf="@id/normalTimer" />
 
-    <Button
-        android:id="@+id/NormalTimerBttn"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
-        android:layout_marginTop="50dp"
-        android:text="Go to Normal Timer"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/pomobutton" />
 
-    <ImageView
-        android:id="@+id/settingicon"
-        android:layout_width="match_parent"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/normalTimer"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="325dp"
-        android:layout_marginTop="20dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_settings_24"
-        />
+        android:clickable="true"
+        app:srcCompat="@drawable/baseline_timer_24"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="@id/todobox"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintTop_toBottomOf="@+id/profilePage"/>
+
 
     <TextView
         android:id="@+id/datetext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Today"
+        android:text="Tasks"
         app:layout_constraintTop_toBottomOf="@id/displaynametext"
         android:layout_marginTop="20dp"
         android:paddingStart="40dp"
@@ -116,38 +109,28 @@
         android:textStyle="bold"
         android:textColor="@color/white"/>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/calenderrecycler"
-        android:layout_width="350dp"
-        android:layout_height="150dp"
-        android:layout_marginTop="4dp"
-        app:layout_constraintEnd_toEndOf="parent"
-
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintLeft_toLeftOf="@id/calendarbox"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/calendarexpand" />
-
-    <ImageView
-        android:id="@+id/calendarexpand"
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/calendarOverview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/baseline_add_24"
-        app:layout_constraintTop_toTopOf="@id/calendarbox"
-        android:layout_marginTop="10dp"
-        app:layout_constraintEnd_toEndOf="@id/calendarbox"
-        android:layout_marginEnd="20dp"
-         />
+        android:clickable="true"
+        app:srcCompat="@drawable/baseline_calendar_month_24"
+        app:layout_constraintTop_toTopOf="@id/todobox"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="@id/todobox"
+        android:layout_marginEnd="25dp"/>
 
-    <Button
-        android:id="@+id/profilepageBttn"
-        android:layout_width="200dp"
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/profilePage"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="200dp"
-        android:layout_marginTop="50dp"
-        android:text="Go to Profile Page"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/NormalTimerBttn" />
+        android:clickable="true"
+        app:srcCompat="@drawable/baseline_person_24"
+        app:layout_constraintEnd_toEndOf="@id/todobox"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintTop_toBottomOf="@+id/calendarOverview"/>
 
     <Button
         android:id="@+id/tasks"
@@ -160,6 +143,20 @@
         app:layout_constraintHorizontal_bias="0.506"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/upcomingEventRecycler"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@id/calendarbox"
+        android:layout_marginTop="30dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp"
+        app:layout_constraintBottom_toBottomOf="@id/calendarbox"
+        android:layout_marginBottom="30dp"
+        />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

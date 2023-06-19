@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.CalendarView;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -35,6 +36,8 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
     FloatingActionButton addTasks;
     RecyclerView taskshower;
 
+    ImageView gobackButton;
+
     Calendar selectedDateCalendar;
     private List<Task> taskList;
 
@@ -53,6 +56,7 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
         addTasks = findViewById(R.id.addtask);
         setDateToToday();
         totaltasks = findViewById(R.id.totaltasks);
+        gobackButton = findViewById(R.id.gobackButton);
         username = getIntent().getStringExtra("USERNAME");
 
         TaskDataHolder.getInstance().fetchUserTasks(username, new TaskDataHolder.TaskDataCallback() {
@@ -158,6 +162,13 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
                 saveData();
                 intent.putExtra("USERNAME", username);
                 startActivity(intent);
+            }
+        });
+
+        gobackButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
             }
         });
     }

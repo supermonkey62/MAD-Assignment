@@ -27,8 +27,6 @@ public class LoginPage extends AppCompatActivity {
 
     TextView registertext;
     CheckBox remember_me_checkbox;
-
-    FirebaseDatabase fdb = FirebaseDatabase.getInstance();
     DatabaseReference userRef;
 
 
