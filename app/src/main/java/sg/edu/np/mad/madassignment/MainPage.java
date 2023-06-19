@@ -20,8 +20,8 @@ import java.util.Map;
 
 public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDataCallback, UserDataHolder.UserDataCallback {
     String title = "MainPage";
-    Button pomodorotimer, todolist;
-    FloatingActionButton normalTimer, profilePage, calendarOverview;
+    Button pomodorotimer;
+    FloatingActionButton normalTimer, profilePage, calendarOverview, toDoList;
     TextView displaynametext;
     List<Task> taskList;
     String displayname;
@@ -39,7 +39,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         calendarOverview = findViewById(R.id.calendarOverview);
         displaynametext = findViewById(R.id.displaynametext);
         recyclerView = findViewById(R.id.upcomingEventRecycler);
-        todolist = findViewById(R.id.tasks);
+        toDoList = findViewById(R.id.toDoList);
         todorecycler = findViewById(R.id.mainpagetodo);
 
         user_greeting();
@@ -100,7 +100,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
             }
         });
 
-        todolist.setOnClickListener(new View.OnClickListener() {
+        toDoList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent totodolist = new Intent(MainPage.this,TodolistFragmentholder.class);
