@@ -125,10 +125,10 @@ public class LoginPage extends AppCompatActivity {
                         }
                     });
 
-                } else if (username != null || !username.equals("")) {
+                } else if (username == null || username.equals("")) {
                     usernameEdit.setError("Username is Empty");
                     usernameEdit.requestFocus();
-                    if (password != null || !password.equals("")){
+                    if (password == null || password.equals("")){
                         passwordEdit.setError("Password is Empty");
                         passwordEdit.requestFocus();
                     }

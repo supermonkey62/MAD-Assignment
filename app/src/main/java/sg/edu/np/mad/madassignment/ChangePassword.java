@@ -109,36 +109,41 @@ public class ChangePassword extends AppCompatActivity {
 
                             final String newpassword = changepassword.getText().toString();
                             final String confirmnewpassword = confirmedpassword.getText().toString();
-                            if(newpassword.equals(confirmnewpassword)) {
-                                userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
-                                    @Override
-                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                        if (dataSnapshot.exists()) {
-                                            dataSnapshot.getRef().child("password").setValue(confirmnewpassword);
-                                            Toast.makeText(getApplicationContext(), "Password Successfully Changed", Toast.LENGTH_SHORT).show();
-                                            finish();
-                                        } else {
-                                            Log.v("ChangeDisplayName", "User not found");
+                            if(newpassword.equals(confirmnewpassword) ) {
+                                if (newpassword != null && !newpassword.equals("")){
+                                    userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+                                            if (dataSnapshot.exists()) {
+                                                dataSnapshot.getRef().child("password").setValue(confirmnewpassword);
+                                                Toast.makeText(getApplicationContext(), "Password Successfully Changed", Toast.LENGTH_SHORT).show();
+                                                finish();
+                                            } else {
+                                                Log.v("ChangeDisplayName", "User not found");
+                                            }
                                         }
-                                    }
-                                    @Override
-                                    public void onCancelled(DatabaseError databaseError) {
-                                        Log.v("ChangePassword", "Error: " + databaseError.getMessage());
-                                    }
-                                });
+                                        @Override
+                                        public void onCancelled(DatabaseError databaseError) {
+                                            Log.v("ChangePassword", "Error: " + databaseError.getMessage());
+                                        }
+                                    });
+
+                                }else{
+                                    confirmedpassword.setError("Password cannot be Empty");
+                                    confirmedpassword.requestFocus();
+                                }
 
                             }else{
                                 Toast.makeText(getApplicationContext(),"Password do not match",Toast.LENGTH_SHORT).show();
                                 confirmedpassword.setError("Password do not match");
                                 confirmedpassword.requestFocus();
-
-
                             }
+
                         }
                     });
 
 
-                } else if (current == null ) {
+                } else if (current == null || current.equals("") ) {
 
                     currentpassword.setError("Please Input a password");
                     currentpassword.requestFocus();
