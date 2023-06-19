@@ -78,7 +78,7 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 task.setStatus(true);
-                removedTask = task;
+
                 userTask.child(holder.tag).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {

@@ -7,12 +7,16 @@ import android.view.ViewGroup;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.database.DatabaseReference;
+
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
     private Context context;
     private List<Task> taskList;
+
+
 
     public Adapter(Context context, List<Task> eventList) {
         this.context = context;
@@ -43,6 +47,8 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
         holder.date = task.getDate();
         holder.tag = task.getTag();
         holder.status = task.getStatus();
+        holder.title = task.getTitle();
+
 
         // Do this: From date derive day, and also take the day date from the full date
 

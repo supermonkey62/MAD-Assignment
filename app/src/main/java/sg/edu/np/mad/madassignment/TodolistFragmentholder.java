@@ -34,7 +34,7 @@ public class TodolistFragmentholder extends AppCompatActivity {
             }
         });
 
-        // Set the initial fragment based on the initial state of the switch
+
         boolean switchState = todoswitch.isChecked();
         Fragment initialFragment = switchState ? new DoneTasksFragment() : new TodoFragment();
         getSupportFragmentManager().beginTransaction()

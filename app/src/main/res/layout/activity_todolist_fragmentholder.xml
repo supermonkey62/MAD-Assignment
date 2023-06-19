@@ -9,8 +9,8 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/todofragmentContainerView"
         android:name="com.bumptech.glide.manager.SupportRequestManagerFragment"
-        android:layout_width="398dp"
-        android:layout_height="735dp"
+        android:layout_width="402dp"
+        android:layout_height="687dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.444"

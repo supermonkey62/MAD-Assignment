@@ -2,6 +2,7 @@ package sg.edu.np.mad.madassignment;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -12,7 +13,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 public class ViewHolder extends RecyclerView.ViewHolder {
     TextView box1View, box2View;
 
-    String username, date, tag;
+    String username,date,tag,title;
 
     boolean status;
     FloatingActionButton expandButton;
@@ -49,6 +50,22 @@ public class ViewHolder extends RecyclerView.ViewHolder {
                         toEditTask.putExtra("TAG", tag);
                         toEditTask.putExtra("STATUS", status);
                         context.startActivity(toEditTask);
+                    }
+                });
+
+                deleteButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Log.v("Moving to delete task", "Move to delete task");
+                        Context context = v.getContext();
+                        Intent toDeleteTask = new Intent(context, RemoveTasks.class);
+                        toDeleteTask.putExtra("USERNAME", username);
+                        toDeleteTask.putExtra("DATE", date);
+                        toDeleteTask.putExtra("TAG", tag);
+                        toDeleteTask.putExtra("STATUS", status);
+                        toDeleteTask.putExtra("TITLE",title);
+                        context.startActivity(toDeleteTask);
+
                     }
                 });
             }
