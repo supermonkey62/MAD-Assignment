@@ -9,21 +9,38 @@
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/todofragmentContainerView"
         android:name="com.bumptech.glide.manager.SupportRequestManagerFragment"
-        android:layout_width="402dp"
-        android:layout_height="687dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="371dp"
+        android:layout_height="811dp"
+        android:layout_marginTop="84dp"
+        android:backgroundTint="@color/edit_text_background"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.444"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Switch
         android:id="@+id/todotaskswitch"
-        android:layout_width="155dp"
-        android:layout_height="36dp"
+        android:layout_width="153dp"
+        android:layout_height="69dp"
         android:layout_marginTop="4dp"
+        android:layout_marginEnd="32dp"
         android:text="Switch"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.992"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/backhome"
+        android:layout_width="89dp"
+        android:layout_height="74dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="24dp"
+        android:clickable="true"
+        android:tint="#FEFAFD"
+        app:layout_constraintBottom_toTopOf="@+id/todofragmentContainerView"
+        app:layout_constraintEnd_toStartOf="@+id/todotaskswitch"
+        app:layout_constraintHorizontal_bias="0.111"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
+        app:rippleColor="#FEFAFD"
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
 </androidx.constraintlayout.widget.ConstraintLayout>

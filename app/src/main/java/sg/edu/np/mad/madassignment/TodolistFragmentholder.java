@@ -6,19 +6,35 @@ import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.Switch;
+import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class TodolistFragmentholder extends AppCompatActivity {
     Switch todoswitch;
+    FloatingActionButton backhome;
 
+    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todolist_fragmentholder);
 
         todoswitch = findViewById(R.id.todotaskswitch);
+        backhome = findViewById(R.id.backhome);
+        backhome.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent home = new Intent(TodolistFragmentholder.this,MainPage.class);
+                Toast.makeText(TodolistFragmentholder.this,"Back to HomePage",Toast.LENGTH_SHORT).show();
+                startActivity(home);
+            }
+        });
         todoswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -29,7 +45,7 @@ public class TodolistFragmentholder extends AppCompatActivity {
                         .setReorderingAllowed(true)
                         .addToBackStack(null)
                         .commit();
-                String switchName = isChecked ? "Done Tasks" : "To-Do Tasks";
+                String switchName = isChecked ? "To-Do Tasks" : "Done Tasks";
                 todoswitch.setText(switchName);
             }
         });
@@ -40,7 +56,8 @@ public class TodolistFragmentholder extends AppCompatActivity {
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.todofragmentContainerView, initialFragment)
                 .commit();
-        String initialSwitchName = switchState ? "Done Tasks" : "To-Do Tasks";
+        String initialSwitchName = switchState ? "To-Do Tasks" : "Done Tasks";
         todoswitch.setText(initialSwitchName);
     }
+
 }

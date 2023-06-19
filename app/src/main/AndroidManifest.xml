@@ -18,6 +18,9 @@
         android:theme="@style/Theme.MADAssignment"
         tools:targetApi="31">
         <activity
+            android:name=".SplashActivity"
+            android:exported="false" />
+        <activity
             android:name=".RemoveTasks"
             android:exported="false" />
         <activity

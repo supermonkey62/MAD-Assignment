@@ -8,14 +8,14 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/donerecycler"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="30dp"/>
+        android:layout_height="699dp"
+        android:layout_marginTop="30dp" />
 
     <TextView
         android:id="@+id/textView4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="DONE TASKS"
-        android:textSize="24sp"
+        android:text="Completed Tasks"
+        android:textSize="34sp"
         android:textStyle="bold" />
 </FrameLayout>

@@ -88,7 +88,7 @@ public class TodoFragment extends Fragment implements TaskDataHolder.TaskDataCal
     @Override
     public void onTaskDataFetched(List<Task> tasks) {
         tasklist = tasks;
-        // Initialize taskadapter before setting it to the RecyclerView
+
         taskRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         taskRecyclerview.setAdapter(new TodolistAdaptor(getContext(), tasklist));
         taskadapter.notifyDataSetChanged();
