@@ -21,11 +21,11 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginEnd="-4dp"
-        android:layout_marginBottom="0dp"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="-2dp"
+        android:layout_marginTop="-28dp"
+        android:layout_marginEnd="4dp"
+        android:layout_marginBottom="34dp"
         android:nestedScrollingEnabled="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
@@ -35,8 +35,8 @@
         android:layout_height="79dp"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="4dp"
-        android:layout_marginBottom="204dp"
+        android:layout_marginEnd="2dp"
+        android:layout_marginBottom="263dp"
         android:clickable="true"
         app:srcCompat="@android:drawable/ic_menu_add" />
 

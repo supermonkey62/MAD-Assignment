@@ -36,6 +36,7 @@
         android:id="@+id/goal"
         android:layout_width="365dp"
         android:layout_height="400dp"
+        android:layout_marginBottom="10dp"
         android:background="@drawable/border"
         android:shadowColor="#000000"
         android:shadowDx="0.0"
@@ -44,12 +45,11 @@
         android:text="Goals"
         android:textAlignment="center"
         android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/whitebox"
         app:layout_constraintEnd_toEndOf="@id/whitebox"
-        app:layout_constraintStart_toStartOf="@id/whitebox"
-        app:layout_constraintTop_toBottomOf="@id/tableRow"
 
 
-        />
+        app:layout_constraintStart_toStartOf="@id/whitebox" />
 
     <Button
         android:id="@+id/goal_button"
@@ -75,19 +75,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/whitebox"
         app:layout_constraintStart_toEndOf="@+id/goal" />
 
-    <TableRow
-        android:id="@+id/tableRow"
-        android:layout_width="500dp"
-        android:layout_height="2dp"
-        android:layout_marginStart="16dp"
 
-        android:layout_marginTop="12dp"
-
-        android:background="#335A44"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_view" />
 
     <TextView
         android:id="@+id/profilepagesettings"
@@ -140,9 +128,9 @@
 
     <ListView
         android:id="@+id/goal_list"
-        android:layout_width="362dp"
-        android:layout_height="268dp"
-        android:layout_marginTop="-335dp"
+        android:layout_width="359dp"
+        android:layout_height="303dp"
+        android:layout_marginTop="-375dp"
         android:layout_marginEnd="-365dp"
         app:layout_constraintEnd_toStartOf="@+id/goal"
         app:layout_constraintTop_toBottomOf="@+id/goal"

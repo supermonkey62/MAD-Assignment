@@ -1,8 +1,12 @@
 package sg.edu.np.mad.madassignment;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -34,7 +38,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_page);
 
-        pomodorotimer = findViewById(R.id.pomobutton);
+
         normalTimer = findViewById(R.id.normalTimer);
         profilePage = findViewById(R.id.profilePage);
         calendarOverview = findViewById(R.id.calendarOverview);
@@ -60,22 +64,52 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
             }
         });
 
-        pomodorotimer.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Entering Pomodoro Timer", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(MainPage.this, PomodoroTimer.class);
-                startActivity(intent);
-            }
-        });
 
         normalTimer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(MainPage.this, "Entering Timer", Toast.LENGTH_SHORT).show();
-                Intent intent2 = new Intent(MainPage.this, timer.class);
-                startActivity(intent2);
+                showOptionsDialog();
             }
+            private void showOptionsDialog() {
+                AlertDialog.Builder builder = new AlertDialog.Builder(MainPage.this);
+                builder.setTitle("Options")
+                        .setItems(new CharSequence[]{"Pomodoro Timer", "Countdown Timer", "Cancel"}, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                switch (which) {
+                                    case 0:
+
+                                        startActivity1();
+                                        break;
+                                    case 1:
+                                        startActivity2();
+                                        break;
+                                    case 2:
+
+                                        dialog.dismiss();
+                                        break;
+                                }
+                            }
+                        });
+                builder.create().show();
+            }
+
+            private void startActivity1() {
+
+
+                Intent intent = new Intent(MainPage.this, PomodoroTimer.class);
+
+                startActivity(intent);
+            }
+
+            private void startActivity2() {
+
+
+                Intent intent = new Intent(MainPage.this, timer.class);
+
+                startActivity(intent);
+            }
+
         });
 
         profilePage.setOnClickListener(new View.OnClickListener() {

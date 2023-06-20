@@ -89,6 +89,7 @@
         android:text="TextView"
         android:textSize="34sp"
         android:textStyle="bold"
+        android:hint="Task Name"
         app:layout_constraintBottom_toTopOf="@id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />

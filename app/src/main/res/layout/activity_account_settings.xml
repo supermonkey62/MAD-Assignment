@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginPage"
-    android:background="#335A44">
+    android:background="@color/white">
 
 
     <!--*******Top Tool Bar**********-->
@@ -15,7 +15,7 @@
         android:layout_height="50dp"
         android:layout_alignParentTop="true"
         android:id="@+id/accountSettingToolbar"
-        android:background="#335A44"
+        android:background="@color/white"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme"
         android:elevation="6dp"
@@ -27,7 +27,7 @@
             android:layout_height="match_parent"
             android:orientation="horizontal"
             android:id="@+id/linearlayout"
-            android:background="#335A44">
+            android:background="@color/white">
 
             <TextView
                 android:id="@+id/profileNameback"
@@ -39,7 +39,8 @@
                 android:fontFamily="cursive"
                 android:text="Back"
                 android:drawableLeft="@drawable/baseline_arrow_back_24"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
+                android:drawableTint="@color/black"
                 android:textSize="25sp" />
 
 
@@ -56,7 +57,7 @@
         android:orientation="vertical"
         android:layout_below="@+id/accountSettingToolbar"
         android:padding="10dp"
-        android:background="#335A44">
+        android:background="@color/white">
 
         <!--*******Account Setting**********-->
 
@@ -71,7 +72,7 @@
             android:layout_marginBottom="20dp"
             android:fontFamily="cursive"
             android:text="@string/my_text"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="30sp"
             android:textStyle="bold" />
         <!--*******Logout**********-->
@@ -81,15 +82,15 @@
             android:layout_height="25dp"
             android:drawableLeft="@drawable/ic_logout_exit"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/white"
+            android:drawableTint="@color/black"
             android:fontFamily="sans-serif-smallcaps"
             android:text="Logout"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp" />
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/white"
+            android:background="@color/black"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"/>
         <!--*******Edit Profile**********-->
@@ -99,15 +100,15 @@
             android:layout_height="25dp"
             android:drawableLeft="@drawable/ic_edit_profile"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/white"
+            android:drawableTint="@color/black"
             android:fontFamily="sans-serif-smallcaps"
             android:text="Edit Profile"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp" />
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/white"
+            android:background="@color/black"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"/>
 
@@ -117,15 +118,15 @@
             android:layout_height="25dp"
             android:drawableLeft="@drawable/baseline_delete_24"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/white"
+            android:drawableTint="@color/black"
             android:fontFamily="sans-serif-smallcaps"
             android:text="Delete Account"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             android:textSize="18sp" />
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/white"
+            android:background="@color/black"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"/>
 
