@@ -17,7 +17,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class TodolistFragmentholder extends AppCompatActivity {
     Switch todoswitch;
-    FloatingActionButton backhome;
+
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -26,15 +26,15 @@ public class TodolistFragmentholder extends AppCompatActivity {
         setContentView(R.layout.activity_todolist_fragmentholder);
 
         todoswitch = findViewById(R.id.todotaskswitch);
-        backhome = findViewById(R.id.backhome);
-        backhome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent home = new Intent(TodolistFragmentholder.this,MainPage.class);
-                Toast.makeText(TodolistFragmentholder.this,"Back to HomePage",Toast.LENGTH_SHORT).show();
-                startActivity(home);
-            }
-        });
+//        backhome = findViewById(R.id.backhome);
+//        backhome.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent home = new Intent(TodolistFragmentholder.this,MainPage.class);
+//                Toast.makeText(TodolistFragmentholder.this,"Back to HomePage",Toast.LENGTH_SHORT).show();
+//                startActivity(home);
+//            }
+//        });
         todoswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
