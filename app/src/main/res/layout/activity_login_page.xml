@@ -20,8 +20,8 @@
     <ImageView
         android:id="@+id/whitebox"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="300dp"
+        android:layout_height="330dp"
+        android:layout_marginTop="20dp"
         android:layout_marginBottom="100dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
@@ -46,13 +46,13 @@
         android:id="@+id/logintext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="220dp"
+        android:layout_marginTop="20dp"
         android:gravity="center"
         android:text="Login"
         android:textColor="#335A44"
         android:textSize="30dp"
         android:textStyle="bold"
-        app:layout_constraintTop_toTopOf="@+id/loginpagepic"
+        app:layout_constraintTop_toTopOf="@+id/whitebox"
         tools:layout_editor_absoluteX="-16dp" />
 
     <ImageView
@@ -97,9 +97,7 @@
         android:text="New User? Register Here!"
         android:textColor="@color/white"
         android:textStyle="bold"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/loginbutton"
-        android:layout_marginTop="30dp"/>
+        app:layout_constraintTop_toBottomOf="@id/whitebox" />
 
     <EditText
         android:id="@+id/usernameedit"

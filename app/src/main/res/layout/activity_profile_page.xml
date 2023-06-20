@@ -69,7 +69,7 @@
         android:layout_marginBottom="24dp"
         android:ems="10"
         android:inputType="text"
-        android:text="Write some goals"
+        android:hint="Write some goals"
         android:textColor="@color/gray"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="@+id/whitebox"
