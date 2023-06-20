@@ -136,9 +136,6 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         greetingImage.setImageResource(imageId);
     }
 
-
-
-
     @Override
     public void onTaskDataFetched(List<Task> tasks) {
         taskList = tasks;

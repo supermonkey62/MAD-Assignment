@@ -24,8 +24,17 @@
         app:layout_constraintTop_toBottomOf="@id/titlebox"
         android:layout_marginTop="10dp"
         android:textSize="15dp"
-
         tools:text="Type"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/status"
+        android:textColor="@color/black"
+        app:layout_constraintTop_toBottomOf="@id/box2"
+        android:layout_marginTop="10dp"
+        android:textSize="15dp"
+        tools:text="Status"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/expandtaskbutton"

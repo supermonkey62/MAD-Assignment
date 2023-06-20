@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class ViewHolder extends RecyclerView.ViewHolder {
-    TextView box1View, box2View;
+    TextView box1View, box2View, statusView;
 
     String username,date,tag,title;
 
@@ -24,6 +24,7 @@ public class ViewHolder extends RecyclerView.ViewHolder {
         super(itemView);
         box1View = itemView.findViewById(R.id.titlebox);
         box2View = itemView.findViewById(R.id.box2);
+        statusView = itemView.findViewById(R.id.status);
         expandButton = itemView.findViewById(R.id.expandtaskbutton);
         editButton = itemView.findViewById(R.id.edittaskbutton);
         deleteButton = itemView.findViewById(R.id.deletetaskbutton);

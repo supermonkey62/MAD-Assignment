@@ -47,11 +47,14 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
         holder.date = task.getDate();
         holder.tag = task.getTag();
         holder.status = task.getStatus();
+        if(holder.status == true)
+        {
+            holder.statusView.setText("Completed");
+        }
+        else{
+            holder.statusView.setText(("Incomplete"));
+        }
         holder.title = task.getTitle();
-
-
-        // Do this: From date derive day, and also take the day date from the full date
-
     }
 
     @Override

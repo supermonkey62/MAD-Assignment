@@ -4,12 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.Toast;
 
@@ -17,7 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class TodolistFragmentholder extends AppCompatActivity {
     Switch todoswitch;
-    FloatingActionButton backhome;
+    ImageView backhome;
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -30,9 +32,7 @@ public class TodolistFragmentholder extends AppCompatActivity {
         backhome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent home = new Intent(TodolistFragmentholder.this,MainPage.class);
-                Toast.makeText(TodolistFragmentholder.this,"Back to HomePage",Toast.LENGTH_SHORT).show();
-                startActivity(home);
+                finish();
             }
         });
         todoswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -58,6 +58,12 @@ public class TodolistFragmentholder extends AppCompatActivity {
                 .commit();
         String initialSwitchName = switchState ? "To-Do Tasks" : "Done Tasks";
         todoswitch.setText(initialSwitchName);
+    }
+
+    private void replaceFragment(Fragment fragment){
+        FragmentManager fragmentManager = getSupportFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.commit();
     }
 
 }

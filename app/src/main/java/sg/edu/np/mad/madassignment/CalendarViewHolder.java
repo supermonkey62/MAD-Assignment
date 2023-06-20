@@ -17,5 +17,6 @@ public class CalendarViewHolder extends RecyclerView.ViewHolder {
         dayDate = itemView.findViewById(R.id.dayDate);
         completed = itemView.findViewById(R.id.completed);
         incomplete = itemView.findViewById(R.id.incomplete);
+
     }
 }
