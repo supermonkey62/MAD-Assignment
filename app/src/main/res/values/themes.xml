@@ -4,7 +4,7 @@
         <item name="android:windowDisablePreview">true</item>
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.DarkActionBar">
+    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <!-- Customize other attributes as needed -->
     </style>
 
