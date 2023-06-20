@@ -5,17 +5,17 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingTop="0dp"
-    android:background="#335A44">
+    android:background="@color/white">
 
 
     <ImageView
         android:id="@+id/tiger"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        android:layout_marginStart="56dp"
         android:layout_marginTop="104dp"
-        android:layout_marginEnd="24dp"
         android:src="@drawable/tiger"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/smoke"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -58,10 +58,10 @@
         android:id="@+id/mountainsnow"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginStart="28dp"
         android:layout_marginTop="36dp"
+        android:layout_marginEnd="56dp"
         android:src="@drawable/mountainsnow"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/dog"
         app:layout_constraintTop_toBottomOf="@id/smoke"
         tools:srcCompat="@tools:sample/avatars" />
 
@@ -83,7 +83,7 @@
         android:layout_marginStart="44dp"
         android:layout_marginTop="48dp"
         android:text="Image Selected:"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -97,7 +97,7 @@
         android:text="Image Name"
 
 
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toEndOf="@id/ImageName"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -109,7 +109,7 @@
         android:layout_marginTop="4dp"
 
         android:text="cancel"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/choosepfpconfirm" />
 
