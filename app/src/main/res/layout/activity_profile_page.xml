@@ -46,7 +46,7 @@
         android:textSize="20sp"
         app:layout_constraintEnd_toEndOf="@id/whitebox"
         app:layout_constraintStart_toStartOf="@id/whitebox"
-        app:layout_constraintTop_toBottomOf="@id/tableRow"
+        app:layout_constraintBottom_toBottomOf="@id/whitebox"
 
 
         />
@@ -75,19 +75,7 @@
         app:layout_constraintBottom_toBottomOf="@+id/whitebox"
         app:layout_constraintStart_toEndOf="@+id/goal" />
 
-    <TableRow
-        android:id="@+id/tableRow"
-        android:layout_width="500dp"
-        android:layout_height="2dp"
-        android:layout_marginStart="16dp"
 
-        android:layout_marginTop="12dp"
-
-        android:background="#335A44"
-        android:padding="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/image_view" />
 
     <TextView
         android:id="@+id/profilepagesettings"
