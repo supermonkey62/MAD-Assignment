@@ -41,3 +41,13 @@ Alllow users to go more in detail to view time durations for events they create.
 
 5. Improved User Experience:
 Create animations that makes the app more fluid.
+
+
+**Attributions for Images Used**
+Login Page Productivity Image: <a href="https://www.freepik.com/free-vector/timing-project-scheduling_6976404.htm#query=productivity&position=3&from_view=search&track=sph">Image by pch.vector</a> on Freepik
+App Icon: <a href="https://www.flaticon.com/free-icons/tasks" title="tasks icons">Tasks icons created by Freepik - Flaticon</a>
+Profile Picture Images: https://images.pexels.com/photos/1198802/pexels-photo-1198802.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+https://images.pexels.com/photos/516541/pexels-photo-516541.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+https://images.pexels.com/photos/937980/pexels-photo-937980.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+https://images.pexels.com/photos/1024967/pexels-photo-1024967.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
+https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1
