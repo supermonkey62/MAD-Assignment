@@ -53,4 +53,10 @@ https://images.pexels.com/photos/1024967/pexels-photo-1024967.jpeg?auto=compress
 https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1<br>
 Morning.png: https://www.vecteezy.com/video/1305180-sunrise-timelapse-sun-rise-warm-morning-night-to-day<br>
 Afternoon.png:https://www.istockphoto.com/photos/peru-llama<br>
-Evening:https://pxhere.com/en/photo/913583<br>
+Evening.png:https://pxhere.com/en/photo/913583<br>
+
+**Team Members' Names and Student ID**
+Kenneth Wu , S10243259
+Oh Ern Qi , S10243067
+Lee Jun Rong , S10242663
+Andrew Rimington , S10240137
