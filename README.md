@@ -3,6 +3,13 @@
 Introduction
 On Task is a productivity app where users are able to take control and manage their day to day tasks through utlising the features in the app, such as logging their tasks, setting timers to complete these tasks, and gaining a overview of their work week and events to aid in their time management and work completion.
 
+Description
+On Task allows the user to create tasks and time themselves accomplishing their tasks through the TodoList, Task Calendar and Timer Functions. 
+The to do list allows the user to identify tasks that they have for the current day, be it events to attend to, like classes or activities, or work related tasks, like finishing homework or writing a report. The task calendar allows the user to have a complete overview of tasks planned for days, weeks or months in advance, and allow them to add, edit or remove their tasks if necessary. With the timer functions, there is a default timer and a "pomodoro" timer; a cycle timer that allows the user to finish their tasks effectively by adopting the pomodoro method which uses a set duration spent on tasks, followed by a short break, and completed with a long and final break before accomplishing another task. These functions synergise together to let our user take control of their time and plans by logging their day to day activities and task, while incoporating an effective task completion method to finish their work efficiently and effectively. 
+
+Additionally, users will be able to customise their user profile such as setting a profile picture, changing their display name in the app, changing their passwords, and deleting their accounts.
+
+The main dashboard provides a interface to interact with all the features, while incoporating aesthetics and a cheerful background that changes based on the time of day. Additionally, user friendly features such as remembering the log in details, a rounded design and short and simple processes makes On Task a simple and effective app that supports our users' journey in taking control of their time.
 App Category: Productivity
 
 Stage 1 Features: 
@@ -56,7 +63,12 @@ Afternoon.png:https://www.istockphoto.com/photos/peru-llama<br>
 Evening.png:https://pxhere.com/en/photo/913583<br>
 
 **Team Members' Names and Student ID**
+
 Kenneth Wu , S10243259
+
 Oh Ern Qi , S10243067
+
 Lee Jun Rong , S10242663
+
 Andrew Rimington , S10240137
+
