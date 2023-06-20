@@ -45,10 +45,16 @@ public class MainPageCalendarAdapter extends RecyclerView.Adapter<CalendarViewHo
         String[] counts = taskCount.split(",");
 
         if (counts.length >= 2) {
-            String[] separatetrue = counts[1].trim().split(" ");
-            String[] separatefalse = counts[0].trim().split(" ");
-            holder.completed.setText(separatetrue[0] + "Completed");
-            holder.incomplete.setText(separatefalse[0] + " Incomplete");
+            String[] separate1 = counts[1].trim().split(" ");
+            String[] separate2 = counts[0].trim().split(" ");
+            if (separate1[1].equals("true")){
+                holder.completed.setText(separate1[0] + "Completed");
+                holder.incomplete.setText(separate2[0] + " Incomplete");
+            }
+            else {
+                holder.incomplete.setText(separate1[0] + " Incomplete");
+                holder.completed.setText(separate2[0] + " Completed");
+            }
         } else if (counts.length == 1) {
             String[] separate = counts[0].trim().split(" ");
             if (separate[1].equals("true")) {

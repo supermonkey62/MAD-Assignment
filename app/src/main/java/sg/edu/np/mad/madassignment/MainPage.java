@@ -11,7 +11,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,7 +24,6 @@ import java.util.Map;
 
 public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDataCallback, UserDataHolder.UserDataCallback {
     String title = "MainPage";
-    Button pomodorotimer;
     FloatingActionButton normalTimer, profilePage, calendarOverview, toDoList;
     TextView displaynametext;
     List<Task> taskList;
@@ -144,6 +142,16 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.v("MainPageResume", "On Resume!");
+        String username = getIntent().getStringExtra("USERNAME");
+        TaskDataHolder.getInstance().fetchUserTasks(username, this);
+    }
+
+
 
     private void user_greeting() {
         Calendar calendar = Calendar.getInstance();
