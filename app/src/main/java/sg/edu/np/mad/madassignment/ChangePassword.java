@@ -45,6 +45,7 @@ public class ChangePassword extends AppCompatActivity {
         authenticatebutton = findViewById(R.id.Authenticate);
 
         currentpassword = findViewById(R.id.currentpassword);
+        currentpassword.setTransformationMethod(new PasswordTransformationMethod());
         cancel = findViewById(R.id.canceltext);
         authenticationstatus = findViewById(R.id.status);
 
