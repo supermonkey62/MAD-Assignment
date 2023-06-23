@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:clickable="true"
         android:visibility="gone"
-        app:srcCompat="@drawable/baseline_delete_24"
+        app:srcCompat="@drawable/baseline_delete2_24"
         app:layout_constraintEnd_toEndOf="@+id/expandtaskbutton"
         app:layout_constraintTop_toBottomOf="@id/edittaskbutton"
         android:layout_marginTop="20dp"/>
