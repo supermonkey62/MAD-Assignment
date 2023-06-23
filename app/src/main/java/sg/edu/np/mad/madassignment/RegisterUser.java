@@ -80,36 +80,77 @@ public class RegisterUser extends AppCompatActivity {
                         + '/' + resources.getResourceEntryName(imageResId));
                 Log.v("Register","+"+imageUri.toString());
                 String IMAGEURI = imageUri.toString();
+                if (username != null && !username.equals("") && password != null && !password.equals("") && confirmPassword != null && !confirmPassword.equals("")){
 
-                if (password.equals(confirmPassword)) {
-                    userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
-                        @Override
-                        public void onDataChange(DataSnapshot dataSnapshot) {
-                            if (dataSnapshot.exists()) {
-                                Log.v("RegisterPage", "Username already exists");
-                                Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
-                            } else {
-                                // Create a new user
+                     if (username.length() > 12) {
+                        usernameEdit.setError("Username can only Accept 12 Characters");
+                        usernameEdit.requestFocus();
+                    } else if (username.contains(" ")) {
 
-                                User newUser = new User(username, password,username,IMAGEURI);
-                                TaskCount newTaskCount = new TaskCount(username,0);
-                                Log.v("Register","+" + IMAGEURI);
-                                userRef.child(username).setValue(newUser);
-                                taskcountRef.child(username).setValue(newTaskCount);
-                                Log.v("RegisterPage", "User registered successfully");
-                                Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
-                                finish(); // Finish the activity and go back to the login page
-                            }
+                         usernameEdit.setError("Spaces are not allowed");
+                         usernameEdit.requestFocus();
+
+                     }else{
+                         if (password.equals(confirmPassword)) {
+                             userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+                                 @Override
+                                 public void onDataChange(DataSnapshot dataSnapshot) {
+                                     if (dataSnapshot.exists()) {
+                                         Log.v("RegisterPage", "Username already exists");
+                                         Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
+                                     } else {
+                                         // Create a new user
+
+                                         User newUser = new User(username, password,username,IMAGEURI);
+                                         TaskCount newTaskCount = new TaskCount(username,0);
+                                         Log.v("Register","+" + IMAGEURI);
+                                         userRef.child(username).setValue(newUser);
+                                         taskcountRef.child(username).setValue(newTaskCount);
+                                         Log.v("RegisterPage", "User registered successfully");
+                                         Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
+                                         finish(); // Finish the activity and go back to the login page
+                                     }
+                                 }
+
+                                 @Override
+                                 public void onCancelled(DatabaseError databaseError) {
+                                     Log.v("RegisterPage", "Error: " + databaseError.getMessage());
+                                 }
+                             });
+                         } else {
+                             Log.v("RegisterPage", "Passwords do not match");
+                             Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+                         }
+                     }
+                     }
+
+
+                 else if (username == null || username.equals("")) {
+                    usernameEdit.setError("Username is Empty");
+                    usernameEdit.requestFocus();
+                    if (password == null || password.equals("")) {
+                        passwordEdit.setError("Password is Empty");
+                        passwordEdit.requestFocus();
+                        if (confirmPassword == null || confirmPassword.equals("")) {
+                            confirmPasswordEdit.setError("Password is Empty");
+                            confirmPasswordEdit.requestFocus();
                         }
+                    }
+                }
 
-                        @Override
-                        public void onCancelled(DatabaseError databaseError) {
-                            Log.v("RegisterPage", "Error: " + databaseError.getMessage());
-                        }
-                    });
-                } else {
-                    Log.v("RegisterPage", "Passwords do not match");
-                    Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+                else if (password == null || password.equals("")){
+                    passwordEdit.setError("Password is Empty");
+                    passwordEdit.requestFocus();
+                    if (confirmPassword == null || confirmPassword.equals("")) {
+                        confirmPasswordEdit.setError("Confirm Password is Empty");
+                        confirmPasswordEdit.requestFocus();
+
+                    }
+                }
+
+                else{
+                    confirmPasswordEdit.setError("Confirm Password is Empty");
+                    confirmPasswordEdit.requestFocus();
                 }
             }
         });

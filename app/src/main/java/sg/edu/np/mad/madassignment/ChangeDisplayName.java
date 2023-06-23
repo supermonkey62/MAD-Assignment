@@ -53,9 +53,11 @@ public class ChangeDisplayName extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 final String displayName = changeDisplayName.getText().toString();
-                if(displayName == null) {
+                if(displayName == null || displayName.equals("")) {
 
                     Log.v("DisplayName", "displayName is null");
+                    changeDisplayName.setError("Display Name is Empty");
+                    changeDisplayName.requestFocus();
 
                 } else if (displayName.length() > 12) {
                     changeDisplayName.setError("Display Name can only Accept 12 Characters");
