@@ -15,9 +15,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,7 +30,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
     FloatingActionButton normalTimer, profilePage, calendarOverview, toDoList;
     TextView displaynametext;
     List<Task> taskList;
-    String displayname;
+    String displayname,date;
     RecyclerView recyclerView,todorecycler;
 
 
@@ -56,9 +59,23 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
         TaskDataHolder.getInstance().fetchUserTasks(username, new TaskDataHolder.TaskDataCallback() {
             @Override
             public void onTaskDataFetched(List<Task> tasks) {
+                Calendar calendar = Calendar.getInstance();
+                Date today = calendar.getTime();
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                date = dateFormat.format(today);
                 taskList = tasks;
+                List<Task> filteredTasks = new ArrayList<>();
+                for (Task task : tasks) {
+                    if (task.getDate().equals(date)) {
+                        filteredTasks.add(task);
+                    }
+                }
+
+                taskList = filteredTasks;
+
                 todorecycler.setLayoutManager(new LinearLayoutManager(MainPage.this));
                 todorecycler.setAdapter(new MainpagetodoAdaptor(MainPage.this, taskList));
+
             }
         });
 
