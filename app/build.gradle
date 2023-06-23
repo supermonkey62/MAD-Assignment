@@ -4,12 +4,12 @@ plugins {
 }
 
 android {
-    namespace 'sg.edu.np.mad.madassignment'
+    namespace 'sg.edu.np.mad.team5MADAssignmentOnTask'
     compileSdk 33
 
 
     defaultConfig {
-        applicationId "sg.edu.np.mad.madassignment"
+        applicationId "sg.edu.np.mad.team5MADAssignmentOnTask"
         minSdk 21
         targetSdk 33
         versionCode 1
