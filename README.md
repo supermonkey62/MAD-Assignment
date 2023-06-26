@@ -40,7 +40,7 @@ Allow for further app customisations such as dark mode, larger fonts.
 2. Timer Analytics: 
 Allow the time tracked for tasks to be used in displaying a summarised breakdown of their time and task completion.
 
-3. Add Friends:
+3. Add Friends | Andrew<br>
 Allow users to find other users on the app by searching for their username to befriend each other and view each other's profile.
 
 4. Event Planning | Kenneth<br>
