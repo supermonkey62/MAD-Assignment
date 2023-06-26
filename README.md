@@ -43,7 +43,7 @@ Allow the time tracked for tasks to be used in displaying a summarised breakdown
 3. Add Friends:
 Allow users to find other users on the app by searching for their username to befriend each other and view each other's profile.
 
-4. Event Planning:
+4. Event Planning | Kenneth<br>
 Alllow users to go more in detail to view time durations for events they create.
 
 5. Improved User Experience:
