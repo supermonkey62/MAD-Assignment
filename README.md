@@ -34,7 +34,7 @@ Allow user to set and track the time spent on doing their task while leaving the
 
 Stage 2 Features:
 
-1. Improved User Preferences: 
+1. Improved User Preferences | Jun Rong<br>
 Allow for further app customisations such as dark mode, larger fonts.
 
 2. Timer Analytics: 
