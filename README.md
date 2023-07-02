@@ -34,16 +34,16 @@ Allow user to set and track the time spent on doing their task while leaving the
 
 Stage 2 Features:
 
-1. Improved User Preferences: 
+1. Improved User Preferences | Jun Rong<br>
 Allow for further app customisations such as dark mode, larger fonts.
 
-2. Timer Analytics: 
-Allow the time tracked for tasks to be used in displaying a summarised breakdown of their time and task completion.
+2. TimeTable | Ern Qi<br>
+Allows users to plan what tasks they are going to do each day at what time in advance
 
-3. Add Friends:
+3. Add Friends | Andrew<br>
 Allow users to find other users on the app by searching for their username to befriend each other and view each other's profile.
 
-4. Event Planning:
+4. Event Planning | Kenneth<br>
 Alllow users to go more in detail to view time durations for events they create.
 
 5. Improved User Experience:
