@@ -1,13 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.MADAssignment" parent="Theme.Material3.DayNight">
-        <item name="android:windowDisablePreview">true</item>
+    <style name="Base.Theme.MADAssignment" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+
     </style>
 
-    <style name="AppTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
+    <style name="AppTheme" parent="Base.Theme.MADAssignment">
         <!-- Customize other attributes as needed -->
     </style>
 
-
     <style name="Theme.MADAssignment" parent="Base.Theme.MADAssignment" />
 </resources>
+

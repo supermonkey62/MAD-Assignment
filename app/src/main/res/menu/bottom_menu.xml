@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/home"
+        android:title="Home"
+        android:icon="@drawable/baseline_home_24"/>
+
+    <item
+        android:id="@+id/friends"
+        android:title="Friends"
+        android:icon="@drawable/baseline_person_search_24"/>
+
+    <item
+        android:id="@+id/fab"
+        android:title=""
+        android:enabled="true"/>
+
+    <item
+        android:id="@+id/profile"
+        android:title="Profile"
+        android:icon="@drawable/baseline_person_24"/>
+
+    <item
+        android:id="@+id/settings"
+        android:title="Settings"
+        android:icon="@drawable/baseline_settings_24"/>
+
+
+
+
+</menu>

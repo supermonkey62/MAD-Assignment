@@ -99,7 +99,7 @@ public class LoginPage extends AppCompatActivity {
                                     loginPrefsEditor.apply();
 
                                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
-                                    Intent intent = new Intent(LoginPage.this, MainPage.class);
+                                    Intent intent = new Intent(LoginPage.this, Stage2MainPage.class);
                                     intent.putExtra("USERNAME", username);
                                     Log.v("Login Username","+"+username);
                                     intent.putExtra("PASSWORD",password);
