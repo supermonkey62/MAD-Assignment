@@ -11,8 +11,8 @@ import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
-    private Context context;
-    private List<Task> taskList;
+    final Context context;
+    final List<Task> taskList;
 
 
 
@@ -25,7 +25,6 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
     @Override
     public int getItemViewType(int position) {
         Task task = taskList.get(position);
-        String tasktitle = task.getTitle();
         return R.layout.item_view;
     }
 

@@ -3,7 +3,9 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="yellow">#FFFF00</color>
-    <color name="fuchsia">#FF00FF</color>
+    <color name="FABcolour">#3A6B35</color>
+    <color name="LightBackground">#0f4d19</color>
+    <color name="LightText">#6fc27c</color>
     <color name="red">#FF0000</color>
     <color name="silver">#C0C0C0</color>
     <color name="gray">#808080</color>
@@ -18,12 +20,8 @@
     <color name="navy">#000080</color>
     <color name="forest">#335A44</color>
     <color name="transparent">#00000000</color>
-    <style name="EditTextWhiteStyle" parent="@android:style/Widget.EditText">
-        <item name="android:textColorHint">#FFFFFF</item>
-        <item name="colorControlNormal">#FFFFFF</item>
-        <item name="colorControlActivated">#FFFFFF</item>
-    </style>
-    <color name="app_theme">#009dff</color>
+    <color name="tan">#D4BF88</color>
+    <color name="app_theme">#004B49</color>
     <color name="app_theme_light">#f6fbff</color>
     <color name="edit_text_border">#03A9F4</color>
     <color name="edit_text_background">#f6fbff</color>

@@ -72,7 +72,7 @@ public class LoginPage extends AppCompatActivity {
             public void onClick(View v) {
                 final String username = usernameEdit.getText().toString();
                 final String password = passwordEdit.getText().toString();
-                Log.v("Username","+"+username);
+                Log.v("Username", username);
 
                 if (username != null && !username.equals("") && password != null && !password.equals("")){
 
@@ -101,7 +101,7 @@ public class LoginPage extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginPage.this, Stage2MainPage.class);
                                     intent.putExtra("USERNAME", username);
-                                    Log.v("Login Username","+"+username);
+                                    Log.v("Login Username", username);
                                     intent.putExtra("PASSWORD",password);
                                     intent.putExtra("DISPLAYNAME", displayName);
 

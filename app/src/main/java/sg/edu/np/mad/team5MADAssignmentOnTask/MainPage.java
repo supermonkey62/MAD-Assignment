@@ -51,6 +51,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
 
         String password = getIntent().getStringExtra("PASSWORD");
         String username = getIntent().getStringExtra("USERNAME");
+        Log.v("Find the username", username);
 
         UserDataHolder.getInstance().fetchUserData(username, this);
         TaskDataHolder.getInstance().fetchUserTasks(username, this);

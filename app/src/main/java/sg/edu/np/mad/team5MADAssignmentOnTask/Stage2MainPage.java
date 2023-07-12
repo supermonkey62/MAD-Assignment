@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.view.View;
 
 import sg.edu.np.mad.team5MADAssignmentOnTask.databinding.ActivityStage2MainPageBinding;
 
@@ -42,5 +43,23 @@ public class Stage2MainPage extends AppCompatActivity {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
+    }
+
+    public void previousWeekAction(View view) {
+        // Handle previous week action here
+        // You can get the current fragment and call the corresponding method
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+        if (currentFragment instanceof HomeFragment) {
+            ((HomeFragment) currentFragment).previousWeekAction(view);
+        }
+    }
+
+    public void nextWeekAction(View view) {
+        // Handle next week action here
+        // You can get the current fragment and call the corresponding method
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+        if (currentFragment instanceof HomeFragment) {
+            ((HomeFragment) currentFragment).nextWeekAction(view);
+        }
     }
 }
