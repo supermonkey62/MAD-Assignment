@@ -15,16 +15,18 @@
     <string name="password_text">Password</string>
     <string name="login_page_text">Login Page</string>
 
-    <string name ="HelloText">Hello</string>
+    <string name="HelloText">Hello</string>
 
-    <string name = "UserText">User</string>
-    <string name = "SUN">SUN</string>
-    <string name = "MON">MON</string>
-    <string name = "TUE">TUE</string>
-    <string name = "WED">WED</string>
-    <string name = "THU">THU</string>
-    <string name = "FRI">FRI</string>
-    <string name = "SAT">SAT</string>
-    <string name = "nextWeek">Next Week</string>
-    <string name = "previousWeek">Previous Week</string>
+    <string name="UserText">User</string>
+    <string name="SUN">SUN</string>
+    <string name="MON">MON</string>
+    <string name="TUE">TUE</string>
+    <string name="WED">WED</string>
+    <string name="THU">THU</string>
+    <string name="FRI">FRI</string>
+    <string name="SAT">SAT</string>
+    <string name="nextWeek">Next Week</string>
+    <string name="previousWeek">Previous Week</string>
+    <string name="todayTask">Today\'s Task</string>
+
 </resources>

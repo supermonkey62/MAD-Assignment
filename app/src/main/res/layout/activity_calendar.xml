@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/totaltasks"
         android:text="Add Task"
-        android:textSize="15dp"
+        android:textSize="20dp"
         android:layout_marginStart="20dp"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -67,7 +67,8 @@
         app:layout_constraintTop_toBottomOf="@id/taskshower"
         android:layout_marginTop="10dp"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="20dp" />
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/no_tasks_set"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,6 +1,7 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,28 +48,34 @@ public class MainPageCalendarAdapter extends RecyclerView.Adapter<CalendarViewHo
             String[] separate1 = counts[1].trim().split(" ");
             String[] separate2 = counts[0].trim().split(" ");
             if (separate1[1].equals("true")){
-                holder.completed.setText(separate1[0] + "Completed");
+                holder.completed.setText(separate1[0] + " Completed");
+                holder.completed.setTextColor(Color.BLACK); // Set text color to black
                 holder.incomplete.setText(separate2[0] + " Incomplete");
+                holder.incomplete.setTextColor(Color.BLACK); // Set text color to black
             }
             else {
                 holder.incomplete.setText(separate1[0] + " Incomplete");
+                holder.incomplete.setTextColor(Color.BLACK); // Set text color to black
                 holder.completed.setText(separate2[0] + " Completed");
+                holder.completed.setTextColor(Color.BLACK); // Set text color to black
             }
         } else if (counts.length == 1) {
             String[] separate = counts[0].trim().split(" ");
             if (separate[1].equals("true")) {
                 holder.incomplete.setText(separate[0] + " Completed");
+                holder.incomplete.setTextColor(Color.BLACK); // Set text color to black
                 holder.completed.setText("");
             } else {
                 holder.incomplete.setText(separate[0] + " Incomplete");
+                holder.incomplete.setTextColor(Color.BLACK); // Set text color to black
                 holder.completed.setText("");
             }
         } else {
             holder.completed.setText("");
             holder.incomplete.setText("");
         }
-
     }
+
 
     @Override
     public int getItemCount() {

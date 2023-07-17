@@ -39,9 +39,6 @@ public class UserDataHolder {
 
 
                 }
-
-
-
                 // Invoke the callback method with the retrieved taskList
                 callback.onUserDataFetched(Displayname);
 

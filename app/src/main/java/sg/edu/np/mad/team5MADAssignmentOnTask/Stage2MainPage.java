@@ -13,6 +13,7 @@ import sg.edu.np.mad.team5MADAssignmentOnTask.databinding.ActivityStage2MainPage
 public class Stage2MainPage extends AppCompatActivity {
 
     ActivityStage2MainPageBinding binding;
+    private String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -20,30 +21,44 @@ public class Stage2MainPage extends AppCompatActivity {
         binding = ActivityStage2MainPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Retrieve the extra string "USERNAME" from the intent
+        username = getIntent().getStringExtra("USERNAME");
+
         replaceFragment(new HomeFragment());
         binding.bottomNavigationView.setBackground(null);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.home) {
                 replaceFragment(new HomeFragment());
+            } else if (item.getItemId() == R.id.task) {
+                replaceFragment(new TaskFragment());
+            } else if (item.getItemId() == R.id.timer) {
+                replaceFragment(new TimerFragment());
             } else if (item.getItemId() == R.id.friends) {
                 replaceFragment(new FriendFragment());
             } else if (item.getItemId() == R.id.profile) {
                 replaceFragment(new ProfileFragment());
-            } else if (item.getItemId() == R.id.settings) {
-                replaceFragment(new SettingsFragment());
             }
             return true;
         });
 
+
     }
 
-    private void replaceFragment(Fragment fragment){
+    private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        // Pass the username to the fragment using a Bundle
+        Bundle bundle = new Bundle();
+        bundle.putString("USERNAME", username);
+        fragment.setArguments(bundle);
+
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
+
+
 
     public void previousWeekAction(View view) {
         // Handle previous week action here
