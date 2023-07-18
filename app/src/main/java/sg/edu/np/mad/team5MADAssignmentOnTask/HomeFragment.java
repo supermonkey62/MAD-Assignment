@@ -40,21 +40,26 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
     RecyclerView recyclerView;
     String title = "HomeFragment";
 
+    String selectedDateString;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         Calendar calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         selectedDate = calendar.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        selectedDateString = dateFormat.format(selectedDate);
+        Log.v("Selected Date", selectedDateString);
         initWidgets(view);
-        setWeekView();
-        user_greeting(view);
+
         String username = getArguments().getString("USERNAME");
         Log.v("UsernameHome", username);
         TaskDataHolder.getInstance().fetchUserTasks(username, this);
         UserDataHolder.getInstance().fetchUserData(username, this);
 
-
+        setWeekView();
+        user_greeting(view);
 
         return view;
     }
@@ -98,28 +103,14 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
     @Override
     public void onItemClick(int position, Date date) {
         selectedDate = date;
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        String selectedDateString = dateFormat.format(date);
+        Log.v("OnClickDate", selectedDateString);
         setWeekView();
-
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-        String selectedDateText = dateFormat.format(date);
-        Toast.makeText(getActivity(), "Selected date: " + selectedDateText, Toast.LENGTH_SHORT).show();
-        String username = getArguments().getString("USERNAME");
-        TaskDataHolder.getInstance().fetchUserTasks(username, new TaskDataHolder.TaskDataCallback() {
-            @Override
-            public void onTaskDataFetched(List<Task> tasks) {
-                taskList = tasks;
-                List<Task> filteredTasks = filterTasksByDate(selectedDateText);
-
-
-                // Set RecyclerView adapter with filtered tasks
-                taskShower.setLayoutManager(new LinearLayoutManager(getActivity()));
-                taskShower.setAdapter(new Adapter(getActivity(), filteredTasks));
-
-                int numEntities = filteredTasks.size();
-                Log.v("Task Details", "Number of entities: " + numEntities);
-            }
-        });
+        List<Task> filteredTasks = filterTasksByDate(selectedDateString);
+        taskShower.setAdapter(new Adapter(getActivity(), filteredTasks));
     }
+
 
     private void user_greeting(View view) {
         java.util.Calendar calendar = java.util.Calendar.getInstance();
@@ -138,6 +129,7 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
 
     public void onUserDataFetched(String displayname) {
         displaynametext.setText(displayname);
+        Log.v("UserData", "User Data Retrieval Successful.");
 
     }
 
@@ -203,29 +195,34 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
 
         Log.v(title, "Number of tasks in taskCountList: " + taskCountList.size());
 
+        List<Task> filteredTasks = filterTasksByDate(selectedDateString);
+        taskShower.setLayoutManager(new LinearLayoutManager(getActivity()));
+        taskShower.setAdapter(new Adapter(getActivity(), filteredTasks));
     }
 
     private List<Task> filterTasksByDate(String selectedDate) {
         List<Task> filteredTasks = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
-        String[] dateParts = selectedDate.split(",");
-        Log.v("filterTasksByDate", selectedDate);
+        String[] dateParts = selectedDate.split("/");
 
-        int day = Integer.parseInt(dateParts[2]);
+        int day = Integer.parseInt(dateParts[0]);
         int month = Integer.parseInt(dateParts[1]);
-        int year = Integer.parseInt(dateParts[0]);
-
-
+        int year = Integer.parseInt(dateParts[2]);
+        Log.v("filter Tasks", String.valueOf(day + ", " +  month + ", " + year));
 
         for (Task task : taskList) {
             try {
                 if (task.getDate() != null) {
                     java.util.Calendar taskCalendar = java.util.Calendar.getInstance();
                     taskCalendar.setTime(dateFormat.parse(task.getDate()));
-
+                    // Log the year, month, and date of the task
+                    int taskYear = taskCalendar.get(java.util.Calendar.YEAR);
+                    int taskMonth = taskCalendar.get(java.util.Calendar.MONTH);
+                    int taskDay = taskCalendar.get(java.util.Calendar.DAY_OF_MONTH);
+                    Log.v("TaskDate", "Year: " + taskYear + ", Month: " + taskMonth + ", Day: " + taskDay);
                     // Check if the task date matches the selected date
                     if (year == taskCalendar.get(java.util.Calendar.YEAR) &&
-                            month == taskCalendar.get(java.util.Calendar.MONTH) &&
+                            month - 1 == taskCalendar.get(java.util.Calendar.MONTH) &&
                             day == taskCalendar.get(java.util.Calendar.DAY_OF_MONTH)) {
                         filteredTasks.add(task);
                     }
@@ -234,12 +231,10 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
                 e.printStackTrace();
             }
         }
-
+        int numEntities = filteredTasks.size();
+        Log.v("FilteredTasksSize", "Number of entities: " + numEntities);
         return filteredTasks;
     }
-
-
-
 }
 
 

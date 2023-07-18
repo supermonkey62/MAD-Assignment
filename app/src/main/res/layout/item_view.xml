@@ -9,8 +9,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/titlebox"
-        android:textColor="@color/black"
-        android:textSize="20dp"
+        android:textColor="@color/white"
+        android:textSize="20sp"
         tools:text="Task Title"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_marginTop="20dp"
@@ -20,20 +20,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/box2"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/titlebox"
         android:layout_marginTop="10dp"
-        android:textSize="15dp"
+        android:textSize="15sp"
         tools:text="Type"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/status"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/box2"
         android:layout_marginTop="10dp"
-        android:textSize="15dp"
+        android:textSize="15sp"
         tools:text="Status"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
