@@ -21,9 +21,6 @@
             android:theme="@style/Theme.MaterialComponents.NoActionBar"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
-            android:exported="true" />
-        <activity
             android:name=".RemoveTasks"
             android:exported="false" />
         <activity

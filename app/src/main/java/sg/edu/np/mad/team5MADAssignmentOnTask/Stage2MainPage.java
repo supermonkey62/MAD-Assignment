@@ -1,12 +1,17 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Bundle;
-import android.view.View;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import sg.edu.np.mad.team5MADAssignmentOnTask.databinding.ActivityStage2MainPageBinding;
 
@@ -14,6 +19,8 @@ public class Stage2MainPage extends AppCompatActivity {
 
     ActivityStage2MainPageBinding binding;
     private String username;
+
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,8 +37,6 @@ public class Stage2MainPage extends AppCompatActivity {
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.home) {
                 replaceFragment(new HomeFragment());
-            } else if (item.getItemId() == R.id.task) {
-                replaceFragment(new TaskFragment());
             } else if (item.getItemId() == R.id.timer) {
                 replaceFragment(new TimerFragment());
             } else if (item.getItemId() == R.id.friends) {
@@ -40,6 +45,16 @@ public class Stage2MainPage extends AppCompatActivity {
                 replaceFragment(new ProfileFragment());
             }
             return true;
+        });
+
+        fab = findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Stage2MainPage.this, LoginPage.class);
+                startActivity(intent);
+            }
         });
 
 
@@ -57,8 +72,6 @@ public class Stage2MainPage extends AppCompatActivity {
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
-
-
 
     public void previousWeekAction(View view) {
         // Handle previous week action here
@@ -78,3 +91,4 @@ public class Stage2MainPage extends AppCompatActivity {
         }
     }
 }
+

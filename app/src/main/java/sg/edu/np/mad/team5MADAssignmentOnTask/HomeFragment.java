@@ -17,7 +17,6 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CalendarView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,10 +30,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class HomeFragment extends Fragment implements CalendarAdapter.OnItemListener, TaskDataHolder.TaskDataCallback, UserDataHolder.UserDataCallback {
+public class HomeFragment extends Fragment implements CalendarAdapter.OnItemListener, TaskDataHolder.TaskDataCallback, UserDataHolder.UserDataCallback, SelectListener {
     private TextView monthYearText, greetingText, displaynametext;
 
-    private RecyclerView calendarRecyclerView, taskShower;
+    private RecyclerView calendarRecyclerView, eventShower, taskShower;
 
     List<Task> taskList;
     RecyclerView recyclerView;
@@ -70,6 +69,7 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         greetingText = view.findViewById(R.id.greeting_text);
         displaynametext = view.findViewById(R.id.displayNameText);
         recyclerView = view.findViewById(R.id.upcomingEventRecycler);
+        eventShower = view.findViewById(R.id.eventshower);
         taskShower = view.findViewById(R.id.taskshower);
     }
 
@@ -108,7 +108,8 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         Log.v("OnClickDate", selectedDateString);
         setWeekView();
         List<Task> filteredTasks = filterTasksByDate(selectedDateString);
-        taskShower.setAdapter(new Adapter(getActivity(), filteredTasks));
+        eventShower.setAdapter(new Adapter(getActivity(), filteredTasks, this));
+        taskShower.setAdapter(new MainpagetodoAdaptor(getActivity(),filteredTasks));
     }
 
 
@@ -135,6 +136,8 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
 
     public void onTaskDataFetched(List<Task> tasks) {
         taskList = tasks;
+
+
 
         List<String> dateList = new ArrayList<>();
         List<String> taskCountList = new ArrayList<>();
@@ -196,8 +199,11 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         Log.v(title, "Number of tasks in taskCountList: " + taskCountList.size());
 
         List<Task> filteredTasks = filterTasksByDate(selectedDateString);
+        eventShower.setLayoutManager(new LinearLayoutManager(getActivity()));
+        eventShower.setAdapter(new Adapter(getActivity(), filteredTasks, this));
+
         taskShower.setLayoutManager(new LinearLayoutManager(getActivity()));
-        taskShower.setAdapter(new Adapter(getActivity(), filteredTasks));
+        taskShower.setAdapter(new MainpagetodoAdaptor(getActivity(), filteredTasks));
     }
 
     private List<Task> filterTasksByDate(String selectedDate) {
@@ -212,7 +218,7 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
 
         for (Task task : taskList) {
             try {
-                if (task.getDate() != null) {
+                if (task.getDate() != null && !task.getStatus()) {
                     java.util.Calendar taskCalendar = java.util.Calendar.getInstance();
                     taskCalendar.setTime(dateFormat.parse(task.getDate()));
                     // Log the year, month, and date of the task
@@ -234,6 +240,23 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         int numEntities = filteredTasks.size();
         Log.v("FilteredTasksSize", "Number of entities: " + numEntities);
         return filteredTasks;
+    }
+
+    @Override
+    public void onItemClicked(Task task) {
+        // Handle the click event for the task items in the RecyclerView
+        // For example, you can display a dialog or navigate to a new activity
+        Intent intent = new Intent(getActivity(), EditTask.class);
+        // Pass the task data to the EditTaskActivity using intent extras
+        intent.putExtra("TAG", task.getTag());
+        intent.putExtra("STATUS", task.getStatus());
+        intent.putExtra("USERNAME", task.getUsername());
+        intent.putExtra("DATE", task.getDate());
+
+        // Add more intent extras as needed for other task details
+
+        startActivity(intent);
+
     }
 }
 

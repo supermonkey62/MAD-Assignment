@@ -28,5 +28,7 @@
     <string name="nextWeek">Next Week</string>
     <string name="previousWeek">Previous Week</string>
     <string name="todayTask">Today\'s Task</string>
+    <string name="task_text">Tasks</string>
+    <string name="events_text">Events</string>
 
 </resources>
