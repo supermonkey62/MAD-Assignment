@@ -10,6 +10,10 @@ import android.widget.ProgressBar;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 import java.util.Locale;
 
 public class PomodoroTimer extends AppCompatActivity {
@@ -41,7 +45,7 @@ public class PomodoroTimer extends AppCompatActivity {
     private int currentState;
     private int completedPomodoros;
 
-    @SuppressLint("MissingInflatedId")
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +64,8 @@ public class PomodoroTimer extends AppCompatActivity {
         timertitle = findViewById(R.id.Ptimertitle);
 
         String title = getIntent().getStringExtra("TITLE");
+        DatabaseReference userTask = FirebaseDatabase.getInstance().getReference("Task");
+        String taskTag = getIntent().getStringExtra("TAG");
 
         timertitle.setText(title);
 
@@ -262,9 +268,9 @@ public class PomodoroTimer extends AppCompatActivity {
         int progress = (int) ((timeLeftInMillis / (float) getCurrentTimerDuration()) * 100);
         progressBar.setProgress(progress);
 
-
-
     }
+
+
 
     private long getCurrentTimerDuration() {
         if (currentState == POMODORO_STATE) {

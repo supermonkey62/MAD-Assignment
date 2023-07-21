@@ -18,6 +18,7 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".TaskAnalysis"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".Stage2MainPage"
@@ -31,6 +32,7 @@
             android:exported="false" />
         <activity
             android:name=".TodolistFragmentholder"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".EditTask"
@@ -85,6 +87,7 @@
             android:exported="false" />
         <activity
             android:name=".timer"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
         <activity
             android:name=".PomodoroTimer"

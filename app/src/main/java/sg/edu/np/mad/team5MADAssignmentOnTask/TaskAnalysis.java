@@ -220,6 +220,8 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         for (Task task : tasks) {
             if (task.getStatus() == true) {
                 String month = getMonthFromDate(task.getDate());
+                Log.v("string month", task.getDate());
+                Log.v("month",month);
                 if (completedTasksByMonth.containsKey(month)) {
                     int count = completedTasksByMonth.get(month);
                     completedTasksByMonth.put(month, count + 1);
@@ -276,25 +278,15 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
 
 
 
-    private String getMonthFromDate(String date) {
-        SimpleDateFormat inputFormat = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            inputFormat = new SimpleDateFormat("yyyy-MM-dd");
-        }
-        SimpleDateFormat outputFormat = null;
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            outputFormat = new SimpleDateFormat("MMM");
-        }
+        private String getMonthFromDate(String date) {
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("MMM");
         try {
-            Date parsedDate = null;
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                parsedDate = inputFormat.parse(date);
-            }
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                return outputFormat.format(parsedDate);
-            }
+            Date parsedDate = inputFormat.parse(date);
+            return outputFormat.format(parsedDate);
         } catch (ParseException e) {
             e.printStackTrace();
+            Log.e("DateParsing", "Parsing failed: " + e.getMessage());
         }
         return "";
     }
