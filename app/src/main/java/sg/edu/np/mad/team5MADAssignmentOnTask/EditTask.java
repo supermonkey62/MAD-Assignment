@@ -31,6 +31,7 @@ public class EditTask extends AppCompatActivity {
     TextView selectedOption;
 
     DatabaseReference userTask;
+    float existingTimeSpent;
 
 
     @Override
@@ -69,13 +70,18 @@ public class EditTask extends AppCompatActivity {
                 selectedOption.setText("Task: " + taskTitle + " , " + typeTitle + " , " + selectedDate + " , " + username + " , " + tag);
                 userTask = FirebaseDatabase.getInstance().getReference("Task");
 
+
                 userTask.child(tag).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
+                            Task existingtask = dataSnapshot.getValue(Task.class);
+                            existingTimeSpent = existingtask.getTimespent();
+                            int existingsession = existingtask.getSessions();
+                            String category = existingtask.getCategory();
                             Log.v("Username", tag);
                             Log.v("CreateTask","Task: " + taskTitle + " , " + typeTitle + " , " + selectedDate + " , " + username + " , " + tag + " , " + status);
-                            Task newTask = new Task(username, taskTitle, typeTitle, selectedDate, tag, status);
+                            Task newTask = new Task(username, taskTitle, typeTitle, selectedDate, tag, status, existingTimeSpent,existingsession,category);
                             userTask.child(tag).setValue(newTask);
                             finish();
 

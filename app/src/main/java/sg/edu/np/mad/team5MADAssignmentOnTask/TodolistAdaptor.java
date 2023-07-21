@@ -25,6 +25,8 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
     private DatabaseReference userTask;
     private Task removedTask;
 
+    float existingTimeSpent;
+
     public TodolistAdaptor(Context context, List<Task> eventList) {
         this.context = context;
         this.taskList = eventList;
@@ -56,6 +58,8 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
         holder.status = task.getStatus();
         holder.title = task.getTitle();
         holder.type = task.getType();
+        holder.sessions = task.getSessions();
+        holder.category = task.getCategory();
 
         if (task.getStatus() == false) {
             holder.itemView.setVisibility(View.VISIBLE);
@@ -76,7 +80,11 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            Task updateTask = new Task(holder.username, holder.title, holder.type, holder.date, holder.tag, true);
+                            Task existingtask = dataSnapshot.getValue(Task.class);
+                            existingTimeSpent = existingtask.getTimespent();
+                            int existingsession= existingtask.getSessions();
+                            String category = existingtask.getCategory();
+                            Task updateTask = new Task(holder.username, holder.title, holder.type, holder.date, holder.tag, true,existingTimeSpent,existingsession,category);
                             userTask.child(holder.tag).setValue(updateTask);
                         } else {
                             Log.v("TaskCount", holder.tag + " does not exist.");

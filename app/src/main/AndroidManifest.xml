@@ -17,11 +17,11 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".Stage2MainPage"
+            android:name=".TaskAnalysis"
             android:exported="false" />
         <activity
-            android:name=".SplashActivity"
-            android:exported="true" />
+            android:name=".Stage2MainPage"
+            android:exported="false" />
         <activity
             android:name=".RemoveTasks"
             android:exported="false" />

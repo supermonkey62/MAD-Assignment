@@ -13,7 +13,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="329dp"
         android:layout_height="304dp"
-        android:layout_marginStart="40dp"
+        android:layout_marginStart="28dp"
         android:layout_marginTop="60dp"
         android:indeterminate="false"
         android:max="100"
@@ -37,9 +37,12 @@
         android:id="@+id/pomotext"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="140dp"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="#E91E63"
+        android:textSize="60sp"
+        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="@+id/progressBar"
-        app:layout_constraintHorizontal_bias="0.477"
         app:layout_constraintStart_toStartOf="@+id/progressBar"
         app:layout_constraintTop_toTopOf="@+id/progressBar" />
 

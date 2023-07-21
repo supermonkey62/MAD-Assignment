@@ -7,9 +7,11 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 
+import java.util.List;
+
 import sg.edu.np.mad.team5MADAssignmentOnTask.databinding.ActivityStage2MainPageBinding;
 
-public class Stage2MainPage extends AppCompatActivity {
+public class Stage2MainPage extends AppCompatActivity implements TaskDataHolder.TaskDataCallback,UserDataHolder.UserDataCallback{
 
     ActivityStage2MainPageBinding binding;
 
@@ -21,6 +23,12 @@ public class Stage2MainPage extends AppCompatActivity {
 
         replaceFragment(new HomeFragment());
         binding.bottomNavigationView.setBackground(null);
+
+        String password = getIntent().getStringExtra("PASSWORD");
+        String username = getIntent().getStringExtra("USERNAME");
+
+        UserDataHolder.getInstance().fetchUserData(username, this);
+        TaskDataHolder.getInstance().fetchUserTasks(username, this);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.home) {
@@ -38,9 +46,28 @@ public class Stage2MainPage extends AppCompatActivity {
     }
 
     private void replaceFragment(Fragment fragment){
+        String username = getIntent().getStringExtra("USERNAME");
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (fragment instanceof HomeFragment) {
+            fragment = HomeFragment.newInstance(username);
+        }
+
+        else if (fragment instanceof  ProfileFragment){
+            fragment = ProfileFragment.newInstance(username);
+
+        }
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
+    }
+
+    @Override
+    public void onTaskDataFetched(List<Task> tasks) {
+
+    }
+
+    @Override
+    public void onUserDataFetched(String displayname) {
+
     }
 }

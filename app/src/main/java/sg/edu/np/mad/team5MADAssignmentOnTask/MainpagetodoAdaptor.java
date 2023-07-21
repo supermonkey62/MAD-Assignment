@@ -25,6 +25,8 @@ public class MainpagetodoAdaptor extends RecyclerView.Adapter<MainpageViewHolder
     private DatabaseReference userTask;
     private Task removedTask;
 
+    float existingTimeSpent;
+
     public MainpagetodoAdaptor(Context context, List<Task> eventList) {
         this.context = context;
         this.taskList = eventList;
@@ -76,7 +78,11 @@ public class MainpagetodoAdaptor extends RecyclerView.Adapter<MainpageViewHolder
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            Task updateTask = new Task(holder.username, holder.title, holder.type, holder.date, holder.tag, true);
+                            Task existingtask = dataSnapshot.getValue(Task.class);
+                            existingTimeSpent = existingtask.getTimespent();
+                            int existingsession = existingtask.getSessions();
+                            String category = existingtask.getCategory();
+                            Task updateTask = new Task(holder.username, holder.title, holder.type, holder.date, holder.tag, true,existingTimeSpent,existingsession,category);
                             userTask.child(holder.tag).setValue(updateTask);
                         } else {
                             Log.v("TaskCount", holder.tag + " does not exist.");

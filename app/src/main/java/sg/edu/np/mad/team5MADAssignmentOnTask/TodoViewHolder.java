@@ -18,9 +18,10 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
     FloatingActionButton tasktimerlink;
 
     TextView dateoftask;
+    int sessions;
 
     boolean status;
-    String username, date, tag,title,type;
+    String username, date, tag,title,type,category;
 
     FloatingActionButton expandButton;
     FloatingActionButton editButton;
@@ -57,6 +58,7 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
                         toEditTask.putExtra("DATE", date);
                         toEditTask.putExtra("TAG", tag);
                         toEditTask.putExtra("STATUS", status);
+                        toEditTask.putExtra("CATEGORY",category);
                         context.startActivity(toEditTask);
                     }
                 });
@@ -71,6 +73,7 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
                         toDeleteTask.putExtra("TAG", tag);
                         toDeleteTask.putExtra("STATUS", status);
                         toDeleteTask.putExtra("TITLE",title);
+                        toDeleteTask.putExtra("CATEGORY",category);
                         context.startActivity(toDeleteTask);
 
                     }
@@ -120,6 +123,8 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
         Context context = itemView.getContext();
         Intent intent = new Intent(context, PomodoroTimer.class);
         intent.putExtra("TITLE", task.getText());
+
+
         context.startActivity(intent);
     }
 
@@ -127,7 +132,14 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
 
         Context context = itemView.getContext();
         Intent intent = new Intent(context, timer.class);
-        intent.putExtra("TTITLE", task.getText());
+        intent.putExtra("USERNAME", username);
+        intent.putExtra("DATE", date);
+        intent.putExtra("TAG", tag);
+        intent.putExtra("STATUS", status);
+        intent.putExtra("TITLE",title);
+        intent.putExtra("TYPE",type);
+        intent.putExtra("CATEGORY",category);
+
         context.startActivity(intent);
     }
 
