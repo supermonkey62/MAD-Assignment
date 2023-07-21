@@ -48,12 +48,19 @@ public class Stage2MainPage extends AppCompatActivity {
         });
 
         fab = findViewById(R.id.fab);
-
+        FloatingActionButton addTaskFAB = findViewById(R.id.addTaskFAB);
+        FloatingActionButton addEventFAB = findViewById(R.id.addEventFAB);
         fab.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Stage2MainPage.this, LoginPage.class);
-                startActivity(intent);
+                // Toggle visibility of addTaskFAB and addEventFAB
+                if (addTaskFAB.getVisibility() == View.VISIBLE && addEventFAB.getVisibility() == View.VISIBLE) {
+                    addTaskFAB.setVisibility(View.GONE);
+                    addEventFAB.setVisibility(View.GONE);
+                } else {
+                    addTaskFAB.setVisibility(View.VISIBLE);
+                    addEventFAB.setVisibility(View.VISIBLE);
+                }
             }
         });
 
