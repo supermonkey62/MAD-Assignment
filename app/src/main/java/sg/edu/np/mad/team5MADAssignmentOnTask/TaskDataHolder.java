@@ -35,7 +35,7 @@ public class TaskDataHolder {
                 taskList.clear();
                 for (DataSnapshot eventSnapshot : dataSnapshot.getChildren()) {
                     Task task = eventSnapshot.getValue(Task.class);
-                    if (task != null && task.getUsername().equals(username)) {
+                    if (task != null  && task.getUsername() != null && task.getUsername().equals(username)) {
                         taskList.add(task);
                     }
                     else{

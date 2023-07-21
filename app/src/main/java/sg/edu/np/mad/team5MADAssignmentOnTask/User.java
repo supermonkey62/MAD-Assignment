@@ -3,6 +3,8 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 public class User {
     private String username, password,displayname, ImageURI;
 
+
+
     public User() {
     }
 

@@ -15,7 +15,6 @@ public class TodolistFragmentholder extends AppCompatActivity {
     Switch todoswitch;
     ImageView backhome;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

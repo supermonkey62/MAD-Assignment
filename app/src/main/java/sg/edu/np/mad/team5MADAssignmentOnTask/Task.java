@@ -2,22 +2,52 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 public class Task {
 
-    String username, title, type, date,tag;
+    String username, title, type, date,tag,category;
     Boolean Status;
+
+    float timespent;
+    int sessions;
+
 
     public Task() {
     }
 
-    public Task(String username, String title, String type, String date,String tag,Boolean status) {
+    public Task(String username, String title, String type, String date,String tag,Boolean status,float timespent, int sessions,String category){
         this.username = username;
         this.title = title;
         this.type = type;
         this.date = date;
-        this.Status = status;
         this.tag = tag;
+        this.Status = status;
+        this.timespent = timespent;
+        this.sessions = sessions;
+        this.category = category;
+
     }
 
+    public String getCategory() {
+        return category;
+    }
 
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public int getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(int sessions) {
+        this.sessions = sessions;
+    }
+
+    public float getTimespent() {
+        return timespent;
+    }
+
+    public void setTimespent(float timespent) {
+        this.timespent = timespent;
+    }
 
     public Boolean getStatus() {
         return Status;
