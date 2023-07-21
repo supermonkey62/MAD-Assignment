@@ -38,6 +38,9 @@ public class TaskDataHolder {
                     if (task != null  && task.getUsername() != null && task.getUsername().equals(username)) {
                         taskList.add(task);
                     }
+                    else{
+                        Log.v("TaskDataHolderError", task.getUsername());
+                    }
                 }
 
                 if (taskList.isEmpty()) {

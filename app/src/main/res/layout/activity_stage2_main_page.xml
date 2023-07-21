@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/forest"
+    android:background="@color/app_theme"
     tools:context=".Stage2MainPage">
 
     <FrameLayout
@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/bottomAppBar"
         android:layout_gravity="bottom"
-        android:background="@color/white"
+        android:backgroundTint="@color/white"
         app:fabCradleMargin="10dp"
         app:fabCradleRoundedCornerRadius="50dp">
 
@@ -29,6 +29,8 @@
             android:layout_marginEnd="20dp"
             app:labelVisibilityMode="unlabeled"
             android:background="@color/transparent"
+            app:itemIconTint="@color/app_theme"
+
             app:menu="@menu/bottom_menu"/>
 
     </com.google.android.material.bottomappbar.BottomAppBar>
@@ -36,9 +38,10 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:src="@drawable/baseline_add2_24"
+        android:id="@+id/fab"
+        android:backgroundTint="@color/white"
+        android:src="@drawable/baseline_add_24"
         app:layout_anchor="@id/bottomAppBar"
-        app:maxImageSize="40dp"
-        android:tint="@color/forest"/>
+        app:tint="@color/app_theme"
+        android:contentDescription="@string/app_name"/>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

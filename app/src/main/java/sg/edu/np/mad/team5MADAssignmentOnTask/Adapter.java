@@ -5,27 +5,29 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
 public class Adapter extends RecyclerView.Adapter<ViewHolder> {
 
-    private Context context;
-    private List<Task> taskList;
+    final Context context;
+    final List<Task> taskList;
+
+    private SelectListener listener;
 
 
-
-    public Adapter(Context context, List<Task> eventList) {
+    public Adapter(Context context, List<Task> eventList, SelectListener listener) {
         this.context = context;
         this.taskList = eventList;
+        this.listener = listener;
 
     }
 
     @Override
     public int getItemViewType(int position) {
         Task task = taskList.get(position);
-        String tasktitle = task.getTitle();
         return R.layout.item_view;
     }
 
@@ -45,14 +47,15 @@ public class Adapter extends RecyclerView.Adapter<ViewHolder> {
         holder.date = task.getDate();
         holder.tag = task.getTag();
         holder.status = task.getStatus();
-        if(holder.status == true)
-        {
-            holder.statusView.setText("Completed");
-        }
-        else{
-            holder.statusView.setText(("Incomplete"));
-        }
-        holder.title = task.getTitle();
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Call the onTaskItemClick method of the click listener with the clicked task
+                listener.onItemClicked(taskList.get(position));
+
+            }
+        });
     }
 
     @Override

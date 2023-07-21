@@ -12,7 +12,8 @@
         android:text="Day and Date"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="10dp"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/incomplete"
@@ -22,7 +23,8 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/dayDate"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"/>
+        android:layout_marginStart="20dp"
+        android:textColor="@color/black"/>
 
     <TextView
         android:id="@+id/completed"
@@ -32,5 +34,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toRightOf="@id/incomplete"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"/>
+        android:layout_marginStart="20dp"
+        android:textColor="@color/black"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

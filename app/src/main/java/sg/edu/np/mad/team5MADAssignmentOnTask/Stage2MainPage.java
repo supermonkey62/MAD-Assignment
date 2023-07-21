@@ -1,19 +1,26 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.os.Bundle;
-
-import java.util.List;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import sg.edu.np.mad.team5MADAssignmentOnTask.databinding.ActivityStage2MainPageBinding;
 
-public class Stage2MainPage extends AppCompatActivity implements TaskDataHolder.TaskDataCallback,UserDataHolder.UserDataCallback{
+public class Stage2MainPage extends AppCompatActivity {
 
     ActivityStage2MainPageBinding binding;
+    private String username;
+
+    FloatingActionButton fab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,53 +28,67 @@ public class Stage2MainPage extends AppCompatActivity implements TaskDataHolder.
         binding = ActivityStage2MainPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        // Retrieve the extra string "USERNAME" from the intent
+        username = getIntent().getStringExtra("USERNAME");
+
         replaceFragment(new HomeFragment());
         binding.bottomNavigationView.setBackground(null);
-
-        String password = getIntent().getStringExtra("PASSWORD");
-        String username = getIntent().getStringExtra("USERNAME");
-
-        UserDataHolder.getInstance().fetchUserData(username, this);
-        TaskDataHolder.getInstance().fetchUserTasks(username, this);
 
         binding.bottomNavigationView.setOnItemSelectedListener(item -> {
             if (item.getItemId() == R.id.home) {
                 replaceFragment(new HomeFragment());
+            } else if (item.getItemId() == R.id.timer) {
+                replaceFragment(new TimerFragment());
             } else if (item.getItemId() == R.id.friends) {
                 replaceFragment(new FriendFragment());
             } else if (item.getItemId() == R.id.profile) {
                 replaceFragment(new ProfileFragment());
-            } else if (item.getItemId() == R.id.settings) {
-                replaceFragment(new SettingsFragment());
             }
             return true;
         });
 
+        fab = findViewById(R.id.fab);
+
+        fab.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(Stage2MainPage.this, LoginPage.class);
+                startActivity(intent);
+            }
+        });
+
+
     }
 
-    private void replaceFragment(Fragment fragment){
-        String username = getIntent().getStringExtra("USERNAME");
+    private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if (fragment instanceof HomeFragment) {
-            fragment = HomeFragment.newInstance(username);
-        }
 
-        else if (fragment instanceof  ProfileFragment){
-            fragment = ProfileFragment.newInstance(username);
+        // Pass the username to the fragment using a Bundle
+        Bundle bundle = new Bundle();
+        bundle.putString("USERNAME", username);
+        fragment.setArguments(bundle);
 
-        }
         fragmentTransaction.replace(R.id.frame_layout, fragment);
         fragmentTransaction.commit();
     }
 
-    @Override
-    public void onTaskDataFetched(List<Task> tasks) {
-
+    public void previousWeekAction(View view) {
+        // Handle previous week action here
+        // You can get the current fragment and call the corresponding method
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+        if (currentFragment instanceof HomeFragment) {
+            ((HomeFragment) currentFragment).previousWeekAction(view);
+        }
     }
 
-    @Override
-    public void onUserDataFetched(String displayname) {
-
+    public void nextWeekAction(View view) {
+        // Handle next week action here
+        // You can get the current fragment and call the corresponding method
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+        if (currentFragment instanceof HomeFragment) {
+            ((HomeFragment) currentFragment).nextWeekAction(view);
+        }
     }
 }
+

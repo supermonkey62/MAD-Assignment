@@ -28,7 +28,7 @@
 
     <Button
         android:id="@+id/choose_image_button"
-        style="@style/Base.Theme.MADAssignment"
+        style="@style/Base.Theme.team5MADAssignmentOnTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Choose Image" />
@@ -40,7 +40,7 @@
 
     <Button
         android:id="@+id/confirm_button"
-        style="@style/Base.Theme.MADAssignment"
+        style="@style/Base.Theme.team5MADAssignmentOnTask"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Confirm" />

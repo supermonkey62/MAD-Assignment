@@ -5,12 +5,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#335A44"
+    android:background="@color/LightBackground"
     tools:context=".LoginPage">
 
     <ImageView
-        android:id="@+id/loginpagepic"
-        android:layout_width="413dp"
+        android:id="@+id/login_page_pic"
+        android:contentDescription="@string/login_page"
+        android:layout_width="wrap_content"
         android:layout_height="191dp"
         android:layout_marginTop="50dp"
         app:layout_constraintStart_toStartOf="parent"
@@ -19,15 +20,16 @@
 
     <ImageView
         android:id="@+id/whitebox"
+        android:contentDescription="@string/login_page"
         android:layout_width="match_parent"
-        android:layout_height="330dp"
+        android:layout_height="260dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="100dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/loginpagepic"
-        app:srcCompat="@drawable/white_square_with_rounded_corners" />
+        app:layout_constraintTop_toBottomOf="@+id/login_page_pic"
+        app:srcCompat="@drawable/white_square_with_rounded_corners"/>
 
     <TextView
         android:id="@+id/appnametext"
@@ -35,9 +37,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="44dp"
         android:gravity="center"
-        android:text="On Task : Productivity App"
+        android:text="@string/login_page_title"
         android:textColor="@color/white"
-        android:textSize="30dp"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
         tools:layout_editor_absoluteX="2dp" />
@@ -48,15 +50,16 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:gravity="center"
-        android:text="Login"
-        android:textColor="#335A44"
-        android:textSize="30dp"
+        android:text="@string/login_page_text"
+        android:textColor="#004B49"
+        android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="@+id/whitebox"
         tools:layout_editor_absoluteX="-16dp" />
 
     <ImageView
         android:id="@+id/usernamebox"
+        android:contentDescription="@string/login_page"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="5dp"
@@ -68,6 +71,7 @@
 
     <ImageView
         android:id="@+id/passwordbox"
+        android:contentDescription="@string/login_page"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:layout_marginTop="25dp"
@@ -80,14 +84,13 @@
 
     <Button
         android:id="@+id/loginbutton"
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        android:layout_marginTop="50dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:text="Login"
+        android:layout_width="200dp"
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/login_text"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/passwordbox"
+        app:layout_constraintTop_toBottomOf="@id/whitebox"
         android:background="@drawable/white_square_with_rounded_corners"
         />
 
@@ -96,28 +99,34 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:text="New User? Register Here!"
+        android:text="@string/register_text"
         android:textColor="@color/white"
+        android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/whitebox" />
+        app:layout_constraintTop_toBottomOf="@id/loginbutton"
+        android:layout_marginTop="10dp"/>
 
     <EditText
         android:id="@+id/usernameedit"
-        android:layout_width="match_parent"
+        android:layout_width="320dp"
+        android:autofillHints="username"
+        app:layout_constraintStart_toStartOf="parent"
         android:layout_height="50dp"
         android:inputType="text"
-        android:hint="Username"
+        android:hint="@string/username_text"
         android:layout_marginStart="40dp"
-        android:layout_marginEnd="40dp"
+        android:layout_marginEnd="50dp"
         app:layout_constraintTop_toBottomOf="@id/logintext"
         android:layout_marginTop="10dp" />
 
     <EditText
         android:id="@+id/passwordedit"
-        android:layout_width="match_parent"
-        android:hint="Password"
+        android:autofillHints="password"
+        android:layout_width="320dp"
+        app:layout_constraintStart_toStartOf="parent"
+        android:hint="@string/password_text"
         android:layout_height="50dp"
-        android:inputType="text"
+        android:inputType="textPassword"
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         app:layout_constraintTop_toBottomOf="@id/usernamebox"
@@ -125,13 +134,12 @@
 
     <CheckBox
         android:id="@+id/checkBox"
-        android:layout_width="210dp"
-        android:layout_height="73dp"
-        android:layout_marginTop="76dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginEnd="160dp"
         android:text="@string/remember_me"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/usernamebox"
-        tools:text="@string/remember_me" />
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="40dp"
+        app:layout_constraintTop_toBottomOf="@+id/passwordbox" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -25,7 +25,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.TaskDataCallback {
+public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.TaskDataCallback, SelectListener {
 
     CalendarView calendarView;
     Calendar calendar;
@@ -78,7 +78,7 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
 
                 // Set RecyclerView adapter with filtered tasks
                 taskshower.setLayoutManager(new LinearLayoutManager(TaskCalendar.this));
-                taskshower.setAdapter(new Adapter(TaskCalendar.this, filteredTasks));
+                //taskshower.setAdapter(new Adapter(TaskCalendar.this, filteredTasks, this));
 
                 int numEntities = filteredTasks.size();
 
@@ -110,7 +110,7 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
                 Log.v("String2Create", selectedDateString2);
                 List<Task> filteredTasks = filterTasksByDate(selectedDateString2);
                 saveData();
-                taskshower.setAdapter(new Adapter(TaskCalendar.this, filteredTasks));
+                //taskshower.setAdapter(new Adapter(TaskCalendar.this, filteredTasks, this));
 
                 int numEntities = filteredTasks.size();
 
@@ -141,7 +141,7 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
 
 
                 // Update the RecyclerView adapter with the filtered tasks
-                taskshower.setAdapter(new Adapter(TaskCalendar.this, filteredTasks));
+                //taskshower.setAdapter(new Adapter(TaskCalendar.this, filteredTasks, this));
 
                 int numEntities = filteredTasks.size();
 
@@ -204,7 +204,7 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
 
         // Set RecyclerView adapter with filtered tasks
         taskshower.setLayoutManager(new LinearLayoutManager(TaskCalendar.this));
-        taskshower.setAdapter(new Adapter(TaskCalendar.this, filteredTasks));
+        taskshower.setAdapter(new Adapter(TaskCalendar.this, filteredTasks,this::onItemClicked));
 
         int numEntities = filteredTasks.size();
 
@@ -260,6 +260,11 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
         selectedDateString2 = sharedPreferences.getString(DATE_SAVED, "10,6,2023");
 
         Log.v("Load Date From SP", selectedDateString2);
+
+    }
+
+    @Override
+    public void onItemClicked(Task task) {
 
     }
 }

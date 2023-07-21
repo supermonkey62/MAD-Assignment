@@ -4,27 +4,28 @@
     <item
         android:id="@+id/home"
         android:title="Home"
-        android:icon="@drawable/baseline_home_24"/>
+        android:icon="@drawable/baseline_home_24"
+        />
+
+    <item
+        android:id="@+id/timer"
+        android:title="Timer"
+        android:icon="@drawable/baseline_timer_24"/>
+
+    <item
+        android:title=""
+        android:enabled = "false"/>
 
     <item
         android:id="@+id/friends"
         android:title="Friends"
         android:icon="@drawable/baseline_person_search_24"/>
-
-    <item
-        android:id="@+id/fab"
-        android:title=""
-        android:enabled="true"/>
-
     <item
         android:id="@+id/profile"
         android:title="Profile"
         android:icon="@drawable/baseline_person_24"/>
 
-    <item
-        android:id="@+id/settings"
-        android:title="Settings"
-        android:icon="@drawable/baseline_settings_24"/>
+
 
 
 
