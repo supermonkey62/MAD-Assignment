@@ -357,7 +357,6 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
         int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
         if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
-            context.getTheme().applyStyle(R.style.DarkMode, true);
             layout.setBackgroundColor(ContextCompat.getColor(context, R.color.dark_background));
 
             TextView Achievement = popupView.findViewById(R.id.icon1_text);

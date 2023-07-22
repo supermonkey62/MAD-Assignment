@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- squircle_bg.xml -->
+
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="#007bff" /> <!-- Set your desired background color -->
+    <corners android:radius="75dp" /> <!-- Adjust the radius to form a squircle shape -->
+</shape>
