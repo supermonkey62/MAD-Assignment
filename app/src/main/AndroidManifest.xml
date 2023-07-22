@@ -22,16 +22,20 @@
             android:exported="false" />
         <activity
             android:name=".Stage2MainPage"
-            android:theme="@style/Theme.MaterialComponents.NoActionBar"
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false" />
+        <activity
+            android:name=".Choose_Item_Activity"
+
             android:exported="false" />
         <activity
             android:name=".AchievementPage"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            />
         <activity
             android:name=".ShopActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+            />
         <activity
             android:name=".RemoveTasks"
             android:exported="false" />
@@ -67,10 +71,12 @@
             android:exported="false" />
         <activity
             android:name=".Profile_Setting"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar"
+            />
         <activity
             android:name=".EditProfile"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".ChangeDisplayName"
             android:exported="false" />

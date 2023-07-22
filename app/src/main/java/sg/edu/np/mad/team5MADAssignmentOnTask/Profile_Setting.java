@@ -78,6 +78,13 @@ public class Profile_Setting extends AppCompatActivity {
                             public void onClick(DialogInterface dialog, int id) {
 
                                 userRef.child(username).removeValue();
+                                FirebaseDatabase.getInstance().getReference("Users").child(username).removeValue();
+                                FirebaseDatabase.getInstance().getReference("UserCount").child(username).removeValue();
+                                FirebaseDatabase.getInstance().getReference("TaskCount").child(username).removeValue();
+                                FirebaseDatabase.getInstance().getReference("UserDate").child(username).removeValue();
+                                FirebaseDatabase.getInstance().getReference("UserAchievement").child(username).removeValue();
+                                FirebaseDatabase.getInstance().getReference("Shop").child(username).removeValue();
+
                                 Intent intent5 = new Intent(Profile_Setting.this,LoginPage.class);
                                 startActivity(intent5);
                             }

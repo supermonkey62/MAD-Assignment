@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/dotted_rectangle_outline.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:drawable="@android:color/transparent" />
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="#000000"
+                android:dashWidth="6dp"
+                android:dashGap="4dp"
+            />
+        </shape>
+    </item>
+</layer-list>

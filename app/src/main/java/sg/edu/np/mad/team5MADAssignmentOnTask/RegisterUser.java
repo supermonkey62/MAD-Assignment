@@ -20,8 +20,11 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -40,6 +43,7 @@ public class RegisterUser extends AppCompatActivity {
     DatabaseReference shopRef;
     DatabaseReference taskcountRef;
     DatabaseReference usercountRef;
+    DatabaseReference userDateRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,6 +54,7 @@ public class RegisterUser extends AppCompatActivity {
         userRef = FirebaseDatabase.getInstance().getReference("Users");
         taskcountRef= FirebaseDatabase.getInstance().getReference("TaskCount");
         usercountRef = FirebaseDatabase.getInstance().getReference("UserCount");
+        userDateRef = FirebaseDatabase.getInstance().getReference("UserDate");
 
 
 
@@ -86,7 +91,6 @@ public class RegisterUser extends AppCompatActivity {
                         "://" + resources.getResourcePackageName(imageResId)
                         + '/' + resources.getResourceTypeName(imageResId)
                         + '/' + resources.getResourceEntryName(imageResId));
-                Log.v("Register","+"+imageUri.toString());
                 String IMAGEURI = imageUri.toString();
                 if (username != null && !username.equals("") && password != null && !password.equals("") && confirmPassword != null && !confirmPassword.equals("")){
 
@@ -104,7 +108,6 @@ public class RegisterUser extends AppCompatActivity {
                                  @Override
                                  public void onDataChange(DataSnapshot dataSnapshot) {
                                      if (dataSnapshot.exists()) {
-                                         Log.v("RegisterPage", "Username already exists");
                                          Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
                                      } else {
                                          // Create a new user
@@ -112,12 +115,21 @@ public class RegisterUser extends AppCompatActivity {
                                          User newUser = new User(username, password,username,IMAGEURI);
                                          TaskCount newTaskCount = new TaskCount(username,0);
                                          UserCount newUserCount = new UserCount(100,0,0,0,0);
-                                         Log.v("Register","+" + IMAGEURI);
+
+                                         Date date = new Date();
+                                         Calendar calendar = Calendar.getInstance();
+                                         calendar.setTime(date);
+                                         // Subtract one day from the current date
+                                         calendar.add(Calendar.DAY_OF_MONTH, -1);
+                                         // Get the date one day before the current date
+                                         Date oneDayBefore = calendar.getTime();
+                                         LoginDate newLoginDate = new LoginDate(oneDayBefore);
+                                         Log.v("Date", String.valueOf(oneDayBefore));
 
                                          usercountRef.child(username).setValue(newUserCount);
                                          userRef.child(username).setValue(newUser);
                                          taskcountRef.child(username).setValue(newTaskCount);
-                                         Log.v("RegisterPage", "User registered successfully");
+                                         userDateRef.child(username).setValue(newLoginDate);
                                          Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
                                          creatingachievements(null,username);
                                          creatingshop(null,username);

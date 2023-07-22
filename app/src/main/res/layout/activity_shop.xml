@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/layout"
+    android:padding="8dp"
+    android:background="@drawable/white_square_with_rounded_corners">
+
+    <ImageView
+        android:id="@+id/squircleBackground"
+        android:layout_width="263dp"
+        android:layout_height="91dp"
+        android:scaleType="fitXY"
+        android:src="@drawable/pixel"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="81dp"
+        android:layout_height="52dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="Button"
+        app:layout_constraintBottom_toTopOf="@id/costTextView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.1"
+        app:layout_constraintStart_toEndOf="@id/squircleBackground"
+        app:layout_constraintTop_toTopOf="@id/squircleBackground"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <TextView
+        android:id="@+id/costTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cost: $10.00"
+        android:textColor="@color/white"
+        android:textSize="14sp"
+        app:layout_constraintBottom_toBottomOf="@id/squircleBackground"
+        app:layout_constraintEnd_toEndOf="@id/button"
+        app:layout_constraintStart_toStartOf="@id/button"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/textView6"
+        android:layout_width="268dp"
+        android:layout_height="59dp"
+        android:gravity="center"
+        android:text="Text"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="@id/squircleBackground"
+        app:layout_constraintLeft_toLeftOf="@id/squircleBackground"
+        app:layout_constraintRight_toRightOf="@id/squircleBackground"
+        app:layout_constraintTop_toTopOf="@id/squircleBackground" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

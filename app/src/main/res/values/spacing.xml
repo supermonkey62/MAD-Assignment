@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Define the item spacing here (adjust the value as needed) -->
+    <dimen name="item_spacing">8dp</dimen>
+</resources>
