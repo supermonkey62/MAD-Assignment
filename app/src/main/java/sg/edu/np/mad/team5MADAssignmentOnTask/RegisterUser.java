@@ -20,6 +20,12 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 public class RegisterUser extends AppCompatActivity {
 
     EditText usernameEdit, passwordEdit, confirmPasswordEdit;
@@ -30,7 +36,10 @@ public class RegisterUser extends AppCompatActivity {
 
     FirebaseDatabase fdb = FirebaseDatabase.getInstance();
     DatabaseReference userRef;
+    DatabaseReference achievementRef;
+    DatabaseReference shopRef;
     DatabaseReference taskcountRef;
+    DatabaseReference usercountRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +49,9 @@ public class RegisterUser extends AppCompatActivity {
         // Load the databases
         userRef = FirebaseDatabase.getInstance().getReference("Users");
         taskcountRef= FirebaseDatabase.getInstance().getReference("TaskCount");
+        usercountRef = FirebaseDatabase.getInstance().getReference("UserCount");
+
+
 
         // Get layout file stuff
         usernameEdit = findViewById(R.id.usernameedit);
@@ -99,11 +111,16 @@ public class RegisterUser extends AppCompatActivity {
 
                                          User newUser = new User(username, password,username,IMAGEURI);
                                          TaskCount newTaskCount = new TaskCount(username,0);
+                                         UserCount newUserCount = new UserCount(100,0,0,0,0);
                                          Log.v("Register","+" + IMAGEURI);
+
+                                         usercountRef.child(username).setValue(newUserCount);
                                          userRef.child(username).setValue(newUser);
                                          taskcountRef.child(username).setValue(newTaskCount);
                                          Log.v("RegisterPage", "User registered successfully");
                                          Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
+                                         creatingachievements(null,username);
+                                         creatingshop(null,username);
                                          finish(); // Finish the activity and go back to the login page
                                      }
                                  }
@@ -158,6 +175,119 @@ public class RegisterUser extends AppCompatActivity {
             }
         });
 
+    }
+
+    public void creatingachievements(String[] args,String username) {
+        List<Achievement> achievementList = new ArrayList<>();
+        achievementRef = FirebaseDatabase.getInstance().getReference("UserAchievement").child(username);
+
+        Achievement maketask5 = new Achievement("Create 5 task", 0, 5, "5","Coins", "Incomplete");
+        Achievement maketask10 = new Achievement("Create 10 task", 0, 10, "10","Coins", "Incomplete");
+        Achievement maketask20 = new Achievement("Create 20 task", 0, 20, "20","Coins", "Incomplete");
+        Achievement maketask100 = new Achievement("Create 100 task",0,100,"Dedicted Planner","Title","Incomplete");
+
+        Achievement login1 = new Achievement("Login for 1 days", 1, 1, "10","Coins", "Incomplete");
+        Achievement login5 = new Achievement("Login for 5 days", 0, 5, "10","Coins", "Incomplete");
+        Achievement login10 = new Achievement("Login for 10 days", 0, 10, "20","Coins", "Incomplete");
+        Achievement login30 = new Achievement("Login for 30 days", 0, 30, "50","Coins", "Incomplete");
+        Achievement login100 = new Achievement("Login for 100 days",0,100,"Devoted User","Title","Incomplete");
+
+        Achievement complete3 = new Achievement("Complete 3 task", 0, 3, "30","Coins", "Incomplete");
+        Achievement complete5 = new Achievement("Complete 5 task", 0, 5, "20","Coins", "Incomplete");
+        Achievement complete10 = new Achievement("Complete 10 task", 0, 10, "30","Coins", "Incomplete");
+        Achievement complete100 = new Achievement("Complete 100 task",0,100,"Productive Achiever","Title","Incomplete");
+
+        achievementList.add(maketask5);
+        achievementList.add(maketask10);
+        achievementList.add(maketask20);
+        achievementList.add(maketask100);
+        achievementList.add(login1);
+        achievementList.add(login5);
+        achievementList.add(login10);
+        achievementList.add(login30);
+        achievementList.add(login100);
+        achievementList.add(complete3);
+        achievementList.add(complete5);
+        achievementList.add(complete10);
+        achievementList.add(complete100);
+
+        // Sort the achievements based on their names
+        Collections.sort(achievementList, (a1, a2) -> a1.getTitle().compareTo(a2.getTitle()));
+
+        for (Achievement achievement : achievementList) {
+            // Convert the achievement to a map that can be stored in Firebase
+            Map<String, Object> achievementMap = new HashMap<>();
+            achievementMap.put("title", achievement.getTitle());
+            achievementMap.put("progress", achievement.getProgress());
+            achievementMap.put("target", achievement.getMaxProgress());
+            achievementMap.put("reward", achievement.getReward());
+            achievementMap.put("status", achievement.getStatus());
+            achievementMap.put("rewardtype",achievement.getRewardtype());
+
+            // Generate a unique key for each achievement in Firebase
+            String achievementKey = achievementRef.push().getKey();
+
+            // Store the achievement under the generated key
+            achievementRef.child(achievementKey).setValue(achievementMap);
+            Log.v("}","]");
+        }
+
+
+    }
+
+    public void creatingshop(String[] args,String username) {
+        List<Shop> shopList= new ArrayList<>();
+
+
+        int skyId = R.drawable.cardbeautyfulsky;  // Replace with your image resource ID
+        String skyuri = getImageUriString(skyId);
+        Shop item1 = new Shop(100,skyuri,"serif",false);
+
+        int forestId = R.drawable.forest;  // Replace with your image resource ID
+        String foresturi = getImageUriString(forestId);
+        Shop item2 = new Shop(100,foresturi,"casual",false);
+
+        int koreanId = R.drawable.korean;  // Replace with your image resource ID
+        String koreanuri = getImageUriString(koreanId);
+        Shop item3 = new Shop(100,koreanuri,"cursive",false);
+
+        int pixelId = R.drawable.pixel;  // Replace with your image resource ID
+        String pixeluri = getImageUriString(pixelId);
+        Shop item4 = new Shop(100,pixeluri,"sans-serif-smallcaps",false);
+
+        shopList.add(item1);
+        shopList.add(item2);
+        shopList.add(item3);
+        shopList.add(item4);
+
+        for (Shop shop : shopList) {
+            // Convert the achievement to a map that can be stored in Firebase
+            Map<String, Object> shopMap = new HashMap<>();
+            shopMap.put("cost", shop.getCost());
+            shopMap.put("carduri", shop.getCardimage());
+            shopMap.put("fonttype", shop.getFonttype());
+            shopMap.put("boughted", shop.isBoughted());
+
+            shopRef = FirebaseDatabase.getInstance().getReference("Shop").child(username);
+
+            String shopKey = shopRef.push().getKey();
+
+            // Store the achievement under the generated key
+            shopRef.child(shopKey).setValue(shopMap);
+
+        }
+    }
+
+
+
+
+    private String getImageUriString(int imageResId) {
+        Resources resources = getResources();
+        Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                "://" + resources.getResourcePackageName(imageResId)
+                + '/' + resources.getResourceTypeName(imageResId)
+                + '/' + resources.getResourceEntryName(imageResId));
+        return imageUri.toString();
     }
 }
 

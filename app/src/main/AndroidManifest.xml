@@ -25,6 +25,14 @@
             android:theme="@style/Theme.MaterialComponents.NoActionBar"
             android:exported="false" />
         <activity
+            android:name=".AchievementPage"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
+            android:name=".ShopActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity
             android:name=".RemoveTasks"
             android:exported="false" />
         <activity

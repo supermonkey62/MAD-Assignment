@@ -42,6 +42,9 @@ public class Stage2MainPage extends AppCompatActivity {
             } else if (item.getItemId() == R.id.friends) {
                 replaceFragment(new FriendFragment());
             } else if (item.getItemId() == R.id.profile) {
+                Fragment homeFragment = new HomeFragment();
+                Bundle extras = new Bundle();
+                extras.putString("USERNAME", username);
                 replaceFragment(new ProfileFragment());
             }
             return true;

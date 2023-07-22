@@ -1,32 +1,119 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ProfileFragment"
-    android:background="@color/app_theme">
+    android:id="@+id/layout">
 
-    <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/temptaskbutton"
-            android:layout_width="167dp"
-            android:layout_height="111dp"
-            android:text="tempbutton" />
+    <ImageView
+        android:id="@+id/whitebox"
+        android:layout_width="407dp"
+        android:layout_height="597dp"
+        android:layout_marginTop="84dp"
+        android:layout_marginEnd="1dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
 
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="134dp"
-            android:layout_height="76dp"
-            android:text="Button" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/white_square_with_rounded_corners"
+        app:tint="@color/gray" />
 
-    </LinearLayout>
+    <ImageView
+        android:id="@+id/editUsername"
+        android:layout_width="23dp"
+        android:layout_height="27dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="24dp"
+        android:backgroundTint="@color/black"
+        app:layout_constraintEnd_toEndOf="@id/whitebox"
+        app:layout_constraintTop_toTopOf="@id/whitebox"
+        app:srcCompat="@drawable/baseline_more_horiz_24"
+        android:clickable="true"
+        android:onClick="showPopup"/>
 
-</FrameLayout>
+
+    <TextView
+        android:id="@+id/goal"
+        android:layout_width="365dp"
+        android:layout_height="400dp"
+        android:layout_marginBottom="10dp"
+        android:background="@drawable/border"
+        android:shadowColor="#000000"
+        android:shadowDx="0.0"
+        android:shadowDy="0.0"
+        android:shadowRadius="2.0"
+        android:text="Goals"
+        android:textAlignment="center"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="@id/whitebox"
+        app:layout_constraintEnd_toEndOf="@id/whitebox"
+
+
+        app:layout_constraintStart_toStartOf="@id/whitebox" />
+
+    <Button
+        android:id="@+id/goal_button"
+        android:layout_width="75dp"
+        android:layout_height="53dp"
+        android:layout_marginTop="-80dp"
+        android:layout_marginEnd="-355dp"
+        android:text="Add"
+        app:layout_constraintEnd_toStartOf="@+id/goal"
+        app:layout_constraintTop_toBottomOf="@+id/whitebox" />
+
+    <EditText
+        android:id="@+id/goal_input"
+        android:layout_width="274dp"
+        android:layout_height="56dp"
+        android:layout_marginStart="-360dp"
+        android:layout_marginBottom="24dp"
+        android:ems="10"
+        android:inputType="text"
+        android:hint="Write some goals"
+        android:textColor="@color/gray"
+        android:textStyle="italic"
+        app:layout_constraintBottom_toBottomOf="@+id/whitebox"
+        app:layout_constraintStart_toEndOf="@+id/goal" />
+
+
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="126dp"
+        android:layout_height="125dp"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="44dp"
+        android:background="@drawable/round_image_view"
+        android:backgroundTint="@color/gray"
+        android:src="@drawable/baseline_image_24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@id/whitebox" />
+
+    <TextView
+        android:id="@+id/profileusername"
+        android:layout_width="215dp"
+        android:layout_height="55dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="76dp"
+        android:text="Username"
+
+        android:textSize="30sp"
+        app:layout_constraintLeft_toRightOf="@+id/image_view"
+        app:layout_constraintTop_toTopOf="@id/whitebox" />
+
+    <ListView
+        android:id="@+id/goal_list"
+        android:layout_width="360dp"
+        android:layout_height="300dp"
+
+        app:layout_constraintTop_toTopOf="@id/goal"
+        app:layout_constraintStart_toStartOf="@id/goal"
+        app:layout_constraintEnd_toEndOf="@id/goal"
+        android:layout_marginTop="30dp"
+        tools:layout_editor_absoluteX="27dp"
+        tools:listitem="@android:layout/simple_list_item_1" />
+</androidx.constraintlayout.widget.ConstraintLayout>
