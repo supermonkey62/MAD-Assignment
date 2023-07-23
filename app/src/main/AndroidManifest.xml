@@ -91,6 +91,7 @@
             android:exported="false" />
         <activity
             android:name=".PomodoroTimer"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
     </application>
 

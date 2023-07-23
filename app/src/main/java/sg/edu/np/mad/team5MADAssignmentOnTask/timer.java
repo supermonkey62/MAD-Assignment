@@ -127,26 +127,6 @@ public class timer extends AppCompatActivity {
             }
         });
 
-//        setButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String input = inputEditText.getText().toString();
-//                if (input.isEmpty()) {
-//                    Toast.makeText(timer.this, "Field can't be empty", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                long millisInput = Long.parseLong(input) * 60000;
-//                if (millisInput == 0) {
-//                    Toast.makeText(timer.this, "Please enter a positive number", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                setTime(millisInput);
-//                inputEditText.setText("");
-//            }
-//        });
-
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

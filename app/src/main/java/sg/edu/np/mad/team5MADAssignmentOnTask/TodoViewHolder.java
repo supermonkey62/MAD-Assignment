@@ -122,7 +122,13 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
 
         Context context = itemView.getContext();
         Intent intent = new Intent(context, PomodoroTimer.class);
-        intent.putExtra("TITLE", task.getText());
+        intent.putExtra("USERNAME", username);
+        intent.putExtra("DATE", date);
+        intent.putExtra("TAG", tag);
+        intent.putExtra("STATUS", status);
+        intent.putExtra("TITLE",title);
+        intent.putExtra("TYPE",type);
+        intent.putExtra("CATEGORY",category);
 
 
         context.startActivity(intent);
