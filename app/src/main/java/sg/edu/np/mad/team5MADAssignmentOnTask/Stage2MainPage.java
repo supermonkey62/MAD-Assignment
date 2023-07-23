@@ -38,7 +38,9 @@ public class Stage2MainPage extends AppCompatActivity {
             if (item.getItemId() == R.id.home) {
                 replaceFragment(new HomeFragment());
             } else if (item.getItemId() == R.id.timer) {
-                replaceFragment(new TimerFragment());
+                Bundle extras = new Bundle();
+                extras.putString("USERNAME", username);
+                replaceFragment(new TodolistFragment());
             } else if (item.getItemId() == R.id.friends) {
                 replaceFragment(new FriendFragment());
             } else if (item.getItemId() == R.id.profile) {
@@ -67,8 +69,18 @@ public class Stage2MainPage extends AppCompatActivity {
             }
         });
 
+        addTaskFAB.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent addtaskintent = new Intent(Stage2MainPage.this,AddTask.class);
+                startActivity(addtaskintent);
+            }
+        });
+
 
     }
+
+
 
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();
