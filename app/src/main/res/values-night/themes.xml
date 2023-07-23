@@ -2,6 +2,10 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.team5MADAssignmentOnTask" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
+
+        <item name="android:windowBackground">@color/dark_background</item>
+        <item name="android:textColorPrimary">@color/dark_text_primary</item>
         <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
     </style>
+
 </resources>

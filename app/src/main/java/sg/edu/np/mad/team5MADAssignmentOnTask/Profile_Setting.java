@@ -33,7 +33,8 @@ public class Profile_Setting extends AppCompatActivity {
         logout = (TextView)findViewById(R.id.logout);
         editProfile = (TextView)findViewById(R.id.edit_profile);
         deleteuser = findViewById(R.id.deleteuser);
-        back = findViewById(R.id.profileNameback);
+        back = findViewById(R.id.back);
+
 
         userRef = FirebaseDatabase.getInstance().getReference("Users");
 

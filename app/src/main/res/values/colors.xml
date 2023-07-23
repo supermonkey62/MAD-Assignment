@@ -11,6 +11,7 @@
     <color name="gray">#808080</color>
     <color name="olive">#808000</color>
     <color name="purple">#800080</color>
+    <color name="bluethat">#98AFC7</color>
     <color name="maroon">#800000</color>
     <color name="aqua">#00FFFF</color>
     <color name="lime">#00FF00</color>
@@ -20,10 +21,21 @@
     <color name="navy">#000080</color>
     <color name="forest">#335A44</color>
     <color name="transparent">#00000000</color>
+    <style name="EditTextWhiteStyle" parent="@android:style/Widget.EditText">
+        <item name="android:textColorHint">#FFFFFF</item>
+        <item name="colorControlNormal">#FFFFFF</item>
+        <item name="colorControlActivated">#FFFFFF</item>
+
+    </style>
+
     <color name="tan">#D4BF88</color>
     <color name="app_theme">#004B49</color>
     <color name="app_theme_light">#f6fbff</color>
     <color name="edit_text_border">#03A9F4</color>
     <color name="edit_text_background">#f6fbff</color>
+    <color name="dark_background">#121212</color>
+
+    <color name="dark_text_primary">#ffffff</color>
+    <color name="grey">#455A64</color>
 
 </resources>

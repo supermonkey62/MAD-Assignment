@@ -5,9 +5,10 @@
 
     <style name="AppTheme" parent="Base.Theme.team5MADAssignmentOnTask">
 
-
     </style>
 
+
+    <style name="Theme.MADAssignment" parent="Base.Theme.team5MADAssignmentOnTask" />
 </resources>
 
 
