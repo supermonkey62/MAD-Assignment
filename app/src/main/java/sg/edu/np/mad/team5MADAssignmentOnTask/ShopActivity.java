@@ -54,6 +54,7 @@ public class ShopActivity extends AppCompatActivity implements ShopAdapter.OnBut
             public void onDataChange(DataSnapshot dataSnapshot) {
                 // The value of CountRef can be accessed here
                 int countValue = dataSnapshot.child("coincount").getValue(Integer.class);
+                Log.v("Count", "+" + countValue);
                 String Coins = "Coins: " + countValue;
                 CoinsCount.setText(Coins);
                 Log.d("CountValue", "Value: " + countValue);
@@ -172,7 +173,6 @@ public class ShopActivity extends AppCompatActivity implements ShopAdapter.OnBut
                                     Intent intent = new Intent(ShopActivity.this, ShopActivity.class);
                                     intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     FirebaseDatabase.getInstance().getReference("UserCount").child(username).child("coincount").setValue(countValue-shop.getCost());
-                                    Log.v("Shop","+" + shop.getCardimage());
                                     claimItem(shop);
                                     intent.putExtra("USERNAME", username);
                                     startActivity(intent);

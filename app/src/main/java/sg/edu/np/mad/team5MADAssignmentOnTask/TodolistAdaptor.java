@@ -137,7 +137,7 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
         snackbar.show();
     }
 }
-//public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
+//public class TodolistAdaptor extends RecyclerView.EventAdapter<TodoViewHolder> {
 //
 //    private Context context;
 //    private List<Task> taskList;
@@ -250,7 +250,7 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
 //}
 
 
-//public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
+//public class TodolistAdaptor extends RecyclerView.EventAdapter<TodoViewHolder> {
 //
 //    private Context context;
 //    private List<Task> taskList;
@@ -356,7 +356,7 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
 //}
 
 
-//public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
+//public class TodolistAdaptor extends RecyclerView.EventAdapter<TodoViewHolder> {
 //    private List<Task> todolist;
 //    private Context context;
 //

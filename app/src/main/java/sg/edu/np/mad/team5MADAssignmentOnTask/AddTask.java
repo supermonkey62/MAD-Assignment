@@ -1,9 +1,11 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -25,11 +27,13 @@ public class AddTask extends AppCompatActivity {
     RadioGroup radioGroup;
     EditText titleEdit;
 
-    TextView taskDate, cancelText, selectedOption, profilepageback;
+    TextView taskDate, cancelText, selectedOption;
 
-    String selectedDate, username, taskCountString, taskObjectName, tag;
+    String selectedDate, username;
 
-    DatabaseReference userTask, userTaskCount;
+    String title = "Add Task";
+
+    DatabaseReference taskRef;
 
     Spinner category;
 
@@ -40,14 +44,12 @@ public class AddTask extends AppCompatActivity {
         Log.v("AddTask", "Entered Add Task");
         selectedDate = getIntent().getStringExtra("DATE");
         username = getIntent().getStringExtra("USERNAME");
-        tag = getIntent().getStringExtra("TAG");
         taskDate = findViewById(R.id.taskdate);
         titleEdit = findViewById(R.id.titleEdit);
-        selectedOption = findViewById(R.id.selectedoption);
+
         radioGroup = findViewById(R.id.addtaskradiogroup);
-        Button addTask = findViewById(R.id.addtaskbutton);
+        Button addTaskButton = findViewById(R.id.addtaskbutton);
         cancelText = findViewById(R.id.canceltasktext);
-        profilepageback = findViewById(R.id.profilepageback2);
         category = findViewById(R.id.catspinner);
         taskDate.setText(selectedDate);
 
@@ -57,203 +59,90 @@ public class AddTask extends AppCompatActivity {
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         category.setAdapter(adapter);
 
-        profilepageback.setOnClickListener(new View.OnClickListener() {
+        addTaskButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Back to Main Page", Toast.LENGTH_SHORT).show();
-                finish();
+                Log.v("AddTask", "creating task");
+                createTask();
+
             }
         });
 
-        addTask.setOnClickListener(new View.OnClickListener() {
+        cancelText.setOnTouchListener(new View.OnTouchListener() {
             @Override
-            public void onClick(View v) {
-                String taskTitle = titleEdit.getText().toString();
-                int radioId = radioGroup.getCheckedRadioButtonId();
-                radioButton = findViewById(radioId);
-                String typeTitle = radioButton.getText().toString();
-                selectedOption.setText("Task: " + taskTitle + " , " + typeTitle + " , " + selectedDate + " , " + username);
-                String selectedCategory = category.getSelectedItem().toString();
-                userTaskCount = FirebaseDatabase.getInstance().getReference("TaskCount");
+            public boolean onTouch(View v, MotionEvent event) {
+                // Check if the action is UP, which indicates that the touch is released
+                if (event.getAction() == MotionEvent.ACTION_UP) {
+                    // Finish the activity when the touch is released (click event)
+                    finish();
+                }
+                return true; // Return true to indicate that the touch event is handled
+            }
+        });
 
+    }
 
-                userTaskCount.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+    private void createTask() {
+        String taskTitle = titleEdit.getText().toString();
+        int radioId = radioGroup.getCheckedRadioButtonId();
+        radioButton = findViewById(radioId);
+        String typeTitle = radioButton.getText().toString();
+        String selectedCategory = category.getSelectedItem().toString();
+        generateTaskId(username, new TaskIdCallback() {
+            @Override
+            public void onTaskIdGenerated(String taskId) {
+                taskRef = FirebaseDatabase.getInstance().getReference("Task");
+                taskRef.child(taskId).addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                         if (dataSnapshot.exists()) {
-                            Long savedTaskCount = dataSnapshot.child("count").getValue(Long.class);
-                            taskCountString = String.valueOf(savedTaskCount);
-                            int taskCountIncrease = Integer.parseInt(taskCountString);
-                            taskCountIncrease++;
-                            taskObjectName = username + taskCountIncrease;
-                            Log.v("TaskCount", taskCountString);
-                            TaskCount newTaskCount = new TaskCount(username, taskCountIncrease);
-                            userTaskCount.child(username).setValue(newTaskCount);
-
-                            userTask = FirebaseDatabase.getInstance().getReference("Task");
-                            userTask.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
-                                    if (dataSnapshot.exists()) {
-                                        Log.v("TaskCount", taskObjectName + " already exists.");
-                                    } else {
-                                        Log.v("Username", taskObjectName);
-                                        Log.v("CreateTask", "Task: " + taskTitle + " , " + typeTitle + " , " + selectedDate + " , " + username + " , " + taskObjectName);
-                                        Task newTask = new Task(username, taskTitle, typeTitle, selectedDate, taskObjectName, false, 0, 0, selectedCategory);
-                                        userTask.child(taskObjectName).setValue(newTask);
-                                        Log.v("Adding Task", taskTitle + "Successfully added"+ selectedCategory );
-                                        finish();
-                                    }
-                                }
-
-                                @Override
-                                public void onCancelled(DatabaseError databaseError) {
-                                    Log.v("LoginPage", "Error: " + databaseError.getMessage());
-                                }
-                            });
+                            Log.v(title, taskId + "already exists");
                         } else {
-                            Log.v("TaskCount", "Fail");
+                            Task newTask = new Task(username, taskTitle, typeTitle, selectedDate, taskId, false, 0, 0, selectedCategory);
+                            taskRef.child(taskId).setValue(newTask);
+                            finish();
                         }
                     }
 
                     @Override
-                    public void onCancelled(DatabaseError databaseError) {
-                        Log.v("LoginPage", "Error: " + databaseError.getMessage());
+                    public void onCancelled(@NonNull DatabaseError error) {
+
                     }
                 });
             }
         });
+    }
 
-        cancelText.setOnClickListener(new View.OnClickListener() {
+    private void generateTaskId(final String username, final TaskIdCallback callback) {
+        DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(username).child("taskCount");
+        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
-            public void onClick(View v) {
-                finish();
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    int taskCount = dataSnapshot.getValue(Integer.class);
+                    String taskId = username + taskCount;
+                    callback.onTaskIdGenerated(taskId);
+
+                    // Increment the taskCount and update it back in the database
+                    int newTaskCount = taskCount + 1;
+                    userRef.setValue(newTaskCount);
+
+                    // Call the callback with the generated taskId
+                    callback.onTaskIdGenerated(taskId);
+                } else {
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.e("AddTask", "Error retrieving task count: " + databaseError.getMessage());
+                // Handle the error if needed
             }
         });
     }
+    public interface TaskIdCallback {
+        void onTaskIdGenerated(String taskId);
+    }
+
 }
 
 
-//public class AddTask extends AppCompatActivity {
-//
-//    RadioButton radioButton;
-//    RadioGroup radioGroup;
-//    EditText titleEdit;
-//
-//    TextView taskDate, cancelText,selectedOption, profilepageback;
-//
-//    String selectedDate, username, taskCountString, taskObjectName, tag;
-//
-//    DatabaseReference userTask, userTaskCount;
-//
-//    Spinner category;
-//
-//
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_add_task);
-//        Log.v("AddTask", "Entered Add Task");
-//        selectedDate = getIntent().getStringExtra("DATE");
-//        username = getIntent().getStringExtra("USERNAME");
-//        tag = getIntent().getStringExtra("TAG");
-//        taskDate = findViewById(R.id.taskdate);
-//        titleEdit = findViewById(R.id.titleEdit);
-//        selectedOption = findViewById(R.id.selectedoption);
-//        radioGroup = findViewById(R.id.addtaskradiogroup);
-//        Button addTask = findViewById(R.id.addtaskbutton);
-//        cancelText = findViewById(R.id.canceltasktext);
-//        profilepageback = findViewById(R.id.profilepageback2);
-//        category = findViewById(R.id.catspinner);
-//        taskDate.setText(selectedDate);
-//        String[] categories = {"Personal Tasks","School Task","Assignments","Projects","Errands and Shopping Tasks","Health and Fitness Tasks"};
-//        ArrayAdapter aa = new ArrayAdapter(this,android.R.layout.simple_spinner_item,categories);
-//        aa.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        category.setAdapter(aa);
-//
-//
-//        profilepageback.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Toast.makeText(getApplicationContext(), "Back to Main Page", Toast.LENGTH_SHORT).show();
-//
-//                finish();
-//            }
-//        });
-//
-//        addTask.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String taskTitle = titleEdit.getText().toString();
-//                int radioId = radioGroup.getCheckedRadioButtonId();
-//                radioButton = findViewById(radioId);
-//                String typeTitle = radioButton.getText().toString();
-//                selectedOption.setText("Task: " + taskTitle + " , " + typeTitle + " , " + selectedDate + " , " + username);
-//                String selectedCategory = category.getSelectedItem().toString(); // Get the selected category from the spinner
-//                userTaskCount = FirebaseDatabase.getInstance().getReference("TaskCount");
-//
-//                userTaskCount.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
-//                    @Override
-//                    public void onDataChange(DataSnapshot dataSnapshot) {
-//                        if (dataSnapshot.exists()) {
-//                            Long savedTaskCount = dataSnapshot.child("count").getValue(Long.class);
-//                            taskCountString = String.valueOf(savedTaskCount);
-//                            int taskCountIncrease = Integer.parseInt(taskCountString);
-//                            taskCountIncrease++;
-//                            taskObjectName = username + taskCountIncrease;
-//                            Log.v("TaskCount", taskCountString);
-//                            TaskCount newTaskCount = new TaskCount(username, taskCountIncrease);
-//                            userTaskCount.child(username).setValue(newTaskCount);
-//
-//                            userTask = FirebaseDatabase.getInstance().getReference("Task");
-//                            userTask.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
-//                                @Override
-//                                public void onDataChange(DataSnapshot dataSnapshot) {
-//                                    if (dataSnapshot.exists()) {
-//                                        Log.v("TaskCount", taskObjectName + " already exists.");
-//                                    }
-//                                    else {
-//                                        Log.v("Username", taskObjectName);
-//                                        Log.v("CreateTask","Task: " + taskTitle + " , " + typeTitle + " , " + selectedDate + " , " + username + " , " + taskObjectName);
-//                                        Task newTask = new Task(username, taskTitle, typeTitle, selectedDate, taskObjectName, false,0,0,selectedCategory);
-//                                        userTask.child(taskObjectName).setValue(newTask);
-//                                        finish();
-//
-//                                    }
-//                                }
-//                                @Override
-//                                public void onCancelled(DatabaseError databaseError) {
-//                                    Log.v("LoginPage", "Error: " + databaseError.getMessage());
-//                                }
-//                            });
-//                        }
-//                        else {
-//                            Log.v("TaskCount", "Fail");
-//                        }
-//                    }
-//                    @Override
-//                    public void onCancelled(DatabaseError databaseError) {
-//                        Log.v("LoginPage", "Error: " + databaseError.getMessage());
-//                    }
-//                });
-//
-//
-//
-//
-//            }
-//        });
-//
-//
-//
-//        cancelText.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
-//
-//
-//
-//    }
-//}

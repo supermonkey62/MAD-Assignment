@@ -2,6 +2,7 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.graphics.Color;
@@ -16,6 +17,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -78,9 +80,8 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
             holder.progressBar.setProgress(achievement.getProgress());
             holder.progressText.setText(String.format("%d/%d", achievement.getProgress(), achievement.getMaxProgress()));
             holder.progressBar.setEnabled(false);
-            Log.v("RewaredTtype", achievement.getRewardtype());
             if (achievement.getRewardtype().equals("Coins")) {
-                holder.reward.setText(achievement.getReward());
+                holder.reward.setText("Coins: " + achievement.getReward());
             } else if (achievement.getRewardtype().equals("Title")) {
                 String name = "'" + achievement.getReward() + "'";
                 holder.reward.setText(name);
@@ -181,9 +182,14 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
                     // Update the status of the achievement to "Claimed" in the UserAchievement node
                     DatabaseReference achievementRef = FirebaseDatabase.getInstance().getReference().child("UserAchievement").child(username).child(achievementKey);
                     achievementRef.child("status").setValue("Completed");
-                    Log.v("Claimed",achievementKey);
-                    // Perform any other actions you need to do after claiming the achievement
-                    // For example, update the claimed reward in the User node
+
+                    Log.v("Claimed",achievement.getRewardtype());
+                    if (achievement.getRewardtype().equals("Coins")){
+                        int coin = Integer.parseInt(achievement.getReward());
+                        Log.v("Coins","+" + coin);
+                        UpdateCount(username,coin);
+                    }
+
 
                     if (context instanceof Activity) {
                         ((Activity) context).recreate();
@@ -194,6 +200,32 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
                 }
             }
         });
+    }
+
+
+    private void UpdateCount(String username,int Reward){
+        DatabaseReference CountRef;
+        CountRef = FirebaseDatabase.getInstance().getReference("UserCount").child(username);
+
+        CountRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Check if the data exists
+                if (dataSnapshot.exists()) {
+
+                    int first = dataSnapshot.child("coincount").getValue(Integer.class);
+                    CountRef.child("coincount").setValue(first + Reward);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle any errors that may occur while fetching the data
+                // ...
+            }
+        });
+
     }
 
 

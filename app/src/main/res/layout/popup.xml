@@ -110,4 +110,29 @@
             android:textColor="@android:color/black"
             android:layout_gravity="center_vertical" />
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/icon5_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/icon5_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_shopping_cart_24"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/icon5_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Style"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
 </LinearLayout>

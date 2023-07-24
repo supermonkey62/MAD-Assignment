@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
-public class DoneTasksAdapter extends RecyclerView.Adapter<ViewHolder> {
+public class DoneTasksAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
     private Context context;
     private List<Task> taskList;
@@ -32,27 +32,27 @@ public class DoneTasksAdapter extends RecyclerView.Adapter<ViewHolder> {
 
 
     @Override
-    public ViewHolder onCreateViewHolder( ViewGroup parent, int viewType) {
+    public EventViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_view, parent, false);
-        ViewHolder holder = new ViewHolder(view);
+        EventViewHolder holder = new EventViewHolder(view);
         return holder;
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         Task task = taskList.get(position);
         holder.username = task.getUsername();
         holder.date = task.getDate();
         holder.tag = task.getTag();
         holder.status = task.getStatus();
-        holder.box1View.setText(task.getTitle());
-        holder.box2View.setText(task.getDate());
+        holder.titlebox.setText(task.getTitle());
+        holder.datebox.setText(task.getDate());
 
         if (task.getStatus() == true) {
             holder.itemView.setVisibility(View.VISIBLE);
-            holder.box1View.setText(task.getTitle());
-            holder.box2View.setText(task.getDate());
+            holder.titlebox.setText(task.getTitle());
+            holder.datebox.setText(task.getDate());
         } else {
             holder.itemView.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));

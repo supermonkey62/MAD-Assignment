@@ -3,10 +3,15 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.PorterDuff;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,17 +26,26 @@ import android.widget.ListView;
 import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
 import org.w3c.dom.Text;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 
 
 public class ProfileFragment extends Fragment implements UserDataHolder.UserDataCallback {
@@ -52,6 +66,7 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
     private Button addGoalsButton;
 
     private DatabaseReference userRef;
+    private PopupWindow popupWindow;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -80,21 +95,21 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
         addGoalsButton = view.findViewById(R.id.goal_button);
         ImageView whitebox = view.findViewById(R.id.whitebox);
         TextView goal = view.findViewById(R.id.goal);
-
-        ;
+        TextView goalinput = view.findViewById(R.id.goal_input);
+        listviewsetbackground(username,listView,goal);
 
 
         Context context = container.getContext();
         int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
         if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
-
             layout.setBackgroundColor(ContextCompat.getColor(context, R.color.dark_background));
             whitebox.setBackgroundColor(ContextCompat.getColor(context, R.color.dark_background));
             whitebox.setColorFilter(ContextCompat.getColor(context, R.color.grey), PorterDuff.Mode.SRC_IN);
             goal.setBackgroundColor(ContextCompat.getColor(context, R.color.dark_background));
             ImageView more = view.findViewById(R.id.editUsername);
             more.setImageResource(R.drawable.white_more);
+            goalinput.setTextColor(ContextCompat.getColor(context,R.color.white));
 
         }
 
@@ -129,7 +144,7 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
         });
 
         goals = new ArrayList<>();
-        goalsAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, goals);
+        goalsAdapter = new CustomArrayAdapter(getContext(), goals);
         listView.setAdapter(goalsAdapter);
         listViewListener();
 
@@ -159,6 +174,8 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
                 showPopup(v,username,context);
             }
         });
@@ -258,6 +275,7 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
         });
     }
 
+
     private void updateUserAchievements(final String username) {
 
         DatabaseReference usercountRef= FirebaseDatabase.getInstance().getReference("UserCount").child(username);
@@ -319,8 +337,8 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
                         }
 
                     } else if (title != null && title.contains("Complete")) {
-                        amountRef.setValue(taskcount);
-                        Log.d("Amount:", String.valueOf(taskcount));
+                        amountRef.setValue(completedtaskcount);
+                        Log.d("Amount:", String.valueOf(completedtaskcount));
 
                         if (progress >= target) {
                             claimable += 1;
@@ -352,6 +370,7 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
         LinearLayout icon2Layout = popupView.findViewById(R.id.icon2_layout);
         LinearLayout icon3Layout = popupView.findViewById(R.id.icon3_layout);
         LinearLayout icon4Layout = popupView.findViewById(R.id.icon4_layout);
+        LinearLayout icon5Layout = popupView.findViewById(R.id.icon5_layout);
         LinearLayout layout = popupView.findViewById(R.id.layout);
 
         int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -389,6 +408,7 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), AchievementPage.class);
                 intent.putExtra("USERNAME", username);
+                popupWindow.dismiss();
                 startActivity(intent);
             }
         });
@@ -398,6 +418,7 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), ShopActivity.class);
                 intent.putExtra("USERNAME", username);
+                popupWindow.dismiss();
                 startActivity(intent);
             }
         });
@@ -407,6 +428,7 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), EditProfile.class);
                 intent.putExtra("USERNAME", username);
+                popupWindow.dismiss();
                 startActivity(intent);
             }
         });
@@ -416,6 +438,17 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), Profile_Setting.class);
                 intent.putExtra("USERNAME", username);
+                popupWindow.dismiss();
+                startActivity(intent);
+            }
+        });
+
+        icon5Layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), Choose_Item_Activity.class);
+                intent.putExtra("USERNAME", username);
+                popupWindow.dismiss();
                 startActivity(intent);
             }
         });
@@ -423,6 +456,32 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
         // Show the popup below the editUsername ImageView with a vertical offset of 100 pixels
         popupWindow.showAsDropDown(view, 0, 20);
     }
+
+    public  void listviewsetbackground(String username, ListView listView,TextView textView){
+        DatabaseReference userequip = FirebaseDatabase.getInstance().getReference("UserEquip");
+        userequip.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                String background = dataSnapshot.child("background").getValue(String.class);
+                String title = dataSnapshot.child("title").getValue(String.class);
+
+                if (background == null) {
+                } else {
+                    int lastIndex = background.lastIndexOf('/');
+                    String lastSegment = background.substring(lastIndex + 1);
+                    int drawableResId = getResources().getIdentifier(lastSegment, "drawable", getContext().getPackageName());
+                    listView.setBackgroundResource(drawableResId);
+                }
+
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Log.v("not WOrking","adfa");
+            }
+        });
+    }
+
+
 }
 
 

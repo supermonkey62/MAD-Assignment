@@ -17,22 +17,31 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".TaskAnalysis"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:name=".EditEvent"
             android:exported="false" />
         <activity
+            android:name=".AddEvent"
+            android:exported="false"
+            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+        <activity
+            android:name=".TaskAnalysis"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+        <activity
             android:name=".Stage2MainPage"
+            android:windowSoftInputMode="adjustPan"
             android:theme="@style/Theme.MaterialComponents.NoActionBar"
+            android:exported="false" />
+        <activity
+            android:name=".Choose_Item_Activity"
             android:exported="false" />
         <activity
             android:name=".AchievementPage"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             />
         <activity
             android:name=".ShopActivity"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             />
         <activity
             android:name=".RemoveTasks"
@@ -46,33 +55,35 @@
             android:exported="false" />
         <activity
             android:name=".EditTask"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".AddTask"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".TaskCalendar"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".MainPage"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".RegisterUser"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".TodoList"
             android:exported="false" />
         <activity
             android:name=".Profile_Setting"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.Material3.Dark.NoActionBar"
+            />
         <activity
             android:name=".EditProfile"
-            android:exported="false" />
+            android:exported="false"/>
         <activity
             android:name=".ChangeDisplayName"
             android:exported="false" />
@@ -84,8 +95,8 @@
             android:exported="false" />
         <activity
             android:name=".LoginPage"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -101,7 +112,6 @@
             android:exported="false" />
         <activity
             android:name=".PomodoroTimer"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:exported="false" />
     </application>
 

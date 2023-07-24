@@ -1,18 +1,23 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
+import android.util.Log;
+
+import java.util.ArrayList;
+import java.util.List;
+
 public class User {
     private String username, password,displayname, ImageURI;
-
-
-
+    private int eventCount, taskCount;
     public User() {
     }
 
-    public User(String username, String password, String displayname, String ImageURI) {
+    public User(String username, String password, String displayname, String ImageURI, int eventCount, int taskCount) {
         this.username = username;
         this.password = password;
         this.displayname = displayname;
         this.ImageURI = ImageURI;
+        this.eventCount = eventCount;
+        this.taskCount = taskCount;
     }
 
     public String getUsername() {
@@ -36,4 +41,20 @@ public class User {
 
     public String getImageURI(){return ImageURI;};
     public void setImageURI(String ImageURI){this.ImageURI = ImageURI;}
+
+    public int getEventCount() {
+        return eventCount;
+    }
+
+    public void setEventCount(int eventCount) {
+        this.eventCount = eventCount;
+    }
+
+    public int getTaskCount() {
+        return taskCount;
+    }
+
+    public void setTaskCount(int taskCount) {
+        this.taskCount = taskCount;
+    }
 }

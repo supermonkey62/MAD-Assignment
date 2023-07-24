@@ -106,7 +106,6 @@ public class AchievementPage extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 achievementList.clear(); // Clear the existing list
-                Log.v("achievement","}");
 
                 // Iterate through the usernames
                 for (DataSnapshot achievementSnapshot : dataSnapshot.getChildren()) {
@@ -114,14 +113,11 @@ public class AchievementPage extends AppCompatActivity {
                     String title = achievementSnapshot.child("title").getValue(String.class);
                     int progress = achievementSnapshot.child("progress").getValue(Integer.class);
                     int maxProgress = achievementSnapshot.child("target").getValue(Integer.class);
-                    Log.v("Progress",progress+ "+" +maxProgress);
                     String reward = achievementSnapshot.child("reward").getValue(String.class);
                     String status = achievementSnapshot.child("status").getValue(String.class);
                     String rewardtype = achievementSnapshot.child("rewardtype").getValue(String.class);
-                    Log.v("achievement","}");
 
                     total +=1;
-                    Log.v("Count",String.valueOf(total));
                     if (status == "Completed"){
                         done+=1;
                     }

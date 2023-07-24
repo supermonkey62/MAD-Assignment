@@ -13,6 +13,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -83,6 +84,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
             holder.cost.setVisibility(View.GONE);
             holder.image.setVisibility(View.GONE);
             holder.title.setVisibility(View.GONE);
+            holder.layout.setVisibility(View.GONE);
         }
 
     }
@@ -101,6 +103,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
         ImageView image;
         TextView title,cost,cancel,coin;
         Button buy;
+        ConstraintLayout layout;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -111,6 +114,8 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
             cost = itemView.findViewById(R.id.costTextView);
             buy = itemView.findViewById(R.id.button);
             coin = itemView.findViewById(R.id.coins);
+            layout = itemView.findViewById(R.id.layout);
+
 
 
 
@@ -120,15 +125,12 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
     private void getItemKeyFromFirebase(Shop ClaimedItem, ItemKeyCallback callback) {
         DatabaseReference databaseReference = FirebaseDatabase.getInstance().getReference().child("Shop").child(username);
 
-        // Query the database to find the achievement with the matching title and progress
-        Log.v("ClaimItem", "+"  + ClaimedItem.getCardimage());
         databaseReference.orderByChild("carduri").equalTo(ClaimedItem.getCardimage()).addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     // Found the matching achievement, return its itemkey through the callback
                     String itemKey = snapshot.getKey();
-                    Log.v("Item" ,"+" + itemKey);
                     callback.onItemKeyObtained(itemKey);
                     return; // Important: stop the loop after finding the matching achievement
 
@@ -157,7 +159,6 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
                 if (itemKey != null) {
                     DatabaseReference achievementRef = FirebaseDatabase.getInstance().getReference().child("Shop").child(username).child(itemKey);
                     achievementRef.child("boughted").setValue(true);
-                    Log.v("Claimed",itemKey);
 
                     if (context instanceof Activity) {
                         ((Activity) context).recreate();

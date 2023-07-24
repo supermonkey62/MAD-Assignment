@@ -37,5 +37,7 @@
 
     <color name="dark_text_primary">#ffffff</color>
     <color name="grey">#455A64</color>
+    <color name="button_colour">#DAF1DE</color>
+    <color name="white_box_colour">#235347</color>
 
 </resources>

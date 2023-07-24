@@ -20,6 +20,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Date;
+
 public class LoginPage extends AppCompatActivity {
 
     EditText usernameEdit, passwordEdit;
@@ -72,7 +74,6 @@ public class LoginPage extends AppCompatActivity {
             public void onClick(View v) {
                 final String username = usernameEdit.getText().toString();
                 final String password = passwordEdit.getText().toString();
-                Log.v("Username", username);
 
                 if (username != null && !username.equals("") && password != null && !password.equals("")){
 
@@ -104,6 +105,7 @@ public class LoginPage extends AppCompatActivity {
                                     Log.v("Login Username", username);
                                     intent.putExtra("PASSWORD",password);
                                     intent.putExtra("DISPLAYNAME", displayName);
+                                    UpdateLastLogin(username);
 
                                     startActivity(intent);
                                 } else {
@@ -147,5 +149,66 @@ public class LoginPage extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+
+    private void UpdateLastLogin(String username){
+        DatabaseReference LoginDateRef;
+        LoginDateRef = FirebaseDatabase.getInstance().getReference("UserDate").child(username);
+        LoginDateRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Check if the data exists
+                if (dataSnapshot.exists()) {
+
+                    Date date = new Date();
+                    Date Pre = dataSnapshot.child("logindate").getValue(Date.class);
+                    long oneDayInMillis = 24 * 60 * 60 * 1000;
+                    Date dateAfter = new Date(Pre.getTime() + oneDayInMillis);
+                    if (date.after(dateAfter) || date.equals(dateAfter)) {
+                        LoginDate date1 = new LoginDate(date);
+                        LoginDateRef.setValue(date1);
+                        UpdateCount(username);
+                    }
+
+                } else {
+                    Log.v("useless","+");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle any errors that may occur while fetching the data
+                // ...
+            }
+        });
+
+    }
+
+    private void UpdateCount(String username){
+        DatabaseReference CountRef;
+        CountRef = FirebaseDatabase.getInstance().getReference("UserCount").child(username);
+
+        CountRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Check if the data exists
+                if (dataSnapshot.exists()) {
+
+                    int first = dataSnapshot.child("logincount").getValue(Integer.class);
+                    Log.v("CountRef", "+" + first);
+                    CountRef.child("logincount").setValue(first + 1);
+
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle any errors that may occur while fetching the data
+                // ...
+            }
+        });
+
+
     }
 }

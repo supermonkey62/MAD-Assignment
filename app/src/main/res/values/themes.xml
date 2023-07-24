@@ -1,15 +1,18 @@
-<resources>
-    <style name="Base.Theme.team5MADAssignmentOnTask." parent="Theme.MaterialComponents.Light.NoActionBar">
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Base.Theme.MADAssignment" parent="Theme.MaterialComponents.DayNight.NoActionBar">
 
     </style>
 
-    <style name="AppTheme" parent="Base.Theme.team5MADAssignmentOnTask">
-
+    <style name="AppTheme" parent="Base.Theme.MADAssignment">
+        <!-- Customize other attributes as needed -->
     </style>
 
+    <style name="DarkMode" parent="Base.Theme.MADAssignment">
+        <item name="android:windowBackground">@color/dark_background</item>
+        <item name="android:textColorPrimary">@color/dark_text_primary</item>
+    </style>
 
-    <style name="Theme.MADAssignment" parent="Base.Theme.team5MADAssignmentOnTask" />
+    <style name="Theme.MADAssignment" parent="Base.Theme.MADAssignment" />
 </resources>
-
-
 
