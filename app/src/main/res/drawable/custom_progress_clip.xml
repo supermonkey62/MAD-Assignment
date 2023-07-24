@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/custom_progress_clip.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:gravity="start">
+        <shape>
+            <solid android:color="@color/aqua" /> <!-- Color for the progress section before "10" -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+    <item android:gravity="start" android:left="10dp"> <!-- Adjust the "10" value as needed -->
+        <shape>
+            <solid android:color="@color/aqua" /> <!-- Color for the "10" section -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+</layer-list>

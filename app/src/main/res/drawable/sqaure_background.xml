@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- square_background.xml -->
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <solid android:color="@color/bluethat" /> <!-- Set your desired background color here -->
+    <corners android:radius="8dp" /> <!-- Set the corner radius to create a square -->
+</shape>

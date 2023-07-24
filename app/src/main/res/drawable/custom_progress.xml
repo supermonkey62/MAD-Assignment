@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/custom_progress.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background layer -->
+    <item android:id="@android:id/background">
+        <shape>
+            <solid android:color="#E0E0E0" /> <!-- Background color of the progress bar -->
+            <corners android:radius="8dp" />
+        </shape>
+    </item>
+
+    <!-- Progress layer with ClipDrawable for "10" section -->
+    <item android:id="@android:id/progress">
+        <clip android:drawable="@drawable/custom_progress_clip" />
+    </item>
+</layer-list>

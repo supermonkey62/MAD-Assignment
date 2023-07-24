@@ -1,6 +1,7 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,12 +20,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 import sg.edu.np.mad.team5MADAssignmentOnTask.databinding.ActivityStage2MainPageBinding;
 
 public class Stage2MainPage extends AppCompatActivity implements HomeFragment.OnDateSelectedListener  {
 
     ActivityStage2MainPageBinding binding;
     private String username;
+
+    private String datetoday;
 
     FloatingActionButton fab;
 
@@ -38,6 +44,14 @@ public class Stage2MainPage extends AppCompatActivity implements HomeFragment.On
         // Retrieve the extra string "USERNAME" from the intent
         username = getIntent().getStringExtra("USERNAME");
 
+        Date today = new Date();
+        String pattern = "dd/MM/yyyy";
+
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(pattern);
+
+        datetoday = dateFormatter.format(today);
+
+
         replaceFragment(new HomeFragment());
         binding.bottomNavigationView.setBackground(null);
 
@@ -45,10 +59,15 @@ public class Stage2MainPage extends AppCompatActivity implements HomeFragment.On
             if (item.getItemId() == R.id.home) {
                 replaceFragment(new HomeFragment());
             } else if (item.getItemId() == R.id.timer) {
-                replaceFragment(new TimerFragment());
+                Bundle extras = new Bundle();
+                extras.putString("USERNAME", username);
+                replaceFragment(new TodolistFragment());
             } else if (item.getItemId() == R.id.friends) {
                 replaceFragment(new FriendFragment());
             } else if (item.getItemId() == R.id.profile) {
+                Fragment homeFragment = new HomeFragment();
+                Bundle extras = new Bundle();
+                extras.putString("USERNAME", username);
                 replaceFragment(new ProfileFragment());
             }
             return true;
@@ -105,6 +124,8 @@ public class Stage2MainPage extends AppCompatActivity implements HomeFragment.On
 
 
     }
+
+
 
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();

@@ -20,6 +20,9 @@ public class DoneTasksAdapter extends RecyclerView.Adapter<EventViewHolder> {
         this.taskList = eventList;
 
     }
+
+
+
     public int getItemViewType(int position) {
         Task task = taskList.get(position);
         String tasktitle = task.getTitle();
@@ -58,6 +61,16 @@ public class DoneTasksAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
 
     }
+    public void removeItem(int position) {
+        taskList.remove(position);
+        notifyItemRemoved(position);
+    }
+
+
+
+
+
+
 
     @Override
     public int getItemCount() {

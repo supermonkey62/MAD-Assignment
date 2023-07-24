@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- res/drawable/rectangle_outline.xml -->
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- Background color (Optional, set to transparent if not needed) -->
+    <item android:drawable="@android:color/transparent" />
+
+    <!-- Rectangle outline -->
+    <item>
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+            android:color="#000000"
+            />
+        </shape>
+    </item>
+</layer-list>
