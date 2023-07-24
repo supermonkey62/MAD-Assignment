@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.provider.Settings;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -35,11 +36,14 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
 
     private RecyclerView calendarRecyclerView, eventShower, taskShower;
 
+
+
+
     List<Task> taskList;
     RecyclerView recyclerView;
     String title = "HomeFragment";
 
-    String selectedDateString;
+    String selectedDateString, username;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -52,7 +56,7 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         Log.v("Selected Date", selectedDateString);
         initWidgets(view);
 
-        String username = getArguments().getString("USERNAME");
+        username = getArguments().getString("USERNAME");
         Log.v("UsernameHome", username);
         TaskDataHolder.getInstance().fetchUserTasks(username, this);
         UserDataHolder.getInstance().fetchUserData(username, this);
@@ -100,17 +104,29 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         setWeekView();
     }
 
-    @Override
     public void onItemClick(int position, Date date) {
         selectedDate = date;
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        String selectedDateString = dateFormat.format(date);
+        selectedDateString = dateFormat.format(date);
         Log.v("OnClickDate", selectedDateString);
         setWeekView();
         List<Task> filteredTasks = filterTasksByDate(selectedDateString);
         eventShower.setAdapter(new Adapter(getActivity(), filteredTasks, this));
-        taskShower.setAdapter(new MainpagetodoAdaptor(getActivity(),filteredTasks));
+        taskShower.setAdapter(new MainpagetodoAdaptor(getActivity(), filteredTasks));
     }
+
+//    @Override
+//    public void onItemClick(int position, Date date) {
+//        selectedDate = date;
+//        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+//        String selectedDateString = dateFormat.format(date);
+//        Log.v("OnClickDate", selectedDateString);
+//        setWeekView();
+//        List<Task> filteredTasks = filterTasksByDate(selectedDateString);
+//        eventShower.setAdapter(new Adapter(getActivity(), filteredTasks, this));
+//        taskShower.setAdapter(new MainpagetodoAdaptor(getActivity(),filteredTasks));
+//    }
+
 
 
     private void user_greeting(View view) {
@@ -137,12 +153,8 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
     public void onTaskDataFetched(List<Task> tasks) {
         taskList = tasks;
 
-
-
         List<String> dateList = new ArrayList<>();
         List<String> taskCountList = new ArrayList<>();
-        int numEntities = taskList.size();
-        Log.v(title, "Number of entities: " + numEntities);
 
         // Create a HashMap to store the date and task count
         HashMap<String, HashMap<String, Integer>> dateTaskStatusCountMap = new HashMap<>();
@@ -151,22 +163,25 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
             String date = task.getDate(); // Replace this with the appropriate getter method for the date in your Task class
             String status = String.valueOf(task.getStatus()); // Replace this with the appropriate getter method for the status in your Task class
 
-            if (!dateTaskStatusCountMap.containsKey(date)) {
-                // Date doesn't exist in the HashMap, create a new inner HashMap for the status counts
-                dateTaskStatusCountMap.put(date, new HashMap<>());
-            }
+            if (date != null) { // Check if the date is not null before proceeding
+                if (!dateTaskStatusCountMap.containsKey(date)) {
+                    // Date doesn't exist in the HashMap, create a new inner HashMap for the status counts
+                    dateTaskStatusCountMap.put(date, new HashMap<>());
+                }
 
-            HashMap<String, Integer> statusCountMap = dateTaskStatusCountMap.get(date);
+                HashMap<String, Integer> statusCountMap = dateTaskStatusCountMap.get(date);
 
-            if (statusCountMap.containsKey(status)) {
-                // Status already exists in the inner HashMap, increment the task count for that status
-                int taskCount = statusCountMap.get(status);
-                statusCountMap.put(status, taskCount + 1);
-            } else {
-                // Status doesn't exist in the inner HashMap, add it with task count 1
-                statusCountMap.put(status, 1);
+                if (statusCountMap.containsKey(status)) {
+                    // Status already exists in the inner HashMap, increment the task count for that status
+                    int taskCount = statusCountMap.get(status);
+                    statusCountMap.put(status, taskCount + 1);
+                } else {
+                    // Status doesn't exist in the inner HashMap, add it with task count 1
+                    statusCountMap.put(status, 1);
+                }
             }
         }
+
 
         // Iterate over the HashMap entries and construct the task count strings
         for (Map.Entry<String, HashMap<String, Integer>> dateEntry : dateTaskStatusCountMap.entrySet()) {
@@ -257,6 +272,13 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
 
         startActivity(intent);
 
+    }
+
+    public void openAddTaskActivity() {
+        Intent addTaskIntent = new Intent(getActivity(), AddTask.class);
+        addTaskIntent.putExtra("DATE", selectedDateString);
+        addTaskIntent.putExtra("USERNAME", username);
+        startActivity(addTaskIntent);
     }
 }
 

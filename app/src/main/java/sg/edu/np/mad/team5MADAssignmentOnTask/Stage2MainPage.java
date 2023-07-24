@@ -1,6 +1,7 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import android.content.Intent;
+import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,12 +14,17 @@ import androidx.fragment.app.FragmentTransaction;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import java.time.LocalDate;
+import java.util.Date;
+
 import sg.edu.np.mad.team5MADAssignmentOnTask.databinding.ActivityStage2MainPageBinding;
 
 public class Stage2MainPage extends AppCompatActivity {
 
     ActivityStage2MainPageBinding binding;
     private String username;
+
+    private String datetoday;
 
     FloatingActionButton fab;
 
@@ -30,6 +36,14 @@ public class Stage2MainPage extends AppCompatActivity {
 
         // Retrieve the extra string "USERNAME" from the intent
         username = getIntent().getStringExtra("USERNAME");
+
+        Date today = new Date();
+        String pattern = "dd/MM/yyyy";
+
+        SimpleDateFormat dateFormatter = new SimpleDateFormat(pattern);
+
+        datetoday = dateFormatter.format(today);
+
 
         replaceFragment(new HomeFragment());
         binding.bottomNavigationView.setBackground(null);
@@ -72,8 +86,14 @@ public class Stage2MainPage extends AppCompatActivity {
         addTaskFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent addtaskintent = new Intent(Stage2MainPage.this,AddTask.class);
-                startActivity(addtaskintent);
+                Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+                if (currentFragment instanceof HomeFragment) {
+                    ((HomeFragment) currentFragment).openAddTaskActivity();
+                }
+                else{
+                    Intent addtask = new Intent(Stage2MainPage.this,AddTask.class);
+
+                }
             }
         });
 
