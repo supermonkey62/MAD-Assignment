@@ -74,7 +74,7 @@ public class MainPage extends AppCompatActivity implements TaskDataHolder.TaskDa
                 taskList = filteredTasks;
 
                 todorecycler.setLayoutManager(new LinearLayoutManager(MainPage.this));
-                todorecycler.setAdapter(new MainpagetodoAdaptor(MainPage.this, taskList));
+                //todorecycler.setAdapter(new MainpagetodoAdaptor(MainPage.this, taskList, this));
 
             }
         });

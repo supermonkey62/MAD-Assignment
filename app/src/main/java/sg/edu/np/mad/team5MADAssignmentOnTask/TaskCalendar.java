@@ -204,7 +204,7 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
 
         // Set RecyclerView adapter with filtered tasks
         taskshower.setLayoutManager(new LinearLayoutManager(TaskCalendar.this));
-        taskshower.setAdapter(new MainpagetodoAdaptor(TaskCalendar.this, filteredTasks));
+        taskshower.setAdapter(new MainpagetodoAdaptor(TaskCalendar.this, filteredTasks, this));
 
         int numEntities = filteredTasks.size();
 
@@ -265,6 +265,11 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
 
     @Override
     public void onItemClicked(Event event) {
+
+    }
+
+    @Override
+    public void onTaskItemClicked(Task task) {
 
     }
 }

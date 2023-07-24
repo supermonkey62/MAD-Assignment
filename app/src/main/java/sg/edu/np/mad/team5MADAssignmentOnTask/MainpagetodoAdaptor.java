@@ -25,11 +25,14 @@ public class MainpagetodoAdaptor extends RecyclerView.Adapter<MainpageViewHolder
     private DatabaseReference userTask;
     private Task removedTask;
 
+    private SelectListener listener;
+
     float existingTimeSpent;
 
-    public MainpagetodoAdaptor(Context context, List<Task> eventList) {
+    public MainpagetodoAdaptor(Context context, List<Task> eventList, SelectListener listener) {
         this.context = context;
         this.taskList = eventList;
+        this.listener = listener;
         userTask = FirebaseDatabase.getInstance().getReference("Task");
     }
     @Override
@@ -96,6 +99,14 @@ public class MainpagetodoAdaptor extends RecyclerView.Adapter<MainpageViewHolder
                 });
 
                 showUndoPopup();
+            }
+        });
+
+        holder.cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // Call the onTaskItemClick method of the click listener with the clicked task
+                listener.onTaskItemClicked(taskList.get(position));
             }
         });
 

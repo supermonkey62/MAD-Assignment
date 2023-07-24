@@ -11,6 +11,8 @@ import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -37,10 +39,9 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
     String title = "HomeFragment";
 
     String selectedDateString, username;
-    
+
     private OnDateSelectedListener dateSelectedListener;
 
-    String selectedDateString;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -127,7 +128,7 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         List<Task> filteredTasks = filterTasksByDate(selectedDateString);
         List<Event> filteredEvents = filterEventsByDate(selectedDateString);
         eventShower.setAdapter(new EventAdapter(getActivity(), filteredEvents, this));
-        taskShower.setAdapter(new MainpagetodoAdaptor(getActivity(), filteredTasks));
+        taskShower.setAdapter(new MainpagetodoAdaptor(getActivity(), filteredTasks, this));
 
         // Send the selected date back to Stage2MainPage using the callback interface
         dateSelectedListener.onDateSelected(selectedDateString);
@@ -217,7 +218,7 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         List<Task> filteredTasks = filterTasksByDate(selectedDateString);
 
         taskShower.setLayoutManager(new LinearLayoutManager(getActivity()));
-        taskShower.setAdapter(new MainpagetodoAdaptor(getActivity(), filteredTasks));
+        taskShower.setAdapter(new MainpagetodoAdaptor(getActivity(), filteredTasks,this));
     }
 
     private List<Task> filterTasksByDate(String selectedDate) {
@@ -260,16 +261,34 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
     public void onItemClicked(Event event) {
         // Handle the click event for the task items in the RecyclerView
         // For example, you can display a dialog or navigate to a new activity
-        Intent intent = new Intent(getActivity(), EditTask.class);
+        Intent intent = new Intent(getActivity(), EditEvent.class);
         // Pass the task data to the EditTaskActivity using intent extras
-        intent.putExtra("TAG", event.getId());
+        intent.putExtra("ID", event.getId());
         intent.putExtra("USERNAME", event.getUsername());
         intent.putExtra("START_DATE", event.getStartDate());
         intent.putExtra("END_DATE", event.getEndDate());
         intent.putExtra("START_TIME", event.getStartTime());
         intent.putExtra("END_TIME", event.getEndTime());
+        intent.putExtra("DESCRIPTION", event.getDescription());
+        intent.putExtra("TITLE", event.getTitle());
         startActivity(intent);
     }
+
+    public void onTaskItemClicked(Task task) {
+        Intent intent = new Intent(getActivity(), EditTask.class);
+        intent.putExtra("USERNAME", task.getUsername());
+        intent.putExtra("TITLE", task.getTitle());
+        intent.putExtra("TYPE", task.getType());
+        intent.putExtra("DATE", task.getDate());
+        intent.putExtra("TAG", task.getTag());
+        intent.putExtra("STATUS", task.getStatus());
+        intent.putExtra("TIMESPENT", task.getTimespent());
+        intent.putExtra("SESSIONS", task.getSessions());
+        intent.putExtra("CATEGORY", task.getCategory());
+        startActivity(intent);
+    }
+
+
 
     @Override
     public void onEventDataFetched(List<Event> events) {

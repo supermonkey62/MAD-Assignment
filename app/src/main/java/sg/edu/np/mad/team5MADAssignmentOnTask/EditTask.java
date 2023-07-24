@@ -28,8 +28,6 @@ public class EditTask extends AppCompatActivity {
 
     Boolean status;
 
-    TextView selectedOption;
-
     DatabaseReference userTask;
     float existingTimeSpent;
 
@@ -49,7 +47,6 @@ public class EditTask extends AppCompatActivity {
         Log.v("TaskCount", tag);
         taskDate = findViewById(R.id.taskdate);
         titleEdit = findViewById(R.id.titleEdit);
-        selectedOption = findViewById(R.id.selectedoption);
         radioGroup = findViewById(R.id.addtaskradiogroup);
         Button editTask = findViewById(R.id.edittaskbutton);
         cancelText = findViewById(R.id.canceltasktext);
@@ -67,7 +64,6 @@ public class EditTask extends AppCompatActivity {
                 int radioId = radioGroup.getCheckedRadioButtonId();
                 radioButton = findViewById(radioId);
                 String typeTitle = radioButton.getText().toString();
-                selectedOption.setText("Task: " + taskTitle + " , " + typeTitle + " , " + selectedDate + " , " + username + " , " + tag);
                 userTask = FirebaseDatabase.getInstance().getReference("Task");
 
 

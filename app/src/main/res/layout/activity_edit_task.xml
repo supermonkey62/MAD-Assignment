@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AddTask"
-    android:background="#335A44">
+    android:background="@color/app_theme">
 
     <TextView
         android:id="@+id/edittaskheader"
@@ -50,6 +50,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Date and Day"
+        android:textColor="@color/black"
         android:textSize="15sp"
         app:layout_constraintTop_toTopOf="@id/whitebox"
         android:layout_marginTop="10dp"
@@ -64,6 +65,7 @@
         android:ems="10"
         android:inputType="text"
         android:hint="Title"
+        android:textColor="@color/black"
         app:layout_constraintTop_toTopOf="@id/titlebox"
         app:layout_constraintStart_toStartOf="@id/taskdate"
         android:layout_marginStart="50dp"
@@ -128,14 +130,6 @@
         android:layout_marginEnd="30dp"
         />
 
-    <TextView
-        android:id="@+id/selectedoption"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        app:layout_constraintTop_toBottomOf="@id/addtaskradiogroup"
-        android:gravity="center"
-        android:layout_marginTop="20dp"/>
 
 
 
