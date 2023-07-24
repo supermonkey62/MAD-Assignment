@@ -10,7 +10,7 @@
     <item
         android:id="@+id/timer"
         android:title="Timer"
-        android:icon="@drawable/baseline_timer_24"/>
+        android:icon="@drawable/baseline_task_24"/>
 
     <item
         android:title=""

@@ -110,12 +110,53 @@
                     android:visibility="visible"/>
 
             </androidx.cardview.widget.CardView>
+            <!-- BarChart for Average Number of Sessions per Category -->
+            <androidx.cardview.widget.CardView
+                android:id="@+id/cardViewAverageSessionsPerCategory"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
 
+                <com.github.mikephil.charting.charts.BarChart
+                    android:id="@+id/barChartAverageSessionsPerCategory"
+                    android:layout_width="match_parent"
+                    android:layout_height="300dp"
+                    android:padding="16dp" />
 
+                <LinearLayout
+                    android:id="@+id/sessionsLegendLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:visibility="visible" />
 
+            </androidx.cardview.widget.CardView>
 
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
 
+                <GridView
+                    android:id="@+id/gridViewHeatmap"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:numColumns="7"
+                    android:horizontalSpacing="2dp"
+                    android:verticalSpacing="2dp"
+                    android:gravity="center"
+                    android:background="@android:color/white"
+                    android:stretchMode="columnWidth"
+                    android:padding="4dp" />
 
+            </androidx.cardview.widget.CardView>
 
         </LinearLayout>
     </ScrollView>

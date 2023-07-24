@@ -157,6 +157,97 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         barChart.invalidate();
     }
 
+    private void displayAverageSessPerCategory(int avgPersonalSessions, int avgSchoolSessions, int avgAssignmentSessions,
+                                               int avgProjectsSessions, int avgErrandSessions, int avgHealthSessions) {
+
+        ArrayList<BarEntry> entries = new ArrayList<>();
+        ArrayList<Integer> barColors = new ArrayList<>();
+        ArrayList<String> categories = new ArrayList<>();
+
+        if (avgPersonalSessions > 0) {
+            entries.add(new BarEntry(0, avgPersonalSessions));
+            barColors.add(categoryColors.get("Personal Tasks"));
+            categories.add("Personal Tasks");
+        }
+        if (avgSchoolSessions > 0) {
+            entries.add(new BarEntry(1, avgSchoolSessions));
+            barColors.add(categoryColors.get("School Task"));
+            categories.add("School Task");
+        }
+        if (avgAssignmentSessions > 0) {
+            entries.add(new BarEntry(2, avgAssignmentSessions));
+            barColors.add(categoryColors.get("Assignments"));
+            categories.add("Assignments");
+        }
+        if (avgProjectsSessions > 0) {
+            entries.add(new BarEntry(3, avgProjectsSessions));
+            barColors.add(categoryColors.get("Projects"));
+            categories.add("Projects");
+        }
+        if (avgErrandSessions > 0) {
+            entries.add(new BarEntry(4, avgErrandSessions));
+            barColors.add(categoryColors.get("Errands and Shopping Tasks"));
+            categories.add("Errands and Shopping Tasks");
+        }
+        if (avgHealthSessions > 0) {
+            entries.add(new BarEntry(5, avgHealthSessions));
+            barColors.add(categoryColors.get("Health and Fitness Tasks"));
+            categories.add("Health and Fitness Tasks");
+        }
+
+        // Create a dataset using the entries
+        BarDataSet dataSet = new BarDataSet(entries, "Average Sessions");
+        dataSet.setColors(barColors);
+        float barWidth = 0.5f;
+
+        // Create a BarData object with the dataset
+        BarData barData = new BarData(dataSet);
+        barData.setBarWidth(barWidth);
+
+        // Get the BarChart reference and set the data
+        BarChart barChartAverageSessionsPerCategory = findViewById(R.id.barChartAverageSessionsPerCategory);
+        barChartAverageSessionsPerCategory.setData(barData);
+        barChartAverageSessionsPerCategory.getDescription().setEnabled(false);
+        barChartAverageSessionsPerCategory.setTouchEnabled(false);
+
+        // Hide X-axis labels
+        XAxis xAxis = barChartAverageSessionsPerCategory.getXAxis();
+        xAxis.setDrawLabels(false);
+        xAxis.setDrawGridLines(false);
+
+        // Hide the default legend
+        barChartAverageSessionsPerCategory.getLegend().setEnabled(false);
+
+        // Create a custom legend inside the chart
+        LinearLayout sessionsLegendLayout = findViewById(R.id.sessionsLegendLayout);
+
+        for (int i = 0; i < categories.size(); i++) {
+            String category = categories.get(i);
+            int color = barColors.get(i);
+
+            // Create a TextView for the legend entry
+            TextView legendEntry = new TextView(this);
+            legendEntry.setText(category);
+            legendEntry.setTextColor(color);
+            legendEntry.setTextSize(12f);
+
+            // Add some padding between legend entries
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+            );
+            layoutParams.setMargins(0, 0, 16, 0);
+            legendEntry.setLayoutParams(layoutParams);
+
+            // Add the legend entry to the legend layout
+            sessionsLegendLayout.addView(legendEntry);
+        }
+
+        // Refresh the chart
+        barChartAverageSessionsPerCategory.invalidate();
+    }
+
+
     private void createPieChart(float personalCount, float schoolCount, float assignmentCount, float projectsCount, float errandCount, float healthCount) {
         // Create pie entries
         ArrayList<PieEntry> entries = new ArrayList<>();
@@ -401,97 +492,6 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
     }
 
 
-//    private void displayAverageTimePerCategory(float personalAvg, float schoolAvg, float assignmentAvg,
-//                                               float projectsAvg, float errandAvg, float healthAvg) {
-//
-//        ArrayList<BarEntry> entries = new ArrayList<>();
-//        ArrayList<Integer> barColors = new ArrayList<>();
-//        ArrayList<String> categories = new ArrayList<>();
-//
-//        if (personalAvg > 0) {
-//            entries.add(new BarEntry(0, personalAvg));
-//            barColors.add(categoryColors.get("Personal Tasks"));
-//            categories.add("Personal Tasks");
-//        }
-//        if (schoolAvg > 0) {
-//            entries.add(new BarEntry(1, schoolAvg));
-//            barColors.add(categoryColors.get("School Task"));
-//            categories.add("School Task");
-//        }
-//        if (assignmentAvg > 0) {
-//            entries.add(new BarEntry(2, assignmentAvg));
-//            barColors.add(categoryColors.get("Assignments"));
-//            categories.add("Assignments");
-//        }
-//        if (projectsAvg > 0) {
-//            entries.add(new BarEntry(3, projectsAvg));
-//            barColors.add(categoryColors.get("Projects"));
-//            categories.add("Projects");
-//        }
-//        if (errandAvg > 0) {
-//            entries.add(new BarEntry(4, errandAvg));
-//            barColors.add(categoryColors.get("Errands and Shopping Tasks"));
-//            categories.add("Errands and Shopping Tasks");
-//        }
-//        if (healthAvg > 0) {
-//            entries.add(new BarEntry(5, healthAvg));
-//            barColors.add(categoryColors.get("Health and Fitness Tasks"));
-//            categories.add("Health and Fitness Tasks");
-//        }
-//
-//        // Create a dataset using the entries
-//        BarDataSet dataSet = new BarDataSet(entries, "Average Time Spent (minutes)");
-//        dataSet.setColors(barColors);
-//        float barWidth = 0.5f;
-//
-//        // Create a BarData object with the dataset
-//        BarData barData = new BarData(dataSet);
-//        barData.setBarWidth(barWidth);
-//
-//        // Get the BarChart reference and set the data
-//        BarChart barChartAverageTimePerCategory = findViewById(R.id.barChartAverageTimePerCategory);
-//        barChartAverageTimePerCategory.setData(barData);
-//        barChartAverageTimePerCategory.getDescription().setEnabled(false);
-//        barChartAverageTimePerCategory.setTouchEnabled(false);
-//
-//        // Hide X-axis labels
-//        XAxis xAxis = barChartAverageTimePerCategory.getXAxis();
-//        xAxis.setDrawLabels(false);
-//        xAxis.setDrawGridLines(false);
-//
-//        Legend legend = barChartAverageTimePerCategory.getLegend();
-//        legend.setEnabled(true);
-//        legend.setVerticalAlignment(Legend.LegendVerticalAlignment.TOP);
-//        legend.setOrientation(Legend.LegendOrientation.VERTICAL);
-//        legend.setDrawInside(false);
-//        legend.setXEntrySpace(70f);
-//        legend.setYEntrySpace(10f);
-//        legend.setTextSize(10f);
-//        legend.setWordWrapEnabled(true);
-//
-//        // Create legend entries for each category
-//        List<LegendEntry> legendEntries = new ArrayList<>();
-//        for (int i = 0; i < categories.size(); i++) {
-//            String category = categories.get(i);
-//            LegendEntry entry = new LegendEntry();
-//            entry.label = category;
-//            entry.formColor = barColors.get(i);
-//            legendEntries.add(entry);
-//        }
-//
-//        // Set the legend entries
-//        legend.setCustom(legendEntries);
-//
-//        // Refresh the chart
-//        barChartAverageTimePerCategory.invalidate();
-//    }
-
-
-
-
-
-
-
     @Override
     public void onTaskDataFetched(List<Task> tasks) {
         taskList = tasks;
@@ -516,36 +516,64 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         float errandavg = 0;
         float healthavg = 0;
 
+        int personalsess = 0;
+        int schoolsess = 0;
+        int assignmentsess = 0;
+        int projectsess = 0;
+        int errandsess = 0;
+        int healthsess = 0;
+
+        int avgpersonalsess = 0;
+        int avgschoolsess = 0;
+        int avgassignmentsess = 0;
+        int avgprojectsess = 0;
+        int avgerrandsess = 0;
+        int avghealthsess = 0;
+
 
 
         for (Task task : tasks) {
             String category = task.getCategory();
             float timeSpent = task.getTimespent();
+            int sessions = task.getSessions();
 
             if (category.equals("Personal Tasks")) {
                 personalTime += timeSpent;
                 personalCount += 1;
                 personalavg = personalTime / personalCount;
+                personalsess += sessions;
+                avgpersonalsess = (int) (personalsess/personalCount);
+
             } else if (category.equals("School Task")) {
                 schoolTime += timeSpent;
                 schoolCount += 1;
                 schoolavg = schoolTime/schoolCount;
+                schoolsess += sessions;
+                avgschoolsess = (int)(schoolsess/schoolCount);
             } else if (category.equals("Assignments")) {
                 assignmentTime += timeSpent;
                 assignmentCount += 1;
                 assignmentavg = assignmentTime/assignmentCount;
+                assignmentsess += sessions;
+                avgassignmentsess = (int)(assignmentsess/assignmentCount);
             } else if (category.equals("Projects")) {
                 projectsTime += timeSpent;
                 projectsCount += 1;
                 projectsavg = projectsTime/projectsCount;
+                projectsess += sessions;
+                avgprojectsess = (int)(projectsess/projectsCount);
             } else if (category.equals("Errands and Shopping Tasks")) {
                 errandTime += timeSpent;
                 errandCount += 1;
                 errandavg = errandTime/errandCount;
+                errandsess += sessions;
+                errandsess = (int)(errandsess/errandCount);
             } else if (category.equals("Health and Fitness Tasks")) {
                 healthTime += timeSpent;
                 healthCount += 1;
                 healthavg = healthTime/healthCount;
+                healthsess += sessions;
+                avghealthsess = (int)(healthsess/healthCount);
             }
         }
 
@@ -554,6 +582,7 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         createLineChart(tasks);
         displayAverageTime(tasks);
         displayAverageTimePerCategory(personalavg, schoolavg, assignmentavg, projectsavg, errandavg, healthavg);
+        displayAverageSessPerCategory(avgpersonalsess,avgschoolsess,avgassignmentsess,avgprojectsess,avgerrandsess,avghealthsess);
     }
     }
 

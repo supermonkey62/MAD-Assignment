@@ -127,26 +127,6 @@ public class timer extends AppCompatActivity {
             }
         });
 
-//        setButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                String input = inputEditText.getText().toString();
-//                if (input.isEmpty()) {
-//                    Toast.makeText(timer.this, "Field can't be empty", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                long millisInput = Long.parseLong(input) * 60000;
-//                if (millisInput == 0) {
-//                    Toast.makeText(timer.this, "Please enter a positive number", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                setTime(millisInput);
-//                inputEditText.setText("");
-//            }
-//        });
-
         startButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -164,7 +144,8 @@ public class timer extends AppCompatActivity {
             long timeSpent = startTimeInMillis - timeLeftInMillis;
             float minutes = (float) (((timeSpent / 1000) % 3600) / 60);
             float seconds = (float) ((timeSpent / 1000) % 60);
-            totalTimeInMinutes = minutes + (seconds / 60);
+            totalTimeInMinutes += minutes + (seconds / 60);
+            totalSessions += 1;
             countDownTimer.cancel();
             isTimerRunning = false;
             startButton.setText("Start Timer");
@@ -178,13 +159,14 @@ public class timer extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     Task existingTask = dataSnapshot.getValue(Task.class);
                     existingTimeSpent = existingTask.getTimespent();
-                    newTimeSpent = existingTimeSpent + totalTimeInMinutes;
+                    newTimeSpent += (existingTimeSpent + totalTimeInMinutes);
                     existingSessions = existingTask.getSessions();
-                    totalSessions = existingSessions + 1;
+                    totalSessions = (existingSessions + totalSessions);
                     taskStatus = done;
                     Log.v("OldTaskTime", tag + "," + existingTimeSpent);
                     Log.v("NewTaskTime",tag + "," + totalTimeInMinutes);
                     Log.v("TaskTime", tag + "," + newTimeSpent);
+                    Log.v("sessions", tag + ","+ totalSessions);
                 } else {
                     Log.v("TaskCount", tag + " does not exist.");
                 }
