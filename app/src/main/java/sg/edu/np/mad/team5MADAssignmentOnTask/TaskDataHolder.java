@@ -14,11 +14,11 @@ import java.util.List;
 public class TaskDataHolder {
     private static TaskDataHolder instance;
     private List<Task> taskList;
-    private DatabaseReference eventRef;
+    private DatabaseReference tasktRef;
 
     private TaskDataHolder() {
         taskList = new ArrayList<>();
-        eventRef = FirebaseDatabase.getInstance().getReference("Task");
+        tasktRef = FirebaseDatabase.getInstance().getReference("Task");
     }
 
     public static synchronized TaskDataHolder getInstance() {
@@ -29,7 +29,7 @@ public class TaskDataHolder {
     }
 
     public void fetchUserTasks(String username, final TaskDataCallback callback) {
-        eventRef.addValueEventListener(new ValueEventListener() {
+        tasktRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 taskList.clear();

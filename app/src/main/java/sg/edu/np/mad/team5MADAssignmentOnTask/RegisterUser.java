@@ -20,15 +20,14 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class RegisterUser extends AppCompatActivity {
 
     EditText usernameEdit, passwordEdit, confirmPasswordEdit;
     Button registerButton;
     TextView cancelButton, back;
-
-
-
-    FirebaseDatabase fdb = FirebaseDatabase.getInstance();
     DatabaseReference userRef;
     DatabaseReference taskcountRef;
 
@@ -56,12 +55,9 @@ public class RegisterUser extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Toast.makeText(getApplicationContext(), "Back to Main Page", Toast.LENGTH_SHORT).show();
-
                 finish();
             }
         });
-
-
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -92,19 +88,13 @@ public class RegisterUser extends AppCompatActivity {
                                  @Override
                                  public void onDataChange(DataSnapshot dataSnapshot) {
                                      if (dataSnapshot.exists()) {
-                                         Log.v("RegisterPage", "Username already exists");
                                          Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
                                      } else {
                                          // Create a new user
-
-                                         User newUser = new User(username, password,username,IMAGEURI);
-                                         TaskCount newTaskCount = new TaskCount(username,0);
-                                         Log.v("Register","+" + IMAGEURI);
+                                         User newUser = new User(username, password,username,IMAGEURI,0, 0);
                                          userRef.child(username).setValue(newUser);
-                                         taskcountRef.child(username).setValue(newTaskCount);
-                                         Log.v("RegisterPage", "User registered successfully");
                                          Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
-                                         finish(); // Finish the activity and go back to the login page
+                                         finish();
                                      }
                                  }
 
@@ -114,7 +104,6 @@ public class RegisterUser extends AppCompatActivity {
                                  }
                              });
                          } else {
-                             Log.v("RegisterPage", "Passwords do not match");
                              Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
                          }
                      }

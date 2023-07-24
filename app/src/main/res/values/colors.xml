@@ -25,5 +25,7 @@
     <color name="app_theme_light">#f6fbff</color>
     <color name="edit_text_border">#03A9F4</color>
     <color name="edit_text_background">#f6fbff</color>
+    <color name="button_colour">#DAF1DE</color>
+    <color name="white_box_colour">#235347</color>
 
 </resources>

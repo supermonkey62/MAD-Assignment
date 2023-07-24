@@ -3,22 +3,22 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 import static sg.edu.np.mad.team5MADAssignmentOnTask.CalendarUtils.daysInWeekArray;
 import static sg.edu.np.mad.team5MADAssignmentOnTask.CalendarUtils.selectedDate;
 
+import android.content.Context;
 import android.content.Intent;
 import android.icu.util.Calendar;
 import android.os.Bundle;
 
-import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.support.annotation.NonNull;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -30,14 +30,18 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class HomeFragment extends Fragment implements CalendarAdapter.OnItemListener, TaskDataHolder.TaskDataCallback, UserDataHolder.UserDataCallback, SelectListener {
+public class HomeFragment extends Fragment implements CalendarAdapter.OnItemListener, TaskDataHolder.TaskDataCallback, EventDataHolder.EventDataCallback, UserDataHolder.UserDataCallback, SelectListener{
     private TextView monthYearText, greetingText, displaynametext;
 
     private RecyclerView calendarRecyclerView, eventShower, taskShower;
 
     List<Task> taskList;
+
+    List<Event> eventList;
     RecyclerView recyclerView;
     String title = "HomeFragment";
+
+    private OnDateSelectedListener dateSelectedListener;
 
     String selectedDateString;
 
@@ -56,6 +60,7 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         Log.v("UsernameHome", username);
         TaskDataHolder.getInstance().fetchUserTasks(username, this);
         UserDataHolder.getInstance().fetchUserData(username, this);
+        EventDataHolder.getInstance().fetchUserEvents(username, this);
 
         setWeekView();
         user_greeting(view);
@@ -71,6 +76,16 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         recyclerView = view.findViewById(R.id.upcomingEventRecycler);
         eventShower = view.findViewById(R.id.eventshower);
         taskShower = view.findViewById(R.id.taskshower);
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof OnDateSelectedListener) {
+            dateSelectedListener = (OnDateSelectedListener) context;
+        } else {
+            throw new ClassCastException(context.toString() + " must implement OnDateSelectedListener");
+        }
     }
 
     private void setWeekView() {
@@ -89,7 +104,7 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         calendar.setTime(selectedDate);
         calendar.add(Calendar.WEEK_OF_YEAR, -1);
         selectedDate = calendar.getTime();
-        setWeekView();
+        updateViewsForSelectedDate(selectedDate);
     }
 
     public void nextWeekAction(View view) {
@@ -97,19 +112,28 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         calendar.setTime(selectedDate);
         calendar.add(Calendar.WEEK_OF_YEAR, 1);
         selectedDate = calendar.getTime();
+        updateViewsForSelectedDate(selectedDate);
+    }
+
+    private void updateViewsForSelectedDate(Date selectedDate) {
         setWeekView();
+        onItemClick(-1, selectedDate); // Manually call onItemClick with the new selected date
     }
 
     @Override
     public void onItemClick(int position, Date date) {
         selectedDate = date;
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        String selectedDateString = dateFormat.format(date);
+        selectedDateString = dateFormat.format(date);
         Log.v("OnClickDate", selectedDateString);
         setWeekView();
         List<Task> filteredTasks = filterTasksByDate(selectedDateString);
-        eventShower.setAdapter(new Adapter(getActivity(), filteredTasks, this));
-        taskShower.setAdapter(new MainpagetodoAdaptor(getActivity(),filteredTasks));
+        List<Event> filteredEvents = filterEventsByDate(selectedDateString);
+        eventShower.setAdapter(new EventAdapter(getActivity(), filteredEvents, this));
+        taskShower.setAdapter(new MainpagetodoAdaptor(getActivity(), filteredTasks));
+
+        // Send the selected date back to Stage2MainPage using the callback interface
+        dateSelectedListener.onDateSelected(selectedDateString);
     }
 
 
@@ -121,24 +145,17 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
             greetingText.setText("Good morning");
         } else if (hour < 18) {
             greetingText.setText("Good afternoon");
-
         } else {
             greetingText.setText("Good evening");
-
         }
     }
 
     public void onUserDataFetched(String displayname) {
         displaynametext.setText(displayname);
-        Log.v("UserData", "User Data Retrieval Successful.");
-
     }
 
     public void onTaskDataFetched(List<Task> tasks) {
         taskList = tasks;
-
-
-
         List<String> dateList = new ArrayList<>();
         List<String> taskCountList = new ArrayList<>();
         int numEntities = taskList.size();
@@ -199,8 +216,6 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         Log.v(title, "Number of tasks in taskCountList: " + taskCountList.size());
 
         List<Task> filteredTasks = filterTasksByDate(selectedDateString);
-        eventShower.setLayoutManager(new LinearLayoutManager(getActivity()));
-        eventShower.setAdapter(new Adapter(getActivity(), filteredTasks, this));
 
         taskShower.setLayoutManager(new LinearLayoutManager(getActivity()));
         taskShower.setAdapter(new MainpagetodoAdaptor(getActivity(), filteredTasks));
@@ -243,20 +258,65 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
     }
 
     @Override
-    public void onItemClicked(Task task) {
+    public void onItemClicked(Event event) {
         // Handle the click event for the task items in the RecyclerView
         // For example, you can display a dialog or navigate to a new activity
         Intent intent = new Intent(getActivity(), EditTask.class);
         // Pass the task data to the EditTaskActivity using intent extras
-        intent.putExtra("TAG", task.getTag());
-        intent.putExtra("STATUS", task.getStatus());
-        intent.putExtra("USERNAME", task.getUsername());
-        intent.putExtra("DATE", task.getDate());
-
-        // Add more intent extras as needed for other task details
-
+        intent.putExtra("TAG", event.getId());
+        intent.putExtra("USERNAME", event.getUsername());
+        intent.putExtra("START_DATE", event.getStartDate());
+        intent.putExtra("END_DATE", event.getEndDate());
+        intent.putExtra("START_TIME", event.getStartTime());
+        intent.putExtra("END_TIME", event.getEndTime());
         startActivity(intent);
+    }
 
+    @Override
+    public void onEventDataFetched(List<Event> events) {
+        eventList = events;
+
+        List<Event> filteredEvents = filterEventsByDate(selectedDateString);
+        eventShower.setLayoutManager(new LinearLayoutManager(getActivity()));
+        eventShower.setAdapter(new EventAdapter(getActivity(), filteredEvents, this));
+
+    }
+
+    private List<Event> filterEventsByDate(String selectedDate) {
+        List<Event> filteredEvents = new ArrayList<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
+        String[] dateParts = selectedDate.split("/");
+        int day = Integer.parseInt(dateParts[0]);
+        int month = Integer.parseInt(dateParts[1]);
+        int year = Integer.parseInt(dateParts[2]);
+        Log.v("filter Events", String.valueOf(day + ", " +  month + ", " + year));
+        for (Event event : eventList) {
+            try {
+                if (event.getStartDate() != null) {
+                    java.util.Calendar Calendar = java.util.Calendar.getInstance();
+                    Calendar.setTime(dateFormat.parse(event.getStartDate()));
+                    // Log the year, month, and date of the task
+                    int eventYear = Calendar.get(java.util.Calendar.YEAR);
+                    int eventMonth = Calendar.get(java.util.Calendar.MONTH);
+                    int eventDay = Calendar.get(java.util.Calendar.DAY_OF_MONTH);
+                    // Check if the task date matches the selected date
+                    if (year == Calendar.get(java.util.Calendar.YEAR) &&
+                            month - 1 == Calendar.get(java.util.Calendar.MONTH) &&
+                            day == Calendar.get(java.util.Calendar.DAY_OF_MONTH)) {
+                        filteredEvents.add(event);
+                    }
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        int numEntities = filteredEvents.size();
+        Log.v("FilteredEventsSize", "Number of entities: " + numEntities);
+        return filteredEvents;
+    }
+
+    public interface OnDateSelectedListener {
+        void onDateSelected(String selectedDate);
     }
 }
 

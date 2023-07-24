@@ -1,8 +1,5 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
-
-import static sg.edu.np.mad.team5MADAssignmentOnTask.R.id.profilepageback2;
-
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 

@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:textSize="20sp"
-            tools:text="Task Title"
+            tools:text="Title"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -30,15 +30,30 @@
             />
 
         <TextView
-            android:id="@+id/box2"
+            android:id="@+id/datebox"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/black"
             android:layout_marginTop="10dp"
             android:textSize="15sp"
-            tools:text="Type"
+            tools:text="Date"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/titlebox"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="8dp"
+            />
+
+
+        <TextView
+            android:id="@+id/timebox"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:layout_marginTop="10dp"
+            android:textSize="15sp"
+            tools:text="Time"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/datebox"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginStart="8dp"
             />

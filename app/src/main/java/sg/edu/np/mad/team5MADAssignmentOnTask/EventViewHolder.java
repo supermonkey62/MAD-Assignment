@@ -5,18 +5,19 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
-public class ViewHolder extends RecyclerView.ViewHolder {
-    TextView box1View, box2View;
+public class EventViewHolder extends RecyclerView.ViewHolder {
+    TextView titlebox, datebox, timebox;
 
     String username,date,tag;
     public CardView cardView;
     boolean status;
 
 
-    public ViewHolder(View itemView) {
+    public EventViewHolder(View itemView) {
         super(itemView);
-        box1View = itemView.findViewById(R.id.titlebox);
-        box2View = itemView.findViewById(R.id.box2);
+        titlebox = itemView.findViewById(R.id.titlebox);
+        datebox = itemView.findViewById(R.id.datebox);
+        timebox = itemView.findViewById(R.id.timebox);
         cardView = itemView.findViewById(R.id.main_container);
     }
 }

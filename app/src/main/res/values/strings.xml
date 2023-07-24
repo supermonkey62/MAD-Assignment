@@ -30,5 +30,15 @@
     <string name="todayTask">Today\'s Task</string>
     <string name="task_text">Tasks</string>
     <string name="events_text">Events</string>
+    <string name="add_event_text">Add Event</string>
+    <string name="white_box">White Box</string>
+    <string name="cancel_text">Cancel</string>
+    <string name="date_text">Date</string>
+    <string name="green_box_text">Edit Text Holder</string>
+    <string name="title_text">Title</string>
+    <string name="description_text">Description</string>
+    <string name="add_text">Add</string>
+    <string name="date_format_text">Date (dd/mm/yyyy)</string>
+
 
 </resources>

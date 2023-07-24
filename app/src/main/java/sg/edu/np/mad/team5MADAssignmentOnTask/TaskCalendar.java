@@ -78,7 +78,7 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
 
                 // Set RecyclerView adapter with filtered tasks
                 taskshower.setLayoutManager(new LinearLayoutManager(TaskCalendar.this));
-                //taskshower.setAdapter(new Adapter(TaskCalendar.this, filteredTasks, this));
+                //taskshower.setAdapter(new EventAdapter(TaskCalendar.this, filteredTasks, this));
 
                 int numEntities = filteredTasks.size();
 
@@ -110,7 +110,7 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
                 Log.v("String2Create", selectedDateString2);
                 List<Task> filteredTasks = filterTasksByDate(selectedDateString2);
                 saveData();
-                //taskshower.setAdapter(new Adapter(TaskCalendar.this, filteredTasks, this));
+                //taskshower.setAdapter(new EventAdapter(TaskCalendar.this, filteredTasks, this));
 
                 int numEntities = filteredTasks.size();
 
@@ -141,7 +141,7 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
 
 
                 // Update the RecyclerView adapter with the filtered tasks
-                //taskshower.setAdapter(new Adapter(TaskCalendar.this, filteredTasks, this));
+                //taskshower.setAdapter(new EventAdapter(TaskCalendar.this, filteredTasks, this));
 
                 int numEntities = filteredTasks.size();
 
@@ -204,7 +204,7 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
 
         // Set RecyclerView adapter with filtered tasks
         taskshower.setLayoutManager(new LinearLayoutManager(TaskCalendar.this));
-        taskshower.setAdapter(new Adapter(TaskCalendar.this, filteredTasks,this::onItemClicked));
+        taskshower.setAdapter(new MainpagetodoAdaptor(TaskCalendar.this, filteredTasks));
 
         int numEntities = filteredTasks.size();
 
@@ -264,7 +264,7 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
     }
 
     @Override
-    public void onItemClicked(Task task) {
+    public void onItemClicked(Event event) {
 
     }
 }

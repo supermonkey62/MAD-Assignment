@@ -149,7 +149,7 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
 
 
 
-//public class TodoViewHolder extends RecyclerView.ViewHolder {
+//public class TodoViewHolder extends RecyclerView.EventViewHolder {
 //    CheckBox task;
 //    FloatingActionButton tasktimerlink;
 //
