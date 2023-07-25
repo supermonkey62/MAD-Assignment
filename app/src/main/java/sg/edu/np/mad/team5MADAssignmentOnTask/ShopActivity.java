@@ -21,6 +21,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ShopActivity extends AppCompatActivity implements ShopAdapter.OnButtonClickListener {
@@ -49,15 +51,23 @@ public class ShopActivity extends AppCompatActivity implements ShopAdapter.OnBut
 
         CountRef = FirebaseDatabase.getInstance().getReference("UserCount").child(username);
 
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish(); // Call finish() when the cancel button is clicked
+            }
+        });
+
         CountRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                // The value of CountRef can be accessed here
-                int countValue = dataSnapshot.child("coincount").getValue(Integer.class);
-                Log.v("Count", "+" + countValue);
-                String Coins = "Coins: " + countValue;
-                CoinsCount.setText(Coins);
-                Log.d("CountValue", "Value: " + countValue);
+                if (dataSnapshot.exists()) {
+                    int countValue = dataSnapshot.child("coincount").getValue(Integer.class);
+                    Log.v("Count", "+" + countValue);
+                    String Coins = "Coins: " + countValue;
+                    CoinsCount.setText(Coins);
+                    Log.d("CountValue", "Value: " + countValue);
+                }
 
             }
 
@@ -68,12 +78,6 @@ public class ShopActivity extends AppCompatActivity implements ShopAdapter.OnBut
             }
         });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish(); // Call finish() when the cancel button is clicked
-            }
-        });
 
 
 
@@ -120,9 +124,25 @@ public class ShopActivity extends AppCompatActivity implements ShopAdapter.OnBut
                         shopList.add(shop);
                     }
 
-
-
                 }
+
+                Comparator<Shop> statusComparator = new Comparator<Shop>() {
+                    @Override
+                    public int compare(Shop shop1, Shop shop2) {
+                        if (shop1.isBoughted() && !shop2.isBoughted()) {
+                            return 1; // Move shop2 down in the list
+                        } else if (!shop1.isBoughted() && shop2.isBoughted()) {
+                            return -1; // Move shop2 up in the list
+                        } else {
+                            return 0; // Preserve the original order if both have the same status
+                        }
+                    }
+                };
+
+                // Sort the shopList using the custom comparator
+                Collections.sort(shopList, statusComparator);
+
+
                 adapter.notifyDataSetChanged();
             }
 
@@ -169,13 +189,9 @@ public class ShopActivity extends AppCompatActivity implements ShopAdapter.OnBut
                             .setCancelable(false)
                             .setPositiveButton("Confirm", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
-
-                                    Intent intent = new Intent(ShopActivity.this, ShopActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                     FirebaseDatabase.getInstance().getReference("UserCount").child(username).child("coincount").setValue(countValue-shop.getCost());
                                     claimItem(shop);
-                                    intent.putExtra("USERNAME", username);
-                                    startActivity(intent);
+                                    recreate();
 
                                 }
                             })
@@ -191,7 +207,6 @@ public class ShopActivity extends AppCompatActivity implements ShopAdapter.OnBut
                 Log.e("CountValue", "Error: " + databaseError.getMessage());
             }
         });
-        Toast.makeText(this, "Button clicked at position " + shop.getFonttype(), Toast.LENGTH_SHORT).show();
     }
     private void claimItem(Shop shop) {
         // Call the claimAchievement method in the adapter

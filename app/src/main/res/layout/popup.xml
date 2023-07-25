@@ -7,6 +7,7 @@
     android:background="@android:color/white"
     android:padding="8dp">
 
+
     <!-- Icon 1 Button -->
     <LinearLayout
         android:id="@+id/icon1_layout"
@@ -31,7 +32,23 @@
             android:textSize="16sp"
             android:textColor="@android:color/black"
             android:layout_gravity="center_vertical" />
+
+
+        <TextView
+            android:id="@+id/number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/baseline_circle_24"
+            android:textSize="12sp"
+            android:gravity="center"
+            android:textColor="@android:color/white"
+            android:layout_gravity="top|end"
+            android:padding="4dp" />
+
+
     </LinearLayout>
+
+
 
     <!-- Icon 2 Button -->
     <LinearLayout
@@ -54,6 +71,32 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Shop"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center_vertical" />
+
+
+    </LinearLayout>
+    <LinearLayout
+        android:id="@+id/icon5_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/icon5_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/black_style"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/icon5_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Style"
             android:textSize="16sp"
             android:textColor="@android:color/black"
             android:layout_gravity="center_vertical" />
@@ -111,28 +154,5 @@
             android:layout_gravity="center_vertical" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/icon5_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center"
-        android:padding="8dp">
 
-        <ImageView
-            android:id="@+id/icon5_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@drawable/baseline_shopping_cart_24"
-            android:layout_gravity="center_vertical" />
-
-        <TextView
-            android:id="@+id/icon5_text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Style"
-            android:textSize="16sp"
-            android:textColor="@android:color/black"
-            android:layout_gravity="center_vertical" />
-    </LinearLayout>
 </LinearLayout>

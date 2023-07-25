@@ -85,13 +85,10 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
             holder.image.setVisibility(View.GONE);
             holder.title.setVisibility(View.GONE);
             holder.layout.setVisibility(View.GONE);
+
         }
 
     }
-
-
-
-
 
     @Override
     public int getItemCount() {
@@ -113,11 +110,7 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
             title = itemView.findViewById(R.id.textView6);
             cost = itemView.findViewById(R.id.costTextView);
             buy = itemView.findViewById(R.id.button);
-            coin = itemView.findViewById(R.id.coins);
             layout = itemView.findViewById(R.id.layout);
-
-
-
 
         }
     }

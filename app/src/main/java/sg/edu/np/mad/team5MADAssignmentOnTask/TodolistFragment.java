@@ -24,7 +24,6 @@ public class TodolistFragment extends Fragment {
         View view = inflater.inflate(R.layout.activity_todolist_fragmentholder, container, false);
 
         todoswitch = view.findViewById(R.id.todotaskswitch);
-        backhome = view.findViewById(R.id.backhome);
         taskanalysis = view.findViewById(R.id.button3);
         String username = getActivity().getIntent().getStringExtra("USERNAME");
         taskanalysis.setOnClickListener(new View.OnClickListener() {
@@ -36,12 +35,6 @@ public class TodolistFragment extends Fragment {
             }
         });
 
-        backhome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().finish(); // Use requireActivity() to finish the activity
-            }
-        });
 
         todoswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

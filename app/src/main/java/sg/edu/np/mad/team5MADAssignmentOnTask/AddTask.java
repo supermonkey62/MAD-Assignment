@@ -116,6 +116,7 @@ public class AddTask extends AppCompatActivity {
                         } else {
                             Task newTask = new Task(username, taskTitle, selectedDate, taskId, false, 0, 0, selectedCategory,false);
                             taskRef.child(taskId).setValue(newTask);
+                            UpdateCount(username);
                             finish();
                         }
                     }
@@ -198,6 +199,31 @@ public class AddTask extends AppCompatActivity {
         editor.apply();
     }
 
+
+
+    private void UpdateCount(String username){
+        DatabaseReference CountRef;
+        CountRef = FirebaseDatabase.getInstance().getReference("UserCount").child(username);
+
+        CountRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Check if the data exists
+                if (dataSnapshot.exists()) {
+
+                    int first = dataSnapshot.child("taskcount").getValue(Integer.class);
+                    CountRef.child("taskcount").setValue(first + 1);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle any errors that may occur while fetching the data
+                // ...
+            }
+        });
+
+    }
 
 }
 

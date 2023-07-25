@@ -1,6 +1,7 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
@@ -28,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
@@ -48,26 +50,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class ProfileFragment extends Fragment implements UserDataHolder.UserDataCallback {
+public class ProfileFragment extends Fragment implements UserDataHolder.UserDataCallback   {
 
-    private TextView  profileusername;
+    private TextView  profileusername,title;
     private ImageView editProfile, pfp;
     private String displayname;
-
     private String ImageURI;
     private String username;
-
-    private String password;
     private String TITLE = "Profile Page";
-
     private ArrayList<String> goals;
     private ArrayAdapter<String> goalsAdapter;
     private ListView listView;
     private Button addGoalsButton;
-
     private DatabaseReference userRef;
-    private PopupWindow popupWindow;
-
+    private int num;
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,23 +77,21 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         username = getActivity().getIntent().getStringExtra("USERNAME");
-        password = getActivity().getIntent().getStringExtra("PASSWORD");
         displayname = getActivity().getIntent().getStringExtra("DISPLAYNAME");
-
         updateUserAchievements(username);
 
         profileusername = view.findViewById(R.id.profileusername);
         editProfile = view.findViewById(R.id.editUsername);
         pfp = view.findViewById(R.id.image_view);
         View layout = view.findViewById(R.id.layout);
-
         listView = view.findViewById(R.id.goal_list);
         addGoalsButton = view.findViewById(R.id.goal_button);
+        title = view.findViewById(R.id.title);
         ImageView whitebox = view.findViewById(R.id.whitebox);
         TextView goal = view.findViewById(R.id.goal);
         TextView goalinput = view.findViewById(R.id.goal_input);
-        listviewsetbackground(username,listView,goal);
 
+        listviewsetbackground(username,listView,title);
 
         Context context = container.getContext();
         int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
@@ -110,12 +104,39 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
             ImageView more = view.findViewById(R.id.editUsername);
             more.setImageResource(R.drawable.white_more);
             goalinput.setTextColor(ContextCompat.getColor(context,R.color.white));
-
+            profileusername.setTextColor(ContextCompat.getColor(context,R.color.white));
         }
 
+        title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatabaseReference userGoalsRef = FirebaseDatabase.getInstance().getReference("UserAchievement").child(username);
+                userGoalsRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        List<String> titlelist = new ArrayList<>();
+                        titlelist.add("The Starter");
+                        for (DataSnapshot titleSnapshot : dataSnapshot.getChildren()) {
+                            String key = titleSnapshot.getKey();
+                            if (titleSnapshot.child("status").getValue(String.class).equals("Completed") && titleSnapshot.child("rewardtype").getValue(String.class).equals("Title")){
+
+                                titlelist.add(titleSnapshot.child("reward").getValue(String.class));
+                            }
+                        }showListPopup(titlelist,title);
+
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+                        Log.v("ProfilePage", "Error: " + databaseError.getMessage());
+                    }
+                });
+
+            }
+        });
 
 
-        // Display user's previously added goals from database
         DatabaseReference userGoalsRef = FirebaseDatabase.getInstance().getReference("Users").child(username).child("goals");
         userGoalsRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -176,7 +197,7 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
             public void onClick(View v) {
 
 
-                showPopup(v,username,context);
+                showPopup(v,username,context,num);
             }
         });
 
@@ -249,33 +270,6 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
         Log.v(TITLE, "On Pause!");
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        // Fetch user data again when the fragment resumes
-        UserDataHolder.getInstance().fetchUserData(username, this);
-        profileusername.setText(displayname);
-        userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
-
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    ImageURI = dataSnapshot.child("imageURI").getValue().toString();
-                    Uri uri = Uri.parse(ImageURI);
-                    pfp.setImageURI(uri);
-                } else {
-                    Log.v("ChangeDisplayName", "User not found");
-                }
-            }
-
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
-                Log.v("ChangePassword", "Error: " + databaseError.getMessage());
-            }
-        });
-    }
-
-
     private void updateUserAchievements(final String username) {
 
         DatabaseReference usercountRef= FirebaseDatabase.getInstance().getReference("UserCount").child(username);
@@ -315,9 +309,11 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
                     String title = achievementSnapshot.child("title").getValue(String.class);
                     int progress = achievementSnapshot.child("progress").getValue(Integer.class);
                     int target = achievementSnapshot.child("target").getValue(Integer.class);
-
-                    Log.v("Title", "12" + title);
+                    String status = achievementSnapshot.child("status").getValue(String.class);
                     DatabaseReference amountRef = achievementSnapshot.child("progress").getRef();
+                    if (progress >= target && status.equals("Incomplete")) {
+                        num += 1;
+                    }
 
                     // Check if the title contains "Log In"
                     if (title != null && title.contains("Login")) {
@@ -357,7 +353,7 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
         });
     }
 
-    public void showPopup(View view,String username,Context context) {
+    public void showPopup(View view,String username,Context context,int num) {
         // Inflate the layout for the popup
         View popupView = LayoutInflater.from(getContext()).inflate(R.layout.popup, null);
 
@@ -372,6 +368,7 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
         LinearLayout icon4Layout = popupView.findViewById(R.id.icon4_layout);
         LinearLayout icon5Layout = popupView.findViewById(R.id.icon5_layout);
         LinearLayout layout = popupView.findViewById(R.id.layout);
+        TextView numtext = popupView.findViewById(R.id.number);
 
         int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
@@ -398,8 +395,17 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
             ImageView ImageSettings = popupView.findViewById(R.id.icon4_image);
             ImageSettings.setImageResource(R.drawable.white_settings);
 
+            TextView Style   = popupView.findViewById(R.id.icon5_text);
+            Style.setTextColor(Color.WHITE);
+            ImageView ImageStyle = popupView.findViewById(R.id.icon5_image);
+            ImageStyle.setImageResource(R.drawable.white_style);
+        }
 
-
+        if (num > 0){
+            String number = String.valueOf(num);
+            numtext.setText(number);
+        } else{
+            numtext.setVisibility(View.GONE);
         }
 
         // Set click listeners for each icon layout to handle the button clicks
@@ -473,14 +479,73 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
                     listView.setBackgroundResource(drawableResId);
                 }
 
+                if(title == null){
+                    textView.setText("The Starter");
+                    Log.v("userequip","=" + title);
+                    FirebaseDatabase.getInstance().getReference("UserEquip").child(username).child("title").setValue("The Starter");
+                }
+
+                else{
+                    Log.v("userequip","=" + title);
+                    textView.setText(title);
+                }
+
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.v("not WOrking","adfa");
             }
         });
     }
 
+    private void showListPopup(List<String> values,TextView title) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("Title List");
+
+        // Convert the list to a CharSequence array to display in the dialog
+        final CharSequence[] charSequenceArray = values.toArray(new CharSequence[values.size()]);
+
+        builder.setItems(charSequenceArray, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                // Handle item selection if needed, e.g., perform an action when an item is clicked
+                String selectedValue = values.get(which);
+                title.setText(selectedValue);
+                Log.v("select","=" + selectedValue);
+                FirebaseDatabase.getInstance().getReference("UserEquip").child(username).child("title").setValue(selectedValue);
+            }
+        });
+
+        // Create and show the dialog
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        profileusername.setText(displayname);
+        userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    ImageURI = dataSnapshot.child("imageURI").getValue().toString();
+                    Uri uri = Uri.parse(ImageURI);
+                    pfp.setImageURI(uri);
+                } else {
+                    Log.v("ChangeDisplayName", "User not found");
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                Log.v("ChangePassword", "Error: " + databaseError.getMessage());
+            }
+        });
+        listviewsetbackground(username,listView,title);
+        num = 0;
+        updateUserAchievements(username);
+    }
 
 }
 
