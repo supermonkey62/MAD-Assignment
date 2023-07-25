@@ -26,7 +26,7 @@ public class EditTask extends AppCompatActivity {
 
     TextView taskDate, cancelText, profileback;
 
-    String selectedDate, username, tag;
+    String selectedDate, username, tag, title;
 
     Button deleteButton;
 
@@ -43,7 +43,7 @@ public class EditTask extends AppCompatActivity {
         Log.v("EditTask", "Entered Edit Task");
 
         selectedDate = getIntent().getStringExtra("DATE");
-
+        title = getIntent().getStringExtra("TITLE");
         username = getIntent().getStringExtra("USERNAME");
         tag = getIntent().getStringExtra("TAG");
         status = getIntent().getBooleanExtra("STATUS", false);
@@ -56,6 +56,7 @@ public class EditTask extends AppCompatActivity {
         cancelText = findViewById(R.id.canceltasktext);
 
         taskDate.setText(selectedDate);
+        titleEdit.setText(title);
         // Load the database
 
 

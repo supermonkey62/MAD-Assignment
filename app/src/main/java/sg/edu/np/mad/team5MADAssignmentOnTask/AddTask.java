@@ -1,8 +1,10 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -10,21 +12,23 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
+import java.util.List;
 
 public class AddTask extends AppCompatActivity {
     EditText titleEdit;
 
-    TextView taskDate, cancelText, selectedOption;
+    TextView taskDate, cancelText;
+
+    Button searchUsersButton;
 
     String selectedDate, username;
 
@@ -33,11 +37,17 @@ public class AddTask extends AppCompatActivity {
     DatabaseReference taskRef;
 
     Spinner category;
+    List<User> selectedUsers;
+
+    private static final int REQUEST_SELECT_USERS = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+
+        // Clear the selected users from SharedPreferences on activity create
+        clearSelectedUsers();
         Log.v("AddTask", "Entered Add Task");
         selectedDate = getIntent().getStringExtra("DATE");
         username = getIntent().getStringExtra("USERNAME");
@@ -47,6 +57,11 @@ public class AddTask extends AppCompatActivity {
         cancelText = findViewById(R.id.canceltasktext);
         category = findViewById(R.id.catspinner);
         taskDate.setText(selectedDate);
+        searchUsersButton = findViewById(R.id.searchUsersButton);
+
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String selectedUsersJson = preferences.getString("SELECTED_USERS", "");
+        selectedUsers = new Gson().fromJson(selectedUsersJson, new TypeToken<List<User>>() {}.getType());
 
         String[] categories = {"Personal Tasks", "School Task", "Assignments", "Projects", "Errands and Shopping Tasks", "Health and Fitness Tasks"};
 
@@ -74,6 +89,15 @@ public class AddTask extends AppCompatActivity {
                 return true; // Return true to indicate that the touch event is handled
             }
         });
+
+        searchUsersButton.setOnClickListener(view -> {
+            Intent searchUsersIntent = new Intent(AddTask.this, SearchForUsers.class);
+            searchUsersIntent.putExtra("USERNAME", username);
+            startActivityForResult(searchUsersIntent, REQUEST_SELECT_USERS);
+        });
+
+        // Retrieve the selected users' data from SharedPreferences when the activity is first created
+        retrieveSelectedUsers();
 
     }
 
@@ -134,6 +158,46 @@ public class AddTask extends AppCompatActivity {
     public interface TaskIdCallback {
         void onTaskIdGenerated(String taskId);
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_SELECT_USERS && resultCode == RESULT_OK) {
+            // Retrieve the selected user data from SharedPreferences
+            retrieveSelectedUsers();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Retrieve the selected users' data from SharedPreferences when the activity is resumed
+        retrieveSelectedUsers();
+    }
+
+    private void retrieveSelectedUsers() {
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        String selectedUsersJson = preferences.getString("SELECTED_USERS", "");
+        selectedUsers = new Gson().fromJson(selectedUsersJson, new TypeToken<List<User>>() {}.getType());
+
+        // For demonstration purposes, you can log the selected users' data
+        if (selectedUsers != null && !selectedUsers.isEmpty()) {
+            // For demonstration purposes, you can log the selected users' data
+            for (User user : selectedUsers) {
+                Log.v("AddTask", "Selected User: " + user.getUsername());
+                Log.v("AddTask", "Display Name: " + user.getDisplayname());
+            }
+        }
+    }
+
+    private void clearSelectedUsers() {
+        SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
+        SharedPreferences.Editor editor = preferences.edit();
+        editor.remove("SELECTED_USERS");
+        editor.apply();
+    }
+
 
 }
 

@@ -17,6 +17,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
+            android:name=".SearchForUsers"
+            android:exported="false" />
+        <activity
             android:name=".EditEvent"
             android:exported="false" />
         <activity
@@ -29,20 +32,18 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Stage2MainPage"
-            android:windowSoftInputMode="adjustPan"
+            android:exported="false"
             android:theme="@style/Theme.MaterialComponents.NoActionBar"
-            android:exported="false" />
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".Choose_Item_Activity"
             android:exported="false" />
         <activity
             android:name=".AchievementPage"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".ShopActivity"
-            android:exported="false"
-            />
+            android:exported="false" />
         <activity
             android:name=".RemoveTasks"
             android:exported="false" />
@@ -51,8 +52,8 @@
             android:exported="false" />
         <activity
             android:name=".TodolistFragmentholder"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".EditTask"
             android:exported="false"
@@ -79,11 +80,10 @@
         <activity
             android:name=".Profile_Setting"
             android:exported="false"
-            android:theme="@style/Theme.Material3.Dark.NoActionBar"
-            />
+            android:theme="@style/Theme.Material3.Dark.NoActionBar" />
         <activity
             android:name=".EditProfile"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ChangeDisplayName"
             android:exported="false" />
@@ -108,8 +108,8 @@
             android:exported="false" />
         <activity
             android:name=".timer"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".PomodoroTimer"
             android:exported="false" />

@@ -125,5 +125,21 @@
         android:layout_marginTop="28dp"
        />
 
+    <Button
+        android:id="@+id/searchUsersButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add Collaborators"
+        app:layout_constraintBottom_toBottomOf="@+id/whitebox"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="20dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="45dp"
+        android:textSize="15sp"
+        android:background="@drawable/white_square_with_rounded_corners"
+        app:backgroundTint="@color/app_theme"
+        android:textColor="@color/white"
+        />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

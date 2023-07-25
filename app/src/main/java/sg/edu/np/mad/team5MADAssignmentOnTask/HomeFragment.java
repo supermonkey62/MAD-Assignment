@@ -335,13 +335,6 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
     public interface OnDateSelectedListener {
         void onDateSelected(String selectedDate);
     }
-
-    public void openAddTaskActivity() {
-        Intent addTaskIntent = new Intent(getActivity(), AddTask.class);
-        addTaskIntent.putExtra("DATE", selectedDateString);
-        addTaskIntent.putExtra("USERNAME", username);
-        startActivity(addTaskIntent);
-    }
 }
 
 
