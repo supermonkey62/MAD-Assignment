@@ -4,12 +4,14 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -43,6 +45,10 @@ public class timer extends AppCompatActivity {
     private float totalTimeInMinutes;
     private boolean taskStatus;
 
+    private boolean isPaused = false;
+
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,11 +57,11 @@ public class timer extends AppCompatActivity {
         endButton = findViewById(R.id.timerend);
         timerTextView = findViewById(R.id.textView);
         timerTitleTextView = findViewById(R.id.timertitle);
-        inputEditText = findViewById(R.id.settimer);
         setButton = findViewById(R.id.button_set);
         progressBar = findViewById(R.id.progressBar);
         hourPicker = findViewById(R.id.hourpicker);
         minutePicker = findViewById(R.id.minpicker);
+        ImageButton back = findViewById(R.id.imageButtontimer);
         hourPicker.setMinValue(0);
         hourPicker.setMaxValue(23);
         minutePicker.setMinValue(0);
@@ -63,6 +69,41 @@ public class timer extends AppCompatActivity {
         String tag = getIntent().getStringExtra("TAG");
         String title = getIntent().getStringExtra("TITLE");
         timerTitleTextView.setText(title);
+        Intent backtask = new Intent(timer.this,TodolistFragment.class);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isTimerRunning == true){
+                    pauseTimer();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(timer.this);
+                    builder.setTitle("Leave Timer");
+                    builder.setMessage("Timer is still Running.Leave Without Saving Timer?");
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            onBackPressedFragment();
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                        }
+                    });
+
+                    AlertDialog dialog1 = builder.create();
+                    dialog1.show();
+
+                }
+                else {
+                    onBackPressedFragment();
+                }
+
+            }
+        });
+
         endButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -79,6 +120,10 @@ public class timer extends AppCompatActivity {
                         setButton.setVisibility(View.VISIBLE);
                         isTimerRunning = false;
                         handleTaskCompletion(tag, true);
+                        onStop();
+                        startActivity(backtask);
+
+
                         dialog.dismiss();
                     }
                 });
@@ -241,6 +286,7 @@ public class timer extends AppCompatActivity {
                 }
 
                 public void onFinish() {
+                    Intent backtask = new Intent(timer.this,TodolistFragment.class);
                     String tag = getIntent().getStringExtra("TAG");
                     timerTextView.setText("FINISH!!");
                     Toast.makeText(timer.this, "Completed!", Toast.LENGTH_LONG).show();
@@ -256,6 +302,8 @@ public class timer extends AppCompatActivity {
                             setButton.setVisibility(View.VISIBLE);
                             handleTaskCompletion(tag, true);
                             dialog.dismiss();
+                            onStop();
+                            startActivity(backtask);
                         }
                     });
 
@@ -290,6 +338,29 @@ public class timer extends AppCompatActivity {
         }
     }
 
+    private void onBackPressedFragment() {
+        // Check if there are fragments in the back stack
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+    @Override
+    protected  void onResume(){
+        super.onResume();
+        super.onResume();
+
+        if (isPaused) {
+            Toast.makeText(this, "Timer is Paused. Unpause to continue", Toast.LENGTH_SHORT).show();
+        }
+        isPaused = false;
+
+    }
+
+
     @Override
     protected void onStop() {
         super.onStop();
@@ -305,12 +376,17 @@ public class timer extends AppCompatActivity {
         Log.v("TaskCheck",newTimeSpent + "," + totalSessions);
 
     }
-
     private void pauseTimer() {
-        countDownTimer.cancel();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
         isTimerRunning = false;
+        isPaused = true;
         startButton.setText("Start");
+        endButton.setEnabled(true);
     }
+
+
 }
 
 

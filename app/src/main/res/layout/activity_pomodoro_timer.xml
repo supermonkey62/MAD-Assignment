@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pomobackbttn"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#D1DCD5"
@@ -24,15 +25,13 @@
 
     <Button
         android:id="@+id/button"
-        android:layout_width="114dp"
-        android:layout_height="77dp"
-        android:layout_marginStart="149dp"
-        android:layout_marginTop="12dp"
-        android:layout_marginBottom="13dp"
+        android:layout_width="124dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="136dp"
         android:text="Start"
         android:textColorHighlight="#D18DC8"
-        app:layout_constraintBottom_toTopOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
     <TextView
@@ -52,44 +51,34 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
+        android:layout_marginTop="1dp"
+        android:layout_marginEnd="152dp"
         android:text="reset"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/button" />
 
     <EditText
         android:id="@+id/Ptimertitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="129dp"
         android:layout_marginTop="16dp"
-        android:layout_marginEnd="103dp"
-        android:layout_marginBottom="22dp"
+        android:layout_marginEnd="88dp"
         android:hint="Task Name"
         android:text="TextView"
         android:textSize="34sp"
         android:textStyle="normal|bold"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/pomoendbttn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="162dp"
-        android:layout_marginTop="19dp"
-        android:layout_marginEnd="161dp"
-        android:layout_marginBottom="110dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="152dp"
         android:text="End"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button2"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintTop_toBottomOf="@+id/button2" />
 
     <NumberPicker
         android:id="@+id/pomominpicker"
@@ -130,22 +119,30 @@
         android:id="@+id/button_setpomo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="44dp"
-        android:text="SET"
-        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+        android:layout_marginBottom="56dp"
+        android:text="SET WORK"
+        app:layout_constraintBottom_toTopOf="@+id/button"
         app:layout_constraintEnd_toEndOf="@+id/progressBar"
-        app:layout_constraintHorizontal_bias="0.502"
+        app:layout_constraintHorizontal_bias="0.493"
         app:layout_constraintStart_toStartOf="@+id/progressBar" />
 
     <Button
         android:id="@+id/button_setrestpomo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="72dp"
         android:text="SET REST"
-        app:layout_constraintBottom_toBottomOf="@+id/progressBar"
+        app:layout_constraintBottom_toTopOf="@+id/button_setpomo"
         app:layout_constraintEnd_toEndOf="@+id/progressBar"
-        app:layout_constraintHorizontal_bias="0.502"
         app:layout_constraintStart_toStartOf="@+id/progressBar" />
+
+    <ImageButton
+        android:id="@+id/imageButton2"
+        android:layout_width="54dp"
+        android:layout_height="53dp"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

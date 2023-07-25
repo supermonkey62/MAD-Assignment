@@ -2,7 +2,7 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
+import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -68,6 +69,10 @@ public class PomodoroTimer extends AppCompatActivity {
     private boolean taskStatus;
     private float currentSessionTimeSpent;
 
+    private boolean isPaused = false;
+
+
+
 
     private String tag,title;
     @Override
@@ -81,13 +86,11 @@ public class PomodoroTimer extends AppCompatActivity {
         setButton = findViewById(R.id.button_setpomo);
         endButton = findViewById(R.id.pomoendbttn);
         setrestButton = findViewById(R.id.button_setrestpomo);
-        workDurationTextView = findViewById(R.id.workDuration);
-        restDurationTextView = findViewById(R.id.restDuration);
-        longRestDurationTextView = findViewById(R.id.longRestDuration);
         timertitle = findViewById(R.id.Ptimertitle);
         minutePicker = findViewById(R.id.pomominpicker);
         hourPicker=findViewById(R.id.pomohourpicker);
         restpicker = findViewById(R.id.restpicker);
+        ImageButton back = findViewById(R.id.imageButton2);
         tag = getIntent().getStringExtra("TAG");
         title = getIntent().getStringExtra("TITLE");
         userTask = FirebaseDatabase.getInstance().getReference("Task");
@@ -108,8 +111,42 @@ public class PomodoroTimer extends AppCompatActivity {
         taskStatus = false;
         currentSessionTimeSpent = 0;
         timeLeftInMillis = POMODORO_DURATION;
-//        updateTimerText();
-//        updateProgressBar();
+        progressBar.setProgress(100);
+        String username = getIntent().getStringExtra("USERNAME");
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(isTimerRunning == true){
+                    pauseTimer();
+                    AlertDialog.Builder builder = new AlertDialog.Builder(PomodoroTimer.this);
+                    builder.setTitle("Leave Timer");
+                    builder.setMessage("Timer is still Running.Leave Without Saving Timer?");
+                    builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            onBackPressedFragment();
+                        }
+                    });
+                    builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            dialog.dismiss();
+
+                        }
+                    });
+
+                    AlertDialog dialog1 = builder.create();
+                    dialog1.show();
+
+                }
+                else {
+                    onBackPressedFragment();
+                }
+
+            }
+        });
+
         endButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -143,6 +180,7 @@ public class PomodoroTimer extends AppCompatActivity {
                         minutePicker.setVisibility(View.VISIBLE);
                         setButton.setVisibility(View.VISIBLE);
                         progressBar.setProgress(100);
+                        timerTextView.setVisibility(View.INVISIBLE);
 
                         userTask.child(tag).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
@@ -180,6 +218,8 @@ public class PomodoroTimer extends AppCompatActivity {
                         hourPicker.setVisibility(View.VISIBLE);
                         minutePicker.setVisibility(View.VISIBLE);
                         setButton.setVisibility(View.VISIBLE);
+                        timerTextView.setVisibility(View.INVISIBLE);
+                        progressBar.setProgress(100);
                         userTask.child(tag).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
@@ -224,6 +264,7 @@ public class PomodoroTimer extends AppCompatActivity {
         setButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 int hours = hourPicker.getValue();
                 int minutes = minutePicker.getValue();
 
@@ -241,6 +282,7 @@ public class PomodoroTimer extends AppCompatActivity {
                 setButton.setVisibility(View.INVISIBLE);
                 restpicker.setVisibility(View.VISIBLE);
                 setrestButton.setVisibility(View.VISIBLE);
+                progressBar.setProgress(100);
             }
         });
 
@@ -297,6 +339,8 @@ public class PomodoroTimer extends AppCompatActivity {
                 }
 
                 currentSessionTimeSpent = 0;
+                timerTextView.setVisibility(View.INVISIBLE);
+                progressBar.setProgress(100);
 
                 if (currentState == POMODORO_STATE) {
                     currentState = SHORT_BREAK_STATE;
@@ -350,8 +394,11 @@ public class PomodoroTimer extends AppCompatActivity {
     }
 
     private void pauseTimer() {
-        countDownTimer.cancel();
+        if (countDownTimer != null) {
+            countDownTimer.cancel();
+        }
         isTimerRunning = false;
+        isPaused = true;
         startButton.setText("Start");
         resetButton.setEnabled(true);
         endButton.setEnabled(true);
@@ -408,6 +455,39 @@ public class PomodoroTimer extends AppCompatActivity {
             return SHORT_BREAK_DURATION;
         }
     }
+    private void onBackPressedFragment() {
+        // Check if there are fragments in the back stack
+        if (getSupportFragmentManager().getBackStackEntryCount() > 0) {
+            getSupportFragmentManager().popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        pauseTimer();
+        if(isTimerRunning == true) {
+            Toast.makeText(this, "Timer Paused!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    protected  void onResume(){
+        super.onResume();
+        super.onResume();
+
+        if (isPaused) {
+            Toast.makeText(this, "Timer is Paused. Unpause to continue", Toast.LENGTH_SHORT).show();
+        }
+        isPaused = false;
+
+    }
+
 
     @Override
     protected void onStop() {
@@ -416,9 +496,10 @@ public class PomodoroTimer extends AppCompatActivity {
         String username = getIntent().getStringExtra("USERNAME");
         String tag = getIntent().getStringExtra("TAG");
         String title = getIntent().getStringExtra("TITLE");
+        String type = getIntent().getStringExtra("TYPE");
         String category = getIntent().getStringExtra("CATEGORY");
         userTask = FirebaseDatabase.getInstance().getReference("Task");
-        Task newTask = new Task(username, title, selectedDate, tag, taskStatus, newTimeSpent, totalSessions, category);
+        Task newTask = new Task(username, title, type, selectedDate, tag, taskStatus, newTimeSpent, totalSessions, category);
         userTask.child(tag).setValue(newTask);
         Log.v("TaskSaving", title + " saved to database" + "," + newTimeSpent + "," + totalSessions);
         Log.v("TaskCheck",newTimeSpent + "," + totalSessions);
