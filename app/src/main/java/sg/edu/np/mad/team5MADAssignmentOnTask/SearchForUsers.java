@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.SearchView;
 
@@ -28,7 +29,8 @@ public class SearchForUsers extends AppCompatActivity {
 
     private SearchView searchView;
     private RecyclerView userRecyclerView;
-    private Button addButton;
+    private Button addButton, cancelButton;
+
 
     private List<User> userList;
     private UserAdapter userAdapter;
@@ -36,6 +38,9 @@ public class SearchForUsers extends AppCompatActivity {
     private DatabaseReference usersRef;
 
     String username;
+
+    String collaborators; // Store the collaborators string received from the AddTask or EditTask activity
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,13 +50,15 @@ public class SearchForUsers extends AppCompatActivity {
         searchView = findViewById(R.id.searchView);
         userRecyclerView = findViewById(R.id.userRecyclerView);
         addButton = findViewById(R.id.addButton);
-
-        userList = new ArrayList<>();
-        userAdapter = new UserAdapter(userList);
+        cancelButton = findViewById(R.id.cancel_button);
 
         usersRef = FirebaseDatabase.getInstance().getReference().child("Users");
+        collaborators = getIntent().getStringExtra("COLLABORATORS");
         username = getIntent().getStringExtra("USERNAME");
 
+        userList = new ArrayList<>();
+
+        userAdapter = new UserAdapter(userList, collaborators);
         userRecyclerView.setLayoutManager(new LinearLayoutManager(this));
         userRecyclerView.setAdapter(userAdapter);
 
@@ -95,6 +102,12 @@ public class SearchForUsers extends AppCompatActivity {
             finish();
         });
 
+        cancelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
     }
 
     private void loadAllUsers() {

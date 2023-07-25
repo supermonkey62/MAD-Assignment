@@ -1,6 +1,8 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import android.net.Uri;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,9 +21,13 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     private List<User> userList;
     private List<User> selectedUsers;
 
-    public UserAdapter(List<User> userList) {
+    private String collaborators;
+
+
+    public UserAdapter(List<User> userList, String collaborators) {
         this.userList = userList;
         this.selectedUsers = new ArrayList<>();
+        this.collaborators = collaborators;
     }
 
     @NonNull
@@ -35,6 +41,17 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
     public void onBindViewHolder(@NonNull UserViewHolder holder, int position) {
         User user = userList.get(position);
         holder.bind(user);
+        Log.v("UserAdapter", "Collaborators String: " + collaborators);
+
+        if (!TextUtils.isEmpty(collaborators)) {
+            String[] collaboratorArray = collaborators.split(",");
+            for (String collaborator : collaboratorArray) {
+                if (collaborator.equals(user.getUsername())) {
+                    holder.userCheckbox.setChecked(true);
+                    break;
+                }
+            }
+        }
     }
 
     @Override
@@ -64,8 +81,6 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
             usernameTextView.setText(user.getUsername());
             Uri uri = Uri.parse(user.getImageURI());
             profileImageView.setImageURI(uri);
-
-
             userCheckbox.setOnCheckedChangeListener((buttonView, isChecked) -> {
                 if (isChecked) {
                     selectedUsers.add(user);
@@ -80,6 +95,7 @@ public class UserAdapter extends RecyclerView.Adapter<UserAdapter.UserViewHolder
         userList = filteredList;
         notifyDataSetChanged();
     }
+
 }
 
 

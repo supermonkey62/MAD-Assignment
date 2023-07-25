@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Arrays;
 import java.util.List;
 
 public class MainpagetodoAdaptor extends RecyclerView.Adapter<MainpageViewHolder> {
@@ -55,9 +56,10 @@ public class MainpagetodoAdaptor extends RecyclerView.Adapter<MainpageViewHolder
         Task task = taskList.get(position);
         holder.task.setText(task.getTitle());
         holder.username = task.getUsername();
-        holder.dateoftask.setText(task.getDate());
+        holder.categoryText.setText(task.getCategory());
         holder.date = task.getDate();
         holder.tag = task.getTag();
+        holder.collaborators = task.getCollaborators();
         holder.status = task.getStatus();
         holder.title = task.getTitle();
         if (task.getStatus() == false) {
@@ -66,6 +68,28 @@ public class MainpagetodoAdaptor extends RecyclerView.Adapter<MainpageViewHolder
         } else {
             holder.itemView.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
+        }
+
+        if (task.getCollaborators() != null && !task.getCollaborators().equals("NIL")) {
+            // Split the collaborators string by comma and store each value into a list
+            List<String> collaboratorsList = Arrays.asList(task.getCollaborators().split(","));
+
+            // Create a string "Collabing with collaborator1, collaborator2, ..."
+            StringBuilder collaboratorsStringBuilder = new StringBuilder();
+            collaboratorsStringBuilder.append("Collabing with ");
+            for (String collaborator : collaboratorsList) {
+                collaboratorsStringBuilder.append(collaborator).append(", ");
+            }
+
+            // Remove the trailing ", " from the end
+            collaboratorsStringBuilder.setLength(collaboratorsStringBuilder.length() - 2);
+
+            // Set the text for the collaborators TextView
+            holder.collaboratorsText.setText(collaboratorsStringBuilder.toString());
+            holder.collaboratorsText.setVisibility(View.VISIBLE);
+        } else {
+            // No collaborators, hide the collaborators TextView
+            holder.collaboratorsText.setVisibility(View.GONE);
         }
 
         holder.task.setOnCheckedChangeListener(null);
@@ -84,7 +108,7 @@ public class MainpagetodoAdaptor extends RecyclerView.Adapter<MainpageViewHolder
                             existingTimeSpent = existingtask.getTimespent();
                             int existingsession = existingtask.getSessions();
                             String category = existingtask.getCategory();
-                            Task updateTask = new Task(holder.username, holder.title, holder.date, holder.tag, true,existingTimeSpent,existingsession,category);
+                            Task updateTask = new Task(holder.username, holder.title, holder.date, holder.tag, true,existingTimeSpent,existingsession,category, holder.collaborators);
                             userTask.child(holder.tag).setValue(updateTask);
                         } else {
                             Log.v("TaskCount", holder.tag + " does not exist.");

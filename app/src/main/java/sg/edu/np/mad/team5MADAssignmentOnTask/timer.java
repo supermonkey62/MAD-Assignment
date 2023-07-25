@@ -299,7 +299,8 @@ public class timer extends AppCompatActivity {
         String title = getIntent().getStringExtra("TITLE");
         String category = getIntent().getStringExtra("CATEGORY");
         userTask = FirebaseDatabase.getInstance().getReference("Task");
-        Task newTask = new Task(username, title, selectedDate, tag, taskStatus, newTimeSpent, totalSessions, category);
+        String collaborators = getIntent().getStringExtra("COLLABORATORS");
+        Task newTask = new Task(username, title, selectedDate, tag, taskStatus, newTimeSpent, totalSessions, category, collaborators);
         userTask.child(tag).setValue(newTask);
         Log.v("TaskSaving", title + " saved to database");
         Log.v("TaskCheck",newTimeSpent + "," + totalSessions);

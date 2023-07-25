@@ -13,10 +13,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class TodoViewHolder extends RecyclerView.ViewHolder {
+    public String collaborators;
     CheckBox task;
     FloatingActionButton tasktimerlink;
 
-    TextView dateoftask;
+    TextView dateoftask, collaboratorsTextView;
     int sessions;
 
     boolean status;
@@ -77,6 +78,7 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
         intent.putExtra("TITLE",title);
         intent.putExtra("TYPE",type);
         intent.putExtra("CATEGORY",category);
+        intent.putExtra("COLLABORATORS", collaborators);
 
 
         context.startActivity(intent);

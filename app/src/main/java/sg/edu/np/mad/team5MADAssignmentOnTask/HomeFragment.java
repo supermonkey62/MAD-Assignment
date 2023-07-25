@@ -284,6 +284,7 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         intent.putExtra("TIMESPENT", task.getTimespent());
         intent.putExtra("SESSIONS", task.getSessions());
         intent.putExtra("CATEGORY", task.getCategory());
+        intent.putExtra("COLLABORATORS", task.getCollaborators());
         startActivity(intent);
     }
 

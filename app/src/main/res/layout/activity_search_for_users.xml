@@ -1,8 +1,9 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:background="@color/button_colour">
 
     <!-- Search View to enter the search query -->
     <SearchView
@@ -27,5 +28,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Selected Users"
-        android:layout_margin="16dp"/>
+        android:layout_margin="16dp"
+        android:background="@drawable/white_square_with_rounded_corners"
+        app:backgroundTint="@color/app_theme"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp"
+        android:text="Cancel"
+        android:id="@+id/cancel_button"
+        android:background="@drawable/white_square_with_rounded_corners"
+        app:backgroundTint="@color/app_theme"/>
+
+
 </LinearLayout>
