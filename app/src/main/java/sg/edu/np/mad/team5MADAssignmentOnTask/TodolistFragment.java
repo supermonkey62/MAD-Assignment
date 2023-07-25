@@ -40,14 +40,14 @@ public class TodolistFragment extends Fragment {
 
         todoswitch = view.findViewById(R.id.todotaskswitch);
         backhome = view.findViewById(R.id.backhome);
-        taskanalysis = view.findViewById(R.id.button3);
+        ham = view.findViewById(R.id.Todohamburg);
         String username = getActivity().getIntent().getStringExtra("USERNAME");
 
 
         backhome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                requireActivity().finish(); // Use requireActivity() to finish the activity
+                requireActivity().finish();
             }
         });
 
@@ -55,8 +55,6 @@ public class TodolistFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 Log.d("TodolistFragment", "showPopup() method called");
-
-
                 showPopup(v,username,context);
             }
         });
@@ -98,23 +96,6 @@ public class TodolistFragment extends Fragment {
         LinearLayout icon1Layout = popupView.findViewById(R.id.icon1_layout);
         LinearLayout icon2Layout = popupView.findViewById(R.id.archive);
         LinearLayout layout = popupView.findViewById(R.id.layout);
-
-//        int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-
-//        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
-//            layout.setBackgroundColor(ContextCompat.getColor(context, R.color.dark_background));
-//
-//            TextView chart = popupView.findViewById(R.id.acvtext);
-//            chart.setTextColor(Color.WHITE);
-//            ImageView Imagechart = popupView.findViewById(R.id.iconacv);
-//            Imagechart.setImageResource(R.drawable.baseline_insert_chart_24);
-//
-//            TextView archive = popupView.findViewById(R.id.textarchive);
-//            archive.setTextColor(Color.WHITE);
-//            ImageView Imagearc = popupView.findViewById(R.id.imgarchive);
-//            Imagearc.setImageResource(R.drawable.baseline_archive_24);
-//
-//        }
 
         icon1Layout.setOnClickListener(new View.OnClickListener() {
             @Override
