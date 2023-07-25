@@ -516,7 +516,7 @@ public class PomodoroTimer extends AppCompatActivity {
         String type = getIntent().getStringExtra("TYPE");
         String category = getIntent().getStringExtra("CATEGORY");
         userTask = FirebaseDatabase.getInstance().getReference("Task");
-        Task newTask = new Task(username, title, type, selectedDate, tag, taskStatus, newTimeSpent, totalSessions, category);
+        Task newTask = new Task(username, title, selectedDate, tag, taskStatus, newTimeSpent, totalSessions, category,false);
         userTask.child(tag).setValue(newTask);
         Log.v("TaskSaving", title + " saved to database" + "," + newTimeSpent + "," + totalSessions);
         Log.v("TaskCheck",newTimeSpent + "," + totalSessions);

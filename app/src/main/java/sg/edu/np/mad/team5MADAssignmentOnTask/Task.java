@@ -10,8 +10,7 @@ public class Task {
 
 
 
-    public Task() {
-    }
+   public Task(){};
 
     public Task(String username, String title, String date,String tag,Boolean status,float timespent, int sessions,String category,boolean archive){
         this.username = username;
