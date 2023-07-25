@@ -50,6 +50,8 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
 
         TaskDataHolder.getInstance().fetchUserTasks(username, this);
 
+
+
     }
 
     private Map<String, Integer> createCategoryColors() {
@@ -113,6 +115,7 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         BarChart barChart = findViewById(R.id.Barchart1);
         barChart.setData(barData);
         barChart.setTouchEnabled(false);
+        barChart.getDescription().setText("Time Spent by Category");
 
         // Hide X-axis labels
         XAxis xAxis = barChart.getXAxis();
@@ -198,8 +201,8 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         // Get the BarChart reference and set the data
         BarChart barChartAverageSessionsPerCategory = findViewById(R.id.barChartAverageSessionsPerCategory);
         barChartAverageSessionsPerCategory.setData(barData);
-        barChartAverageSessionsPerCategory.getDescription().setEnabled(false);
         barChartAverageSessionsPerCategory.setTouchEnabled(false);
+        barChartAverageSessionsPerCategory.getDescription().setText("Average number of Sessions by Category");
 
         // Hide X-axis labels
         XAxis xAxis = barChartAverageSessionsPerCategory.getXAxis();
@@ -289,6 +292,8 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         pieChart.setEntryLabelTextSize(0f);
         pieChart.getLegend().setEnabled(true);
         pieChart.setTouchEnabled(false);
+        pieChart.getDescription().setText("Number of Completed Tasks by Category");
+
 
         // Refresh the chart
         pieChart.invalidate();
@@ -342,7 +347,7 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         // Get the LineChart reference and set the data
         LineChart lineChart = findViewById(R.id.lineChart);
         lineChart.setData(lineData);
-        lineChart.getDescription().setEnabled(false);
+        lineChart.getDescription().setText("Number of Completed Tasks each Month");
 
         // Customize x-axis labels
         XAxis xAxis = lineChart.getXAxis();
@@ -442,7 +447,7 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         // Get the BarChart reference and set the data
         BarChart barChartAverageTimePerCategory = findViewById(R.id.barChartAverageTimePerCategory);
         barChartAverageTimePerCategory.setData(barData);
-        barChartAverageTimePerCategory.getDescription().setEnabled(false);
+        barChartAverageTimePerCategory.getDescription().setText("Average Time By Category");
         barChartAverageTimePerCategory.setTouchEnabled(false);
 
         // Hide X-axis labels

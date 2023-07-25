@@ -6,10 +6,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +33,8 @@ public class EditTask extends AppCompatActivity {
     Button deleteButton;
 
     Boolean status;
+
+    Spinner category;
 
     DatabaseReference userTask;
     float existingTimeSpent;
@@ -54,9 +58,16 @@ public class EditTask extends AppCompatActivity {
         Button editTask = findViewById(R.id.edittaskbutton);
         deleteButton = findViewById(R.id.deleteTaskButton);
         cancelText = findViewById(R.id.canceltasktext);
+        category = findViewById(R.id.catspinneredit);
 
         taskDate.setText(selectedDate);
         titleEdit.setText(title);
+
+        String[] categories = {"Personal Tasks", "School Task", "Assignments", "Projects", "Errands and Shopping Tasks", "Health and Fitness Tasks"};
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, categories);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        category.setAdapter(adapter);
         // Load the database
 
 
@@ -64,7 +75,7 @@ public class EditTask extends AppCompatActivity {
         editTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                String selectedCategory = category.getSelectedItem().toString();
                 String taskTitle = titleEdit.getText().toString();
                 userTask = FirebaseDatabase.getInstance().getReference("Task");
 
@@ -78,7 +89,7 @@ public class EditTask extends AppCompatActivity {
                             int existingsession = existingtask.getSessions();
                             String category = existingtask.getCategory();
                             Log.v("Username", tag);
-                            Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent,existingsession,category,false);
+                            Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent,existingsession,selectedCategory,false);
                             userTask.child(tag).setValue(newTask);
                             finish();
 

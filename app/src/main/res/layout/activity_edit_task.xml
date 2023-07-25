@@ -93,32 +93,7 @@
         android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/titlebox"
         app:layout_constraintLeft_toLeftOf="@id/whitebox"
-        android:layout_marginLeft="30dp">
-
-        <RadioButton
-            android:id="@+id/workButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Work"
-            tools:layout_editor_absoluteX="47dp"
-            tools:layout_editor_absoluteY="331dp"
-            app:layout_constraintTop_toBottomOf="@id/titlebox"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="50dp"
-            android:checked="true"
-            />
-
-        <RadioButton
-            android:id="@+id/eventButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Event"
-            app:layout_constraintTop_toBottomOf="@id/workButton"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="50dp" />
-    </RadioGroup>
+        android:layout_marginLeft="30dp"/>
 
     <Button
         android:id="@+id/edittaskbutton"
@@ -144,6 +119,15 @@
         android:layout_marginEnd="32dp"
         android:background="@drawable/white_square_with_rounded_corners"
         app:backgroundTint="@color/button_colour"
+        />
+    <Spinner
+        android:id="@+id/catspinneredit"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toBottomOf="@+id/titleEdit"
+        app:layout_constraintStart_toStartOf="@id/whitebox"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="28dp"
         />
 
 
