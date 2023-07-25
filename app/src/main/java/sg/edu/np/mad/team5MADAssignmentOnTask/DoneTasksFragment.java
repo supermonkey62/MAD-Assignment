@@ -69,6 +69,7 @@ public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDa
                 String taskTitle = swipedTask.getTitle();
                 String selectedDate = swipedTask.getDate();
                 Boolean status = swipedTask.getStatus();
+                String collaborators = swipedTask.getCollaborators();
                 if (direction == ItemTouchHelper.LEFT) {
                     taskadapter.removeItem(position);
                     userTask = FirebaseDatabase.getInstance().getReference("Task");
@@ -99,7 +100,7 @@ public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDa
                                 int existingsession = existingtask.getSessions();
                                 String category = existingtask.getCategory();
                                 Log.v("Username", tag);
-                                Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent, existingsession, category, true);
+                                Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent, existingsession, category, collaborators, true);
                                 userTask.child(tag).setValue(newTask);
 
 
