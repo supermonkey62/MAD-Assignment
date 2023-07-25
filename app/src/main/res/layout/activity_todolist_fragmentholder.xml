@@ -6,12 +6,26 @@
     android:layout_height="match_parent"
     tools:context=".TodolistFragmentholder">
 
+    <ImageView
+        android:id="@+id/Todohamburg"
+        android:layout_width="40dp"
+        android:layout_height="69dp"
+        android:layout_marginTop="16dp"
+        android:backgroundTint="@color/black"
+        android:clickable="true"
+        android:onClick="showPopup"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.861"
+        app:layout_constraintStart_toEndOf="@+id/todotaskswitch"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_more_horiz_24" />
+
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/todofragmentContainerView"
         android:name="com.bumptech.glide.manager.SupportRequestManagerFragment"
         android:layout_width="371dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="84dp"
+        android:layout_marginTop="104dp"
         android:backgroundTint="@color/edit_text_background"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -21,31 +35,21 @@
         android:id="@+id/todotaskswitch"
         android:layout_width="153dp"
         android:layout_height="69dp"
-        android:layout_marginTop="4dp"
-        android:layout_marginEnd="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="184dp"
         android:text="Switch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/backhome"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        app:srcCompat="@drawable/baseline_arrow_back_24"
+        android:layout_width="42dp"
+        android:layout_height="42dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="32dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="20dp"/>
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="16dp"
-        android:text="Button"
-        app:layout_constraintStart_toEndOf="@+id/backhome"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,21 +15,15 @@ import com.google.android.material.switchmaterial.SwitchMaterial;
 
 public class TodolistFragmentholder extends AppCompatActivity {
     Switch todoswitch;
-    ImageView backhome;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_todolist_fragmentholder);
 
-        todoswitch = findViewById(R.id.todotaskswitch);
-        backhome = findViewById(R.id.backhome);
-        backhome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+
+
         todoswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {

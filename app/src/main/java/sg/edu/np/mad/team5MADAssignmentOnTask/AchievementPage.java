@@ -118,7 +118,7 @@ public class AchievementPage extends AppCompatActivity {
                     String rewardtype = achievementSnapshot.child("rewardtype").getValue(String.class);
 
                     total +=1;
-                    if (status == "Completed"){
+                    if (status.equals("Completed")){
                         done+=1;
                     }
                     achievementCount.setText(String.format("%d/%d", done, total));

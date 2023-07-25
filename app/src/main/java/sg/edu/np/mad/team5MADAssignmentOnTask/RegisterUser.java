@@ -189,7 +189,8 @@ public class RegisterUser extends AppCompatActivity {
         Achievement maketask20 = new Achievement("Create 20 task", 0, 20, "20","Coins", "Incomplete");
         Achievement maketask100 = new Achievement("Create 100 task",0,100,"Dedicted Planner","Title","Incomplete");
 
-        Achievement login1 = new Achievement("Login for 1 days", 1, 1, "10","Coins", "Incomplete");
+        Achievement login1 = new Achievement("Login for 1 day", 1, 1, "10","Coins", "Incomplete");
+        Achievement login1day = new Achievement("Login for 1 day",0,1,"Novice User","Title","Incomplete");
         Achievement login5 = new Achievement("Login for 5 days", 0, 5, "10","Coins", "Incomplete");
         Achievement login10 = new Achievement("Login for 10 days", 0, 10, "20","Coins", "Incomplete");
         Achievement login30 = new Achievement("Login for 30 days", 0, 30, "50","Coins", "Incomplete");
@@ -205,6 +206,7 @@ public class RegisterUser extends AppCompatActivity {
         achievementList.add(maketask20);
         achievementList.add(maketask100);
         achievementList.add(login1);
+        achievementList.add(login1day);
         achievementList.add(login5);
         achievementList.add(login10);
         achievementList.add(login30);

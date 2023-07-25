@@ -32,9 +32,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".Stage2MainPage"
-            android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.NoActionBar"
-            android:windowSoftInputMode="adjustPan" />
+            android:windowSoftInputMode="adjustPan"
+            android:exported="false" />
         <activity
             android:name=".Choose_Item_Activity"
             android:exported="false" />
@@ -112,7 +111,8 @@
             android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
         <activity
             android:name=".PomodoroTimer"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
     </application>
 
 </manifest>

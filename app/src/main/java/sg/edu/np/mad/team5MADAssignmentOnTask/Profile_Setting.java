@@ -81,6 +81,7 @@ public class Profile_Setting extends AppCompatActivity {
                                 FirebaseDatabase.getInstance().getReference("UserDate").child(username).removeValue();
                                 FirebaseDatabase.getInstance().getReference("UserAchievement").child(username).removeValue();
                                 FirebaseDatabase.getInstance().getReference("Shop").child(username).removeValue();
+                                FirebaseDatabase.getInstance().getReference("UserEquip").child(username).removeValue();
 
                                 Intent intent5 = new Intent(Profile_Setting.this,LoginPage.class);
                                 startActivity(intent5);

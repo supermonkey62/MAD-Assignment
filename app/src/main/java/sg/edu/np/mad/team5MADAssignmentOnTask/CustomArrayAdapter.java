@@ -34,7 +34,9 @@ public class CustomArrayAdapter extends ArrayAdapter<String> {
         Context context = parent.getContext();
         int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
-        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {}
+        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {            TextView textView = view.findViewById(android.R.id.text1);
+            textView.setTextColor(ContextCompat.getColor(mContext, android.R.color.black));}
+
 
         else {
             // Set the text color to black

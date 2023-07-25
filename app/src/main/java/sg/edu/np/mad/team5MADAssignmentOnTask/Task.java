@@ -3,7 +3,7 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 public class Task {
 
     String username, title, date,tag,category, collaborators;
-    Boolean Status;
+    Boolean Status, archive;
 
     float timespent;
     int sessions;
@@ -12,7 +12,7 @@ public class Task {
     public Task() {
     }
 
-    public Task(String username, String title, String date,String tag,Boolean status,float timespent, int sessions,String category, String collaborators){
+    public Task(String username, String title, String date,String tag,Boolean status,float timespent, int sessions,String category, String collaborators, boolean archive){
         this.username = username;
         this.title = title;
         this.date = date;
@@ -22,7 +22,16 @@ public class Task {
         this.sessions = sessions;
         this.category = category;
         this.collaborators = collaborators;
+        this.archive = archive;
 
+    }
+
+    public Boolean getArchive() {
+        return archive;
+    }
+
+    public void setArchive(Boolean archive) {
+        this.archive = archive;
     }
 
     public String getCategory() {

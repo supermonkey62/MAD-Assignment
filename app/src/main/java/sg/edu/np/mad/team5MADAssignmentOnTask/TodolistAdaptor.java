@@ -41,6 +41,11 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
         String taskTitle = task.getTitle();
         return R.layout.item_view;
     }
+    public void removeItem(int position) {
+        taskList.remove(position);
+        notifyItemRemoved(position);
+    }
+
 
     @Override
     public TodoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -87,8 +92,9 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
                             existingTimeSpent = existingtask.getTimespent();
                             int existingsession = existingtask.getSessions();
                             String category = existingtask.getCategory();
-                            Task updateTask = new Task(holder.username, holder.title, holder.date, holder.tag, true, existingTimeSpent, existingsession, category, holder.collaborators);
+                            Task updateTask = new Task(holder.username, holder.title, holder.date, holder.tag, true,existingTimeSpent,existingsession,category, holder.collaborators, false);
                             userTask.child(holder.tag).setValue(updateTask);
+                            UpdateCount(holder.username);
                         } else {
                             Log.v("TaskCount", holder.tag + " does not exist.");
                         }
@@ -109,6 +115,12 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
     public int getItemCount() {
         return taskList.size();
     }
+
+    public void updateData(List<Task> tasks) {
+        this.taskList = tasks;
+        notifyDataSetChanged();
+    }
+
 
     private void showUndoPopup() {
         Snackbar snackbar = Snackbar.make(((Activity) context).getWindow().getDecorView().findViewById(android.R.id.content),
@@ -138,5 +150,30 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
         });
 
         snackbar.show();
+    }
+
+    private void UpdateCount(String username){
+        DatabaseReference CountRef;
+        CountRef = FirebaseDatabase.getInstance().getReference("UserCount").child(username);
+
+        CountRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Check if the data exists
+                if (dataSnapshot.exists()) {
+
+                    int first = dataSnapshot.child("completedtaskcount").getValue(Integer.class);
+                    CountRef.child("completedtaskcount").setValue(first + 1);
+                    Log.v("Count","+" + first +1);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle any errors that may occur while fetching the data
+                // ...
+            }
+        });
+
     }
 }

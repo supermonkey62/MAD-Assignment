@@ -1,5 +1,6 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -52,7 +53,7 @@ public class MainpagetodoAdaptor extends RecyclerView.Adapter<MainpageViewHolder
     }
 
     @Override
-    public void onBindViewHolder(MainpageViewHolder holder, int position) {
+    public void onBindViewHolder(MainpageViewHolder holder,int position) {
         Task task = taskList.get(position);
         holder.task.setText(task.getTitle());
         holder.username = task.getUsername();
@@ -108,8 +109,9 @@ public class MainpagetodoAdaptor extends RecyclerView.Adapter<MainpageViewHolder
                             existingTimeSpent = existingtask.getTimespent();
                             int existingsession = existingtask.getSessions();
                             String category = existingtask.getCategory();
-                            Task updateTask = new Task(holder.username, holder.title, holder.date, holder.tag, true,existingTimeSpent,existingsession,category, holder.collaborators);
+                            Task updateTask = new Task(holder.username, holder.title, holder.date, holder.tag, true,existingTimeSpent,existingsession,category, holder.collaborators, false);
                             userTask.child(holder.tag).setValue(updateTask);
+                            UpdateCount(holder.username);
                         } else {
                             Log.v("TaskCount", holder.tag + " does not exist.");
                         }
@@ -130,6 +132,7 @@ public class MainpagetodoAdaptor extends RecyclerView.Adapter<MainpageViewHolder
             public void onClick(View view) {
                 // Call the onTaskItemClick method of the click listener with the clicked task
                 listener.onTaskItemClicked(taskList.get(position));
+
             }
         });
 
@@ -169,5 +172,30 @@ public class MainpagetodoAdaptor extends RecyclerView.Adapter<MainpageViewHolder
     @Override
     public int getItemCount() {
         return taskList.size();
+    }
+
+    private void UpdateCount(String username){
+        DatabaseReference CountRef;
+        CountRef = FirebaseDatabase.getInstance().getReference("UserCount").child(username);
+
+        CountRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Check if the data exists
+                if (dataSnapshot.exists()) {
+
+                    int first = dataSnapshot.child("completedtaskcount").getValue(Integer.class);
+                    CountRef.child("completedtaskcount").setValue(first + 1);
+                    Log.v("Count","+" + first +1);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle any errors that may occur while fetching the data
+                // ...
+            }
+        });
+
     }
 }

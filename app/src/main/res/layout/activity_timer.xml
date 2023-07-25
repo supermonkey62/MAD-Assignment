@@ -12,10 +12,10 @@
         android:id="@+id/timerbttn"
         android:layout_width="132dp"
         android:layout_height="69dp"
-        android:layout_marginBottom="7dp"
+        android:layout_marginTop="12dp"
         android:text="Start timer"
-        app:layout_constraintBottom_toTopOf="@+id/timerend"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.501"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/progressBar" />
 
@@ -36,56 +36,49 @@
         android:id="@+id/button_set"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp"
         android:text="SET"
         app:layout_constraintBottom_toBottomOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="@+id/progressBar"
-        app:layout_constraintStart_toStartOf="@+id/progressBar" />
+        app:layout_constraintStart_toStartOf="@+id/progressBar"
+        app:layout_constraintTop_toTopOf="@+id/progressBar"
+        app:layout_constraintVertical_bias="0.72" />
 
     <ProgressBar
         android:id="@+id/progressBar"
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="298dp"
         android:layout_height="298dp"
-        android:layout_margin="16dp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="57dp"
         android:backgroundTint="#813232"
         android:indeterminate="false"
         android:max="100"
         android:progress="100"
         android:progressDrawable="@drawable/circular_progress_bar"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.493"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.411" />
+        app:layout_constraintTop_toBottomOf="@+id/timertitle" />
 
     <EditText
         android:id="@+id/timertitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginEnd="92dp"
+        android:layout_marginBottom="1dp"
         android:hint="Task Name"
         android:text="TextView"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@id/progressBar"
+        app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <Button
         android:id="@+id/timerend"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="162dp"
-        android:layout_marginEnd="161dp"
-        android:layout_marginBottom="122dp"
+        android:layout_marginTop="10dp"
         android:text="End"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/timerbttn" />
 
@@ -94,23 +87,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="80dp"
         android:descendantFocusability="blocksDescendants"
-        app:layout_constraintStart_toEndOf="@+id/hourpicker"
-        app:layout_constraintTop_toTopOf="@+id/timertitle" />
+        app:layout_constraintEnd_toEndOf="@+id/progressBar"
+        app:layout_constraintTop_toTopOf="@+id/progressBar" />
 
     <NumberPicker
         android:id="@+id/hourpicker"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginStart="80dp"
-        android:layout_marginTop="136dp"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="7dp"
         android:autofillHints="hour"
         android:descendantFocusability="blocksDescendants"
+        app:layout_constraintEnd_toStartOf="@+id/button_set"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="@+id/progressBar"
-        app:layout_constraintTop_toTopOf="@+id/timertitle" />
+        app:layout_constraintTop_toTopOf="@+id/progressBar" />
+
+    <ImageButton
+        android:id="@+id/imageButtontimer"
+        android:layout_width="68dp"
+        android:layout_height="62dp"
+        android:layout_marginStart="4dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/baseline_arrow_back_24" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

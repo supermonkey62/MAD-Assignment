@@ -38,6 +38,7 @@ public class AddTask extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_task);
+
         // Clear the selected users from SharedPreferences on activity create
         clearSelectedUsers();
         Log.v("AddTask", "Entered Add Task");
@@ -112,8 +113,9 @@ public class AddTask extends AppCompatActivity {
                         if (dataSnapshot.exists()) {
                             Log.v(title, taskId + "already exists");
                         } else {
-                            Task newTask = new Task(username, taskTitle, selectedDate, taskId, false, 0, 0, selectedCategory, collaborators);
+                            Task newTask = new Task(username, taskTitle, selectedDate, taskId, false, 0, 0, selectedCategory, collaborators, false);
                             taskRef.child(taskId).setValue(newTask);
+                            UpdateCount(username);
                             finish();
                         }
                     }
@@ -178,6 +180,33 @@ public class AddTask extends AppCompatActivity {
         editor.remove("SELECTED_USERS");
         editor.apply();
     }
+
+
+
+    private void UpdateCount(String username){
+        DatabaseReference CountRef;
+        CountRef = FirebaseDatabase.getInstance().getReference("UserCount").child(username);
+
+        CountRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                // Check if the data exists
+                if (dataSnapshot.exists()) {
+
+                    int first = dataSnapshot.child("taskcount").getValue(Integer.class);
+                    CountRef.child("taskcount").setValue(first + 1);
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+                // Handle any errors that may occur while fetching the data
+                // ...
+            }
+        });
+
+    }
+
 }
 
 

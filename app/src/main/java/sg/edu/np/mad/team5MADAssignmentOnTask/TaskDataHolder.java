@@ -39,7 +39,7 @@ public class TaskDataHolder {
                         taskList.add(task);
                     }
                     else{
-                        Log.v("TaskDataHolderError", task.getUsername());
+                        Log.v("TaskDataHolderError", "Task is null or username is null");
                     }
                 }
 
