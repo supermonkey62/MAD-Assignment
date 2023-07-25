@@ -1,40 +1,65 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.PopupWindow;
 import android.widget.Switch;
+import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 
 public class TodolistFragment extends Fragment {
     private Switch todoswitch;
-    private ImageView backhome;
+    private ImageView backhome,ham;
 
     private Button taskanalysis;
+
+    String username;
+
+    Context context = getContext();
+
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.activity_todolist_fragmentholder, container, false);
+        Context context = view.getContext();
 
         todoswitch = view.findViewById(R.id.todotaskswitch);
+        backhome = view.findViewById(R.id.backhome);
         taskanalysis = view.findViewById(R.id.button3);
         String username = getActivity().getIntent().getStringExtra("USERNAME");
-        taskanalysis.setOnClickListener(new View.OnClickListener() {
+
+
+        backhome.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent task = new Intent(getContext(),TaskAnalysis.class);
-                task.putExtra("USERNAME",username);
-                startActivity(task);
+                requireActivity().finish(); // Use requireActivity() to finish the activity
             }
         });
 
+        ham.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.d("TodolistFragment", "showPopup() method called");
+
+
+                showPopup(v,username,context);
+            }
+        });
 
         todoswitch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -63,4 +88,46 @@ public class TodolistFragment extends Fragment {
 
         return view;
     }
-}
+
+    public void showPopup(View view, String username,Context context) {
+        Log.v("popup",  "ENTERED POPUP");
+
+        View popupView = LayoutInflater.from(getContext()).inflate(R.layout.taskhamburg, null);
+
+        PopupWindow popupWindow = new PopupWindow(popupView, LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT, true);
+        LinearLayout icon1Layout = popupView.findViewById(R.id.icon1_layout);
+        LinearLayout icon2Layout = popupView.findViewById(R.id.archive);
+        LinearLayout layout = popupView.findViewById(R.id.layout);
+
+//        int nightModeFlags = context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
+//        if (nightModeFlags == Configuration.UI_MODE_NIGHT_YES) {
+//            layout.setBackgroundColor(ContextCompat.getColor(context, R.color.dark_background));
+//
+//            TextView chart = popupView.findViewById(R.id.acvtext);
+//            chart.setTextColor(Color.WHITE);
+//            ImageView Imagechart = popupView.findViewById(R.id.iconacv);
+//            Imagechart.setImageResource(R.drawable.baseline_insert_chart_24);
+//
+//            TextView archive = popupView.findViewById(R.id.textarchive);
+//            archive.setTextColor(Color.WHITE);
+//            ImageView Imagearc = popupView.findViewById(R.id.imgarchive);
+//            Imagearc.setImageResource(R.drawable.baseline_archive_24);
+//
+//        }
+
+        icon1Layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), TaskAnalysis.class);
+                intent.putExtra("USERNAME", username);
+                popupWindow.dismiss();
+                startActivity(intent);
+            }
+        });
+        popupWindow.showAsDropDown(view, 0, 20);
+
+
+    }
+
+    }

@@ -131,7 +131,8 @@ public class PomodoroTimer extends AppCompatActivity {
                     builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            onBackPressedFragment();
+//                            onBackPressedFragment();
+                            finish();
                         }
                     });
                     builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -147,7 +148,8 @@ public class PomodoroTimer extends AppCompatActivity {
 
                 }
                 else {
-                    onBackPressedFragment();
+//                    onBackPressedFragment();
+                    finish();
                 }
 
             }

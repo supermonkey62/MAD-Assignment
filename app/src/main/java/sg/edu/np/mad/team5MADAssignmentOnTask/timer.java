@@ -82,7 +82,8 @@ public class timer extends AppCompatActivity {
                     builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            onBackPressedFragment();
+//                            onBackPressedFragment();
+                            finish();
                         }
                     });
                     builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
@@ -98,7 +99,8 @@ public class timer extends AppCompatActivity {
 
                 }
                 else {
-                    onBackPressedFragment();
+//                    onBackPressedFragment();
+                    finish();
                 }
 
             }

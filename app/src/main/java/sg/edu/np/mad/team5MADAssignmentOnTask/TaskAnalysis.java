@@ -4,6 +4,8 @@ import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -39,20 +41,32 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
     private List<Task> taskList;
     private Map<String, Integer> categoryColors;
 
+    private ImageButton backbttn;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_task_analysis);
+        backbttn = findViewById(R.id.btnGoBack);
         String username = getIntent().getStringExtra("USERNAME");
 
         categoryColors = createCategoryColors();
 
         TaskDataHolder.getInstance().fetchUserTasks(username, this);
 
+        backbttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
 
 
     }
+
+
 
     private Map<String, Integer> createCategoryColors() {
         Map<String, Integer> colors = new HashMap<>();

@@ -1,0 +1,63 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:id="@+id/layout"
+    android:orientation="vertical"
+    android:background="@android:color/white"
+    android:padding="8dp">
+
+    <!-- Icon 1 Button -->
+    <LinearLayout
+        android:id="@+id/icon1_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/iconacv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_insert_chart_24"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/acvtext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Task Analysis"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+    <!-- Icon 2 Button -->
+    <LinearLayout
+        android:id="@+id/archive"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:padding="8dp">
+
+        <ImageView
+            android:id="@+id/imgarchive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/baseline_archive_24"
+            android:layout_gravity="center_vertical" />
+
+        <TextView
+            android:id="@+id/textarchive"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Archived Tasks"
+            android:textSize="16sp"
+            android:textColor="@android:color/black"
+            android:layout_gravity="center_vertical" />
+    </LinearLayout>
+
+
+</LinearLayout>
