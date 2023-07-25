@@ -78,7 +78,7 @@ public class EditTask extends AppCompatActivity {
                             int existingsession = existingtask.getSessions();
                             String category = existingtask.getCategory();
                             Log.v("Username", tag);
-                            Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent,existingsession,category);
+                            Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent,existingsession,category,false);
                             userTask.child(tag).setValue(newTask);
                             finish();
 

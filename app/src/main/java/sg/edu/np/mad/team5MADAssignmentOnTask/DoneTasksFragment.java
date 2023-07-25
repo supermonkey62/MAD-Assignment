@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -21,8 +22,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +37,8 @@ public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDa
     private DoneTasksAdapter taskadapter;
     private List<Task> tasklist;
     private DatabaseReference userTask;
+
+    float existingTimeSpent;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -48,7 +54,8 @@ public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDa
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
             private Drawable archiveIcon = ContextCompat.getDrawable(getContext(), R.drawable.baseline_archive_24);
             private Drawable trashBinIcon = ContextCompat.getDrawable(getContext(), R.drawable.baseline_delete_24);
-//            private int iconMargin = getResources().getDimensionPixelSize(R.dimen.icon_margin);
+
+            //            private int iconMargin = getResources().getDimensionPixelSize(R.dimen.icon_margin);
             @Override
             public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, RecyclerView.ViewHolder target) {
                 return false;
@@ -59,6 +66,9 @@ public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDa
                 int position = viewHolder.getAdapterPosition();
                 Task swipedTask = tasklist.get(position);
                 String tag = swipedTask.getTag();
+                String taskTitle = swipedTask.getTitle();
+                String selectedDate = swipedTask.getDate();
+                Boolean status = swipedTask.getStatus();
                 if (direction == ItemTouchHelper.LEFT) {
                     taskadapter.removeItem(position);
 
@@ -78,13 +88,39 @@ public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDa
                                 }
                             });
 
-                }
-                else if (direction == ItemTouchHelper.RIGHT) {
+                } else if (direction == ItemTouchHelper.RIGHT) {
                     taskadapter.removeItem(position);
+                    userTask = FirebaseDatabase.getInstance().getReference("Task");
+
+                    userTask.child(tag).addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if (dataSnapshot.exists()) {
+                                Task existingtask = dataSnapshot.getValue(Task.class);
+                                existingTimeSpent = existingtask.getTimespent();
+                                int existingsession = existingtask.getSessions();
+                                String category = existingtask.getCategory();
+                                Log.v("Username", tag);
+                                Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent, existingsession, category, true);
+                                userTask.child(tag).setValue(newTask);
+
+
+                            } else {
+                                Log.v("TaskCount", tag + " does not  exists.");
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(DatabaseError databaseError) {
+                            Log.v("LoginPage", "Error: " + databaseError.getMessage());
+                        }
+                    });
+
 
                     Toast.makeText(getContext(), "Task archived successfully", Toast.LENGTH_SHORT).show();
                 }
             }
+
             @Override
             public void onChildDraw(@NonNull Canvas c, @NonNull RecyclerView recyclerView, @NonNull RecyclerView.ViewHolder viewHolder, float dX, float dY, int actionState, boolean isCurrentlyActive) {
                 super.onChildDraw(c, recyclerView, viewHolder, dX, dY, actionState, isCurrentlyActive);
@@ -136,7 +172,6 @@ public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDa
             }
 
 
-
         };
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
@@ -149,11 +184,17 @@ public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDa
 
     @Override
     public void onTaskDataFetched(List<Task> tasks) {
-        tasklist = tasks;
+        tasklist = new ArrayList<>();
+        for (Task task : tasks) {
+            if (task.archive == false) {
+                tasklist.add(task);
+            }
+        }
         taskRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
         taskadapter = new DoneTasksAdapter(getContext(), tasklist);
         taskRecyclerview.setAdapter(taskadapter);
     }
+
 }
 
 //public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDataCallback {

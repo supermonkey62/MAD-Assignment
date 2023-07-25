@@ -2,13 +2,19 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
+
 import android.annotation.SuppressLint;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
 import android.widget.SeekBar;
@@ -403,6 +409,17 @@ public class PomodoroTimer extends AppCompatActivity {
         resetButton.setEnabled(true);
         endButton.setEnabled(true);
     }
+
+
+//    private void pauseTimer() {
+//        countDownTimer.cancel();
+//        isTimerRunning = false;
+//        isPaused = true;
+//        startButton.setText("Start");
+//        resetButton.setEnabled(true);
+//        endButton.setEnabled(true);
+//    }
+
 
     private void resetTimer() {
         if (countDownTimer != null) {

@@ -84,7 +84,7 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
                             existingTimeSpent = existingtask.getTimespent();
                             int existingsession= existingtask.getSessions();
                             String category = existingtask.getCategory();
-                            Task updateTask = new Task(holder.username, holder.title, holder.date, holder.tag, true,existingTimeSpent,existingsession,category);
+                            Task updateTask = new Task(holder.username, holder.title, holder.date, holder.tag, true,existingTimeSpent,existingsession,category,false);
                             userTask.child(holder.tag).setValue(updateTask);
                         } else {
                             Log.v("TaskCount", holder.tag + " does not exist.");

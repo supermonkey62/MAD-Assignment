@@ -114,7 +114,7 @@ public class AddTask extends AppCompatActivity {
                         if (dataSnapshot.exists()) {
                             Log.v(title, taskId + "already exists");
                         } else {
-                            Task newTask = new Task(username, taskTitle, selectedDate, taskId, false, 0, 0, selectedCategory);
+                            Task newTask = new Task(username, taskTitle, selectedDate, taskId, false, 0, 0, selectedCategory,false);
                             taskRef.child(taskId).setValue(newTask);
                             finish();
                         }

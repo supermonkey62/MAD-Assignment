@@ -1,5 +1,6 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.util.Log;
@@ -84,7 +85,7 @@ public class MainpagetodoAdaptor extends RecyclerView.Adapter<MainpageViewHolder
                             existingTimeSpent = existingtask.getTimespent();
                             int existingsession = existingtask.getSessions();
                             String category = existingtask.getCategory();
-                            Task updateTask = new Task(holder.username, holder.title, holder.date, holder.tag, true,existingTimeSpent,existingsession,category);
+                            Task updateTask = new Task(holder.username, holder.title, holder.date, holder.tag, true,existingTimeSpent,existingsession,category,false);
                             userTask.child(holder.tag).setValue(updateTask);
                         } else {
                             Log.v("TaskCount", holder.tag + " does not exist.");
