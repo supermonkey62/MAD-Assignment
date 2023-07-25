@@ -82,6 +82,17 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
                 finish();
             }
         });
+
+
+        setButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String username = getIntent().getStringExtra("USERNAME");
+                FirebaseDatabase.getInstance().getReference("UserEquip").child(username).child("background").setValue("");
+                Log.v("+","");
+                finish();
+            }
+        });
     }
     @Override
     public void onImageClick(Uri imageUri) {

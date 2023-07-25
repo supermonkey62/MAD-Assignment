@@ -471,7 +471,10 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
                 String background = dataSnapshot.child("background").getValue(String.class);
                 String title = dataSnapshot.child("title").getValue(String.class);
 
-                if (background == null) {
+                if (background == null || background.equals("")) {
+
+                    listView.setBackground(null);
+
                 } else {
                     int lastIndex = background.lastIndexOf('/');
                     String lastSegment = background.substring(lastIndex + 1);
