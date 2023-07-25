@@ -40,6 +40,11 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
         String taskTitle = task.getTitle();
         return R.layout.item_view;
     }
+    public void removeItem(int position) {
+        taskList.remove(position);
+        notifyItemRemoved(position);
+    }
+
 
     @Override
     public TodoViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -106,6 +111,12 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
     public int getItemCount() {
         return taskList.size();
     }
+
+    public void updateData(List<Task> tasks) {
+        this.taskList = tasks;
+        notifyDataSetChanged();
+    }
+
 
     private void showUndoPopup() {
         Snackbar snackbar = Snackbar.make(((Activity) context).getWindow().getDecorView().findViewById(android.R.id.content),

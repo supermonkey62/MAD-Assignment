@@ -71,8 +71,6 @@ public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDa
                 Boolean status = swipedTask.getStatus();
                 if (direction == ItemTouchHelper.LEFT) {
                     taskadapter.removeItem(position);
-
-                    // Remove the task from the Firebase database using the tag
                     userTask = FirebaseDatabase.getInstance().getReference("Task");
                     userTask.child(tag).removeValue()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
