@@ -2,7 +2,6 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.LinearLayout;

@@ -40,7 +40,6 @@ public class RegisterUser extends AppCompatActivity {
     DatabaseReference userRef;
     DatabaseReference achievementRef;
     DatabaseReference shopRef;
-    DatabaseReference taskcountRef;
     DatabaseReference usercountRef;
     DatabaseReference userDateRef;
 
@@ -51,7 +50,6 @@ public class RegisterUser extends AppCompatActivity {
 
         // Load the databases
         userRef = FirebaseDatabase.getInstance().getReference("Users");
-        taskcountRef= FirebaseDatabase.getInstance().getReference("TaskCount");
         usercountRef = FirebaseDatabase.getInstance().getReference("UserCount");
         userDateRef = FirebaseDatabase.getInstance().getReference("UserDate");
 
@@ -109,7 +107,6 @@ public class RegisterUser extends AppCompatActivity {
                                          // Create a new user
 
                                          User newUser = new User(username, password,username,IMAGEURI,0, 0);
-                                         TaskCount newTaskCount = new TaskCount(username,0);
                                          UserCount newUserCount = new UserCount(100,0,0,0,0);
 
                                          Date date = new Date();
@@ -124,7 +121,6 @@ public class RegisterUser extends AppCompatActivity {
 
                                          usercountRef.child(username).setValue(newUserCount);
                                          userRef.child(username).setValue(newUser);
-                                         taskcountRef.child(username).setValue(newTaskCount);
                                          userDateRef.child(username).setValue(newLoginDate);
                                          Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
                                          creatingachievements(null,username);

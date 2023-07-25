@@ -5,6 +5,9 @@ import android.widget.TextView;
 
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
+
+import sg.edu.np.mad.team5MADAssignmentOnTask.R;
+
 public class EventViewHolder extends RecyclerView.ViewHolder {
     TextView titlebox, datebox, timebox;
 

@@ -87,38 +87,6 @@
         app:srcCompat="@drawable/hollow"
         tools:layout_editor_absoluteX="16dp" />
 
-    <RadioGroup
-        android:id="@+id/addtaskradiogroup"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toBottomOf="@id/titlebox"
-        app:layout_constraintLeft_toLeftOf="@id/whitebox"
-        android:layout_marginLeft="30dp">
-
-        <RadioButton
-            android:id="@+id/workButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Work"
-            tools:layout_editor_absoluteX="47dp"
-            tools:layout_editor_absoluteY="331dp"
-            app:layout_constraintTop_toBottomOf="@id/titlebox"
-            android:layout_marginTop="20dp"
-            app:layout_constraintStart_toStartOf="parent"
-            android:layout_marginStart="50dp"
-            android:checked="true"
-            />
-
-        <RadioButton
-            android:id="@+id/eventButton"
-            android:layout_width="86dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="50dp"
-            android:layout_marginTop="20dp"
-            android:text="Event"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/workButton" />
-    </RadioGroup>
 
     <Button
         android:id="@+id/addtaskbutton"
@@ -149,15 +117,13 @@
 
     <Spinner
         android:id="@+id/catspinner"
-        android:layout_width="186dp"
-        android:layout_height="80dp"
-        android:layout_marginBottom="176dp"
-        app:layout_constraintBottom_toBottomOf="@+id/whitebox"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.864"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        app:layout_constraintTop_toBottomOf="@+id/titleEdit"
+        app:layout_constraintStart_toStartOf="@id/whitebox"
+        android:layout_marginLeft="35dp"
+        android:layout_marginTop="28dp"
+       />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

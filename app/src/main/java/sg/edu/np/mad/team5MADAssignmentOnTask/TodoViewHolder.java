@@ -3,7 +3,6 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.TextView;
@@ -23,64 +22,13 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
     boolean status;
     String username, date, tag,title,type,category;
 
-    FloatingActionButton expandButton;
-    FloatingActionButton editButton;
-    FloatingActionButton deleteButton;
 
 
     TodoViewHolder(View view) {
         super(view);
         task = view.findViewById(R.id.checkbox);
         tasktimerlink = view.findViewById(R.id.tasktimer);
-        expandButton = itemView.findViewById(R.id.expandtaskbutton1);
-        editButton = itemView.findViewById(R.id.edittaskbutton1);
-        deleteButton = itemView.findViewById(R.id.deletetaskbutton1);
         dateoftask = view.findViewById(R.id.taskdatetodo);
-
-
-        expandButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (editButton.getVisibility() == View.VISIBLE) {
-                    editButton.setVisibility(View.GONE);
-                    deleteButton.setVisibility(View.GONE);
-                } else {
-                    editButton.setVisibility(View.VISIBLE);
-                    deleteButton.setVisibility(View.VISIBLE);
-                }
-
-                editButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Context context = v.getContext();
-                        Intent toEditTask = new Intent(context, EditTask.class);
-                        toEditTask.putExtra("USERNAME", username);
-                        toEditTask.putExtra("DATE", date);
-                        toEditTask.putExtra("TAG", tag);
-                        toEditTask.putExtra("STATUS", status);
-                        toEditTask.putExtra("CATEGORY",category);
-                        context.startActivity(toEditTask);
-                    }
-                });
-                deleteButton.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        Log.v("Moving to delete task", "Move to delete task");
-                        Context context = v.getContext();
-                        Intent toDeleteTask = new Intent(context, RemoveTasks.class);
-                        toDeleteTask.putExtra("USERNAME", username);
-                        toDeleteTask.putExtra("DATE", date);
-                        toDeleteTask.putExtra("TAG", tag);
-                        toDeleteTask.putExtra("STATUS", status);
-                        toDeleteTask.putExtra("TITLE",title);
-                        toDeleteTask.putExtra("CATEGORY",category);
-                        context.startActivity(toDeleteTask);
-
-                    }
-                });
-            }
-        });
-
 
         tasktimerlink.setOnClickListener(new View.OnClickListener() {
             @Override

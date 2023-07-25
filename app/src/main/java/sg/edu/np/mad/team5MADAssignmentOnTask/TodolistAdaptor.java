@@ -18,6 +18,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.List;
+
 public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
 
     private Context context;
@@ -57,7 +58,6 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
         holder.tag = task.getTag();
         holder.status = task.getStatus();
         holder.title = task.getTitle();
-        holder.type = task.getType();
         holder.sessions = task.getSessions();
         holder.category = task.getCategory();
 
@@ -84,7 +84,7 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
                             existingTimeSpent = existingtask.getTimespent();
                             int existingsession= existingtask.getSessions();
                             String category = existingtask.getCategory();
-                            Task updateTask = new Task(holder.username, holder.title, holder.type, holder.date, holder.tag, true,existingTimeSpent,existingsession,category);
+                            Task updateTask = new Task(holder.username, holder.title, holder.date, holder.tag, true,existingTimeSpent,existingsession,category);
                             userTask.child(holder.tag).setValue(updateTask);
                         } else {
                             Log.v("TaskCount", holder.tag + " does not exist.");

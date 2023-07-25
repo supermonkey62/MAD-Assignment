@@ -3,7 +3,6 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
@@ -24,6 +23,7 @@ import com.google.firebase.database.ValueEventListener;
 
 
 import java.util.Locale;
+
 public class timer extends AppCompatActivity {
     private long timeLeftInMillis;
     private long startTimeInMillis;
@@ -297,10 +297,9 @@ public class timer extends AppCompatActivity {
         String username = getIntent().getStringExtra("USERNAME");
         String tag = getIntent().getStringExtra("TAG");
         String title = getIntent().getStringExtra("TITLE");
-        String type = getIntent().getStringExtra("TYPE");
         String category = getIntent().getStringExtra("CATEGORY");
         userTask = FirebaseDatabase.getInstance().getReference("Task");
-        Task newTask = new Task(username, title, type, selectedDate, tag, taskStatus, newTimeSpent, totalSessions, category);
+        Task newTask = new Task(username, title, selectedDate, tag, taskStatus, newTimeSpent, totalSessions, category);
         userTask.child(tag).setValue(newTask);
         Log.v("TaskSaving", title + " saved to database");
         Log.v("TaskCheck",newTimeSpent + "," + totalSessions);

@@ -10,6 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import sg.edu.np.mad.team5MADAssignmentOnTask.CalendarViewHolder;
+import sg.edu.np.mad.team5MADAssignmentOnTask.R;
+
 public class MainPageCalendarAdapter extends RecyclerView.Adapter<CalendarViewHolder> {
 
     private Context context;

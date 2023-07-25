@@ -60,7 +60,6 @@ public class MainpagetodoAdaptor extends RecyclerView.Adapter<MainpageViewHolder
         holder.tag = task.getTag();
         holder.status = task.getStatus();
         holder.title = task.getTitle();
-        holder.type = task.getType();
         if (task.getStatus() == false) {
             holder.itemView.setVisibility(View.VISIBLE);
             holder.task.setText(task.getTitle());
@@ -85,7 +84,7 @@ public class MainpagetodoAdaptor extends RecyclerView.Adapter<MainpageViewHolder
                             existingTimeSpent = existingtask.getTimespent();
                             int existingsession = existingtask.getSessions();
                             String category = existingtask.getCategory();
-                            Task updateTask = new Task(holder.username, holder.title, holder.type, holder.date, holder.tag, true,existingTimeSpent,existingsession,category);
+                            Task updateTask = new Task(holder.username, holder.title, holder.date, holder.tag, true,existingTimeSpent,existingsession,category);
                             userTask.child(holder.tag).setValue(updateTask);
                         } else {
                             Log.v("TaskCount", holder.tag + " does not exist.");

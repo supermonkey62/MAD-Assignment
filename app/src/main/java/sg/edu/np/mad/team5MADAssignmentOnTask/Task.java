@@ -2,7 +2,7 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 public class Task {
 
-    String username, title, type, date,tag,category;
+    String username, title, date,tag,category;
     Boolean Status;
 
     float timespent;
@@ -12,10 +12,9 @@ public class Task {
     public Task() {
     }
 
-    public Task(String username, String title, String type, String date,String tag,Boolean status,float timespent, int sessions,String category){
+    public Task(String username, String title, String date,String tag,Boolean status,float timespent, int sessions,String category){
         this.username = username;
         this.title = title;
-        this.type = type;
         this.date = date;
         this.tag = tag;
         this.Status = status;
@@ -74,14 +73,6 @@ public class Task {
 
     public void setTitle(String title) {
         this.title = title;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
     }
 
     public String getDate() {

@@ -26,8 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 import java.util.List;
-import androidx.recyclerview.widget.ItemTouchHelper;
-import androidx.recyclerview.widget.RecyclerView;
 
 public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDataCallback {
 

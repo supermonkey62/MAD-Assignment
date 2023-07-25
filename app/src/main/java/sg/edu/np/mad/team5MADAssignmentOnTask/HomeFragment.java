@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
-public class HomeFragment extends Fragment implements CalendarAdapter.OnItemListener, TaskDataHolder.TaskDataCallback, EventDataHolder.EventDataCallback, UserDataHolder.UserDataCallback, SelectListener{
+public class HomeFragment extends Fragment implements CalendarAdapter.OnItemListener, TaskDataHolder.TaskDataCallback, EventDataHolder.EventDataCallback, UserDataHolder.UserDataCallback, SelectListener {
     private TextView monthYearText, greetingText, displaynametext;
 
     private RecyclerView calendarRecyclerView, eventShower, taskShower;
@@ -278,7 +278,6 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         Intent intent = new Intent(getActivity(), EditTask.class);
         intent.putExtra("USERNAME", task.getUsername());
         intent.putExtra("TITLE", task.getTitle());
-        intent.putExtra("TYPE", task.getType());
         intent.putExtra("DATE", task.getDate());
         intent.putExtra("TAG", task.getTag());
         intent.putExtra("STATUS", task.getStatus());

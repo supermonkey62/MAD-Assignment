@@ -14,17 +14,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-public class AddTask extends AppCompatActivity {
 
-    RadioButton radioButton;
-    RadioGroup radioGroup;
+public class AddTask extends AppCompatActivity {
     EditText titleEdit;
 
     TextView taskDate, cancelText, selectedOption;
@@ -46,8 +43,6 @@ public class AddTask extends AppCompatActivity {
         username = getIntent().getStringExtra("USERNAME");
         taskDate = findViewById(R.id.taskdate);
         titleEdit = findViewById(R.id.titleEdit);
-
-        radioGroup = findViewById(R.id.addtaskradiogroup);
         Button addTaskButton = findViewById(R.id.addtaskbutton);
         cancelText = findViewById(R.id.canceltasktext);
         category = findViewById(R.id.catspinner);
@@ -84,9 +79,6 @@ public class AddTask extends AppCompatActivity {
 
     private void createTask() {
         String taskTitle = titleEdit.getText().toString();
-        int radioId = radioGroup.getCheckedRadioButtonId();
-        radioButton = findViewById(radioId);
-        String typeTitle = radioButton.getText().toString();
         String selectedCategory = category.getSelectedItem().toString();
         generateTaskId(username, new TaskIdCallback() {
             @Override
@@ -98,7 +90,7 @@ public class AddTask extends AppCompatActivity {
                         if (dataSnapshot.exists()) {
                             Log.v(title, taskId + "already exists");
                         } else {
-                            Task newTask = new Task(username, taskTitle, typeTitle, selectedDate, taskId, false, 0, 0, selectedCategory);
+                            Task newTask = new Task(username, taskTitle, selectedDate, taskId, false, 0, 0, selectedCategory);
                             taskRef.child(taskId).setValue(newTask);
                             finish();
                         }

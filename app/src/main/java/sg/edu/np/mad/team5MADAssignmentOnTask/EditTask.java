@@ -20,10 +20,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-public class EditTask extends AppCompatActivity {
 
-    RadioButton radioButton;
-    RadioGroup radioGroup;
+public class EditTask extends AppCompatActivity {
     EditText titleEdit;
 
     TextView taskDate, cancelText, profileback;
@@ -53,7 +51,6 @@ public class EditTask extends AppCompatActivity {
         Log.v("TaskCount", tag);
         taskDate = findViewById(R.id.taskdate);
         titleEdit = findViewById(R.id.titleEdit);
-        radioGroup = findViewById(R.id.addtaskradiogroup);
         Button editTask = findViewById(R.id.edittaskbutton);
         deleteButton = findViewById(R.id.deleteTaskButton);
         cancelText = findViewById(R.id.canceltasktext);
@@ -68,9 +65,6 @@ public class EditTask extends AppCompatActivity {
             public void onClick(View v) {
 
                 String taskTitle = titleEdit.getText().toString();
-                int radioId = radioGroup.getCheckedRadioButtonId();
-                radioButton = findViewById(radioId);
-                String typeTitle = radioButton.getText().toString();
                 userTask = FirebaseDatabase.getInstance().getReference("Task");
 
 
@@ -83,8 +77,7 @@ public class EditTask extends AppCompatActivity {
                             int existingsession = existingtask.getSessions();
                             String category = existingtask.getCategory();
                             Log.v("Username", tag);
-                            Log.v("CreateTask","Task: " + taskTitle + " , " + typeTitle + " , " + selectedDate + " , " + username + " , " + tag + " , " + status);
-                            Task newTask = new Task(username, taskTitle, typeTitle, selectedDate, tag, status, existingTimeSpent,existingsession,category);
+                            Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent,existingsession,category);
                             userTask.child(tag).setValue(newTask);
                             finish();
 
