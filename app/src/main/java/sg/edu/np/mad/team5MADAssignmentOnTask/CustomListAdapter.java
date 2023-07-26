@@ -2,6 +2,7 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import android.app.LauncherActivity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.Uri;
@@ -29,11 +30,15 @@ public class CustomListAdapter extends ArrayAdapter<Shop> {
     private List<Shop> shop;
     private int expandedPosition = -1;
     private ListView listView;
+    private String username;
+    private String status;
 
     public interface OnImageClickListener {
         void onImageClick(Uri imageUri);
 
     }
+
+
 
     private OnImageClickListener onImageClickListener;
 
@@ -44,11 +49,12 @@ public class CustomListAdapter extends ArrayAdapter<Shop> {
     }
 
 
-    public CustomListAdapter(Context context, List<Shop> shop, ListView listView) {
+    public CustomListAdapter(Context context, List<Shop> shop, ListView listView,String username) {
         super(context, 0, shop);
         this.context = context;
         this.shop = shop;
         this.listView = listView;
+        this.username = username;
     }
 
     @Override
@@ -63,7 +69,9 @@ public class CustomListAdapter extends ArrayAdapter<Shop> {
         TextView textView = convertView.findViewById(R.id.textView);
         RelativeLayout relative = convertView.findViewById(R.id.relative);
         Uri image = Uri.parse(currentItem.getCardimage());
+        Log.e("Image", "+" + currentItem.getCardimage());
         imageView.setImageURI(image);
+
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -78,9 +86,13 @@ public class CustomListAdapter extends ArrayAdapter<Shop> {
             }
         });
 
-
-
         return convertView;
+
+
+
+
+
+
     }
 
 }

@@ -7,6 +7,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
@@ -16,6 +17,8 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TextView;
+
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -30,6 +33,8 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
     private List<Shop> shopList;
     private Uri uri;
 
+    private String type;
+
 
 
     @Override
@@ -42,8 +47,30 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
         Button setButton = findViewById(R.id.btnClaim);
         ConstraintLayout layout = findViewById(R.id.layout);
         LinearLayout linear = findViewById(R.id.linear);
+        TextView goal = findViewById(R.id.textOn);
+        TextView title = findViewById(R.id.textOff);
 
         String username = getIntent().getStringExtra("USERNAME");
+        type = getIntent().getStringExtra("Type");
+
+
+        if (type.equals("background")){
+
+            goal.setEnabled(false);
+            goal.setBackgroundResource(R.drawable.rectangle_line);
+            title.setBackground(null);
+
+        }
+
+        if (type.equals("outline")){
+
+            title.setEnabled(false);
+            title.setBackgroundResource(R.drawable.rectangle_line);
+            goal.setBackground(null);
+            setButton.setVisibility(View.GONE);
+
+        }
+
 
         Context context = this;
         if ((context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
@@ -53,6 +80,36 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
             layout.setBackgroundColor(ContextCompat.getColor(context, R.color.dark_background));
             closebtn.setImageResource(R.drawable.white_cross);
         }
+
+
+        title.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                type = "outline";
+;
+                Intent intent = new Intent(getApplicationContext(), Choose_Item_Activity.class);
+                intent.putExtra("USERNAME", username);
+                intent.putExtra("Type",type);
+                startActivity(intent);
+                finish();
+            }
+        });
+
+        goal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                type = "background";
+
+                Intent intent = new Intent(getApplicationContext(), Choose_Item_Activity.class);
+                intent.putExtra("USERNAME", username);
+                intent.putExtra("Type",type);
+                startActivity(intent);
+                finish();
+
+            }
+        });
+
+
 
 
 
@@ -67,23 +124,42 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 shopList = new ArrayList<>();
+
                 for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
                     String key = itemSnapshot.getKey();
-                    if (itemSnapshot.child("boughted").getValue(boolean.class) == true){
+                    String carduri =itemSnapshot.child("carduri").getValue(String.class);
+                    String itemtpye = itemSnapshot.child("fonttype").getValue(String.class);
+                    boolean boughted = itemSnapshot.child("boughted").getValue(boolean.class);
+                    Log.v("Type",type);
+
+                    if (boughted == true && itemtpye.equals(type)){
                         int cost = itemSnapshot.child("cost").getValue(Integer.class);
-                        String carduri =itemSnapshot.child("carduri").getValue(String.class);
-                        String font = itemSnapshot.child("fonttype").getValue(String.class);
-                        boolean boughted = itemSnapshot.child("boughted").getValue(boolean.class);
-                        Shop shop = new Shop(cost,carduri,font,boughted);
+                        Shop shop = new Shop(cost,carduri,itemtpye,boughted);
+
                         shopList.add(shop);
                     }
 
                 }
 
+                if (shopList.isEmpty()){
+                    setButton.setText("No BackGround Click here to purchase");
+                    setButton.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            Intent intent = new Intent(getApplicationContext(), ShopActivity.class);
+                            intent.putExtra("USERNAME", username);
+                            startActivity(intent);
+                            finish();
+                        }
+                    });
+                }
+
                 // Create the adapter and set it to the ListView
-                CustomListAdapter adapter = new CustomListAdapter(Choose_Item_Activity.this, shopList,listView);
+                CustomListAdapter adapter = new CustomListAdapter(Choose_Item_Activity.this, shopList,listView,username);
                 adapter.setOnImageClickListener(Choose_Item_Activity.this);
                 listView.setAdapter(adapter);
+
+
 
             }
 
@@ -105,7 +181,7 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
             @Override
             public void onClick(View v) {
                 String username = getIntent().getStringExtra("USERNAME");
-                FirebaseDatabase.getInstance().getReference("UserEquip").child(username).child("background").setValue("");
+                FirebaseDatabase.getInstance().getReference("UserEquip").child(username).child(type).setValue("");
                 Log.v("+","");
                 finish();
             }
@@ -116,10 +192,11 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
         String username = getIntent().getStringExtra("USERNAME");
         uri = imageUri;
         String image = imageUri.toString();
-        FirebaseDatabase.getInstance().getReference("UserEquip").child(username).child("background").setValue(image);
+        FirebaseDatabase.getInstance().getReference("UserEquip").child(username).child(type).setValue(image);
         finish();
 
     }
+
 
 }
 

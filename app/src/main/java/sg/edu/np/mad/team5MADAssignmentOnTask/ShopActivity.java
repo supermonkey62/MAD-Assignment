@@ -10,6 +10,7 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -37,6 +38,7 @@ public class ShopActivity extends AppCompatActivity implements ShopAdapter.OnBut
     private DatabaseReference shopRef;
     private DatabaseReference CountRef;
 
+    private String sort = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +53,7 @@ public class ShopActivity extends AppCompatActivity implements ShopAdapter.OnBut
         ImageView cancel = findViewById(R.id.close_button);
         TextView CoinsCount = findViewById(R.id.coins);
         RelativeLayout layout = findViewById(R.id.layout);
-
+        Button sortButton = findViewById(R.id.cancel_button);
 
         Context context = this;
         if ((context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
@@ -93,81 +95,54 @@ public class ShopActivity extends AppCompatActivity implements ShopAdapter.OnBut
             }
         });
 
-
-
-
         recyclerView = findViewById(R.id.recycler_view);
         shopList = new ArrayList<>();
 
         // Create the adapter and pass the intent data and username
         adapter = new ShopAdapter(this, shopList, username);
+        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.item_spacing)));
 
         adapter.setOnButtonClickListener(this);
 
         // Set the adapter to the RecyclerView
         recyclerView.setAdapter(adapter);
 
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        recyclerView.setLayoutManager(layoutManager);
-        recyclerView.addItemDecoration(new VerticalSpaceItemDecoration(getResources().getDimensionPixelSize(R.dimen.item_spacing)));
+        Log.v("sort","+" + sort);
+        fetchandsort(username);
 
-        // Get a reference to the UserAchievement node in Firebase
-        shopRef = FirebaseDatabase.getInstance().getReference("Shop").child(username);
-
-        // Attach a ValueEventListener to retrieve the achievement data
-        shopRef.addValueEventListener(new ValueEventListener() {
-
+        sortButton.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                shopList.clear(); // Clear the existing list
-
-                // Iterate through the usernames
-                for (DataSnapshot shopSnapshot : dataSnapshot.getChildren()) {
-                    String shopSnapshotKey = shopSnapshot.getKey();
-
-                    if(shopSnapshot.child("cost").getValue(Integer.class) != null){
-                        Log.v("tesy", "+" + shopSnapshot.child("fonttype").getValue(String.class));
-                        int cost = shopSnapshot.child("cost").getValue(Integer.class);
-                        Log.v("cost", "}" + shopSnapshot.child("carduri").getValue(String.class));
-                        String image = shopSnapshot.child("carduri").getValue(String.class);
-                        String font = shopSnapshot.child("fonttype").getValue(String.class);
-                        boolean status = shopSnapshot.child("boughted").getValue(boolean.class);
-
-                        // Create a Shop object and add it to the list
-                        Shop shop = new Shop(cost, image, font, status);
-
-                        shopList.add(shop);
-                    }
-
+            public void onClick(View v) {
+                if (sort == null){
+                    sortButton.setText("Title");
+                    sort = "outline";
+                    Log.e("Sort","+" + sort);
+                    fetchandsort(username);
                 }
 
-                Comparator<Shop> statusComparator = new Comparator<Shop>() {
-                    @Override
-                    public int compare(Shop shop1, Shop shop2) {
-                        if (shop1.isBoughted() && !shop2.isBoughted()) {
-                            return 1; // Move shop2 down in the list
-                        } else if (!shop1.isBoughted() && shop2.isBoughted()) {
-                            return -1; // Move shop2 up in the list
-                        } else {
-                            return 0; // Preserve the original order if both have the same status
-                        }
-                    }
-                };
+                else if (sort.equals("outline")){
+                    sortButton.setText("Goal Design");
+                    sort = "background";
+                    Log.e("Sort","+" + sort);
+                    fetchandsort(username);
+                }
 
-                // Sort the shopList using the custom comparator
-                Collections.sort(shopList, statusComparator);
+                else if (sort.equals("background")){
+                    sortButton.setText("All");
+                    sort = null;
+                    Log.e("Sort","+" + sort);
+                    fetchandsort(username);
+                }
 
-
-                adapter.notifyDataSetChanged();
             }
 
-
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle the error if any
-            }
         });
+
+
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+        // Get a reference to the UserAchievement node in Firebase
+;
 
 
     }
@@ -226,6 +201,83 @@ public class ShopActivity extends AppCompatActivity implements ShopAdapter.OnBut
     private void claimItem(Shop shop) {
         // Call the claimAchievement method in the adapter
         adapter.claimItem(shop);
+    }
+
+
+    private void fetchandsort(String username){
+        shopRef = FirebaseDatabase.getInstance().getReference("Shop").child(username);
+
+        // Attach a ValueEventListener to retrieve the achievement data
+        shopRef.addValueEventListener(new ValueEventListener() {
+
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                shopList.clear(); // Clear the existing list
+
+                // Iterate through the usernames
+                for (DataSnapshot shopSnapshot : dataSnapshot.getChildren()) {
+                    String shopSnapshotKey = shopSnapshot.getKey();
+                    Log.v("tesy", "+" + shopSnapshot.child("fonttype").getValue(String.class));
+                    int cost = shopSnapshot.child("cost").getValue(Integer.class);
+                    Log.v("cost", "}" + shopSnapshot.child("carduri").getValue(String.class));
+                    String image = shopSnapshot.child("carduri").getValue(String.class);
+                    String itemtype = shopSnapshot.child("fonttype").getValue(String.class);
+                    boolean status = shopSnapshot.child("boughted").getValue(boolean.class);
+
+                    if (sort == null){
+
+                        if(status == false) {
+
+
+                            // Create a Shop object and add it to the list
+                            Shop shop = new Shop(cost, image, itemtype, status);
+
+                            shopList.add(shop);
+                        }
+
+                    }else{
+                        if(status == false && itemtype.equals(sort)) {
+
+
+                            // Create a Shop object and add it to the list
+                            Shop shop = new Shop(cost, image, itemtype, status);
+
+                            shopList.add(shop);
+                        }
+                    }
+
+                }
+
+                Comparator<Shop> statusComparator = new Comparator<Shop>() {
+                    @Override
+                    public int compare(Shop shop1, Shop shop2) {
+                        if (shop1.isBoughted() && !shop2.isBoughted()) {
+                            return 1; // Move shop2 down in the list
+                        } else if (!shop1.isBoughted() && shop2.isBoughted()) {
+                            return -1; // Move shop2 up in the list
+                        } else {
+                            return 0; // Preserve the original order if both have the same status
+                        }
+                    }
+                };
+
+
+                // Sort the shopList using the custom comparator
+                Collections.sort(shopList, statusComparator);
+
+
+                adapter.notifyDataSetChanged();
+            }
+
+
+
+
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle the error if any
+            }
+        });
     }
 
 

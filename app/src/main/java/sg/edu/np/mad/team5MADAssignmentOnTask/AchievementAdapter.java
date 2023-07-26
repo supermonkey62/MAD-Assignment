@@ -80,7 +80,7 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
             holder.achievementTitle.setText(achievement.getTitle());
             holder.progressBar.setMax(achievement.getMaxProgress());
             holder.progressBar.setProgress(achievement.getProgress());
-            holder.progressText.setText(String.format("%d/%d", achievement.getProgress(), achievement.getMaxProgress()));
+            holder.progressText.setText(String.format("Progress: %d/%d", achievement.getProgress(), achievement.getMaxProgress()));
             holder.progressBar.setEnabled(false);
             if (achievement.getRewardtype().equals("Coins")) {
                 holder.reward.setText("Coins: " + achievement.getReward());

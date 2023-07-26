@@ -454,6 +454,7 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), Choose_Item_Activity.class);
                 intent.putExtra("USERNAME", username);
+                intent.putExtra("Type","background");
                 popupWindow.dismiss();
                 startActivity(intent);
             }
@@ -470,6 +471,7 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
             public void onDataChange(DataSnapshot dataSnapshot) {
                 String background = dataSnapshot.child("background").getValue(String.class);
                 String title = dataSnapshot.child("title").getValue(String.class);
+                String outline = dataSnapshot.child("outline").getValue(String.class);
 
                 if (background == null || background.equals("")) {
 
@@ -491,6 +493,17 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
                 else{
                     Log.v("userequip","=" + title);
                     textView.setText(title);
+                }
+
+                if(outline == null || outline.equals("")){
+                    textView.setBackgroundResource(R.drawable.rectangle_line);
+                }
+
+                else{
+                    int lastIndex = outline.lastIndexOf('/');
+                    String lastSegment = outline.substring(lastIndex + 1);
+                    int drawableResId = getResources().getIdentifier(lastSegment, "drawable", getContext().getPackageName());
+                    textView.setBackgroundResource(drawableResId);
                 }
 
             }

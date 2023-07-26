@@ -2,6 +2,7 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Rect;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -23,6 +24,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
@@ -69,6 +72,11 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
             holder.cost.setText(Cost);
             Uri imageuri = Uri.parse(shop.getCardimage());
             holder.image.setImageURI(imageuri);
+            if (shop.getItemtype().equals("background")){
+                holder.title.setText("Goal Background");
+            }
+
+            else{holder.title.setText("Title Outline");}
 
             holder.buy.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -162,6 +170,68 @@ public class ShopAdapter extends RecyclerView.Adapter<ShopAdapter.ViewHolder> {
                 }
             }
         });
+    }
+
+
+    private static final int SORT_BY_TITLE = 1;
+    private static final int SORT_BY_BACKGROUND = 2;
+    private static final int SORT_BY_UNSORT = 3;
+
+    private int currentSortType = SORT_BY_UNSORT; // Default sorting type
+
+    // Method to handle the sorting
+    public void sortData() {
+        switch (currentSortType) {
+            case SORT_BY_TITLE:
+                // Sort data by title using a custom comparator
+                Collections.sort(shopList, new TitleComparator());
+                currentSortType = SORT_BY_BACKGROUND;
+                break;
+            case SORT_BY_BACKGROUND:
+                // Sort data by background using a custom comparator
+                Collections.sort(shopList, new BackgroundComparator());
+                currentSortType = SORT_BY_UNSORT;
+                break;
+            case SORT_BY_UNSORT:
+                // Do not sort, revert to original order
+                currentSortType = SORT_BY_TITLE;
+                break;
+        }
+        notifyDataSetChanged();
+    }
+
+    // Custom comparators for sorting by title and background
+
+    private class TitleComparator implements Comparator<Shop> {
+        @Override
+        public int compare(Shop shop1, Shop shop2) {
+            return shop1.getItemtype().equals("title") ? -1 : 1;
+        }
+    }
+
+    private class BackgroundComparator implements Comparator<Shop> {
+        @Override
+        public int compare(Shop shop1, Shop shop2) {
+            return shop1.getItemtype().equals("background") ? -1 : 1;
+        }
+    }
+
+
+    public class ItemSpacingDecoration extends RecyclerView.ItemDecoration {
+        private final int verticalSpaceHeight;
+        private final int horizontalSpaceWidth;
+
+        public ItemSpacingDecoration(int verticalSpaceHeight, int horizontalSpaceWidth) {
+            this.verticalSpaceHeight = verticalSpaceHeight;
+            this.horizontalSpaceWidth = horizontalSpaceWidth;
+        }
+
+        @Override
+        public void getItemOffsets(@NonNull Rect outRect, @NonNull View view, @NonNull RecyclerView parent, @NonNull RecyclerView.State state) {
+            outRect.top = verticalSpaceHeight;
+            outRect.left = horizontalSpaceWidth;
+            outRect.right = horizontalSpaceWidth;
+        }
     }
 
 
