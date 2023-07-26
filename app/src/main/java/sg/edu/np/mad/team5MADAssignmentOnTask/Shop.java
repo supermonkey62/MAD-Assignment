@@ -1,10 +1,12 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
+import com.bumptech.glide.load.resource.bitmap.BitmapEncoder;
+
 public class Shop {
 
     private int cost;
     private String cardimage;
-    private String fonttype;
+    private String itemtype;
     private boolean boughted;
 
     public Shop() {
@@ -12,10 +14,10 @@ public class Shop {
         // Make sure you don't perform any initialization in this constructor
     }
 
-    public Shop(int cost, String cardimage, String fonttype, boolean boughted) {
+    public Shop(int cost, String cardimage, String itemtype, boolean boughted) {
         this.cost = cost;
         this.cardimage = cardimage;
-        this.fonttype = fonttype;
+        this.itemtype = itemtype;
         this.boughted = boughted;
     }
 
@@ -35,12 +37,12 @@ public class Shop {
         this.cardimage = cardimage;
     }
 
-    public String getFonttype() {
-        return fonttype;
+    public String getItemtype() {
+        return itemtype;
     }
 
-    public void setFonttype(String fonttype) {
-        this.fonttype = fonttype;
+    public void setItemtype(String itemtype) {
+        this.itemtype = itemtype;
     }
 
     public boolean isBoughted() {

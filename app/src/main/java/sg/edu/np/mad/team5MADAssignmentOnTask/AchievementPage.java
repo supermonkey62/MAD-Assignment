@@ -59,9 +59,11 @@ public class AchievementPage extends AppCompatActivity {
         ImageView cancel = findViewById(R.id.close_button);
         TextView achievementCount = findViewById(R.id.coins);
         RelativeLayout layout = findViewById(R.id.layout);
+        Button button = findViewById(R.id.cancel_button);
+        button.setVisibility(View.GONE);
 
 
-        achievementCount.setText(String.format("%d/%d", done, total));
+        achievementCount.setText(String.format("Progress: %d/%d", done, total));
         Context context = this;
         if ((context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
                 == Configuration.UI_MODE_NIGHT_YES) {
@@ -125,7 +127,7 @@ public class AchievementPage extends AppCompatActivity {
                     if (status.equals("Completed")){
                         done+=1;
                     }
-                    achievementCount.setText(String.format("%d/%d", done, total));
+                    achievementCount.setText(String.format("Progress: %d/%d", done, total));
                     CountRef.child("achievementcomplete").setValue(done);
 
 

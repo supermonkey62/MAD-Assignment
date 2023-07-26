@@ -40,21 +40,56 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
-                android:layout_marginEnd="16dp"
+                android:layout_marginEnd="10dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:padding="8dp"
                 android:src="@drawable/ic_close"
                 android:layout_gravity="end"/>
 
-            <Switch
-                android:layout_width="wrap_content"
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center"
-                android:textSize="30sp"
-                android:paddingBottom="40dp"/>
-                android:thumb="@drawable/switch_thumb_custom"
-                android:track="@drawable/switch_track_custom"/>
+                android:gravity="bottom"
+                android:orientation="horizontal">
 
+                <TextView
+                    android:id="@+id/textOn"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:text="Goal Background"
+                    android:textColor="@color/black"
+                    android:padding="8dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/rectangle_line"
+                    android:layout_marginStart="2dp"
+                    android:gravity="center"
+                    android:layout_marginEnd="2dp"/>
+
+                <TextView
+                    android:id="@+id/textOff"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Title Background"
+                    android:textColor="@color/black"
+                    android:padding="8dp"
+                    android:layout_marginEnd="2dp"
+                    android:background="@drawable/slider_switch_bg_right"
+                    android:gravity="center"
+                    android:layout_marginStart="2dp"/>
+
+
+            </LinearLayout>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:id="@+id/table3"
+                android:background="@color/black"
+                android:layout_marginBottom="10dp"
+                android:layout_marginStart="2dp"
+                android:layout_marginEnd="2dp"/>
 
             <ListView
                 android:id="@+id/listView"
@@ -67,8 +102,8 @@
                 android:id="@+id/btnClaim"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Clear Goal Design"
-                android:textColor="@color/black"
+                android:text="Clear Design"
+                android:textColor="@color/white"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

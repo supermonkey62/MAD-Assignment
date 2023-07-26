@@ -247,36 +247,55 @@ public class RegisterUser extends AppCompatActivity {
 
         int skyId = R.drawable.cardbeautyfulsky;  // Replace with your image resource ID
         String skyuri = getImageUriString(skyId);
-        Shop item1 = new Shop(100,skyuri,"serif",false);
+        Shop item1 = new Shop(100,skyuri,"background",false);
 
         int forestId = R.drawable.forest;  // Replace with your image resource ID
         String foresturi = getImageUriString(forestId);
-        Shop item2 = new Shop(100,foresturi,"casual",false);
+        Shop item2 = new Shop(100,foresturi,"background",false);
 
         int koreanId = R.drawable.korean;  // Replace with your image resource ID
         String koreanuri = getImageUriString(koreanId);
-        Shop item3 = new Shop(100,koreanuri,"cursive",false);
+        Shop item3 = new Shop(100,koreanuri,"background",false);
 
         int pixelId = R.drawable.pixel;  // Replace with your image resource ID
         String pixeluri = getImageUriString(pixelId);
-        Shop item4 = new Shop(100,pixeluri,"sans-serif-smallcaps",false);
+        Shop item4 = new Shop(100,pixeluri,"background",false);
 
-        int blueId = R.drawable.pixel; //Change it back to blue later
+        int blueId = R.drawable.blue; //Change it back to blue later
         String blueuri = getImageUriString(blueId);
-        Shop item5 = new Shop(100,blueuri,"sans-serif-smallcaps",false);
+        Shop item5 = new Shop(100,blueuri,"background",false);
+
+        int outlineId = R.drawable.rectangle_line;
+        String outlineuri = getImageUriString(outlineId);
+        Shop item6 = new Shop(100,outlineuri,"outline",true);
+
+        int dotId = R.drawable.dot_outline;
+        String doturi = getImageUriString(dotId);
+        Shop item7 = new Shop(100,doturi,"outline",false);
+
+        int doubleId = R.drawable.doubleline_outline;
+        String doubleuri = getImageUriString(doubleId);
+        Shop item8 = new Shop(100,doubleuri,"outline",false);
+
+
+
 
         shopList.add(item1);
         shopList.add(item2);
         shopList.add(item3);
         shopList.add(item4);
         shopList.add(item5);
+        shopList.add(item6);
+        shopList.add(item7);
+        shopList.add(item8);
+
 
         for (Shop shop : shopList) {
             // Convert the achievement to a map that can be stored in Firebase
             Map<String, Object> shopMap = new HashMap<>();
             shopMap.put("cost", shop.getCost());
             shopMap.put("carduri", shop.getCardimage());
-            shopMap.put("fonttype", shop.getFonttype());
+            shopMap.put("fonttype", shop.getItemtype());
             shopMap.put("boughted", shop.isBoughted());
 
             shopRef = FirebaseDatabase.getInstance().getReference("Shop").child(username);
