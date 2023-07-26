@@ -100,6 +100,17 @@ public class TodolistFragment extends Fragment {
                 startActivity(intent);
             }
         });
+
+        icon2Layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(),archivetasks.class);
+                intent.putExtra("USERNAME", username);
+                popupWindow.dismiss();
+                startActivity(intent);
+
+            }
+        });
         popupWindow.showAsDropDown(view, 0, 20);
 
 
