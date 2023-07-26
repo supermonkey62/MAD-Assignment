@@ -51,10 +51,10 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textSize="30sp"
-                android:paddingBottom="40dp"
+                android:paddingBottom="40dp"/>
                 android:thumb="@drawable/switch_thumb_custom"
-                android:track="@drawable/switch_track_custom"
-                />
+                android:track="@drawable/switch_track_custom"/>
+
 
             <ListView
                 android:id="@+id/listView"

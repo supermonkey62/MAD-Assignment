@@ -8,6 +8,8 @@ import java.util.List;
 public class User {
     private String username, password,displayname, ImageURI;
     private int eventCount, taskCount;
+    private boolean isFriend;
+    private List<String> friendList;
     public User() {
     }
 
@@ -18,6 +20,7 @@ public class User {
         this.ImageURI = ImageURI;
         this.eventCount = eventCount;
         this.taskCount = taskCount;
+        this.friendList = new ArrayList<>();
     }
 
     public String getUsername() {
@@ -56,5 +59,18 @@ public class User {
 
     public void setTaskCount(int taskCount) {
         this.taskCount = taskCount;
+    }
+    public boolean isFriend() {
+        return isFriend;
+    }
+    public void setFriend(boolean friend) {
+        isFriend = friend;
+    }
+    public List<String> getFriendList() {
+        return friendList;
+    }
+
+    public void setFriendList(List<String> friendList) {
+        this.friendList = friendList;
     }
 }
