@@ -36,7 +36,6 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
     private String type;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,22 +53,6 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
         type = getIntent().getStringExtra("Type");
 
 
-        if (type.equals("background")){
-
-            goal.setEnabled(false);
-            goal.setBackgroundResource(R.drawable.rectangle_line);
-            title.setBackground(null);
-
-        }
-
-        if (type.equals("outline")){
-
-            title.setEnabled(false);
-            title.setBackgroundResource(R.drawable.rectangle_line);
-            goal.setBackground(null);
-            setButton.setVisibility(View.GONE);
-
-        }
 
 
         Context context = this;
@@ -81,28 +64,45 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
             closebtn.setImageResource(R.drawable.white_cross);
         }
 
+        type = "background";
+        fetchandsort(username);
+        goal.setBackgroundResource(R.drawable.rectangle_line);
+        title.setBackground(null);
+        setButton.setEnabled(true);
+
+
 
         title.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 type = "outline";
-;
-                Intent intent = new Intent(getApplicationContext(), Choose_Item_Activity.class);
-                intent.putExtra("USERNAME", username);
-                intent.putExtra("Type",type);
-                startActivity(intent);
-                finish();
+                fetchandsort(username);
+                title.setBackgroundResource(R.drawable.rectangle_line);
+                goal.setBackground(null);
+                setButton.setBackground(null);
+                setButton.setEnabled(false);
             }
+;
         });
 
         goal.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 type = "background";
+                fetchandsort(username);
+                goal.setBackgroundResource(R.drawable.rectangle_line);
+                title.setBackground(null);
+                title.setText(null);
+                setButton.setEnabled(true);
+            }
+        });
+
+        goal.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
 
                 Intent intent = new Intent(getApplicationContext(), Choose_Item_Activity.class);
                 intent.putExtra("USERNAME", username);
-                intent.putExtra("Type",type);
                 startActivity(intent);
                 finish();
 
@@ -115,59 +115,7 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
 
 
         // Initialize Firebase
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference shopReference = firebaseDatabase.getReference("Shop").child(username);
 
-
-        // Fetch data from Firebase
-        shopReference.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                shopList = new ArrayList<>();
-
-                for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
-                    String key = itemSnapshot.getKey();
-                    String carduri =itemSnapshot.child("carduri").getValue(String.class);
-                    String itemtpye = itemSnapshot.child("fonttype").getValue(String.class);
-                    boolean boughted = itemSnapshot.child("boughted").getValue(boolean.class);
-                    Log.v("Type",type);
-
-                    if (boughted == true && itemtpye.equals(type)){
-                        int cost = itemSnapshot.child("cost").getValue(Integer.class);
-                        Shop shop = new Shop(cost,carduri,itemtpye,boughted);
-
-                        shopList.add(shop);
-                    }
-
-                }
-
-                if (shopList.isEmpty()){
-                    setButton.setText("No BackGround Click here to purchase");
-                    setButton.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View v) {
-                            Intent intent = new Intent(getApplicationContext(), ShopActivity.class);
-                            intent.putExtra("USERNAME", username);
-                            startActivity(intent);
-                            finish();
-                        }
-                    });
-                }
-
-                // Create the adapter and set it to the ListView
-                CustomListAdapter adapter = new CustomListAdapter(Choose_Item_Activity.this, shopList,listView,username);
-                adapter.setOnImageClickListener(Choose_Item_Activity.this);
-                listView.setAdapter(adapter);
-
-
-
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                // Handle any errors that might occur during data fetching
-            }
-        });
 
         closebtn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -195,6 +143,46 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
         FirebaseDatabase.getInstance().getReference("UserEquip").child(username).child(type).setValue(image);
         finish();
 
+    }
+
+    private void fetchandsort(String username){
+        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
+        DatabaseReference shopReference = firebaseDatabase.getReference("Shop").child(username);
+
+
+        // Fetch data from Firebase
+        shopReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                shopList = new ArrayList<>();
+
+                for (DataSnapshot itemSnapshot : dataSnapshot.getChildren()) {
+                    String key = itemSnapshot.getKey();
+                    String carduri =itemSnapshot.child("carduri").getValue(String.class);
+                    String itemtpye = itemSnapshot.child("fonttype").getValue(String.class);
+                    boolean boughted = itemSnapshot.child("boughted").getValue(boolean.class);
+                    if (boughted == true && itemtpye.equals(type)){
+                        int cost = itemSnapshot.child("cost").getValue(Integer.class);
+                        Shop shop = new Shop(cost,carduri,itemtpye,boughted);
+
+                        shopList.add(shop);
+                    }
+
+                }
+
+
+                // Create the adapter and set it to the ListView
+                CustomListAdapter adapter = new CustomListAdapter(Choose_Item_Activity.this, shopList,listView,username);
+                adapter.setOnImageClickListener(Choose_Item_Activity.this);
+                listView.setAdapter(adapter);
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle any errors that might occur during data fetching
+            }
+        });
     }
 
 

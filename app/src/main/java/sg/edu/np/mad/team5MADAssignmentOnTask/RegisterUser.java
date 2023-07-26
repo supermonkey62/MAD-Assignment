@@ -261,7 +261,7 @@ public class RegisterUser extends AppCompatActivity {
         String pixeluri = getImageUriString(pixelId);
         Shop item4 = new Shop(100,pixeluri,"background",false);
 
-        int blueId = R.drawable.pixel; //Change it back to blue later
+        int blueId = R.drawable.blue; //Change it back to blue later
         String blueuri = getImageUriString(blueId);
         Shop item5 = new Shop(100,blueuri,"background",false);
 
