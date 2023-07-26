@@ -97,12 +97,13 @@ public class EditTask extends AppCompatActivity {
                         int existingSession = existingTask.getSessions();
                         String category = existingTask.getCategory();
                         Log.v("Username", tag);
-                        if (newCollaborators.isEmpty()) {
+                        if (newCollaborators == "NIL") {
                             Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent, existingSession, category, collaborators, false);
                             userTask.child(tag).setValue(newTask);
                             finish();
                         }
                         else {
+                            Log.v("newCollaber", newCollaborators);
                             updateCollaboratorsTasks();
                             Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent, existingSession, category, newCollaborators, false);
                             userTask.child(tag).setValue(newTask);
