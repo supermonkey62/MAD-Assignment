@@ -140,14 +140,14 @@ public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDa
                         int iconLeft = itemView.getLeft() + (int) (0.2 * itemWidth); // Icon appears sooner
                         int iconRight = iconLeft + intrinsicWidth;
                         int iconBottom = iconTop + intrinsicHeight;
+                        // Change background color to green
+                        paint.setColor(0xFFCCFFCC);
+                        c.drawRect(itemView.getLeft(), itemView.getTop(), itemView.getLeft() + dX, itemView.getBottom(), paint);
 
                         // Set the bounds for the icon and draw it on the canvas
                         archiveIcon.setBounds(iconLeft, iconTop, iconRight, iconBottom);
                         archiveIcon.draw(c);
 
-                        // Change background color to green
-                        paint.setColor(Color.GREEN);
-                        c.drawRect(itemView.getLeft(), itemView.getTop(), itemView.getLeft() + dX, itemView.getBottom(), paint);
                     } else {
                         // Swiping to the left (delete)
                         int intrinsicWidth = trashBinIcon.getIntrinsicWidth();
@@ -158,14 +158,15 @@ public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDa
                         int iconRight = itemView.getRight() - (int) (0.2 * itemWidth); // Icon appears sooner
                         int iconLeft = iconRight - intrinsicWidth;
                         int iconBottom = iconTop + intrinsicHeight;
+                        // Change background color to red
+                        paint.setColor(0xFFFFCDD2);
+                        c.drawRect(itemView.getRight() + dX, itemView.getTop(), itemView.getRight(), itemView.getBottom(), paint);
 
                         // Set the bounds for the icon and draw it on the canvas
                         trashBinIcon.setBounds(iconLeft, iconTop, iconRight, iconBottom);
                         trashBinIcon.draw(c);
 
-                        // Change background color to red
-                        paint.setColor(Color.RED);
-                        c.drawRect(itemView.getRight() + dX, itemView.getTop(), itemView.getRight(), itemView.getBottom(), paint);
+
                     }
                 }
             }

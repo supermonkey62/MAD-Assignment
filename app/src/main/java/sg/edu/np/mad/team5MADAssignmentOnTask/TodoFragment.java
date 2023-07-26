@@ -97,6 +97,7 @@ public class TodoFragment extends Fragment implements TaskDataHolder.TaskDataCal
                 String taskTitle = swipedTask.getTitle();
                 String selectedDate = swipedTask.getDate();
                 Boolean status = swipedTask.getStatus();
+                String collab = swipedTask.getCollaborators();
                 if (direction == ItemTouchHelper.LEFT) {
 //                    taskadapter.removeItem(position);
                     userTask = FirebaseDatabase.getInstance().getReference("Task");
@@ -120,6 +121,7 @@ public class TodoFragment extends Fragment implements TaskDataHolder.TaskDataCal
                     toedittask.putExtra("TAG",tag);
                     toedittask.putExtra("DATE",selectedDate);
                     toedittask.putExtra("STATUS",status);
+                    toedittask.putExtra("COLLABORATORS",collab);
                     startActivity(toedittask);
 
                 }
@@ -145,14 +147,14 @@ public class TodoFragment extends Fragment implements TaskDataHolder.TaskDataCal
                         int iconLeft = itemView.getLeft() + (int) (0.2 * itemWidth); // Icon appears sooner
                         int iconRight = iconLeft + intrinsicWidth;
                         int iconBottom = iconTop + intrinsicHeight;
+                        paint.setColor(0xFFFFF9C4);
+                        c.drawRect(itemView.getLeft(), itemView.getTop(), itemView.getLeft() + dX, itemView.getBottom(), paint);
 
                         // Set the bounds for the icon and draw it on the canvas
                         editIcon.setBounds(iconLeft, iconTop, iconRight, iconBottom);
                         editIcon.draw(c);
 
-                        // Change background color to green
-                        paint.setColor(Color.YELLOW);
-                        c.drawRect(itemView.getLeft(), itemView.getTop(), itemView.getLeft() + dX, itemView.getBottom(), paint);
+
                     } else {
                         // Swiping to the left (delete)
                         int intrinsicWidth = trashBinIcon.getIntrinsicWidth();
@@ -163,14 +165,15 @@ public class TodoFragment extends Fragment implements TaskDataHolder.TaskDataCal
                         int iconRight = itemView.getRight() - (int) (0.2 * itemWidth); // Icon appears sooner
                         int iconLeft = iconRight - intrinsicWidth;
                         int iconBottom = iconTop + intrinsicHeight;
+                        // Change background color to red
+                        paint.setColor(0xFFFFCDD2);
+                        c.drawRect(itemView.getRight() + dX, itemView.getTop(), itemView.getRight(), itemView.getBottom(), paint);
 
                         // Set the bounds for the icon and draw it on the canvas
                         trashBinIcon.setBounds(iconLeft, iconTop, iconRight, iconBottom);
                         trashBinIcon.draw(c);
 
-                        // Change background color to red
-                        paint.setColor(Color.RED);
-                        c.drawRect(itemView.getRight() + dX, itemView.getTop(), itemView.getRight(), itemView.getBottom(), paint);
+
                     }
                 }
             }
