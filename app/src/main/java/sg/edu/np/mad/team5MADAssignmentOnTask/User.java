@@ -4,6 +4,7 @@ import android.util.Log;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class User {
     private String username, password,displayname, ImageURI, collaboratedtasks;
@@ -81,5 +82,31 @@ public class User {
 
     public void setFriendList(List<String> friendList) {
         this.friendList = friendList;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", displayname='" + displayname + '\'' +
+                ", ImageURI='" + ImageURI + '\'' +
+                ", collaboratedtasks='" + collaboratedtasks + '\'' +
+                ", eventCount=" + eventCount +
+                ", taskCount=" + taskCount +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof User)) return false;
+        User user = (User) o;
+        return Objects.equals(getUsername(), user.getUsername());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getUsername());
     }
 }

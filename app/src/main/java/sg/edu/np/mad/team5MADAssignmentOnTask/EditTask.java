@@ -48,13 +48,11 @@ public class EditTask extends AppCompatActivity {
     private static final int REQUEST_SELECT_USERS = 1;
 
     private List<User> collaboratorUsersList = new ArrayList<>();
-    private List<String> selectedUsernames = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_task);
-        clearSelectedUsers();
         Log.v("EditTask", "Entered Edit Task");
         selectedDate = getIntent().getStringExtra("DATE");
         title = getIntent().getStringExtra("TITLE");
@@ -132,7 +130,6 @@ public class EditTask extends AppCompatActivity {
             startActivityForResult(searchUsersIntent, REQUEST_SELECT_USERS);
         });
         retrieveSelectedUsers();
-
         cancelText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -189,7 +186,7 @@ public class EditTask extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         String selectedUsersJson = preferences.getString("SELECTED_USERS", "");
         selectedUsers = new Gson().fromJson(selectedUsersJson, new TypeToken<List<User>>() {}.getType());
-        Log.v("RRetrieve selected users", selectedUsersJson);
+
 
         if (selectedUsers == null || selectedUsers.isEmpty()) {
             // If selectedUsers is null or empty, set collaborators to "NIL"
@@ -223,7 +220,12 @@ public class EditTask extends AppCompatActivity {
                 Log.v("Collaborator username", collaboratorUsername);
 
                 // Check if the collaborator exists in selectedUsers list
-                if (!selectedUsernames.contains(collaboratorUsername)) {
+                if (!selectedUsers.contains(collaboratorUser)) {
+
+                    for (User selectedUser : selectedUsers) {
+                        Log.v("Selected Username", selectedUser.toString());
+                    }
+                    Log.v("Collaborator username", collaboratorUser.toString());
                     // If the collaborator exists in collaboratorUsersList but not in selectedUsers
                     String currentCollaboratedTasks = collaboratorUser.getCollaboratedtasks();
                     // Split the current collaborated tasks string by commas and convert it to a list
@@ -239,24 +241,31 @@ public class EditTask extends AppCompatActivity {
                     // Update the collaborator's collaborated tasks in the database
                     collaboratorUser.setCollaboratedtasks(updatedCollaboratedTasks);
                     usersRef.child(collaboratorUsername).setValue(collaboratorUser);
-                } else if (!collaboratorUsersList.contains(collaboratorUser)) {
-                    // If the collaborator doesn't exist in collaboratorUsersList but exists in selectedUsers
+                }
+
+                else if (selectedUsers.contains(collaboratorUser)) {
+                    // If the collaborator in selectedUsers
                     String currentCollaboratedTasks = collaboratorUser.getCollaboratedtasks();
                     String updatedCollaboratedTasks;
+                    List<String> collaboratedTasksList = new ArrayList<>(Arrays.asList(currentCollaboratedTasks.split(",")));
 
                     // If the current collaborated tasks are "NIL," set to the new tag
                     if ("NIL".equals(currentCollaboratedTasks)) {
                         updatedCollaboratedTasks = tag;
-                    } else {
-                        // Append the tag to the current collaborated tasks
-                        updatedCollaboratedTasks = currentCollaboratedTasks + "," + tag;
                     }
-
+                    else {
+                        for (String collabTask : collaboratedTasksList) {
+                            if (collabTask == tag) {
+                                collaboratedTasksList.add(tag);
+                            }
+                        }
+                        updatedCollaboratedTasks = TextUtils.join(",", collaboratedTasksList);
+                    }
                     // Update the collaborator's collaborated tasks in the database
                     collaboratorUser.setCollaboratedtasks(updatedCollaboratedTasks);
-                    usersRef.child(collaboratorUsername).child("collaboratedtasks").setValue(updatedCollaboratedTasks);
+                    usersRef.child(collaboratorUsername).setValue(collaboratorUser);
                 }
-                // If the collaborator exists in both collaboratorUsersList and selectedUsers, no changes needed
+
             }
         }
         else {
@@ -328,6 +337,13 @@ public class EditTask extends AppCompatActivity {
             collaboratorUser.setCollaboratedtasks(updatedCollaboratedTasks);
             usersRef.child(collaboratorUser.getUsername()).child("collaboratedtasks").setValue(updatedCollaboratedTasks);
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.v("EditTask", "OnDestroy");
+        clearSelectedUsers();
     }
 
 }
