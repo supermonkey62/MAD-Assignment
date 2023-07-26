@@ -28,8 +28,8 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/tasktimer"
-            android:layout_width="56dp"
-            android:layout_height="52dp"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
             android:clickable="true"
             app:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"

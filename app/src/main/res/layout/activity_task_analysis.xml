@@ -175,5 +175,17 @@
         </LinearLayout>
     </ScrollView>
 
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="212dp"
+        android:layout_height="54dp"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="76dp"
+        android:text="Task Analysis"
+        android:textSize="30dp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
 

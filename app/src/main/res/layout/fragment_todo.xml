@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
@@ -7,14 +8,14 @@
 
     <TextView
         android:id="@+id/FragtextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="74dp"
+        android:gravity="center"
         android:text="Tasks"
         android:textSize="34sp"
         android:textStyle="bold"
-        android:gravity="center"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/FragtasksRecyclerView"
@@ -24,18 +25,16 @@
         android:nestedScrollingEnabled="true"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fragaddtask"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+    <ProgressBar
+        android:id="@+id/progressBar2"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="389dp"
+        android:layout_height="49dp"
+        android:layout_marginTop="11dp"
+        android:layout_marginEnd="13dp"
+        android:max="100"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginEnd="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/FragtasksRecyclerView"
-        android:layout_marginBottom="30dp"
-        android:clickable="true"
-        app:srcCompat="@drawable/baseline_add2_24" />
+        app:layout_constraintTop_toBottomOf="@+id/FragtasksRecyclerView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

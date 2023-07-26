@@ -10,7 +10,7 @@
         android:id="@+id/Todohamburg"
         android:layout_width="40dp"
         android:layout_height="69dp"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="4dp"
         android:backgroundTint="@color/black"
         android:clickable="true"
         android:onClick="showPopup"
@@ -25,9 +25,10 @@
         android:name="com.bumptech.glide.manager.SupportRequestManagerFragment"
         android:layout_width="371dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="104dp"
+        android:layout_marginTop="64dp"
         android:backgroundTint="@color/edit_text_background"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.6"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -35,21 +36,11 @@
         android:id="@+id/todotaskswitch"
         android:layout_width="153dp"
         android:layout_height="69dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="184dp"
+        android:layout_marginTop="4dp"
+        android:layout_marginEnd="252dp"
         android:text="Switch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
-
-    <ImageView
-        android:id="@+id/backhome"
-        android:layout_width="42dp"
-        android:layout_height="42dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/baseline_arrow_back_24" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

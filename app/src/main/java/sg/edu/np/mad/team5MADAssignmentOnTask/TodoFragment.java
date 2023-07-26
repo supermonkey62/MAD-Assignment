@@ -50,7 +50,6 @@ public class TodoFragment extends Fragment implements TaskDataHolder.TaskDataCal
 
     private float existingTimeSpent;
 
-    private FloatingActionButton addtask;
 
     public TodoFragment() {
         // Required empty public constructor
@@ -73,7 +72,6 @@ public class TodoFragment extends Fragment implements TaskDataHolder.TaskDataCal
         View view = inflater.inflate(R.layout.fragment_todo, container, false);
         taskRecyclerview = view.findViewById(R.id.FragtasksRecyclerView);
         tasklist = new ArrayList<>();
-        addtask = view.findViewById(R.id.fragaddtask);
         Calendar calendar = Calendar.getInstance();
         Date today = calendar.getTime();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -199,15 +197,6 @@ public class TodoFragment extends Fragment implements TaskDataHolder.TaskDataCal
             }
         });
 
-        addtask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(getContext(), AddTask.class);
-                intent.putExtra("USERNAME", username);
-                intent.putExtra("DATE", date);
-                startActivity(intent);
-            }
-        });
 
         return view;
     }
