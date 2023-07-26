@@ -5,15 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    tools:context=".RegisterUser">
+    tools:context=".RegisterUser"
+    android:background="@color/app_theme">
 
     <!-- Add the Cross Image -->
     <ImageView
         android:id="@+id/cross_image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:src="@drawable/ic_close"
+        android:src="@drawable/white_cross"
+        android:backgroundTint="@color/white"
         android:padding="16dp"
         android:clickable="true"
         android:focusable="true"
@@ -28,7 +29,7 @@
         android:layout_marginTop="60dp"
         android:gravity="center"
         android:text="Change Display Name"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintTop_toTopOf="parent"
@@ -56,6 +57,7 @@
         android:hint="Enter New Display Name"
         android:inputType="text"
         android:textColor="@color/black"
+        android:background="@drawable/white_square_with_rounded_corners"
         app:layout_constraintTop_toBottomOf="@id/cutextview"
         app:layout_constraintVertical_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
@@ -68,7 +70,7 @@
         android:layout_marginBottom="116dp"
         android:gravity="center"
         android:text="Cancel"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textStyle="bold"
         app:layout_constraintTop_toBottomOf="@id/confirm_button"
         app:layout_constraintStart_toStartOf="parent"

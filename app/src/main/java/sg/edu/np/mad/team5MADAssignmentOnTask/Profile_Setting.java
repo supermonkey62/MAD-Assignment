@@ -2,13 +2,24 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toolbar;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -31,7 +42,6 @@ public class Profile_Setting extends AppCompatActivity {
         editProfile = (TextView)findViewById(R.id.edit_profile);
         deleteuser = findViewById(R.id.deleteuser);
         back = findViewById(R.id.back);
-
 
         userRef = FirebaseDatabase.getInstance().getReference("Users");
 

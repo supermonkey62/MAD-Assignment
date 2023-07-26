@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -56,6 +58,7 @@ public class AchievementPage extends AppCompatActivity {
 
         ImageView cancel = findViewById(R.id.close_button);
         TextView achievementCount = findViewById(R.id.coins);
+        RelativeLayout layout = findViewById(R.id.layout);
 
 
         achievementCount.setText(String.format("%d/%d", done, total));
@@ -64,6 +67,7 @@ public class AchievementPage extends AppCompatActivity {
                 == Configuration.UI_MODE_NIGHT_YES) {
             // Dark mode
             cancel.setImageResource(R.drawable.white_cross);
+            layout.setBackgroundColor(ContextCompat.getColor(context, R.color.dark_background));
         }
 
         cancel.setOnClickListener(new View.OnClickListener() {

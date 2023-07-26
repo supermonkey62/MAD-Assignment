@@ -2,8 +2,10 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/app_theme"
+    android:id="@+id/layout"
     >
 
     <androidx.cardview.widget.CardView
@@ -11,21 +13,23 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:cardCornerRadius="8dp"
-        android:layout_marginTop="75dp"
+        android:layout_marginTop="10dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         tools:layout_editor_absoluteY="56dp"
         android:layout_centerInParent="true"
+
         android:padding="30dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
             android:orientation="vertical"
             android:gravity="center"
+            android:id="@+id/linear"
+            android:background="@color/button_colour"
 
             >
 
@@ -42,13 +46,14 @@
                 android:src="@drawable/ic_close"
                 android:layout_gravity="end"/>
 
-            <TextView
-                android:layout_width="match_parent"
+            <Switch
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Set Goals Design"
                 android:textSize="30sp"
                 android:paddingBottom="40dp"
+                android:thumb="@drawable/switch_thumb_custom"
+                android:track="@drawable/switch_track_custom"
                 />
 
             <ListView
@@ -63,6 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Clear Goal Design"
+                android:textColor="@color/black"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"

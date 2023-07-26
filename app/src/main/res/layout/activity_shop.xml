@@ -39,7 +39,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cost: $10.00"
-        android:textColor="@color/white"
+        android:textColor="@color/black"
         android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@id/squircleBackground"
         app:layout_constraintEnd_toEndOf="@id/button"

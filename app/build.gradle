@@ -18,6 +18,10 @@ android {
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    defaultConfig {
+        vectorDrawables.useSupportLibrary = true
+    }
+
 
     buildTypes {
         release {

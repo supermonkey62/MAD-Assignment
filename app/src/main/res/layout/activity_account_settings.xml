@@ -5,7 +5,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginPage"
-    android:background="@color/white">
+    android:id="@+id/relative"
+    android:background="@color/app_theme">
 
 
     <!--*******Top Tool Bar**********-->
@@ -15,10 +16,9 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="@color/white"
+        android:background="#317873"
         android:elevation="6dp"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme">
+        android:minHeight="?attr/actionBarSize">
 
 
         <LinearLayout
@@ -35,7 +35,7 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:drawableRight="@drawable/ic_close"
-                android:drawableTint="@color/black"
+                android:drawableTint="@color/white"
                 android:paddingRight="10dp"
                 android:textColor="@color/black"
                 android:textSize="25sp" />
@@ -51,8 +51,9 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:layout_below="@+id/accountSettingToolbar"
+        android:id="@+id/settinglayout"
         android:padding="10dp"
-        android:background="@color/white">
+        android:background="@color/app_theme">
 
         <!--*******Account Setting**********-->
 
@@ -65,10 +66,11 @@
             android:layout_marginTop="20dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="20dp"
+            android:text="Settings"
 
-            android:text="@string/my_text"
-            android:textColor="@color/black"
-            android:textSize="30sp"
+            android:id="@+id/setting"
+            android:textColor="@color/white"
+            android:textSize="35sp"
             android:textStyle="bold" />
 
         <TextView
@@ -77,15 +79,16 @@
             android:layout_height="25dp"
             android:drawableLeft="@drawable/baseline_email_24"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/black"
+            android:drawableTint="@color/white"
 
             android:text="Bind to Email"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp" />
         <TableRow
             android:layout_width="match_parent"
+            android:id="@+id/table1"
             android:layout_height="1dp"
-            android:background="@color/black"
+            android:background="@color/white"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"/>
         <!--*******Logout**********-->
@@ -95,16 +98,17 @@
             android:layout_height="25dp"
             android:drawableLeft="@drawable/ic_logout_exit"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/black"
+            android:drawableTint="@color/white"
 
             android:text="Logout"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/black"
+            android:background="@color/white"
+            android:id="@+id/table2"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"/>
 
@@ -114,15 +118,16 @@
             android:layout_height="25dp"
             android:drawableLeft="@drawable/baseline_delete_24"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/black"
+            android:drawableTint="@color/white"
 
             android:text="Delete Account"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp" />
         <TableRow
             android:layout_width="match_parent"
             android:layout_height="1dp"
-            android:background="@color/black"
+            android:id="@+id/table3"
+            android:background="@color/white"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"/>
 

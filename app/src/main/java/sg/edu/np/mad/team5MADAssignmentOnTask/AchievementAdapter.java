@@ -14,10 +14,12 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -136,9 +138,6 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
             progressText = itemView.findViewById(R.id.progress_text);
             claimButton = itemView.findViewById(R.id.claim_button);
             reward = itemView.findViewById(R.id.reward);
-
-
-
         }
     }
     private void getAchievementKeyFromFirebase(Achievement claimedAchievement, AchievementKeyCallback callback) {
@@ -227,6 +226,8 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
         });
 
     }
+
+
 
 
 }

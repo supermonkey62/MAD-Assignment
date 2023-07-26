@@ -1,18 +1,23 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.google.firebase.database.DataSnapshot;
@@ -42,10 +47,20 @@ public class ShopActivity extends AppCompatActivity implements ShopAdapter.OnBut
         Log.v("Username",username);
 
 
-
         TextView title = findViewById(R.id.title_text);
         ImageView cancel = findViewById(R.id.close_button);
         TextView CoinsCount = findViewById(R.id.coins);
+        RelativeLayout layout = findViewById(R.id.layout);
+
+
+        Context context = this;
+        if ((context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                == Configuration.UI_MODE_NIGHT_YES) {
+            // Dark mode
+            cancel.setImageResource(R.drawable.white_cross);
+            layout.setBackgroundColor(ContextCompat.getColor(context, R.color.dark_background));
+        }
+
 
         title.setText("Shop");
 

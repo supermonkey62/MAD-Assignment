@@ -2,13 +2,19 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
+import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
 
+import android.content.Context;
+import android.content.res.Configuration;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -34,8 +40,19 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
         listView = findViewById(R.id.listView);
         ImageButton closebtn = findViewById(R.id.btnClose);
         Button setButton = findViewById(R.id.btnClaim);
+        ConstraintLayout layout = findViewById(R.id.layout);
+        LinearLayout linear = findViewById(R.id.linear);
 
         String username = getIntent().getStringExtra("USERNAME");
+
+        Context context = this;
+        if ((context.getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK)
+                == Configuration.UI_MODE_NIGHT_YES) {
+            // Dark mode
+            linear.setBackgroundColor(ContextCompat.getColor(context,R.color.grey));
+            layout.setBackgroundColor(ContextCompat.getColor(context, R.color.dark_background));
+            closebtn.setImageResource(R.drawable.white_cross);
+        }
 
 
 

@@ -34,8 +34,8 @@ Allow user to set and track the time spent on doing their task while leaving the
 
 Stage 2 Features:
 
-1. Improved User Preferences | Jun Rong<br>
-Allow for further app customisations such as dark mode, larger fonts.
+1. Currency System | Jun Rong <br>
+Implement Achievements to get currency and shop to use them and set up functions to use purchased item in profile.
 
 2. TimeTable | Ern Qi<br>
 Allows users to plan what tasks they are going to do each day at what time in advance
@@ -53,6 +53,8 @@ Allow users to colloborate on tasks, such as sharing tasks together, and keep tr
 
 
 
+
+
 **Attributions for Images Used**
 Login Page Productivity Image: <a href="https://www.freepik.com/free-vector/timing-project-scheduling_6976404.htm#query=productivity&position=3&from_view=search&track=sph">Image by pch.vector</a> on Freepik<br>
 App Icon: <a href="https://www.flaticon.com/free-icons/tasks" title="tasks icons">Tasks icons created by Freepik - Flaticon</a><br>
@@ -64,6 +66,11 @@ https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg?auto=compress&c
 Morning.png: https://www.vecteezy.com/video/1305180-sunrise-timelapse-sun-rise-warm-morning-night-to-day<br>
 Afternoon.png:https://www.istockphoto.com/photos/peru-llama<br>
 Evening.png:https://pxhere.com/en/photo/913583<br>
+https://static.vecteezy.com/system/resources/previews/008/014/115/original/tropical-leaves-background-design-summer-leaves-flat-illustration-simple-banner-with-copy-space-free-vector.jpg
+https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-03.jpg
+https://media.istockphoto.com/id/1333010525/vector/simple-flat-pixel-art-illustration-of-cartoon-outdoor-landscape-background-pixel-arcade.jpg?s=612x612&w=0&k=20&c=uTGqB9fhmjzaNd17EGRHYU04_70K7a3M8ilRoJjDwtY=
+https://img.lovepik.com/background/20211022/large/lovepik-korean-simple-background-image_401976423.jpg
+https://static.vecteezy.com/system/resources/previews/006/852/804/original/abstract-blue-background-simple-design-for-your-website-free-vector.jpg
 
 **Team Members' Names and Student ID**
 

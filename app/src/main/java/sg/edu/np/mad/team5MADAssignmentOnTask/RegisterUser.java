@@ -260,10 +260,15 @@ public class RegisterUser extends AppCompatActivity {
         String pixeluri = getImageUriString(pixelId);
         Shop item4 = new Shop(100,pixeluri,"sans-serif-smallcaps",false);
 
+        int blueId = R.drawable.blue;
+        String blueuri = getImageUriString(blueId);
+        Shop item5 = new Shop(100,blueuri,"sans-serif-smallcaps",false);
+
         shopList.add(item1);
         shopList.add(item2);
         shopList.add(item3);
         shopList.add(item4);
+        shopList.add(item5);
 
         for (Shop shop : shopList) {
             // Convert the achievement to a map that can be stored in Firebase

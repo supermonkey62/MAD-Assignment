@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/app_theme"
     tools:context=".LoginPage">
 
 
@@ -16,10 +16,10 @@
         android:layout_height="50dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:background="@color/white"
         android:elevation="6dp"
         android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme">
+        android:theme="?attr/actionBarTheme"
+        android:background="#317873">
 
 
         <LinearLayout
@@ -36,9 +36,9 @@
                 android:layout_marginStart="5dp"
                 android:layout_weight="1"
                 android:drawableRight="@drawable/ic_close"
-                android:drawableTint="@color/black"
+                android:drawableTint="@color/white"
                 android:paddingRight="10dp"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="25sp" />
 
 
@@ -56,7 +56,8 @@
         android:layout_marginBottom="100dp"
         android:background="@color/white"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="10dp"
+        android:backgroundTint="@color/app_theme">
 
 
         <!--*******Account Setting**********-->
@@ -71,7 +72,7 @@
             android:layout_marginBottom="20dp"
 
             android:text="Edit Profile"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="30sp"
             android:textStyle="bold" />
         <!--*******Logout**********-->
@@ -81,10 +82,10 @@
             android:layout_height="25dp"
             android:drawableLeft="@drawable/baseline_image_24"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/black"
+            android:drawableTint="@color/white"
 
             android:text="Change Profile Picture"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <TableRow
@@ -92,7 +93,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:background="@color/black" />
+            android:background="@color/white" />
         <!--*******Edit Profile**********-->
         <TextView
             android:id="@+id/change_password"
@@ -100,10 +101,10 @@
             android:layout_height="25dp"
             android:drawableLeft="@drawable/baseline_password_24"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/black"
+            android:drawableTint="@color/white"
 
             android:text="Change Password"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
 
@@ -112,7 +113,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:background="@color/black" />
+            android:background="@color/white" />
 
         <TextView
             android:id="@+id/change_username"
@@ -120,10 +121,10 @@
             android:layout_height="25dp"
             android:drawableLeft="@drawable/baseline_edit_24"
             android:drawablePadding="10dp"
-            android:drawableTint="@color/black"
+            android:drawableTint="@color/white"
 
             android:text="Change Username"
-            android:textColor="@color/black"
+            android:textColor="@color/white"
             android:textSize="18sp" />
 
         <TableRow
@@ -131,7 +132,7 @@
             android:layout_height="1dp"
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:background="@color/black" />
+            android:background="@color/white" />
 
 
 
