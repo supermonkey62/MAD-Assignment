@@ -43,16 +43,11 @@ Allows users to plan what tasks they are going to do each day at what time in ad
 3. Add Friends | Andrew<br>
 Allow users to find other users on the app by searching for their username to befriend each other and view each other's profile.
 
-4. Dashboard | Kenneth<br>
+4. Weekly Calendar Dashboard | Kenneth<br>
 Allows user to view their tasks in a weekly calendar layout, providing a simpler and easy summarised view of their work week.
 
 5. Task Collaboration | Kenneth<br>
 Allow users to colloborate on tasks, such as sharing tasks together, and keep track of their progress on projects that they are working on.
-
-6. Leaderboard |
-
-
-
 
 
 **Attributions for Images Used**
