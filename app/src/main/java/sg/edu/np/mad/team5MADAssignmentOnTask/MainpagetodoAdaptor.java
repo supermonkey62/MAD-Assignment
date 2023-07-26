@@ -77,7 +77,7 @@ public class MainpagetodoAdaptor extends RecyclerView.Adapter<MainpageViewHolder
 
             // Create a string "Collabing with collaborator1, collaborator2, ..."
             StringBuilder collaboratorsStringBuilder = new StringBuilder();
-            collaboratorsStringBuilder.append("Collabing with ");
+            collaboratorsStringBuilder.append("Collab between " + holder.username + ", ");
             for (String collaborator : collaboratorsList) {
                 collaboratorsStringBuilder.append(collaborator).append(", ");
             }

@@ -23,7 +23,7 @@ import androidx.fragment.app.FragmentManager;
 
 public class TodolistFragment extends Fragment {
     private Switch todoswitch;
-    private ImageView backhome,ham;
+    private ImageView ham;
 
     private Button taskanalysis;
 
@@ -39,17 +39,11 @@ public class TodolistFragment extends Fragment {
         Context context = view.getContext();
 
         todoswitch = view.findViewById(R.id.todotaskswitch);
-        backhome = view.findViewById(R.id.backhome);
         ham = view.findViewById(R.id.Todohamburg);
         String username = getActivity().getIntent().getStringExtra("USERNAME");
 
 
-        backhome.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requireActivity().finish();
-            }
-        });
+
 
         ham.setOnClickListener(new View.OnClickListener() {
             @Override

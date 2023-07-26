@@ -9,18 +9,35 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.lifecycle.ViewModelProvider;
+import androidx.lifecycle.ViewModelStore;
+import androidx.lifecycle.ViewModelStoreOwner;
+
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import sg.edu.np.mad.team5MADAssignmentOnTask.databinding.ActivityStage2MainPageBinding;
 
 
-public class Stage2MainPage extends AppCompatActivity implements HomeFragment.OnDateSelectedListener  {
+public class Stage2MainPage extends AppCompatActivity implements HomeFragment.OnDateSelectedListener, ViewModelStoreOwner {
 
+    private ViewModelStore viewModelStore = new ViewModelStore();
+
+    @Override
+    public ViewModelStore getViewModelStore() {
+        return viewModelStore;
+    }
     ActivityStage2MainPageBinding binding;
     private String username;
+
+    private FriendViewModel sharedFriendViewModel;
+
+    private List<User> userList = new ArrayList<>();
+    private List<String> friendsSet = new ArrayList<>();
 
     private String datetoday;
 
@@ -32,6 +49,7 @@ public class Stage2MainPage extends AppCompatActivity implements HomeFragment.On
         super.onCreate(savedInstanceState);
         binding = ActivityStage2MainPageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+        sharedFriendViewModel = new ViewModelProvider(this).get(FriendViewModel.class);
 
         // Retrieve the extra string "USERNAME" from the intent
         username = getIntent().getStringExtra("USERNAME");
@@ -117,7 +135,9 @@ public class Stage2MainPage extends AppCompatActivity implements HomeFragment.On
 
     }
 
-
+    public FriendViewModel getSharedFriendViewModel() {
+        return sharedFriendViewModel;
+    }
 
     private void replaceFragment(Fragment fragment) {
         FragmentManager fragmentManager = getSupportFragmentManager();

@@ -106,9 +106,10 @@ public class RegisterUser extends AppCompatActivity {
                                      } else {
                                          // Create a new user
 
-                                         User newUser = new User(username, password,username,IMAGEURI,0, 0);
+                                         User newUser = new User(username, password,username,IMAGEURI,0, 0, "NIL");
                                          UserCount newUserCount = new UserCount(100,0,0,0,0);
-
+                                         List<String> newFriendList = new ArrayList<>();
+                                         newUser.setFriendList(newFriendList);
                                          Date date = new Date();
                                          Calendar calendar = Calendar.getInstance();
                                          calendar.setTime(date);
@@ -260,7 +261,7 @@ public class RegisterUser extends AppCompatActivity {
         String pixeluri = getImageUriString(pixelId);
         Shop item4 = new Shop(100,pixeluri,"background",false);
 
-        int blueId = R.drawable.blue;
+        int blueId = R.drawable.pixel; //Change it back to blue later
         String blueuri = getImageUriString(blueId);
         Shop item5 = new Shop(100,blueuri,"background",false);
 
