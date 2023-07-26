@@ -52,8 +52,8 @@
                 android:gravity="center"
                 android:textSize="30sp"
                 android:paddingBottom="40dp"
-                android:thumb="@drawable/switch_thumb_custom"
-                android:track="@drawable/switch_track_custom"
+                android:thumb="@drawable/switch_thumb_off"
+                android:track="@drawable/switch_track_background"
                 />
 
             <ListView

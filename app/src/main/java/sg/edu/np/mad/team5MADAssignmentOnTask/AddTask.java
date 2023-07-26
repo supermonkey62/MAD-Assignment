@@ -116,6 +116,9 @@ public class AddTask extends AppCompatActivity {
                             Task newTask = new Task(username, taskTitle, selectedDate, taskId, false, 0, 0, selectedCategory, collaborators, false);
                             taskRef.child(taskId).setValue(newTask);
                             UpdateCount(username);
+                            // Update the collaboratedTasks attribute for selected users
+                            updateCollaboratedTasksForSelectedUsers(selectedUsers, taskId);
+
                             finish();
                         }
                     }
@@ -206,6 +209,49 @@ public class AddTask extends AppCompatActivity {
         });
 
     }
+
+    private void updateCollaboratedTasksForSelectedUsers(List<User> selectedUsers, String taskId) {
+        if (selectedUsers != null && !selectedUsers.isEmpty()) {
+            for (User user : selectedUsers) {
+                DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(user.getUsername());
+                userRef.addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.exists()) {
+                            User existingUser = dataSnapshot.getValue(User.class);
+                            if (existingUser != null) {
+                                // Get the current collaboratedTasks string for the user
+                                String collaboratedTasks = existingUser.getCollaboratedtasks();
+                                if (collaboratedTasks == null || collaboratedTasks.equals("NIL")) {
+                                    // If the user has no previous collaborated tasks, set the new one directly
+                                    collaboratedTasks = taskId;
+                                } else {
+                                    // Check if "NIL" is part of the string (only present when it's the first task)
+                                    if (collaboratedTasks.contains("NIL")) {
+                                        // Replace "NIL" with the new task ID
+                                        collaboratedTasks = collaboratedTasks.replace("NIL", taskId);
+                                    } else {
+                                        // Append the new task ID to the existing collaboratedTasks string
+                                        collaboratedTasks += "," + taskId;
+                                    }
+                                }
+                                // Update the collaboratedTasks string for the user in the database
+                                existingUser.setCollaboratedtasks(collaboratedTasks);
+                                userRef.setValue(existingUser);
+                            }
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Log.e("AddTask", "Error updating collaborated tasks: " + databaseError.getMessage());
+                    }
+                });
+            }
+        }
+    }
+
+
 
 }
 

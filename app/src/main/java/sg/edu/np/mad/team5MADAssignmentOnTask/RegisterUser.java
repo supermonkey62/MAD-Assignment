@@ -106,7 +106,7 @@ public class RegisterUser extends AppCompatActivity {
                                      } else {
                                          // Create a new user
 
-                                         User newUser = new User(username, password,username,IMAGEURI,0, 0);
+                                         User newUser = new User(username, password,username,IMAGEURI,0, 0, "NIL");
                                          UserCount newUserCount = new UserCount(100,0,0,0,0);
 
                                          Date date = new Date();
@@ -260,7 +260,7 @@ public class RegisterUser extends AppCompatActivity {
         String pixeluri = getImageUriString(pixelId);
         Shop item4 = new Shop(100,pixeluri,"sans-serif-smallcaps",false);
 
-        int blueId = R.drawable.blue;
+        int blueId = R.drawable.pixel; //Change it back to blue later
         String blueuri = getImageUriString(blueId);
         Shop item5 = new Shop(100,blueuri,"sans-serif-smallcaps",false);
 
