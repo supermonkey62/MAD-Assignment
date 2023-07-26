@@ -47,7 +47,7 @@ Allow users to find other users on the app by searching for their username to be
 Allows user to view their tasks in a weekly calendar layout, providing a simpler and easy summarised view of their work week.
 
 5. Task Collaboration | Kenneth<br>
-Allow users to colloborate on tasks, such as sharing tasks together, and keep track of their progress on projects that they are working on.
+Allow users to colloborate on tasks, whereby the owner shares the task with collaborators.
 
 
 **Attributions for Images Used**
