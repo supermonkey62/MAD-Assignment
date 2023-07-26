@@ -108,7 +108,8 @@ public class RegisterUser extends AppCompatActivity {
 
                                          User newUser = new User(username, password,username,IMAGEURI,0, 0, "NIL");
                                          UserCount newUserCount = new UserCount(100,0,0,0,0);
-
+                                         List<String> newFriendList = new ArrayList<>();
+                                         newUser.setFriendList(newFriendList);
                                          Date date = new Date();
                                          Calendar calendar = Calendar.getInstance();
                                          calendar.setTime(date);
