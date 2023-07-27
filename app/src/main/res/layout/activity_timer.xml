@@ -48,7 +48,7 @@
         style="?android:attr/progressBarStyleHorizontal"
         android:layout_width="298dp"
         android:layout_height="298dp"
-        android:layout_marginEnd="57dp"
+        android:layout_marginEnd="56dp"
         android:backgroundTint="#813232"
         android:indeterminate="false"
         android:max="100"
@@ -61,14 +61,13 @@
         android:id="@+id/timertitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="92dp"
-        android:layout_marginBottom="1dp"
+        android:layout_marginTop="76dp"
         android:hint="Task Name"
         android:text="TextView"
         android:textSize="34sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/progressBar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
