@@ -63,7 +63,7 @@ public class TodolistFragment extends Fragment {
                         .setReorderingAllowed(true)
                         .addToBackStack(null)
                         .commit();
-                String switchName = isChecked ? "To-Do Tasks" : "Done Tasks";
+                String switchName = isChecked ? "Done Task" : "To-Do Tasks";
                 todoswitch.setText(switchName);
             }
         });
@@ -75,7 +75,7 @@ public class TodolistFragment extends Fragment {
                 .replace(R.id.todofragmentContainerView, initialFragment)
                 .commit();
 
-        String initialSwitchName = switchState ? "To-Do Tasks" : "Done Tasks";
+        String initialSwitchName = switchState ? "Done Tasks" : "To-Do Tasks";
         todoswitch.setText(initialSwitchName);
 
         return view;

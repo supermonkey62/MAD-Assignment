@@ -30,9 +30,14 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -131,12 +136,8 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         BarChart barChart = findViewById(R.id.Barchart1);
         barChart.setData(barData);
         barChart.setTouchEnabled(false);
-        barChart.getDescription().setText("Time Spent by Category");
-        barChart.getDescription().setTextSize(15);
+        barChart.getDescription().setEnabled(false);
 
-        int paddingTop = 40;
-        barChart.setExtraTopOffset(paddingTop);
-        barChart.getDescription().setPosition(barChart.getWidth()/2.5f, 45f);
 
         // Hide X-axis labels
         XAxis xAxis = barChart.getXAxis();
@@ -224,11 +225,7 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         barChartAverageSessionsPerCategory.setData(barData);
         barChartAverageSessionsPerCategory.setTouchEnabled(false);
         barChartAverageSessionsPerCategory.getDescription().setText("Average number of Sessions by Category");
-        barChartAverageSessionsPerCategory.getDescription().setTextSize(15);
-//        int paddingTop = 40;
-//        barChartAverageSessionsPerCategory.setExtraTopOffset(paddingTop);
-//        barChartAverageSessionsPerCategory.getDescription().setPosition(barChartAverageSessionsPerCategory.getWidth()/2.5f, 45f);
-
+        barChartAverageSessionsPerCategory.getDescription().setEnabled(false);
 
         // Hide X-axis labels
         XAxis xAxis = barChartAverageSessionsPerCategory.getXAxis();
@@ -312,11 +309,7 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         pieChart.setEntryLabelTextSize(0f);
         pieChart.getLegend().setEnabled(true);
         pieChart.setTouchEnabled(false);
-        pieChart.getDescription().setText("Number of Tasks by Category");
-        pieChart.getDescription().setTextSize(15);
-//        int paddingTop = 40;
-//        pieChart.setExtraTopOffset(paddingTop);
-//        pieChart.getDescription().setPosition(pieChart.getWidth()/2.5f, 45f);
+        pieChart.getDescription().setEnabled(false);
 
 
 
@@ -375,11 +368,7 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
 
 
         pieChart.setTouchEnabled(false);
-        pieChart.getDescription().setText("Completed Tasks by Category");
-        pieChart.getDescription().setTextSize(15);
-//        int paddingTop = 40;
-//        pieChart.setExtraTopOffset(paddingTop);
-//        pieChart.getDescription().setPosition(pieChart.getWidth()/2.5f, 45f);
+        pieChart.getDescription().setEnabled(false);
 
 
 
@@ -387,18 +376,19 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         // Refresh the chart
         pieChart.invalidate();
     }
-
-
     private void createLineChart(List<Task> tasks) {
-        // Map to store the count of completed tasks for each month
+        // Get the current year
+        String currentYear = GetYear(getCurrentDate());
+
+        // Map to store the count of completed tasks for each month of the current year
         Map<String, Integer> completedTasksByMonth = new HashMap<>();
 
-        // Calculate the count of completed tasks for each month
+        // Calculate the count of completed tasks for each month of the current year
         for (Task task : tasks) {
-            if (task.getStatus() == true) {
+            if (task.getStatus() && currentYear.equals(GetYear(task.getDate()))) {
                 String month = getMonthFromDate(task.getDate());
                 Log.v("string month", task.getDate());
-                Log.v("month",month);
+                Log.v("month", month);
                 if (completedTasksByMonth.containsKey(month)) {
                     int count = completedTasksByMonth.get(month);
                     completedTasksByMonth.put(month, count + 1);
@@ -408,18 +398,28 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
             }
         }
 
+        // Sort the map entries based on the month's order
+        List<Map.Entry<String, Integer>> sortedEntries = new ArrayList<>(completedTasksByMonth.entrySet());
+        Collections.sort(sortedEntries, new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> entry1, Map.Entry<String, Integer> entry2) {
+                // Assuming the month names are in the format "Jan", "Feb", ..., "Dec"
+                String[] monthOrder = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+                return Arrays.asList(monthOrder).indexOf(entry1.getKey()) - Arrays.asList(monthOrder).indexOf(entry2.getKey());
+            }
+        });
+
         // Create line entries
         ArrayList<Entry> entries = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
 
-        int index = 0;
-        for (Map.Entry<String, Integer> entry : completedTasksByMonth.entrySet()) {
+        // Populate entries and labels in the sorted order
+        for (Map.Entry<String, Integer> entry : sortedEntries) {
             String month = entry.getKey();
             int count = entry.getValue();
-            entries.add(new Entry(index, count));
+            entries.add(new Entry(labels.size(), count));
             labels.add(month);
-            Log.v("month",month);
-            index++;
+            Log.v("month", month);
         }
 
         // Create a dataset using the entries
@@ -437,17 +437,13 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         // Get the LineChart reference and set the data
         LineChart lineChart = findViewById(R.id.lineChart);
         lineChart.setData(lineData);
-        lineChart.getDescription().setText("Number of Completed Tasks each Month");
-        lineChart.getDescription().setTextSize(15);
-//        int paddingTop = 40;
-//        lineChart.setExtraTopOffset(paddingTop);
-//        lineChart.getDescription().setPosition(lineChart.getWidth()/2.5f, 45f);
-
+        lineChart.getDescription().setEnabled(false);
 
         // Customize x-axis labels
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
+        xAxis.setGranularity(1f); // Set a minimum interval for displaying values to 1 (one month)
         xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
 
         lineChart.getAxisLeft().setEnabled(false);
@@ -459,8 +455,12 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
     }
 
 
+    private String getCurrentDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(new Date());
+    }
 
-        private String getMonthFromDate(String date) {
+    private String getMonthFromDate(String date) {
         SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat outputFormat = new SimpleDateFormat("MMM");
         try {
@@ -471,6 +471,20 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
             Log.e("DateParsing", "Parsing failed: " + e.getMessage());
         }
         return "";
+    }
+
+    private String GetYear(String date){
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("YYYY");
+        try {
+            Date parsedDate = inputFormat.parse(date);
+            return outputFormat.format(parsedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Log.e("DateParsing", "Parsing failed: " + e.getMessage());
+        }
+        return "";
+
     }
     private void displayAverageTime(List<Task> tasks) {
         float totalSpentTime = 0;
@@ -549,11 +563,7 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         // Get the BarChart reference and set the data
         BarChart barChartAverageTimePerCategory = findViewById(R.id.barChartAverageTimePerCategory);
         barChartAverageTimePerCategory.setData(barData);
-        barChartAverageTimePerCategory.getDescription().setText("Average Time By Category");
-        barChartAverageTimePerCategory.getDescription().setTextSize(15);
-//        int paddingTop = 40;
-//        barChartAverageTimePerCategory.setExtraTopOffset(paddingTop);
-//        barChartAverageTimePerCategory.getDescription().setPosition(barChartAverageTimePerCategory.getWidth()/2.5f, 45f);
+        barChartAverageTimePerCategory.getDescription().setEnabled(false);
 
         barChartAverageTimePerCategory.setTouchEnabled(false);
 

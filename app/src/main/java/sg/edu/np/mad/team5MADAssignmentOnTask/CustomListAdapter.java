@@ -71,6 +71,7 @@ public class CustomListAdapter extends ArrayAdapter<Shop> {
         Uri image = Uri.parse(currentItem.getCardimage());
         Log.e("Image", "+" + currentItem.getCardimage());
         imageView.setImageURI(image);
+        imageView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 
 
         imageView.setOnClickListener(new View.OnClickListener() {

@@ -68,6 +68,7 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
         holder.sessions = task.getSessions();
         holder.category = task.getCategory();
         holder.collaborators = task.getCollaborators();
+        holder.collaboratorsTextView.setVisibility(View.INVISIBLE);
 
         if (task.getStatus() == false) {
             holder.itemView.setVisibility(View.VISIBLE);
@@ -76,6 +77,29 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
             holder.itemView.setVisibility(View.GONE);
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
         }
+        if (task.getCollaborators() != null && !task.getCollaborators().equals("NIL")) {
+
+            List<String> collaboratorsList = Arrays.asList(task.getCollaborators().split(","));
+
+
+            StringBuilder collaboratorsStringBuilder = new StringBuilder();
+            collaboratorsStringBuilder.append("Collab between " + holder.username + ", ");
+            for (String collaborator : collaboratorsList) {
+                collaboratorsStringBuilder.append(collaborator).append(", ");
+            }
+
+            // Remove the trailing ", " from the end
+            collaboratorsStringBuilder.setLength(collaboratorsStringBuilder.length() - 2);
+
+            // Set the text for the collaborators TextView
+            holder.collaboratorsTextView.setText(collaboratorsStringBuilder.toString());
+            holder.collaboratorsTextView.setVisibility(View.VISIBLE);
+        } else {
+            // No collaborators, hide the collaborators TextView
+            holder.collaboratorsTextView.setVisibility(View.GONE);
+        }
+
+
 
         holder.task.setOnCheckedChangeListener(null);
         holder.task.setChecked(task.getStatus());
