@@ -30,8 +30,10 @@ import com.github.mikephil.charting.data.PieDataSet;
 import com.github.mikephil.charting.data.PieEntry;
 import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.github.mikephil.charting.formatter.PercentFormatter;
+import com.github.mikephil.charting.formatter.ValueFormatter;
 
 import java.text.ParseException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -371,18 +373,19 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         // Refresh the chart
         pieChart.invalidate();
     }
-
-
     private void createLineChart(List<Task> tasks) {
-        // Map to store the count of completed tasks for each month
+        // Get the current year
+        String currentYear = GetYear(getCurrentDate());
+
+        // Map to store the count of completed tasks for each month of the current year
         Map<String, Integer> completedTasksByMonth = new HashMap<>();
 
-        // Calculate the count of completed tasks for each month
+        // Calculate the count of completed tasks for each month of the current year
         for (Task task : tasks) {
-            if (task.getStatus() == true) {
+            if (task.getStatus() && currentYear.equals(GetYear(task.getDate()))) {
                 String month = getMonthFromDate(task.getDate());
                 Log.v("string month", task.getDate());
-                Log.v("month",month);
+                Log.v("month", month);
                 if (completedTasksByMonth.containsKey(month)) {
                     int count = completedTasksByMonth.get(month);
                     completedTasksByMonth.put(month, count + 1);
@@ -402,7 +405,7 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
             int count = entry.getValue();
             entries.add(new Entry(index, count));
             labels.add(month);
-            Log.v("month",month);
+            Log.v("month", month);
             index++;
         }
 
@@ -427,7 +430,17 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
-        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
+        xAxis.setGranularity(1f); // Set a minimum interval for displaying values to 1 (one month)
+        xAxis.setValueFormatter(new ValueFormatter() {
+            @Override
+            public String getFormattedValue(float value) {
+                int index = (int) value;
+                if (index >= 0 && index < labels.size()) {
+                    return labels.get(index);
+                }
+                return "";
+            }
+        });
 
         lineChart.getAxisLeft().setEnabled(false);
 
@@ -436,10 +449,12 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         // Refresh the chart
         lineChart.invalidate();
     }
+    private String getCurrentDate() {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        return dateFormat.format(new Date());
+    }
 
-
-
-        private String getMonthFromDate(String date) {
+    private String getMonthFromDate(String date) {
         SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat outputFormat = new SimpleDateFormat("MMM");
         try {
@@ -450,6 +465,20 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
             Log.e("DateParsing", "Parsing failed: " + e.getMessage());
         }
         return "";
+    }
+
+    private String GetYear(String date){
+        SimpleDateFormat inputFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat outputFormat = new SimpleDateFormat("YYYY");
+        try {
+            Date parsedDate = inputFormat.parse(date);
+            return outputFormat.format(parsedDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+            Log.e("DateParsing", "Parsing failed: " + e.getMessage());
+        }
+        return "";
+
     }
     private void displayAverageTime(List<Task> tasks) {
         float totalSpentTime = 0;
