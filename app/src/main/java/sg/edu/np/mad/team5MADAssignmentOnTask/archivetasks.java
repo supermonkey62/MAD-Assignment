@@ -1,23 +1,19 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
-import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.drawable.Drawable;
-import android.os.Bundle;
-
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
-import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.drawable.Drawable;
+import android.os.Bundle;
 import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,29 +27,45 @@ import com.google.firebase.database.ValueEventListener;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDataCallback {
+public class archivetasks extends AppCompatActivity implements TaskDataHolder.TaskDataCallback{
 
-    private RecyclerView taskRecyclerview;
-    private DoneTasksAdapter taskadapter;
+    private RecyclerView recyclerView;
+
+    private archivetaskadaptor archivetaskadaptor;
+
     private List<Task> tasklist;
     private DatabaseReference userTask;
 
     float existingTimeSpent;
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+    private ImageButton backbttn;
 
-        View view = inflater.inflate(R.layout.fragment_done_tasks, container, false);
-        taskRecyclerview = view.findViewById(R.id.donerecycler);
+
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_archivetasks);
+        recyclerView = findViewById(R.id.ArchivetasksRecyclerView);
+        backbttn = findViewById(R.id.btnGoBack2);
         tasklist = new ArrayList<>();
-        // Retrieve the username from the Intent
-        Intent intent = getActivity().getIntent();
-        String username = intent.getStringExtra("USERNAME");
+        String username = getIntent().getStringExtra("USERNAME");
         TaskDataHolder.getInstance().fetchUserTasks(username, this);
 
+        backbttn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                finish();
+            }
+        });
+
+
+
         ItemTouchHelper.SimpleCallback simpleCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
-            private Drawable archiveIcon = ContextCompat.getDrawable(getContext(), R.drawable.baseline_archive_24);
-            private Drawable trashBinIcon = ContextCompat.getDrawable(getContext(), R.drawable.baseline_delete_24);
+            private Drawable archiveIcon = ContextCompat.getDrawable(getApplicationContext(), R.drawable.baseline_unarchive_24);
+            private Drawable trashBinIcon = ContextCompat.getDrawable(getApplicationContext(), R.drawable.baseline_delete_24);
 
             //            private int iconMargin = getResources().getDimensionPixelSize(R.dimen.icon_margin);
             @Override
@@ -71,24 +83,24 @@ public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDa
                 Boolean status = swipedTask.getStatus();
                 String collaborators = swipedTask.getCollaborators();
                 if (direction == ItemTouchHelper.LEFT) {
-                    taskadapter.removeItem(position);
+                    archivetaskadaptor.removeItem(position);
                     userTask = FirebaseDatabase.getInstance().getReference("Task");
                     userTask.child(tag).removeValue()
                             .addOnSuccessListener(new OnSuccessListener<Void>() {
                                 @Override
                                 public void onSuccess(Void unused) {
-                                    Toast.makeText(getContext(), "Task deleted successfully", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Task deleted successfully", Toast.LENGTH_SHORT).show();
                                 }
                             })
                             .addOnFailureListener(new OnFailureListener() {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
-                                    Toast.makeText(getContext(), "Failed to delete task", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), "Failed to delete task", Toast.LENGTH_SHORT).show();
                                 }
                             });
 
                 } else if (direction == ItemTouchHelper.RIGHT) {
-                    taskadapter.removeItem(position);
+                    archivetaskadaptor.removeItem(position);
                     userTask = FirebaseDatabase.getInstance().getReference("Task");
 
                     userTask.child(tag).addListenerForSingleValueEvent(new ValueEventListener() {
@@ -100,7 +112,7 @@ public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDa
                                 int existingsession = existingtask.getSessions();
                                 String category = existingtask.getCategory();
                                 Log.v("Username", tag);
-                                Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent, existingsession, category, collaborators, true);
+                                Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent, existingsession, category, collaborators, false);
                                 userTask.child(tag).setValue(newTask);
 
 
@@ -116,7 +128,7 @@ public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDa
                     });
 
 
-                    Toast.makeText(getContext(), "Task archived successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "Task unarchived successfully", Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -137,7 +149,7 @@ public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDa
 
                         // Calculate the position to draw the icon
                         int iconTop = itemView.getTop() + (itemHeight - intrinsicHeight) / 2;
-                        int iconLeft = itemView.getLeft() + (int) (0.2 * itemWidth); // Icon appears sooner
+                        int iconLeft = itemView.getLeft() + (int) (0.2 * itemWidth);
                         int iconRight = iconLeft + intrinsicWidth;
                         int iconBottom = iconTop + intrinsicHeight;
                         // Change background color to green
@@ -175,25 +187,31 @@ public class DoneTasksFragment extends Fragment implements TaskDataHolder.TaskDa
         };
 
         ItemTouchHelper itemTouchHelper = new ItemTouchHelper(simpleCallback);
-        itemTouchHelper.attachToRecyclerView(taskRecyclerview);
+        itemTouchHelper.attachToRecyclerView(recyclerView);
 
-        return view;
 
 
     }
+
+
+
+
 
     @Override
     public void onTaskDataFetched(List<Task> tasks) {
         tasklist = new ArrayList<>();
         for (Task task : tasks) {
-            if (task.archive == false) {
+            if (task.archive == true) {
                 tasklist.add(task);
             }
         }
-        taskRecyclerview.setLayoutManager(new LinearLayoutManager(getContext()));
-        taskadapter = new DoneTasksAdapter(getContext(), tasklist);
-        taskRecyclerview.setAdapter(taskadapter);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
+        archivetaskadaptor = new archivetaskadaptor(getApplicationContext(),tasklist);
+        recyclerView.setAdapter(archivetaskadaptor);
+
+
     }
 
-}
 
+}
