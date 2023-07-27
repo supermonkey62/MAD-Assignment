@@ -81,6 +81,7 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
         username = getActivity().getIntent().getStringExtra("USERNAME");
         displayname = getActivity().getIntent().getStringExtra("DISPLAYNAME");
         updateUserAchievements(username);
+        BannerURI = "";
 
         profileusername = view.findViewById(R.id.profileusername);
         editProfile = view.findViewById(R.id.editUsername);
@@ -179,13 +180,18 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ImageURI = dataSnapshot.child("imageURI").getValue().toString();
-                    BannerURI = dataSnapshot.child("bannerURI").getValue().toString();
-                    if(BannerURI.equals("") && !dataSnapshot.child("bannerURI").exists()){
-                        banner.setImageResource(R.drawable.gray_square);
+                    if(dataSnapshot.child("bannerURI").exists()){
+                        BannerURI = dataSnapshot.child("bannerURI").getValue().toString();
+                        if(BannerURI.equals("")){
+                            banner.setImageResource(R.drawable.gray_square);
+                        }
+                        else{
+                            Uri uriBAN = Uri.parse(BannerURI);
+                            banner.setImageURI(uriBAN);
+                        }
                     }
                     else{
-                        Uri uriBAN = Uri.parse(BannerURI);
-                        banner.setImageURI(uriBAN);
+                        banner.setImageResource(R.drawable.gray_square);
                     }
                     Uri uriIMG = Uri.parse(ImageURI);
                     pfp.setImageURI(uriIMG);
