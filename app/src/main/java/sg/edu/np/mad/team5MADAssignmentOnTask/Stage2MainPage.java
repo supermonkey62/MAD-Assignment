@@ -170,6 +170,14 @@ public class Stage2MainPage extends AppCompatActivity implements HomeFragment.On
         }
     }
 
+    public void launchTaskCalendarActivity(View view) {
+        Fragment currentFragment = getSupportFragmentManager().findFragmentById(R.id.frame_layout);
+        if (currentFragment instanceof HomeFragment) {
+            ((HomeFragment) currentFragment).launchTaskCalendarActivity(view);
+        }
+    }
+
+
     @Override
     public void onDateSelected(String selectedDate) {
         // Handle the selected date here in Stage2MainPage

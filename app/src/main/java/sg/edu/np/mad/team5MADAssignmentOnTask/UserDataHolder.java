@@ -1,18 +1,23 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
+import com.google.firebase.database.MutableData;
+import com.google.firebase.database.Transaction;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class UserDataHolder {
@@ -35,102 +40,77 @@ public class UserDataHolder {
         return instance;
     }
 
-    public void addFriend(String username, String friendUsername) {
-        // Fetch the user's current friendsList from Firebase
-        DatabaseReference friendListRef = FirebaseDatabase.getInstance().getReference("Users").child("user_id").child("friendList");
-
-        userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+    public void addFriend(String currentUsername, String friendUsername) {
+        // Update the friendsList for the current user by adding the friend's username
+        DatabaseReference currentUserRef = FirebaseDatabase.getInstance()
+                .getReference().child("Users").child(currentUsername).child("friendsList");
+        currentUserRef.runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
-                    GenericTypeIndicator<List<String>> genericTypeIndicator = new GenericTypeIndicator<List<String>>() {};
-                    List<String> friendsList = dataSnapshot.child("friendsList").getValue(List.class);
-                    if (friendsList == null) {
-                        friendsList = new ArrayList<>();
-                    }
+            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                String currentValue = currentData.getValue(String.class);
+                String updatedValue;
+                if (currentValue == null || currentValue.isEmpty()) {
+                    updatedValue = friendUsername;
+                } else {
+                    updatedValue = currentValue + "," + friendUsername;
+                }
+                currentData.setValue(updatedValue);
+                return Transaction.success(currentData);
+            }
 
-                    // Add the new friend to the list if not already present
-                    if (!friendsList.contains(friendUsername)) {
-                        friendsList.add(friendUsername);
-                    }
-
-                    // Update the friendsList in Firebase
-                    userRef.child(username).child("friendsList").setValue(friendsList)
-                            .addOnCompleteListener(task -> {
-                                if (task.isSuccessful()) {
-                                    // Friend added successfully
-                                    Log.d("UserDataHolder", "Friend added: " + friendUsername);
-                                } else {
-                                    // Error adding friend
-                                    Log.e("UserDataHolder", "Error adding friend: " + friendUsername);
-                                }
-                            });
+            @Override
+            public void onComplete(@Nullable DatabaseError databaseError, boolean committed, @Nullable DataSnapshot currentData) {
+                if (databaseError != null) {
+                    Log.e("UserDataHolder", "Error adding friend in Firebase", databaseError.toException());
+                } else {
+                    Log.d("UserDataHolder", "Friend added in Firebase");
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-            }
         });
+    }
 
-        friendListRef.addListenerForSingleValueEvent(new ValueEventListener() {
+    public void removeFriend(String currentUsername, String friendUsername) {
+        // Update the friendsList for the current user by removing the friend's username
+        DatabaseReference currentUserRef = FirebaseDatabase.getInstance()
+                .getReference().child("Users").child(currentUsername).child("friendsList");
+        currentUserRef.runTransaction(new Transaction.Handler() {
+            @NonNull
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<String> friendList = new ArrayList<>();
-                if (dataSnapshot.exists()) {
-                    for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                        String friendUsername = snapshot.getKey();
-                        friendList.add(friendUsername);
-                    }
+            public Transaction.Result doTransaction(@NonNull MutableData currentData) {
+                String currentValue = currentData.getValue(String.class);
+                if (currentValue == null || currentValue.isEmpty()) {
+                    return Transaction.success(currentData);
                 }
-
-                friendListRef.setValue(friendList)
-                        .addOnCompleteListener(task -> {
-                            if (task.isSuccessful()) {
-                                Log.d("FirebaseUpdate", "FriendList updated to List successfully.");
-                            } else {
-                                Log.e("FirebaseUpdate", "Error updating FriendList to List.", task.getException());
-                            }
-                        });
+                List<String> currentFriendsList = new ArrayList<>(Arrays.asList(currentValue.split(",")));
+                currentFriendsList.remove(friendUsername);
+                String updatedValue = TextUtils.join(",", currentFriendsList);
+                currentData.setValue(updatedValue);
+                return Transaction.success(currentData);
             }
 
             @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-                Log.e("FirebaseRead", "Error reading FriendList data.", databaseError.toException());
+            public void onComplete(@Nullable DatabaseError databaseError, boolean committed, @Nullable DataSnapshot currentData) {
+                if (databaseError != null) {
+                    Log.e("UserDataHolder", "Error removing friend in Firebase", databaseError.toException());
+                } else {
+                    Log.d("UserDataHolder", "Friend removed in Firebase");
+                }
             }
         });
-
-
     }
 
-    public void removeFriend(String currentUser, String friendToRemove) {
-        // Get a reference to the current user's friendsList in Firebase
-        DatabaseReference currentUserFriendListRef = FirebaseDatabase.getInstance()
-                .getReference().child("Users").child(currentUser).child("friendsList");
-
-        // Remove the friend from the friend list in Firebase
-        currentUserFriendListRef.child(friendToRemove).removeValue()
-                .addOnCompleteListener(task -> {
-                    if (task.isSuccessful()) {
-                        // Friend removed successfully
-                        Log.d("UserDataHolder", "Friend removed: " + friendToRemove);
-                    } else {
-                        // Error removing friend
-                        Log.e("UserDataHolder", "Error removing friend: " + friendToRemove);
-                    }
-                });
-    }
 
     public void fetchUserDataForUser(String username, UserResultDataCallback callback) {
         DatabaseReference userRef = FirebaseDatabase.getInstance().getReference("Users").child(username);
         userRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                User user = dataSnapshot.getValue(User.class);
-                if (user != null) {
-                    // Set the username explicitly (since it's not included in the dataSnapshot.getValue())
-                    user.setUsername(username);
-                    callback.onUserResultDataFetched(user.getDisplayname(), user.getFriendList());
+                String displayname = dataSnapshot.child("displayname").getValue(String.class);
+                String friendList = dataSnapshot.child("friendList").getValue(String.class);
+
+                if (displayname != null) {
+                    callback.onUserResultDataFetched(displayname, friendList);
                 } else {
                     callback.onUserResultDataFetched(null, null);
                 }
@@ -143,6 +123,7 @@ public class UserDataHolder {
             }
         });
     }
+
 
     public void fetchUserData(String username, final UserDataCallback callback) {
         userRef.child(username).addValueEventListener(new ValueEventListener() {
@@ -176,9 +157,7 @@ public class UserDataHolder {
                 User user = dataSnapshot.getValue(User.class);
                 if (user != null) {
                     String displayname = user.getDisplayname();
-                    // Use GenericTypeIndicator to retrieve the List<String> data
-                    GenericTypeIndicator<List<String>> friendsListType = new GenericTypeIndicator<List<String>>() {};
-                    List<String> friendsSet = dataSnapshot.child("friendsList").getValue(friendsListType);
+                    String friendsSet = dataSnapshot.child("friendsList").getValue(String.class);
                     callback.onUserResultDataFetched(displayname, friendsSet);
                 } else {
                     callback.onUserResultDataFetched(null, null);
@@ -193,6 +172,9 @@ public class UserDataHolder {
         });
     }
 
+
+
+
     public void fetchUserTasks(String username, View.OnClickListener onClickListener) {
 
     }
@@ -203,7 +185,7 @@ public class UserDataHolder {
     }
 
     public interface UserResultDataCallback {
-        void onUserResultDataFetched(String displayname, List<String> friendSet);
+        void onUserResultDataFetched(String displayname, String friendList);
     }
 }
 

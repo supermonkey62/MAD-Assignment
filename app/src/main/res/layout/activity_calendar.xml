@@ -11,7 +11,7 @@
         android:id="@+id/gobackButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:srcCompat="@drawable/baseline_arrow_back_24"
+        app:srcCompat="@drawable/baseline_arrow_back2_24"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         android:layout_marginTop="10dp"

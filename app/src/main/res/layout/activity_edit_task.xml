@@ -58,40 +58,36 @@
         android:layout_marginStart="40dp"
         />
 
-    <EditText
-        android:id="@+id/titleEdit"
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/taskTitleInputLayout"
+        style="@style/CustomOutlinedBox"
+        app:boxStrokeColor="@color/app_theme"
+        app:boxStrokeWidth="2dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:ems="10"
-        android:inputType="text"
-        android:hint="Title"
-        android:textColor="@color/black"
-        app:layout_constraintTop_toTopOf="@id/titlebox"
-        app:layout_constraintStart_toStartOf="@id/taskdate"
-        android:layout_marginStart="50dp"
-        android:layout_marginEnd="30dp"
-        android:background="@color/transparent"
-
-        />
-
-    <ImageView
-        android:id="@+id/titlebox"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="5dp"
-        android:gravity="center"
-        android:paddingStart="30dp"
-        android:paddingEnd="30dp"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/taskdate"
-        app:srcCompat="@drawable/hollow"
-        tools:layout_editor_absoluteX="16dp" />
+        android:layout_marginStart="32dp"
+        app:startIconDrawable="@drawable/baseline_title_24"
+        android:layout_marginEnd="32dp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:hint="Title">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/titleEdit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/button_colour" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
 
     <Spinner
         android:id="@+id/catspinneredit"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        app:layout_constraintTop_toBottomOf="@+id/titleEdit"
+        app:layout_constraintTop_toBottomOf="@+id/taskTitleInputLayout"
         app:layout_constraintStart_toStartOf="@id/whitebox"
         android:layout_marginLeft="35dp"
         android:layout_marginTop="28dp"
@@ -122,6 +118,7 @@
         android:layout_marginEnd="32dp"
         android:background="@drawable/white_square_with_rounded_corners"
         app:backgroundTint="@color/button_colour"
+        android:textColor="@color/black"
         />
 
     <Button
@@ -135,6 +132,7 @@
         android:layout_marginEnd="32dp"
         android:background="@drawable/white_square_with_rounded_corners"
         app:backgroundTint="@color/button_colour"
+        android:textColor="@color/black"
         />
 
 

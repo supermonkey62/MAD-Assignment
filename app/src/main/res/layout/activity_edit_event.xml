@@ -39,10 +39,12 @@
         />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        style="@style/CustomOutlinedBox"
         android:id="@+id/eventTitleInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:boxStrokeColor="@color/app_theme"
+        app:boxStrokeWidth="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleTextView"
         android:layout_marginStart="32dp"
@@ -61,10 +63,12 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/CustomOutlinedBox"
         android:id="@+id/eventDescriptionInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:boxStrokeColor="@color/app_theme"
+        app:boxStrokeWidth="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/eventTitleInputLayout"
         android:layout_marginStart="32dp"

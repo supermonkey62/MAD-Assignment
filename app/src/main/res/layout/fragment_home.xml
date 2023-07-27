@@ -41,9 +41,9 @@
             android:text="@string/HelloText"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
-            android:layout_marginTop="40dp"
+            android:layout_marginTop="20dp"
             android:paddingStart="40dp"
-            android:textSize="30sp"
+            android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/white"
             android:paddingEnd="10dp"/>
@@ -53,12 +53,29 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/UserText"
-            app:layout_constraintLeft_toRightOf="@id/greeting_text"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginTop="40dp"
-            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            android:paddingStart="40dp"
+            app:layout_constraintTop_toTopOf="@id/greeting_text"
+            android:layout_marginTop="30dp"
+            android:textSize="24sp"
             android:textStyle="bold"
             android:textColor="@color/white"/>
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/monthlyCalendar"
+            android:src="@drawable/baseline_calendar_month_24"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="30dp"
+            android:layout_marginTop="20dp"
+            app:layout_constraintTop_toTopOf="parent"
+            android:background="@color/transparent"
+            android:contentDescription="@string/task_text"
+            android:onClick="launchTaskCalendarActivity"/>
+
+
+
 
 
         <androidx.recyclerview.widget.RecyclerView
@@ -174,6 +191,7 @@
                 android:id="@+id/eventsTextView"
                 android:text="@string/events_text"
                 android:textSize="18sp"
+                android:textColor="@color/white"
                 android:textStyle="bold"
                 android:layout_marginTop="10dp"
                 android:layout_width="0dp"
@@ -184,6 +202,7 @@
             <TextView
                 android:id="@+id/tasksTextView"
                 android:layout_width="0dp"
+                android:textColor="@color/white"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="@string/task_text"
