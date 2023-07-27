@@ -89,6 +89,7 @@ public class EditTask extends AppCompatActivity {
             String selectedCategory = category.getSelectedItem().toString();
             String taskTitle = titleEdit.getText().toString();
             userTask = FirebaseDatabase.getInstance().getReference("Task");
+
             userTask.child(tag).addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
@@ -102,7 +103,7 @@ public class EditTask extends AppCompatActivity {
                         if (collaboratorUsersList.isEmpty() && selectedUsers == null) {
                             // If there are no collaborators and no selected users,
                             // directly update the task with new data and empty collaborators
-                            Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent, existingSession, category, "NIL", false);
+                            Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent, existingSession, selectedCategory, "NIL", false);
                             userTask.child(tag).setValue(newTask);
                             finish();
                         }
@@ -112,7 +113,7 @@ public class EditTask extends AppCompatActivity {
                                     updateCollaboratorsTasks();
                                 }
 
-                                Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent, existingSession, category, collaborators, false);
+                                Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent, existingSession, selectedCategory, collaborators, false);
                                 userTask.child(tag).setValue(newTask);
                                 finish();
                             }
