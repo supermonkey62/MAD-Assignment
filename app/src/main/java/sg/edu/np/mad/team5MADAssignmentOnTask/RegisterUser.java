@@ -31,6 +31,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 public class RegisterUser extends AppCompatActivity {
 
@@ -52,8 +53,8 @@ public class RegisterUser extends AppCompatActivity {
         userRef = FirebaseDatabase.getInstance().getReference("Users");
         usercountRef = FirebaseDatabase.getInstance().getReference("UserCount");
         userDateRef = FirebaseDatabase.getInstance().getReference("UserDate");
-
-
+        final String usernamePattern = "^[a-zA-Z0-9]+$";
+        final Pattern pattern = Pattern.compile(usernamePattern);
 
         // Get layout file stuff
         usernameEdit = findViewById(R.id.usernameedit);
@@ -74,97 +75,77 @@ public class RegisterUser extends AppCompatActivity {
 
                 // Regular expression to check if the username contains only numbers and letters
                 String regex = "^[a-zA-Z0-9]+$";
+                Pattern pattern = Pattern.compile(regex);
 
-                Resources resources = getResources();
-                int imageResId = R.drawable.dog; // Replace with your image resource ID
-                Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
-                        "://" + resources.getResourcePackageName(imageResId)
-                        + '/' + resources.getResourceTypeName(imageResId)
-                        + '/' + resources.getResourceEntryName(imageResId));
-                String IMAGEURI = imageUri.toString();
-
-                if (username != null && !username.equals("") && password != null && !password.equals("") && confirmPassword != null && !confirmPassword.equals("")) {
-                    if (username.length() > 12) {
-                        usernameEdit.setError("Username can only accept 12 Characters");
-                        usernameEdit.requestFocus();
-                    } else if (username.contains(" ")) {
-
-                         usernameEdit.setError("Spaces are not allowed");
-                         usernameEdit.requestFocus();
-
-                     }else{
-                         if (password.equals(confirmPassword)) {
-                             userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
-                                 @Override
-                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                     if (dataSnapshot.exists()) {
-                                         Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
-                                     } else {
-                                         // Create a new user
-
-                                         User newUser = new User(username, password,username,IMAGEURI,0, 0, "NIL");
-                                         UserCount newUserCount = new UserCount(100,0,0,0,0);
-                                         Date date = new Date();
-                                         Calendar calendar = Calendar.getInstance();
-                                         calendar.setTime(date);
-                                         // Subtract one day from the current date
-                                         calendar.add(Calendar.DAY_OF_MONTH, -1);
-                                         // Get the date one day before the current date
-                                         Date oneDayBefore = calendar.getTime();
-                                         LoginDate newLoginDate = new LoginDate(oneDayBefore);
-                                         Log.v("Date", String.valueOf(oneDayBefore));
-
-                                         usercountRef.child(username).setValue(newUserCount);
-                                         userRef.child(username).setValue(newUser);
-                                         userDateRef.child(username).setValue(newLoginDate);
-                                         Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
-                                         creatingachievements(null,username);
-                                         creatingshop(null,username);
-                                         finish(); // Finish the activity and go back to the login page
-                                     }
-                                 }
-
-                                 @Override
-                                 public void onCancelled(DatabaseError databaseError) {
-                                     Log.v("RegisterPage", "Error: " + databaseError.getMessage());
-                                 }
-                             });
-                         } else {
-                             Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
-                         }
-                     }
-                     }
-
-
-                 else if (username == null || username.equals("")) {
+                if (username == null || username.equals("")) {
                     usernameEdit.setError("Username is Empty");
                     usernameEdit.requestFocus();
-                    if (password == null || password.equals("")) {
-                        passwordEdit.setError("Password is Empty");
-                        passwordEdit.requestFocus();
-                        if (confirmPassword == null || confirmPassword.equals("")) {
-                            confirmPasswordEdit.setError("Password is Empty");
-                            confirmPasswordEdit.requestFocus();
-                        }
-                    }
-                }
-
-                else if (password == null || password.equals("")){
+                } else if (!pattern.matcher(username).matches()) {
+                    usernameEdit.setError("Username can only contain letters and numbers");
+                    usernameEdit.requestFocus();
+                } else if (username.length() > 12) {
+                    usernameEdit.setError("Username can only accept 12 Characters");
+                    usernameEdit.requestFocus();
+                } else if (username.contains(" ")) {
+                    usernameEdit.setError("Spaces are not allowed");
+                    usernameEdit.requestFocus();
+                } else if (password == null || password.equals("")) {
                     passwordEdit.setError("Password is Empty");
                     passwordEdit.requestFocus();
-                    if (confirmPassword == null || confirmPassword.equals("")) {
-                        confirmPasswordEdit.setError("Confirm Password is Empty");
-                        confirmPasswordEdit.requestFocus();
-
-                    }
-                }
-
-                else{
+                } else if (confirmPassword == null || confirmPassword.equals("")) {
                     confirmPasswordEdit.setError("Confirm Password is Empty");
                     confirmPasswordEdit.requestFocus();
+                } else {
+                    if (password.equals(confirmPassword)) {
+                        userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                if (dataSnapshot.exists()) {
+                                    Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
+                                } else {
+                                    // Create a new user
+                                    Resources resources = getResources();
+                                    int imageResId = R.drawable.dog; // Replace with your image resource ID
+                                    Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
+                                            "://" + resources.getResourcePackageName(imageResId)
+                                            + '/' + resources.getResourceTypeName(imageResId)
+                                            + '/' + resources.getResourceEntryName(imageResId));
+                                    String IMAGEURI = imageUri.toString();
+
+                                    User newUser = new User(username, password, username, IMAGEURI, 0, 0, "NIL");
+                                    UserCount newUserCount = new UserCount(100, 0, 0, 0, 0);
+                                    Date date = new Date();
+                                    Calendar calendar = Calendar.getInstance();
+                                    calendar.setTime(date);
+                                    // Subtract one day from the current date
+                                    calendar.add(Calendar.DAY_OF_MONTH, -1);
+                                    // Get the date one day before the current date
+                                    Date oneDayBefore = calendar.getTime();
+                                    LoginDate newLoginDate = new LoginDate(oneDayBefore);
+                                    Log.v("Date", String.valueOf(oneDayBefore));
+
+                                    usercountRef.child(username).setValue(newUserCount);
+                                    userRef.child(username).setValue(newUser);
+                                    userDateRef.child(username).setValue(newLoginDate);
+                                    Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
+                                    creatingachievements(null, username);
+                                    creatingshop(null, username);
+                                    finish(); // Finish the activity and go back to the login page
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(DatabaseError databaseError) {
+                                Log.v("RegisterPage", "Error: " + databaseError.getMessage());
+                            }
+                        });
+                    } else {
+                        Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         });
+
 
 
         cancelButton.setOnClickListener(new View.OnClickListener() {

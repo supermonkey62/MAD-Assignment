@@ -241,7 +241,6 @@ public class EditEvent extends AppCompatActivity {
     }
 
     private void showEndTimePicker() {
-        // Custom TimePickerDialog to handle the case when start and end times are the same
         TimePickerDialog endTimePickerDialog = new TimePickerDialog(
                 this,
                 new TimePickerDialog.OnTimeSetListener() {
@@ -250,10 +249,10 @@ public class EditEvent extends AppCompatActivity {
                         endCalendar.set(Calendar.HOUR_OF_DAY, hourOfDay);
                         endCalendar.set(Calendar.MINUTE, minute);
 
-                        // Check if the selected end time is the same as the start time
-                        if (startCalendar.getTimeInMillis() == endCalendar.getTimeInMillis()) {
-                            // Show toast message when start and end times are the same
-                            Toast.makeText(EditEvent.this, "End time cannot be the same as the start time", Toast.LENGTH_SHORT).show();
+                        // Check if the selected end time is the same as the start time or earlier
+                        if (endCalendar.getTimeInMillis() <= startCalendar.getTimeInMillis()) {
+                            // Show toast message when end time is the same as or earlier than start time
+                            Toast.makeText(EditEvent.this, "End time cannot be the same as or earlier than the start time", Toast.LENGTH_SHORT).show();
                             // Reshow the end time picker
                             showEndTimePicker();
                         } else {
@@ -269,6 +268,7 @@ public class EditEvent extends AppCompatActivity {
         // Show the end time picker dialog
         endTimePickerDialog.show();
     }
+
 
     private void createEvent() {
         String title = eventTitleEditText.getText().toString().trim();

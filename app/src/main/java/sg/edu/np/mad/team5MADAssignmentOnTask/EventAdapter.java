@@ -59,7 +59,6 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
 
         // Set the date box with the formatted start and end dates
         holder.datebox.setText(formattedStartDate + " - " + formattedEndDate);
-
         holder.timebox.setText(event.getStartTime() + " - " + event.getEndTime());
         holder.username = event.getUsername();
 
