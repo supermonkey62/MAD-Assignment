@@ -5,6 +5,8 @@ import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
+
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
@@ -16,6 +18,7 @@ import androidx.lifecycle.ViewModelStoreOwner;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Locale;
@@ -99,38 +102,87 @@ public class Stage2MainPage extends AppCompatActivity implements HomeFragment.On
                 }
             }
         });
-
         addTaskFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Get the username and selectedDateString from the arguments or wherever you have them
-
-                // Create an Intent to launch the activity where you want to pass the data
-                Intent intent = new Intent(Stage2MainPage.this, AddTask.class);
-
                 if (selectedDateString == null || selectedDateString.isEmpty()) {
                     SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                     selectedDateString = dateFormat.format(new Date()); // Set it to today's date
                 }
 
-                // Add the username and selectedDateString as extras to the Intent
-                intent.putExtra("USERNAME", username);
-                intent.putExtra("DATE", selectedDateString);
 
-                // Start the activity with the Intent
-                startActivity(intent);
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                Date selectedDate = null;
+                try {
+                    selectedDate = dateFormat.parse(selectedDateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Calendar currentDateCalendar = Calendar.getInstance();
+                currentDateCalendar.set(Calendar.HOUR_OF_DAY, 0);
+                currentDateCalendar.set(Calendar.MINUTE, 0);
+                currentDateCalendar.set(Calendar.SECOND, 0);
+                currentDateCalendar.set(Calendar.MILLISECOND, 0);
+                Date currentDate = currentDateCalendar.getTime();
+
+
+                if (selectedDate != null && selectedDate.before(currentDate)) {
+                    // Show a toast indicating that task cannot be added before today
+                    Toast.makeText(Stage2MainPage.this, "Task cannot be added before today.", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    Intent intent = new Intent(Stage2MainPage.this, AddTask.class);
+
+                    intent.putExtra("USERNAME", username);
+                    intent.putExtra("DATE", selectedDateString);
+                    startActivity(intent);
+                }
             }
         });
 
         addEventFAB.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Stage2MainPage.this, AddEvent.class);
-                intent.putExtra("USERNAME", username);
-                startActivity(intent);
 
+                if (selectedDateString == null || selectedDateString.isEmpty()) {
+                    SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    selectedDateString = dateFormat.format(new Date()); // Set it to today's date
+                }
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                Date selectedDate = null;
+                try {
+                    selectedDate = dateFormat.parse(selectedDateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                // Get the current date without time (only date part)
+                Calendar currentDateCalendar = Calendar.getInstance();
+                currentDateCalendar.set(Calendar.HOUR_OF_DAY, 0);
+                currentDateCalendar.set(Calendar.MINUTE, 0);
+                currentDateCalendar.set(Calendar.SECOND, 0);
+                currentDateCalendar.set(Calendar.MILLISECOND, 0);
+                Date currentDate = currentDateCalendar.getTime();
+
+
+                if (selectedDate != null && selectedDate.before(currentDate)) {
+                    Toast.makeText(Stage2MainPage.this, "Event cannot be added before today.", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    Intent intent = new Intent(Stage2MainPage.this, AddEvent.class);
+                    intent.putExtra("USERNAME", username);
+                    startActivity(intent);
+                }
             }
         });
+
+
+
+
+
+
+
 
 
     }
