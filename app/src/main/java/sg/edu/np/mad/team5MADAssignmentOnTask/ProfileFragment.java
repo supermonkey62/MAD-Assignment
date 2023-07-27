@@ -73,7 +73,6 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
         View view = inflater.inflate(R.layout.fragment_profile, container, false);
 
         username = getActivity().getIntent().getStringExtra("USERNAME");
@@ -195,14 +194,9 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
         editProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
                 showPopup(v,username,context,num);
             }
         });
-
-
-
 
         return view;
     }
@@ -304,6 +298,7 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 int claimable = 0;
+                num = 0;
                 for (DataSnapshot achievementSnapshot : dataSnapshot.getChildren()) {
                     String achievementKey = achievementSnapshot.getKey();
                     String title = achievementSnapshot.child("title").getValue(String.class);
@@ -559,7 +554,6 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
             }
         });
         listviewsetbackground(username,listView,title);
-        num = 0;
         updateUserAchievements(username);
     }
 
