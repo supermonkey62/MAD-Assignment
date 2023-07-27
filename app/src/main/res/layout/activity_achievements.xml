@@ -42,6 +42,8 @@
                     android:layout_height="wrap_content"
                     android:id="@+id/claim_button"
                     android:layout_alignParentEnd="true"
+                    android:backgroundTint="@color/app_theme"
+                    android:textColor="@color/white"
                     android:text="Claim"/>
 
                 <!-- Reward Text -->

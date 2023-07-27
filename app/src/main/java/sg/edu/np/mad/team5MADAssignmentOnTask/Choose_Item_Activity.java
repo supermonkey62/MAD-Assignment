@@ -9,6 +9,7 @@ import androidx.core.content.ContextCompat;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -65,7 +66,7 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
         }
 
         type = "background";
-        fetchandsort(username);
+        fetchandsort(username,type);
         goal.setBackgroundResource(R.drawable.rectangle_line);
         title.setBackground(null);
         setButton.setEnabled(true);
@@ -76,11 +77,12 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
             @Override
             public void onClick(View v) {
                 type = "outline";
-                fetchandsort(username);
+                fetchandsort(username,type);
                 title.setBackgroundResource(R.drawable.rectangle_line);
                 goal.setBackground(null);
-                setButton.setBackground(null);
+                setButton.setBackgroundColor(Color.TRANSPARENT);
                 setButton.setEnabled(false);
+                setButton.setTextColor(Color.TRANSPARENT);
             }
 ;
         });
@@ -89,30 +91,14 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
             @Override
             public void onClick(View view) {
                 type = "background";
-                fetchandsort(username);
+                fetchandsort(username,type);
                 goal.setBackgroundResource(R.drawable.rectangle_line);
                 title.setBackground(null);
-                title.setText(null);
                 setButton.setEnabled(true);
+                setButton.setTextColor(Color.WHITE);
+                setButton.setBackgroundColor(getResources().getColor(R.color.app_theme));
             }
         });
-
-        goal.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(getApplicationContext(), Choose_Item_Activity.class);
-                intent.putExtra("USERNAME", username);
-                startActivity(intent);
-                finish();
-
-            }
-        });
-
-
-
-
-
 
         // Initialize Firebase
 
@@ -145,7 +131,7 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
 
     }
 
-    private void fetchandsort(String username){
+    private void fetchandsort(String username, String typing){
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference shopReference = firebaseDatabase.getReference("Shop").child(username);
 
@@ -161,7 +147,7 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
                     String carduri =itemSnapshot.child("carduri").getValue(String.class);
                     String itemtpye = itemSnapshot.child("fonttype").getValue(String.class);
                     boolean boughted = itemSnapshot.child("boughted").getValue(boolean.class);
-                    if (boughted == true && itemtpye.equals(type)){
+                    if (boughted == true && itemtpye.equals(typing)){
                         int cost = itemSnapshot.child("cost").getValue(Integer.class);
                         Shop shop = new Shop(cost,carduri,itemtpye,boughted);
 
