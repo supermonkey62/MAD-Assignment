@@ -98,7 +98,20 @@
 
             </androidx.cardview.widget.CardView>
 
-            <!-- CardView for Average Time Spent per Category -->
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="4dp">
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChartcomplete"
+                    android:layout_width="401dp"
+                    android:layout_height="168dp" />
+
+            </androidx.cardview.widget.CardView>
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/cardViewAverageTimePerCategory"
                 android:layout_width="match_parent"
