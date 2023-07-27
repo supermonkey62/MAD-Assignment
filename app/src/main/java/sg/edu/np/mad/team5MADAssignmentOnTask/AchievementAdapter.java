@@ -93,6 +93,7 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
             if (achievement.getProgress() >= achievement.getMaxProgress()) {
                 holder.claimButton.setText("Claim");
                 holder.claimButton.setEnabled(true);
+                holder.claimButton.setBackgroundColor(ContextCompat.getColor(context,R.color.app_theme));
 
 
 
@@ -105,7 +106,7 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
                     }
                 });
             } else {
-                holder.claimButton.setText("Claim");
+                holder.claimButton.setText("Incomplete");
                 holder.claimButton.setEnabled(false);
                 holder.claimButton.setBackgroundColor(ContextCompat.getColor(context, R.color.grey));
             }
