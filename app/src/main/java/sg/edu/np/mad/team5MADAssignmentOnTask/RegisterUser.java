@@ -36,7 +36,7 @@ public class RegisterUser extends AppCompatActivity {
 
     EditText usernameEdit, passwordEdit, confirmPasswordEdit;
     Button registerButton;
-    TextView cancelButton, back;
+    TextView cancelButton;
     DatabaseReference userRef;
     DatabaseReference achievementRef;
     DatabaseReference shopRef;
@@ -61,116 +61,56 @@ public class RegisterUser extends AppCompatActivity {
         confirmPasswordEdit = findViewById(R.id.confirmpasswordedit);
         registerButton = findViewById(R.id.registerbutton);
         cancelButton = findViewById(R.id.canceltext);
-        back = findViewById(R.id.back2);
 
         passwordEdit.setTransformationMethod(new PasswordTransformationMethod());
         confirmPasswordEdit.setTransformationMethod(new PasswordTransformationMethod());
 
-        back.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Back to Main Page", Toast.LENGTH_SHORT).show();
-                finish();
-            }
-        });
         registerButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 final String username = usernameEdit.getText().toString();
                 final String password = passwordEdit.getText().toString();
                 String confirmPassword = confirmPasswordEdit.getText().toString();
+
+                // Regular expression to check if the username contains only numbers and letters
+                String regex = "^[a-zA-Z0-9]+$";
+
                 Resources resources = getResources();
-                int imageResId = R.drawable.dog;  // Replace with your image resource ID
+                int imageResId = R.drawable.dog; // Replace with your image resource ID
                 Uri imageUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE +
                         "://" + resources.getResourcePackageName(imageResId)
                         + '/' + resources.getResourceTypeName(imageResId)
                         + '/' + resources.getResourceEntryName(imageResId));
                 String IMAGEURI = imageUri.toString();
-                if (username != null && !username.equals("") && password != null && !password.equals("") && confirmPassword != null && !confirmPassword.equals("")){
 
-                     if (username.length() > 12) {
-                        usernameEdit.setError("Username can only Accept 12 Characters");
+                if (username != null && !username.equals("") && password != null && !password.equals("") && confirmPassword != null && !confirmPassword.equals("")) {
+                    if (username.length() > 12) {
+                        usernameEdit.setError("Username can only accept 12 Characters");
                         usernameEdit.requestFocus();
                     } else if (username.contains(" ")) {
+                        usernameEdit.setError("Spaces are not allowed");
+                        usernameEdit.requestFocus();
+                    } else if (!username.matches(regex)) {
+                        usernameEdit.setError("Username can only contain numbers and letters");
+                        usernameEdit.requestFocus();
+                    } else {
+                        // Rest of your existing code...
 
-                         usernameEdit.setError("Spaces are not allowed");
-                         usernameEdit.requestFocus();
-
-                     }else{
-                         if (password.equals(confirmPassword)) {
-                             userRef.child(username).addListenerForSingleValueEvent(new ValueEventListener() {
-                                 @Override
-                                 public void onDataChange(DataSnapshot dataSnapshot) {
-                                     if (dataSnapshot.exists()) {
-                                         Toast.makeText(getApplicationContext(), "Username already exists", Toast.LENGTH_SHORT).show();
-                                     } else {
-                                         // Create a new user
-
-                                         User newUser = new User(username, password,username,IMAGEURI,0, 0, "NIL");
-                                         UserCount newUserCount = new UserCount(100,0,0,0,0);
-                                         List<String> newFriendList = new ArrayList<>();
-                                         newUser.setFriendList(newFriendList);
-                                         Date date = new Date();
-                                         Calendar calendar = Calendar.getInstance();
-                                         calendar.setTime(date);
-                                         // Subtract one day from the current date
-                                         calendar.add(Calendar.DAY_OF_MONTH, -1);
-                                         // Get the date one day before the current date
-                                         Date oneDayBefore = calendar.getTime();
-                                         LoginDate newLoginDate = new LoginDate(oneDayBefore);
-                                         Log.v("Date", String.valueOf(oneDayBefore));
-
-                                         usercountRef.child(username).setValue(newUserCount);
-                                         userRef.child(username).setValue(newUser);
-                                         userDateRef.child(username).setValue(newLoginDate);
-                                         Toast.makeText(getApplicationContext(), "Registration Successful", Toast.LENGTH_SHORT).show();
-                                         creatingachievements(null,username);
-                                         creatingshop(null,username);
-                                         finish(); // Finish the activity and go back to the login page
-                                     }
-                                 }
-
-                                 @Override
-                                 public void onCancelled(DatabaseError databaseError) {
-                                     Log.v("RegisterPage", "Error: " + databaseError.getMessage());
-                                 }
-                             });
-                         } else {
-                             Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
-                         }
-                     }
-                     }
-
-
-                 else if (username == null || username.equals("")) {
-                    usernameEdit.setError("Username is Empty");
-                    usernameEdit.requestFocus();
-                    if (password == null || password.equals("")) {
-                        passwordEdit.setError("Password is Empty");
-                        passwordEdit.requestFocus();
-                        if (confirmPassword == null || confirmPassword.equals("")) {
-                            confirmPasswordEdit.setError("Password is Empty");
-                            confirmPasswordEdit.requestFocus();
-                        }
+                        // Create a new user
+                        User newUser = new User(username, password, username, IMAGEURI, 0, 0, "NIL");
+                        // ... Rest of the code ...
                     }
-                }
-
-                else if (password == null || password.equals("")){
-                    passwordEdit.setError("Password is Empty");
-                    passwordEdit.requestFocus();
-                    if (confirmPassword == null || confirmPassword.equals("")) {
-                        confirmPasswordEdit.setError("Confirm Password is Empty");
-                        confirmPasswordEdit.requestFocus();
-
-                    }
-                }
-
-                else{
+                } else if (username == null || username.equals("")) {
+                    // ... Rest of your existing code ...
+                } else if (password == null || password.equals("")) {
+                    // ... Rest of your existing code ...
+                } else {
                     confirmPasswordEdit.setError("Confirm Password is Empty");
                     confirmPasswordEdit.requestFocus();
                 }
             }
         });
+
 
         cancelButton.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -17,6 +17,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.text.ParseException;
@@ -112,6 +113,13 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
         selectedDate = calendar.getTime();
         updateViewsForSelectedDate(selectedDate);
     }
+
+    public void launchTaskCalendarActivity(View view) {
+        // Create an Intent to launch the TaskCalendarActivity
+        Intent intent = new Intent(getActivity(), TaskCalendar.class);
+        startActivity(intent);
+    }
+
 
     private void updateViewsForSelectedDate(Date selectedDate) {
         setWeekView();

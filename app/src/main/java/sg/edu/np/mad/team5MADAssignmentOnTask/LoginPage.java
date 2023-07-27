@@ -88,7 +88,6 @@ public class LoginPage extends AppCompatActivity {
 
 
                                 if (savedUsername.equals(username) && savedPassword.equals(password)) {
-                                    Log.v("LoginPage", "Login successful");
 
                                     if (remember_me_checkbox.isChecked()) {
                                         loginPrefsEditor.putBoolean(PREF_REMEMBER, true);
@@ -102,18 +101,16 @@ public class LoginPage extends AppCompatActivity {
                                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(LoginPage.this, Stage2MainPage.class);
                                     intent.putExtra("USERNAME", username);
-                                    Log.v("Login Username", username);
                                     intent.putExtra("PASSWORD",password);
                                     intent.putExtra("DISPLAYNAME", displayName);
                                     UpdateLastLogin(username);
 
                                     startActivity(intent);
                                 } else {
-                                    Log.v("LoginPage", "Invalid username or password");
                                     Toast.makeText(getApplicationContext(), "Invalid Username or Password", Toast.LENGTH_SHORT).show();
                                 }
                             } else {
-                                Log.v("LoginPage", "User not found");
+
                                 usernameEdit.setError("Username Do not Exist");
                                 usernameEdit.requestFocus();
                             }
