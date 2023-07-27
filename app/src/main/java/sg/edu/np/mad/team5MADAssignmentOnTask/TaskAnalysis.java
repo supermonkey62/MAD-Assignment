@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
@@ -14,6 +15,7 @@ import androidx.cardview.widget.CardView;
 import com.github.mikephil.charting.charts.BarChart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.charts.PieChart;
+import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
@@ -111,7 +113,7 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         }
         if (health > 0) {
             entries.add(new BarEntry(5, health));
-            barColors.add(categoryColors.get("Health and Fitness Tasks"));
+            barColors.add(categoryColors.get("Health and Fitness"));
             categories.add("Health and Fitness");
         }
 
@@ -124,11 +126,17 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         BarData barData = new BarData(dataSet);
         barData.setBarWidth(barWidth);
 
+
         // Get the BarChart reference and set the data
         BarChart barChart = findViewById(R.id.Barchart1);
         barChart.setData(barData);
         barChart.setTouchEnabled(false);
         barChart.getDescription().setText("Time Spent by Category");
+        barChart.getDescription().setTextSize(15);
+
+        int paddingTop = 40;
+        barChart.setExtraTopOffset(paddingTop);
+        barChart.getDescription().setPosition(barChart.getWidth()/2.5f, 45f);
 
         // Hide X-axis labels
         XAxis xAxis = barChart.getXAxis();
@@ -216,6 +224,11 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         barChartAverageSessionsPerCategory.setData(barData);
         barChartAverageSessionsPerCategory.setTouchEnabled(false);
         barChartAverageSessionsPerCategory.getDescription().setText("Average number of Sessions by Category");
+        barChartAverageSessionsPerCategory.getDescription().setTextSize(15);
+//        int paddingTop = 40;
+//        barChartAverageSessionsPerCategory.setExtraTopOffset(paddingTop);
+//        barChartAverageSessionsPerCategory.getDescription().setPosition(barChartAverageSessionsPerCategory.getWidth()/2.5f, 45f);
+
 
         // Hide X-axis labels
         XAxis xAxis = barChartAverageSessionsPerCategory.getXAxis();
@@ -300,6 +313,11 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         pieChart.getLegend().setEnabled(true);
         pieChart.setTouchEnabled(false);
         pieChart.getDescription().setText("Number of Tasks by Category");
+        pieChart.getDescription().setTextSize(15);
+//        int paddingTop = 40;
+//        pieChart.setExtraTopOffset(paddingTop);
+//        pieChart.getDescription().setPosition(pieChart.getWidth()/2.5f, 45f);
+
 
 
         // Refresh the chart
@@ -354,8 +372,16 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         pieChart.setDrawEntryLabels(false);
         pieChart.setEntryLabelTextSize(0f);
         pieChart.getLegend().setEnabled(true);
+
+
         pieChart.setTouchEnabled(false);
-        pieChart.getDescription().setText("Number of Completed Tasks by Category");
+        pieChart.getDescription().setText("Completed Tasks by Category");
+        pieChart.getDescription().setTextSize(15);
+//        int paddingTop = 40;
+//        pieChart.setExtraTopOffset(paddingTop);
+//        pieChart.getDescription().setPosition(pieChart.getWidth()/2.5f, 45f);
+
+
 
 
         // Refresh the chart
@@ -412,6 +438,11 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         LineChart lineChart = findViewById(R.id.lineChart);
         lineChart.setData(lineData);
         lineChart.getDescription().setText("Number of Completed Tasks each Month");
+        lineChart.getDescription().setTextSize(15);
+//        int paddingTop = 40;
+//        lineChart.setExtraTopOffset(paddingTop);
+//        lineChart.getDescription().setPosition(lineChart.getWidth()/2.5f, 45f);
+
 
         // Customize x-axis labels
         XAxis xAxis = lineChart.getXAxis();
@@ -519,6 +550,11 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         BarChart barChartAverageTimePerCategory = findViewById(R.id.barChartAverageTimePerCategory);
         barChartAverageTimePerCategory.setData(barData);
         barChartAverageTimePerCategory.getDescription().setText("Average Time By Category");
+        barChartAverageTimePerCategory.getDescription().setTextSize(15);
+//        int paddingTop = 40;
+//        barChartAverageTimePerCategory.setExtraTopOffset(paddingTop);
+//        barChartAverageTimePerCategory.getDescription().setPosition(barChartAverageTimePerCategory.getWidth()/2.5f, 45f);
+
         barChartAverageTimePerCategory.setTouchEnabled(false);
 
         // Hide X-axis labels
