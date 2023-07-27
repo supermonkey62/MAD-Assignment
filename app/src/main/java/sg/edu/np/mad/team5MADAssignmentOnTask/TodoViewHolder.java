@@ -96,6 +96,7 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
         intent.putExtra("TITLE",title);
         intent.putExtra("TYPE",type);
         intent.putExtra("CATEGORY",category);
+        intent.putExtra("COLLABORATORS", collaborators);
 
         context.startActivity(intent);
     }

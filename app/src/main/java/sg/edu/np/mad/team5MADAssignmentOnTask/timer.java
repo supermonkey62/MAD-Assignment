@@ -376,7 +376,7 @@ public class timer extends AppCompatActivity {
         String collaborators = getIntent().getStringExtra("COLLABORATORS");
         Task newTask = new Task(username, title, selectedDate, tag, taskStatus, newTimeSpent, totalSessions, category, collaborators, false);
         userTask.child(tag).setValue(newTask);
-        Log.v("TaskSaving", title + " saved to database");
+        Log.v("TaskSaving", title + " saved to database"+ collaborators);
         Log.v("TaskCheck",newTimeSpent + "," + totalSessions);
 
     }
