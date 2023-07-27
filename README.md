@@ -66,6 +66,10 @@ https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Pre
 https://media.istockphoto.com/id/1333010525/vector/simple-flat-pixel-art-illustration-of-cartoon-outdoor-landscape-background-pixel-arcade.jpg?s=612x612&w=0&k=20&c=uTGqB9fhmjzaNd17EGRHYU04_70K7a3M8ilRoJjDwtY=
 https://img.lovepik.com/background/20211022/large/lovepik-korean-simple-background-image_401976423.jpg
 https://static.vecteezy.com/system/resources/previews/006/852/804/original/abstract-blue-background-simple-design-for-your-website-free-vector.jpg
+https://www.pngwing.com/en/free-png-hkhri
+https://www.pngwing.com/en/free-png-yyern
+https://www.pngwing.com/en/free-png-bhthw
+https://img.freepik.com/free-photo/brown-fabric-motion-texture_53876-95924.jpg?w=1380&t=st=1690446800~exp=1690447400~hmac=7791f32c71d816521dc99b98e2bb435c91abfdd4fcb2f833c0b45c1bc8ac1a98
 
 **Team Members' Names and Student ID**
 

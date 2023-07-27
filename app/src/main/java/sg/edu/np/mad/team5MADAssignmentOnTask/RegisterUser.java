@@ -272,6 +272,18 @@ public class RegisterUser extends AppCompatActivity {
         String doubleuri = getImageUriString(doubleId);
         Shop item8 = new Shop(100,doubleuri,"outline",false);
 
+        int quotId = R.drawable.quotation_rectangle;
+        String quoturi = getImageUriString(quotId);
+        Shop item9 = new Shop(100,quoturi,"outline",false);
+
+        int paintId = R.drawable.paint_rectangle;
+        String painturi = getImageUriString(paintId);
+        Shop item10 = new Shop(100,painturi,"outline",false);
+
+        int softId = R.drawable.soft_background;
+        String softuri = getImageUriString(softId);
+        Shop item11 = new Shop(100,softuri,"background",false);
+
 
 
 
@@ -283,6 +295,9 @@ public class RegisterUser extends AppCompatActivity {
         shopList.add(item6);
         shopList.add(item7);
         shopList.add(item8);
+        shopList.add(item9);
+        shopList.add(item10);
+        shopList.add(item11);
 
 
         for (Shop shop : shopList) {
@@ -302,9 +317,6 @@ public class RegisterUser extends AppCompatActivity {
 
         }
     }
-
-
-
 
     private String getImageUriString(int imageResId) {
         Resources resources = getResources();
