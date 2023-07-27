@@ -130,10 +130,11 @@ public class AchievementPage extends AppCompatActivity {
                     achievementCount.setText(String.format("Progress: %d/%d", done, total));
                     CountRef.child("achievementcomplete").setValue(done);
 
-
-                    // Create an Achievement object and add it to the list
-                    Achievement achievement = new Achievement(title, progress, maxProgress, reward, rewardtype, status);
-                    achievementList.add(achievement);
+                    if (status.equals("Incomplete")) {
+                        // Create an Achievement object and add it to the list
+                        Achievement achievement = new Achievement(title, progress, maxProgress, reward, rewardtype, status);
+                        achievementList.add(achievement);
+                    }
                 }
 
                 Collections.sort(achievementList, new Comparator<Achievement>() {

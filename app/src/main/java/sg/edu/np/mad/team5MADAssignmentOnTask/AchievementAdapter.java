@@ -110,12 +110,6 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
                 holder.claimButton.setEnabled(false);
                 holder.claimButton.setBackgroundColor(ContextCompat.getColor(context, R.color.grey));
             }
-        } else {
-            // If the achievement status is not "Incomplete", hide the view holder
-            holder.itemView.setVisibility(View.GONE);
-            RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) holder.itemView.getLayoutParams();
-            params.height = 0;
-            params.width = 0;
         }
     }
 
@@ -131,6 +125,8 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
         TextView progressText;
         Button claimButton;
 
+        ConstraintLayout constraintLayout;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -139,6 +135,7 @@ public class AchievementAdapter extends RecyclerView.Adapter<AchievementAdapter.
             progressText = itemView.findViewById(R.id.progress_text);
             claimButton = itemView.findViewById(R.id.claim_button);
             reward = itemView.findViewById(R.id.reward);
+            constraintLayout = itemView.findViewById(R.id.constraint);
         }
     }
     private void getAchievementKeyFromFirebase(Achievement claimedAchievement, AchievementKeyCallback callback) {
