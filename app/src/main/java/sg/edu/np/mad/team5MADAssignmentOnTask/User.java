@@ -9,17 +9,18 @@ import java.util.List;
 import java.util.Objects;
 
 public class User {
-    private String username, password,displayname, ImageURI, collaboratedtasks, friendList;
+    private String username, password,displayname, ImageURI, BannerURI ,collaboratedtasks, friendList;
     private int eventCount, taskCount;
     private boolean isFriend;
     public User() {
     }
 
-    public User(String username, String password, String displayname, String ImageURI, int eventCount, int taskCount, String collaboratedtasks) {
+    public User(String username, String password, String displayname, String ImageURI, String BannerURI,int eventCount, int taskCount, String collaboratedtasks) {
         this.username = username;
         this.password = password;
         this.displayname = displayname;
         this.ImageURI = ImageURI;
+        this.BannerURI = BannerURI;
         this.eventCount = eventCount;
         this.taskCount = taskCount;
         this.collaboratedtasks = collaboratedtasks;
@@ -47,6 +48,14 @@ public class User {
 
     public String getImageURI(){return ImageURI;};
     public void setImageURI(String ImageURI){this.ImageURI = ImageURI;}
+
+    public String getBannerURI() {
+        return BannerURI;
+    }
+
+    public void setBannerURI(String bannerURI) {
+        BannerURI = bannerURI;
+    }
 
     public int getEventCount() {
         return eventCount;

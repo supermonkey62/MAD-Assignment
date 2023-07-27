@@ -76,6 +76,7 @@
             android:textSize="30sp"
             android:textStyle="bold" />
         <!--*******Logout**********-->
+
         <TextView
             android:id="@+id/change_pfp"
             android:layout_width="match_parent"
@@ -85,6 +86,25 @@
             android:drawableTint="@color/white"
 
             android:text="Change Profile Picture"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TableRow
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="@color/white" />
+
+        <TextView
+            android:id="@+id/change_banner"
+            android:layout_width="match_parent"
+            android:layout_height="25dp"
+            android:drawableLeft="@drawable/baseline_image_24"
+            android:drawablePadding="10dp"
+            android:drawableTint="@color/white"
+
+            android:text="Change Banner"
             android:textColor="@color/white"
             android:textSize="18sp" />
 
@@ -133,11 +153,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="@color/white" />
-
-
-
-
-
 
 
     </LinearLayout>

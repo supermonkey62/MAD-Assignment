@@ -102,7 +102,7 @@ public class RegisterUser extends AppCompatActivity {
                                      } else {
                                          // Create a new user
 
-                                         User newUser = new User(username, password,username,IMAGEURI,0, 0, "NIL");
+                                         User newUser = new User(username, password,username,IMAGEURI,"",0, 0, "NIL");
                                          UserCount newUserCount = new UserCount(100,0,0,0,0);
                                          Date date = new Date();
                                          Calendar calendar = Calendar.getInstance();

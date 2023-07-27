@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <solid android:color="@color/light_gray" /> <!-- White background color -->
+    <solid android:color="#E6E6E3" /> <!-- White background color -->
 
 </shape>

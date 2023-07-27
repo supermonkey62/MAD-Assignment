@@ -35,6 +35,17 @@
         android:clickable="true"
         android:onClick="showPopup"/>
 
+    <ImageView
+        android:id="@+id/banner"
+        android:layout_width="391.2dp"
+        android:layout_height="142dp"
+        android:layout_marginTop="36dp"
+        android:layout_marginStart="10dp"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/whitebox"
+        app:srcCompat="@drawable/gray_square" />
+
 
     <TextView
         android:id="@+id/goal"
@@ -80,17 +91,28 @@
         app:layout_constraintStart_toEndOf="@+id/goal" />
 
 
-    <ImageView
+<!--    <ImageView-->
+<!--        android:id="@+id/image_view"-->
+<!--        android:layout_width="126dp"-->
+<!--        android:layout_height="125dp"-->
+<!--        android:layout_marginStart="36dp"-->
+<!--        android:layout_marginTop="44dp"-->
+<!--        android:background="@drawable/round_image_view"-->
+<!--        android:backgroundTint="@color/gray"-->
+<!--        android:src="@drawable/baseline_image_24"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:layout_constraintTop_toTopOf="@id/whitebox" />-->
+
+    <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/image_view"
-        android:layout_width="126dp"
-        android:layout_height="125dp"
         android:layout_marginStart="36dp"
         android:layout_marginTop="44dp"
-        android:background="@drawable/round_image_view"
-        android:backgroundTint="@color/gray"
-        android:src="@drawable/baseline_image_24"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@id/whitebox" />
+        android:layout_width="125dp"
+        android:layout_height="125dp"
+        android:layout_centerInParent="true"
+        android:src="@drawable/baseline_person_24"
+        app:layout_constraintStart_toStartOf="@+id/whitebox"
+        app:layout_constraintTop_toTopOf="@+id/whitebox" />
 
     <TextView
         android:id="@+id/profileusername"

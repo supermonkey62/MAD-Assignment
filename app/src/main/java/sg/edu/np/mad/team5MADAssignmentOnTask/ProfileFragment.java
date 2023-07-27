@@ -49,13 +49,16 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class ProfileFragment extends Fragment implements UserDataHolder.UserDataCallback   {
 
     private TextView  profileusername,title;
-    private ImageView editProfile, pfp;
+    private ImageView editProfile, banner;
+    private CircleImageView pfp;
     private String displayname;
-    private String ImageURI;
+    private String ImageURI, BannerURI;
     private String username;
     private String TITLE = "Profile Page";
     private ArrayList<String> goals;
@@ -82,6 +85,7 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
         profileusername = view.findViewById(R.id.profileusername);
         editProfile = view.findViewById(R.id.editUsername);
         pfp = view.findViewById(R.id.image_view);
+        banner = view.findViewById(R.id.banner);
         View layout = view.findViewById(R.id.layout);
         listView = view.findViewById(R.id.goal_list);
         addGoalsButton = view.findViewById(R.id.goal_button);
@@ -175,8 +179,16 @@ public class ProfileFragment extends Fragment implements UserDataHolder.UserData
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
                     ImageURI = dataSnapshot.child("imageURI").getValue().toString();
-                    Uri uri = Uri.parse(ImageURI);
-                    pfp.setImageURI(uri);
+                    BannerURI = dataSnapshot.child("bannerURI").getValue().toString();
+                    if(BannerURI.equals("") && !dataSnapshot.child("bannerURI").exists()){
+                        banner.setImageResource(R.drawable.gray_square);
+                    }
+                    else{
+                        Uri uriBAN = Uri.parse(BannerURI);
+                        banner.setImageURI(uriBAN);
+                    }
+                    Uri uriIMG = Uri.parse(ImageURI);
+                    pfp.setImageURI(uriIMG);
                 } else {
                     Log.v("ChangeDisplayName", "User not found");
                 }
