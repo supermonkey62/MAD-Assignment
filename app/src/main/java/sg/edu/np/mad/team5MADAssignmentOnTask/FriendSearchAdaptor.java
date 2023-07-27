@@ -113,13 +113,14 @@ public class FriendSearchAdaptor extends RecyclerView.Adapter<FriendSearchAdapto
         holder.addFriendIcon.setOnClickListener(view -> {
             if (!friendsSet.contains(user.getUsername())) {
                 friendsSet = friendsSet.isEmpty() ? user.getUsername() : friendsSet + "," + user.getUsername();
-                friendsSet = friendsSet.isEmpty() ? user.getUsername() : friendsSet + "," + user.getUsername();
 
                 holder.friendStatus.setText("Friend");
                 holder.friendStatus.setTextColor(Color.GREEN);
                 holder.addFriendIcon.setVisibility(View.GONE);
                 holder.removeFriendBtn.setVisibility(View.VISIBLE);
 
+                notifyDataSetChanged();
+                userDataHolder.addFriend(currentUsername, user.getUsername());
                 updateFriendListInFirebase(friendsSet);
             }
         });
@@ -135,6 +136,8 @@ public class FriendSearchAdaptor extends RecyclerView.Adapter<FriendSearchAdapto
                 holder.removeFriendBtn.setVisibility(View.GONE);
                 holder.addFriendIcon.setColorFilter(Color.GRAY);
 
+                notifyDataSetChanged();
+                userDataHolder.removeFriend(currentUsername, user.getUsername());
                 updateFriendListInFirebase(friendsSet);
             }
         });

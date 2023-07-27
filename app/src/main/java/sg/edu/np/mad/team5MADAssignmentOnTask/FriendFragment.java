@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.SearchView;
 
+
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.MutableLiveData;
@@ -15,6 +16,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -41,6 +43,7 @@ public class FriendFragment extends Fragment implements UserDataHolder.UserResul
     private FriendViewModel friendViewModel;
     private FriendViewModel sharedFriendViewModel;
     private RecyclerView recyclerView;
+
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -97,6 +100,7 @@ public class FriendFragment extends Fragment implements UserDataHolder.UserResul
 
 
         SearchView friendSearch = view.findViewById(R.id.friendSearch);
+
         friendSearch.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
@@ -125,6 +129,7 @@ public class FriendFragment extends Fragment implements UserDataHolder.UserResul
         if (adapter != null) {
             adapter.notifyDataSetChanged();
             fetchFriendsSet();
+            fetchAndSetFriendsListFromFirebase();
         }
     }
 
@@ -217,9 +222,6 @@ public class FriendFragment extends Fragment implements UserDataHolder.UserResul
                         // Convert the comma-separated string to a List
                         List<String> friendsList = new ArrayList<>(Arrays.asList(friendsListString.split(",")));
                         friendsSet.setValue(friendsList);
-
-                        // Print out the contents of the friendsList for debugging purposes
-                        Log.d("FriendFragment", "Friends List: " + friendsList);
                     }
                 }
             }
