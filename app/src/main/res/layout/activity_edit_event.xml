@@ -39,12 +39,9 @@
         />
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/CustomOutlinedBox"
         android:id="@+id/eventTitleInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/app_theme"
-        app:boxStrokeWidth="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/titleTextView"
         android:layout_marginStart="32dp"
@@ -55,6 +52,9 @@
         android:hint="Title">
 
         <com.google.android.material.textfield.TextInputEditText
+            app:boxStrokeColor="@color/app_theme"
+            app:boxStrokeWidth="2dp"
+            style="@style/CustomOutlinedBox"
             android:id="@+id/eventTitleEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,12 +63,10 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
-        style="@style/CustomOutlinedBox"
+
         android:id="@+id/eventDescriptionInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:boxStrokeColor="@color/app_theme"
-        app:boxStrokeWidth="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/eventTitleInputLayout"
         android:layout_marginStart="32dp"
@@ -80,6 +78,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/eventDescriptionEditText"
+            app:boxStrokeColor="@color/app_theme"
+            app:boxStrokeWidth="2dp"
+            style="@style/CustomOutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/button_colour" />

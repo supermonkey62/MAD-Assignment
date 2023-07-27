@@ -117,6 +117,7 @@ public class HomeFragment extends Fragment implements CalendarAdapter.OnItemList
     public void launchTaskCalendarActivity(View view) {
         // Create an Intent to launch the TaskCalendarActivity
         Intent intent = new Intent(getActivity(), TaskCalendar.class);
+        intent.putExtra("USERNAME", username);
         startActivity(intent);
     }
 

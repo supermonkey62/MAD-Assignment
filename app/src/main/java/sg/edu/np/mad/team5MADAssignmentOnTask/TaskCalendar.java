@@ -1,5 +1,7 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
+import static sg.edu.np.mad.team5MADAssignmentOnTask.CalendarUtils.selectedDate;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -25,75 +27,51 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
-public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.TaskDataCallback, SelectListener {
-
+public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.TaskDataCallback, SelectListener, EventDataHolder.EventDataCallback {
     CalendarView calendarView;
-    Calendar calendar;
-    TextView totaltasks;
-    String selectedDateString, selectedDateString2;
+    String selectedDateString;
     String TITLE = "TaskCalendar";
     String username;
-    FloatingActionButton addTasks;
-    RecyclerView taskshower;
-
+    FloatingActionButton add, addtask, addevent;
+    RecyclerView eventShower; // RecyclerView for events
+    RecyclerView taskShower; // RecyclerView for tasks
     ImageView gobackButton;
-
     Calendar selectedDateCalendar;
-    private List<Task> taskList;
-
-    public static final String SHARED_PREFS = "sharedPrefs";
-    public static final String DATE_SAVED = "10/06/2023";
-
+    List<Task> taskList;
+    List<Event> eventList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Log.v(TITLE, "OnCreate");
+
         setContentView(R.layout.activity_calendar);
         calendarView = findViewById(R.id.calendarView);
-        calendar = Calendar.getInstance();
-        taskshower = findViewById(R.id.taskshower);
-        addTasks = findViewById(R.id.addtask);
-        setDateToToday();
-        totaltasks = findViewById(R.id.totaltasks);
+        eventShower = findViewById(R.id.eventshower);
+        taskShower = findViewById(R.id.taskshower);
         gobackButton = findViewById(R.id.gobackButton);
+        add = findViewById(R.id.add);
+        addtask = findViewById(R.id.addtask);
+        addevent = findViewById(R.id.addevent);
         username = getIntent().getStringExtra("USERNAME");
 
-        TaskDataHolder.getInstance().fetchUserTasks(username, new TaskDataHolder.TaskDataCallback() {
-            @Override
-            public void onTaskDataFetched(List<Task> tasks) {
-                taskList = tasks;
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        selectedDate = calendar.getTime();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        selectedDateString = dateFormat.format(selectedDate);
 
-                // Filter tasks based on the initially selected date
-                Calendar selectedDate = Calendar.getInstance();
-                selectedDate.setTimeInMillis(calendarView.getDate());
-
-                Log.v("String3Create", selectedDateString2);
-
-                List<Task> filteredTasks = filterTasksByDate(selectedDateString2);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-                selectedDateString = dateFormat.format(selectedDate.getTime());
-                selectedDateCalendar = selectedDate;
-
-
-                // Set RecyclerView adapter with filtered tasks
-                taskshower.setLayoutManager(new LinearLayoutManager(TaskCalendar.this));
-                //taskshower.setAdapter(new EventAdapter(TaskCalendar.this, filteredTasks, this));
-
-                int numEntities = filteredTasks.size();
-
-                // Update the total tasks TextView
-                totaltasks.setText("Total Tasks: " + numEntities);
-                Log.v("Task Details", "Number of entities: " + numEntities);
-            }
-        });
+        // Fetch the most recent tasks when the activity starts
+        TaskDataHolder.getInstance().fetchUserTasks(username, this);
+        // Fetch the most recent events when the activity starts
+        EventDataHolder.getInstance().fetchUserEvents(username, this);
     }
+
 
     @Override
     protected void onResume() {
         super.onResume();
         Log.v(TITLE, "On Resume!");
-        loadData();
 
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
@@ -104,66 +82,46 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
                 SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
                 selectedDateString = dateFormat.format(selectedDate.getTime());
                 selectedDateCalendar = selectedDate;
-                selectedDateString2 = String.valueOf(selectedDateCalendar.get(Calendar.YEAR)) + "," +
-                        String.valueOf(selectedDateCalendar.get(Calendar.MONTH)) + "," +
-                        String.valueOf(selectedDateCalendar.get(Calendar.DAY_OF_MONTH));
-                Log.v("String2Create", selectedDateString2);
-                List<Task> filteredTasks = filterTasksByDate(selectedDateString2);
-                saveData();
-                //taskshower.setAdapter(new EventAdapter(TaskCalendar.this, filteredTasks, this));
+                List<Event> filteredEvents = filterEventsByDate(selectedDateString);
+                List<Task> filteredTasks = filterTasksByDate(selectedDateString);
+                taskShower.setAdapter(new MainpagetodoAdaptor(TaskCalendar.this, filteredTasks, TaskCalendar.this));
+                eventShower.setAdapter(new EventAdapter(TaskCalendar.this, filteredEvents, TaskCalendar.this));
 
-                int numEntities = filteredTasks.size();
-
-                // Update the total tasks TextView
-                totaltasks.setText("Total Tasks: " + numEntities);
             }
         });
+        // Assuming 'add' is the "Add" button, 'addtask' is the view for adding tasks, and 'addevent' is the view for adding events.
 
-        // Log the selected date
-        Log.v("OnResume", "Selected Date: " + selectedDateString);
-        // Fetch the most recent tasks when the activity resumes
-        TaskDataHolder.getInstance().fetchUserTasks(username, new TaskDataHolder.TaskDataCallback() {
-            @Override
-            public void onTaskDataFetched(List<Task> tasks) {
-                taskList = tasks;
-
-                // Filter tasks based on the selected date
-                Calendar selectedDate = Calendar.getInstance();
-                selectedDate.setTimeInMillis(calendarView.getDate());
-                String calendarviewgetdate = String.valueOf(calendarView.getDate());
-                Log.v("Calendarviewgetdate", calendarviewgetdate);
-                Log.v("StringRCreate", selectedDateString2);
-
-                List<Task> filteredTasks = filterTasksByDate(selectedDateString2);
-                SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-
-
-
-
-                // Update the RecyclerView adapter with the filtered tasks
-                //taskshower.setAdapter(new EventAdapter(TaskCalendar.this, filteredTasks, this));
-
-                int numEntities = filteredTasks.size();
-
-                // Update the total tasks TextView
-                totaltasks.setText("Total Tasks: " + numEntities);
-                Log.v("Task Details", "Number of entities: " + numEntities);
-            }
-
-
-        });
-
-        addTasks.setOnClickListener(new View.OnClickListener() {
+        add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                // Make addtask and addevent views visible
+                addtask.setVisibility(View.VISIBLE);
+                addevent.setVisibility(View.VISIBLE);
+            }
+        });
+
+        addtask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Launch AddTask activity
                 Intent intent = new Intent(TaskCalendar.this, AddTask.class);
-                intent.putExtra("DATE", selectedDateString);
-                Log.v("Date passed", selectedDateString);
-                saveData();
+                intent.putExtra("DATE", selectedDateString); // Pass any required data to the AddTask activity
                 intent.putExtra("USERNAME", username);
                 startActivity(intent);
             }
         });
+
+        addevent.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Launch AddEvent activity
+                Intent intent = new Intent(TaskCalendar.this, AddEvent.class);
+                intent.putExtra("DATE", selectedDateString); // Pass any required data to the AddEvent activity
+                intent.putExtra("USERNAME", username);
+                startActivity(intent);
+            }
+        });
+
 
         gobackButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -173,68 +131,51 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
         });
     }
 
-    public String getDate() {
-        long date = calendarView.getDate();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
-        calendar.setTimeInMillis(date);
-        String selected_date = simpleDateFormat.format(calendar.getTime());
-        return selected_date;
-
-    }
-
-    public void setDateToToday() {
-        calendar.setTimeInMillis(System.currentTimeMillis());
-        long milli = calendar.getTimeInMillis();
-        calendarView.setDate(milli);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
-        String selectedDateString = dateFormat.format(new Date(milli));
-
-        // Log the converted date
-        Log.v("SetDate", "Selected date: " + selectedDateString);
-    }
 
 
     @Override
     public void onTaskDataFetched(List<Task> tasks) {
         taskList = tasks;
 
-        // Filter tasks based on the initially selected date
-        List<Task> filteredTasks = filterTasksByDate(selectedDateString2);
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+        List<Task> filteredTasks = filterTasksByDate(selectedDateString);
+        taskShower.setLayoutManager(new LinearLayoutManager(TaskCalendar.this));
+        taskShower.setAdapter(new MainpagetodoAdaptor(TaskCalendar.this, filteredTasks, this));
+    }
 
-        // Set RecyclerView adapter with filtered tasks
-        taskshower.setLayoutManager(new LinearLayoutManager(TaskCalendar.this));
-        taskshower.setAdapter(new MainpagetodoAdaptor(TaskCalendar.this, filteredTasks, this));
+    @Override
+    public void onEventDataFetched(List<Event> events) {
+        eventList = events;
 
-        int numEntities = filteredTasks.size();
-
-        // Update the total tasks TextView
-        totaltasks.setText("Total Tasks: " + numEntities);
-        Log.v("Task Details", "Number of entities: " + numEntities);
+        List<Event> filteredEvents = filterEventsByDate(selectedDateString);
+        eventShower.setLayoutManager(new LinearLayoutManager(TaskCalendar.this));
+        eventShower.setAdapter(new EventAdapter(TaskCalendar.this, filteredEvents, this));
     }
 
 
     private List<Task> filterTasksByDate(String selectedDate) {
         List<Task> filteredTasks = new ArrayList<>();
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
-        String[] dateParts = selectedDate.split(",");
+        String[] dateParts = selectedDate.split("/");
 
-        int day = Integer.parseInt(dateParts[2]);
+        int day = Integer.parseInt(dateParts[0]);
         int month = Integer.parseInt(dateParts[1]);
-        int year = Integer.parseInt(dateParts[0]);
-
-
+        int year = Integer.parseInt(dateParts[2]);
+        Log.v("filter Tasks", String.valueOf(day + ", " +  month + ", " + year));
 
         for (Task task : taskList) {
             try {
-                if (task.getDate() != null) {
-                    Calendar taskCalendar = Calendar.getInstance();
+                if (task.getDate() != null && !task.getStatus()) {
+                    java.util.Calendar taskCalendar = java.util.Calendar.getInstance();
                     taskCalendar.setTime(dateFormat.parse(task.getDate()));
-
+                    // Log the year, month, and date of the task
+                    int taskYear = taskCalendar.get(java.util.Calendar.YEAR);
+                    int taskMonth = taskCalendar.get(java.util.Calendar.MONTH);
+                    int taskDay = taskCalendar.get(java.util.Calendar.DAY_OF_MONTH);
+                    Log.v("TaskDate", "Year: " + taskYear + ", Month: " + taskMonth + ", Day: " + taskDay);
                     // Check if the task date matches the selected date
-                    if (year == taskCalendar.get(Calendar.YEAR) &&
-                            month == taskCalendar.get(Calendar.MONTH) &&
-                            day == taskCalendar.get(Calendar.DAY_OF_MONTH)) {
+                    if (year == taskCalendar.get(java.util.Calendar.YEAR) &&
+                            month - 1 == taskCalendar.get(java.util.Calendar.MONTH) &&
+                            day == taskCalendar.get(java.util.Calendar.DAY_OF_MONTH)) {
                         filteredTasks.add(task);
                     }
                 }
@@ -242,34 +183,73 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
                 e.printStackTrace();
             }
         }
-
+        int numEntities = filteredTasks.size();
+        Log.v("FilteredTasksSize", "Number of entities: " + numEntities);
         return filteredTasks;
     }
 
-    public void saveData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-
-        editor.putString(DATE_SAVED, selectedDateString2);
-        editor.apply();
-        Log.v("Saved Date From SP", selectedDateString2);
-    }
-
-    public void loadData() {
-        SharedPreferences sharedPreferences = getSharedPreferences(SHARED_PREFS, MODE_PRIVATE);
-        selectedDateString2 = sharedPreferences.getString(DATE_SAVED, "10,6,2023");
-
-        Log.v("Load Date From SP", selectedDateString2);
-
+    private List<Event> filterEventsByDate(String selectedDate) {
+        List<Event> filteredEvents = new ArrayList<>();
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yy", Locale.getDefault());
+        String[] dateParts = selectedDate.split("/");
+        int day = Integer.parseInt(dateParts[0]);
+        int month = Integer.parseInt(dateParts[1]);
+        int year = Integer.parseInt(dateParts[2]);
+        Log.v("filter Events", String.valueOf(day + ", " +  month + ", " + year));
+        for (Event event : eventList) {
+            try {
+                if (event.getStartDate() != null) {
+                    java.util.Calendar Calendar = java.util.Calendar.getInstance();
+                    Calendar.setTime(dateFormat.parse(event.getStartDate()));
+                    // Log the year, month, and date of the task
+                    int eventYear = Calendar.get(java.util.Calendar.YEAR);
+                    int eventMonth = Calendar.get(java.util.Calendar.MONTH);
+                    int eventDay = Calendar.get(java.util.Calendar.DAY_OF_MONTH);
+                    // Check if the task date matches the selected date
+                    if (year == Calendar.get(java.util.Calendar.YEAR) &&
+                            month - 1 == Calendar.get(java.util.Calendar.MONTH) &&
+                            day == Calendar.get(java.util.Calendar.DAY_OF_MONTH)) {
+                        filteredEvents.add(event);
+                    }
+                }
+            } catch (ParseException e) {
+                e.printStackTrace();
+            }
+        }
+        int numEntities = filteredEvents.size();
+        Log.v("FilteredEventsSize", "Number of entities: " + numEntities);
+        return filteredEvents;
     }
 
     @Override
     public void onItemClicked(Event event) {
-
+        // Handle the click event for the task items in the RecyclerView
+        // For example, you can display a dialog or navigate to a new activity
+        Intent intent = new Intent(TaskCalendar.this, EditEvent.class);
+        // Pass the task data to the EditTaskActivity using intent extras
+        intent.putExtra("ID", event.getId());
+        intent.putExtra("USERNAME", event.getUsername());
+        intent.putExtra("START_DATE", event.getStartDate());
+        intent.putExtra("END_DATE", event.getEndDate());
+        intent.putExtra("START_TIME", event.getStartTime());
+        intent.putExtra("END_TIME", event.getEndTime());
+        intent.putExtra("DESCRIPTION", event.getDescription());
+        intent.putExtra("TITLE", event.getTitle());
+        startActivity(intent);
     }
 
-    @Override
     public void onTaskItemClicked(Task task) {
-
+        Intent intent = new Intent(TaskCalendar.this, EditTask.class);
+        intent.putExtra("USERNAME", task.getUsername());
+        intent.putExtra("TITLE", task.getTitle());
+        intent.putExtra("DATE", task.getDate());
+        intent.putExtra("TAG", task.getTag());
+        intent.putExtra("STATUS", task.getStatus());
+        intent.putExtra("TIMESPENT", task.getTimespent());
+        intent.putExtra("SESSIONS", task.getSessions());
+        intent.putExtra("CATEGORY", task.getCategory());
+        intent.putExtra("COLLABORATORS", task.getCollaborators());
+        startActivity(intent);
     }
+
 }
