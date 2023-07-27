@@ -15,7 +15,7 @@
         android:text="Search Friend"
         android:textStyle="bold"
         android:textColor="@android:color/white"
-        android:textSize="20sp"
+        android:textSize="30sp"
         android:padding="10dp" />
 
     <SearchView

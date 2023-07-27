@@ -2,13 +2,9 @@ package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 
-import android.annotation.SuppressLint;
 import android.content.DialogInterface;
-import android.content.Intent;
+
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.util.Log;
@@ -17,7 +13,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.NumberPicker;
 import android.widget.ProgressBar;
-import android.widget.SeekBar;
+
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,11 +40,6 @@ public class PomodoroTimer extends AppCompatActivity {
     private NumberPicker hourPicker, minutePicker, restpicker;
 
 
-    private TextView workDurationTextView;
-
-    private TextView restDurationTextView;
-
-    private TextView longRestDurationTextView;
 
     private DatabaseReference userTask;
 
@@ -209,6 +200,7 @@ public class PomodoroTimer extends AppCompatActivity {
                             }
                         });
                         dialog.dismiss();
+                        finish();
                     }
                 });
 
@@ -334,6 +326,7 @@ public class PomodoroTimer extends AppCompatActivity {
                 timeLeftInMillis = millisUntilFinished;
                 updateTimerText();
                 updateProgressBar();
+
             }
 
             @Override
@@ -389,7 +382,7 @@ public class PomodoroTimer extends AppCompatActivity {
                 updateProgressBar();
                 startButton.setText("Start");
             }
-        };;
+        };
 
         countDownTimer.start();
         isTimerRunning = true;
@@ -407,17 +400,6 @@ public class PomodoroTimer extends AppCompatActivity {
         resetButton.setEnabled(true);
         endButton.setEnabled(true);
     }
-
-
-//    private void pauseTimer() {
-//        countDownTimer.cancel();
-//        isTimerRunning = false;
-//        isPaused = true;
-//        startButton.setText("Start");
-//        resetButton.setEnabled(true);
-//        endButton.setEnabled(true);
-//    }
-
 
     private void resetTimer() {
         if (countDownTimer != null) {
@@ -452,6 +434,12 @@ public class PomodoroTimer extends AppCompatActivity {
             timeLeftFormatted = String.format(Locale.getDefault(), "%02d:%02d", minutes, seconds);
         }
         timerTextView.setText(timeLeftFormatted);
+        if (hours==0 && minutes == 5 && seconds == 0) {
+            Toast.makeText(PomodoroTimer.this, "5 minutes remaining!", Toast.LENGTH_SHORT).show();
+        }
+        if (hours==0 && minutes == 5 && seconds == 5) {
+            Toast.makeText(PomodoroTimer.this, "5 seconds remaining!", Toast.LENGTH_SHORT).show();
+        }
     }
 
 
