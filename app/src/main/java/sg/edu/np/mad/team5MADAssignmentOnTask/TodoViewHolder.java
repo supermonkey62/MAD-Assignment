@@ -30,6 +30,7 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
         task = view.findViewById(R.id.checkbox);
         tasktimerlink = view.findViewById(R.id.tasktimer);
         dateoftask = view.findViewById(R.id.taskdatetodo);
+        collaboratorsTextView = view.findViewById(R.id.taskCollaboratorsText2);
 
         tasktimerlink.setOnClickListener(new View.OnClickListener() {
             @Override
