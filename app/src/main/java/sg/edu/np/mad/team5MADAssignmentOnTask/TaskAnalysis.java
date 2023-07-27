@@ -35,6 +35,9 @@ import com.github.mikephil.charting.formatter.ValueFormatter;
 import java.text.ParseException;
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -395,18 +398,28 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
             }
         }
 
+        // Sort the map entries based on the month's order
+        List<Map.Entry<String, Integer>> sortedEntries = new ArrayList<>(completedTasksByMonth.entrySet());
+        Collections.sort(sortedEntries, new Comparator<Map.Entry<String, Integer>>() {
+            @Override
+            public int compare(Map.Entry<String, Integer> entry1, Map.Entry<String, Integer> entry2) {
+                // Assuming the month names are in the format "Jan", "Feb", ..., "Dec"
+                String[] monthOrder = {"Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"};
+                return Arrays.asList(monthOrder).indexOf(entry1.getKey()) - Arrays.asList(monthOrder).indexOf(entry2.getKey());
+            }
+        });
+
         // Create line entries
         ArrayList<Entry> entries = new ArrayList<>();
         ArrayList<String> labels = new ArrayList<>();
 
-        int index = 0;
-        for (Map.Entry<String, Integer> entry : completedTasksByMonth.entrySet()) {
+        // Populate entries and labels in the sorted order
+        for (Map.Entry<String, Integer> entry : sortedEntries) {
             String month = entry.getKey();
             int count = entry.getValue();
-            entries.add(new Entry(index, count));
+            entries.add(new Entry(labels.size(), count));
             labels.add(month);
             Log.v("month", month);
-            index++;
         }
 
         // Create a dataset using the entries
@@ -431,16 +444,7 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // Set a minimum interval for displaying values to 1 (one month)
-        xAxis.setValueFormatter(new ValueFormatter() {
-            @Override
-            public String getFormattedValue(float value) {
-                int index = (int) value;
-                if (index >= 0 && index < labels.size()) {
-                    return labels.get(index);
-                }
-                return "";
-            }
-        });
+        xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
 
         lineChart.getAxisLeft().setEnabled(false);
 
@@ -449,6 +453,8 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         // Refresh the chart
         lineChart.invalidate();
     }
+
+
     private String getCurrentDate() {
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         return dateFormat.format(new Date());
