@@ -1,6 +1,7 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,15 +24,18 @@ import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
 
 
 public class FriendFragment extends Fragment implements UserDataHolder.UserResultDataCallback {
     private String currentUsername;
-    private MutableLiveData<List<User>> userList = new MutableLiveData<>();
-    private MutableLiveData<List<String>> friendsSet = new MutableLiveData<>(new ArrayList<>());
 
 
+    private MutableLiveData<List<User>> userList;
+    private MutableLiveData<List<String>> friendsSet;
 
     private FriendSearchAdaptor adapter;
     private FriendViewModel friendViewModel;
@@ -47,11 +51,12 @@ public class FriendFragment extends Fragment implements UserDataHolder.UserResul
         recyclerView.setLayoutManager(new LinearLayoutManager(requireContext()));
         friendViewModel = new ViewModelProvider(requireActivity(), new FriendViewModel.Factory()).get(FriendViewModel.class);
         sharedFriendViewModel = ((Stage2MainPage) getActivity()).getSharedFriendViewModel();
-        userList = friendViewModel.getUserListLiveData();
-        friendsSet = friendViewModel.getFriendsSetLiveData();
         currentUsername = getActivity().getIntent().getStringExtra("USERNAME");
+        adapter = new FriendSearchAdaptor(new ArrayList<>(), "", currentUsername);
+        recyclerView.setAdapter(adapter);
 
         observeViewModel();
+        fetchAndSetFriendsListFromFirebase();
 
         if (currentUsername == null) {
             Log.e("FriendFragment", "Current username is null");
@@ -62,17 +67,27 @@ public class FriendFragment extends Fragment implements UserDataHolder.UserResul
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<User> userList = new ArrayList<>();
-                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    User user = userSnapshot.getValue(User.class);
-                    if (user != null && !user.getUsername().equals(currentUsername)) {
-                        userList.add(user);
+                Log.d("FriendFragment", "DataSnapshot: " + dataSnapshot.toString());
+                GenericTypeIndicator<HashMap<String, User>> userType = new GenericTypeIndicator<HashMap<String, User>>() {};
+                HashMap<String, User> userMap = dataSnapshot.getValue(userType);
+
+                if (userMap != null) {
+                    List<User> userList = new ArrayList<>(userMap.values());
+
+                    if (userList != null) {
+                        List<User> filteredUserList = new ArrayList<>();
+                        for (User user : userList) {
+                            if (user != null && currentUsername != null && !user.getUsername().equals(currentUsername)) {
+                                filteredUserList.add(user);
+                            }
+                        }
+                        friendViewModel.getUserListLiveData().setValue(filteredUserList);
+                        fetchFriendsSet();
                     }
                 }
-                friendViewModel.getUserListLiveData().setValue(userList);
-                fetchUserListFromFirebase();
-                fetchFriendsSet();
+
             }
+
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -104,6 +119,15 @@ public class FriendFragment extends Fragment implements UserDataHolder.UserResul
         return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (adapter != null) {
+            adapter.notifyDataSetChanged();
+            fetchFriendsSet();
+        }
+    }
+
     private List<User> filterUserList(String query) {
         List<User> userList = friendViewModel.getUserListLiveData().getValue();
         if (userList == null) {
@@ -128,15 +152,29 @@ public class FriendFragment extends Fragment implements UserDataHolder.UserResul
         usersRef.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                List<User> userList = new ArrayList<>();
-                for (DataSnapshot userSnapshot : dataSnapshot.getChildren()) {
-                    User user = userSnapshot.getValue(User.class);
-                    if (user != null && currentUsername != null && !user.getUsername().equals(currentUsername)) {
-                        userList.add(user);
+                // Get the hashmap of users
+                GenericTypeIndicator<HashMap<String, User>> typeIndicator = new GenericTypeIndicator<HashMap<String, User>>() {};
+                HashMap<String, User> usersMap = dataSnapshot.getValue(typeIndicator);
+
+                if (usersMap != null) {
+                    // Convert hashmap to list of users
+                    List<User> userList = new ArrayList<>(usersMap.values());
+
+                    // Remove the current user from the list
+                    Iterator<User> iterator = userList.iterator();
+                    while (iterator.hasNext()) {
+                        User user = iterator.next();
+                        if (user.getUsername().equals(currentUsername)) {
+                            iterator.remove();
+                            break;
+                        }
                     }
+
+                    // Update the LiveData with the user list
+                    friendViewModel.getUserListLiveData().setValue(userList);
                 }
 
-                friendViewModel.getUserListLiveData().setValue(userList);
+                fetchFriendsSet();
             }
 
             @Override
@@ -146,11 +184,12 @@ public class FriendFragment extends Fragment implements UserDataHolder.UserResul
         });
     }
 
+
     @Override
-    public void onUserResultDataFetched(String displayname, List<String> friendSet) {
-        if (adapter != null) {
-            // Update the adapter with the friends list
-            adapter.updateFriendsSet(friendSet);
+    public void onUserResultDataFetched(String displayname, String friendSet) {
+        if (userList != null && adapter != null) {
+            // Update the adapter with the friendsSet as a comma-separated string
+            adapter.updateFriendsSet(TextUtils.join(",", friendsSet.getValue()));
 
             // Iterate through each user in the userList to fetch and set their displayname
             List<User> userListData = userList.getValue();
@@ -159,7 +198,37 @@ public class FriendFragment extends Fragment implements UserDataHolder.UserResul
                     fetchAndSetDisplayName(user);
                 }
             }
+            adapter.notifyDataSetChanged();
         }
+    }
+
+    private void fetchAndSetFriendsListFromFirebase() {
+        DatabaseReference currentUserRef = FirebaseDatabase.getInstance()
+                .getReference().child("Users").child(currentUsername).child("friendsList");
+        currentUserRef.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String friendsListString = dataSnapshot.getValue(String.class);
+                    if (friendsListString == null || friendsListString.isEmpty()) {
+                        // If the string is empty, there are no friends, so create an empty list
+                        friendsSet.setValue(new ArrayList<>());
+                    } else {
+                        // Convert the comma-separated string to a List
+                        List<String> friendsList = new ArrayList<>(Arrays.asList(friendsListString.split(",")));
+                        friendsSet.setValue(friendsList);
+
+                        // Print out the contents of the friendsList for debugging purposes
+                        Log.d("FriendFragment", "Friends List: " + friendsList);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                // Handle error if data retrieval is canceled or fails
+            }
+        });
     }
 
 
@@ -170,19 +239,17 @@ public class FriendFragment extends Fragment implements UserDataHolder.UserResul
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
-                    // Use GenericTypeIndicator to retrieve the List<String> data
-                    GenericTypeIndicator<List<String>> friendsListType = new GenericTypeIndicator<List<String>>() {};
-                    List<String> friendsList = dataSnapshot.getValue(friendsListType);
-                    if (friendsList == null) {
-                        friendsList = new ArrayList<>();
-                    }
-                    // Update the LiveData with the retrieved friends list
-                    friendsSet.setValue(friendsList);
+                    String friendsListString = dataSnapshot.getValue(String.class);
+                    if (friendsListString == null || friendsListString.isEmpty()) {
+                        // If the string is empty, there are no friends, so create an empty list
+                        friendsSet.setValue(new ArrayList<>());
+                    } else {
+                        // Convert the comma-separated string to a List
+                        List<String> friendsList = new ArrayList<>(Arrays.asList(friendsListString.split(",")));
+                        friendsSet.setValue(friendsList);
 
-                    // Print out the contents of the friendsList for debugging purposes
-                    Log.d("FriendFragment", "Friends List:");
-                    for (String friend : friendsList) {
-                        Log.d("FriendFragment", friend);
+                        // Print out the contents of the friendsList for debugging purposes
+                        Log.d("FriendFragment", "Friends List: " + friendsList);
                     }
                 }
             }
@@ -196,12 +263,6 @@ public class FriendFragment extends Fragment implements UserDataHolder.UserResul
 
 
 
-
-
-
-
-
-
     private void fetchAndSetDisplayName(User user) {
         // Create an instance of UserDataHolder
         UserDataHolder userDataHolder = UserDataHolder.getInstance();
@@ -209,7 +270,7 @@ public class FriendFragment extends Fragment implements UserDataHolder.UserResul
         // Fetch user data for the specific user
         userDataHolder.fetchUserDataForUser(user.getUsername(), new UserDataHolder.UserResultDataCallback() {
             @Override
-            public void onUserResultDataFetched(String displayname, List<String> friendsSet) {
+            public void onUserResultDataFetched(String displayname, String friendsSet) {
                 if (displayname != null) {
                     user.setDisplayname(displayname);
                     adapter.notifyDataSetChanged();
@@ -220,21 +281,15 @@ public class FriendFragment extends Fragment implements UserDataHolder.UserResul
 
 
     private void observeViewModel() {
-        currentUsername = getActivity().getIntent().getStringExtra("USERNAME");
-
         userList = friendViewModel.getUserListLiveData();
         friendsSet = friendViewModel.getFriendsSetLiveData();
 
         userList.observe(getViewLifecycleOwner(), new Observer<List<User>>() {
             @Override
             public void onChanged(List<User> userList) {
-                if (userList != null) {
-                    if (adapter == null) {
-                        adapter = new FriendSearchAdaptor(userList, friendsSet.getValue(), currentUsername);
-                        recyclerView.setAdapter(adapter);
-                    } else {
-                        adapter.updateUserList(userList);
-                    }
+                if (userList != null && adapter != null) {
+                    // Update the adapter with the new userList
+                    adapter.updateData(userList, TextUtils.join(",", friendsSet.getValue()));
                     adapter.notifyDataSetChanged();
                 }
             }
@@ -243,15 +298,18 @@ public class FriendFragment extends Fragment implements UserDataHolder.UserResul
         friendsSet.observe(getViewLifecycleOwner(), new Observer<List<String>>() {
             @Override
             public void onChanged(List<String> friendsSet) {
-                if (friendsSet != null) {
-                    if (adapter != null) {
-                        adapter.updateFriendsSet(friendsSet);
-                        adapter.notifyDataSetChanged();
-                    }
+                if (friendsSet != null && adapter != null) {
+                    // Update the friendsSet in the adapter when it changes
+                    adapter.updateFriendsSet(TextUtils.join(",", friendsSet));
+                    adapter.notifyDataSetChanged();
                 }
             }
         });
     }
+
+
+
+
 
 
 

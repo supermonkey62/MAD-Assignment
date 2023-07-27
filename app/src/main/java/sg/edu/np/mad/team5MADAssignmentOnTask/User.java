@@ -1,16 +1,17 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
+import android.text.TextUtils;
 import android.util.Log;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 
 public class User {
-    private String username, password,displayname, ImageURI, collaboratedtasks;
+    private String username, password,displayname, ImageURI, collaboratedtasks, friendList;
     private int eventCount, taskCount;
     private boolean isFriend;
-    private List<String> friendList;
     public User() {
     }
 
@@ -22,7 +23,7 @@ public class User {
         this.eventCount = eventCount;
         this.taskCount = taskCount;
         this.collaboratedtasks = collaboratedtasks;
-        this.friendList = new ArrayList<>();
+        this.friendList = "";
     }
 
     public String getUsername() {
@@ -76,12 +77,28 @@ public class User {
     public void setFriend(boolean friend) {
         isFriend = friend;
     }
-    public List<String> getFriendList() {
+    public String getFriendList() {
         return friendList;
     }
 
-    public void setFriendList(List<String> friendList) {
+    public void setFriendList(String friendList) {
         this.friendList = friendList;
+    }
+
+    // Add a new friend username to the friendList (comma-separated string format)
+    public void addFriend(String friendUsername) {
+        if (friendList.isEmpty()) {
+            friendList = friendUsername;
+        } else {
+            friendList += "," + friendUsername;
+        }
+    }
+
+    // Remove a friend username from the friendList (comma-separated string format)
+    public void removeFriend(String friendUsername) {
+        List<String> friendsList = new ArrayList<>(Arrays.asList(friendList.split(",")));
+        friendsList.remove(friendUsername);
+        friendList = TextUtils.join(",", friendsList);
     }
 
     @Override
