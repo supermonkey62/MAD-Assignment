@@ -77,6 +77,7 @@ public class EditTask extends AppCompatActivity {
         taskDate.setText(selectedDate);
         titleEdit.setText(title);
 
+
         fetchCollaboratorUsers();
 
         String[] categories = {"Personal Tasks", "School Task", "Assignments", "Projects", "Errands and Shopping Tasks", "Health and Fitness Tasks"};
@@ -97,28 +98,43 @@ public class EditTask extends AppCompatActivity {
                         int existingSession = existingTask.getSessions();
                         String category = existingTask.getCategory();
                         Log.v("Username", tag);
-                        if (newCollaborators == "NIL") {
-                            Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent, existingSession, category, collaborators, false);
+
+                        if (collaboratorUsersList.isEmpty() && selectedUsers == null) {
+                            // If there are no collaborators and no selected users,
+                            // directly update the task with new data and empty collaborators
+                            Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent, existingSession, category, "NIL", false);
                             userTask.child(tag).setValue(newTask);
                             finish();
                         }
                         else {
-                            Log.v("newCollaber", newCollaborators);
-                            updateCollaboratorsTasks();
-                            Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent, existingSession, category, newCollaborators, false);
-                            userTask.child(tag).setValue(newTask);
-                            Log.v("newCollab", newCollaborators);
-                            finish();
+                            if (newCollaborators.equals("NIL")) {
+                                if (selectedUsers != null) {
+                                    updateCollaboratorsTasks();
+                                }
 
+                                Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent, existingSession, category, collaborators, false);
+                                userTask.child(tag).setValue(newTask);
+                                finish();
+                            }
+                            else {
+                                Log.v("newCollaber", newCollaborators);
+                                updateCollaboratorsTasks();
+                                Task newTask = new Task(username, taskTitle, selectedDate, tag, status, existingTimeSpent, existingSession, category, newCollaborators, false);
+                                userTask.child(tag).setValue(newTask);
+                                Log.v("newCollab", newCollaborators);
+                                finish();
+                            }
                         }
                     } else {
                         Log.v("TaskCount", tag + " does not exist.");
                     }
                 }
+
                 @Override
-                public void onCancelled(DatabaseError databaseError) {
-                    Log.v("LoginPage", "Error: " + databaseError.getMessage());
+                public void onCancelled(@NonNull DatabaseError error) {
+
                 }
+                // ... Rest of the code ...
             });
         });
 
@@ -187,7 +203,7 @@ public class EditTask extends AppCompatActivity {
         SharedPreferences preferences = getSharedPreferences("MyPrefs", MODE_PRIVATE);
         String selectedUsersJson = preferences.getString("SELECTED_USERS", "");
         selectedUsers = new Gson().fromJson(selectedUsersJson, new TypeToken<List<User>>() {}.getType());
-
+        Log.d("Selected Users", selectedUsers != null ? selectedUsers.toString() : "null");
 
         if (selectedUsers == null || selectedUsers.isEmpty()) {
             // If selectedUsers is null or empty, set collaborators to "NIL"
@@ -214,7 +230,7 @@ public class EditTask extends AppCompatActivity {
         Log.v("updateCollaborators", "Entering updateCollaboratorsTasks()");
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
 
-        if(!collaboratorUsersList.isEmpty()) {
+        if (!collaboratorUsersList.isEmpty()) {
             Log.v("updateCollaborators", "Entering if portion");
             for (User collaboratorUser : collaboratorUsersList) {
                 String collaboratorUsername = collaboratorUser.getUsername();
@@ -222,71 +238,60 @@ public class EditTask extends AppCompatActivity {
 
                 // Check if the collaborator exists in selectedUsers list
                 if (!selectedUsers.contains(collaboratorUser)) {
-
-                    for (User selectedUser : selectedUsers) {
-                        Log.v("Selected Username", selectedUser.toString());
-                    }
-                    Log.v("Collaborator username", collaboratorUser.toString());
-                    // If the collaborator exists in collaboratorUsersList but not in selectedUsers
+                    // If the collaborator is not in selectedUsers, remove the taskId from the collaboratedtasks
                     String currentCollaboratedTasks = collaboratorUser.getCollaboratedtasks();
-                    // Split the current collaborated tasks string by commas and convert it to a list
                     List<String> collaboratedTasksList = new ArrayList<>(Arrays.asList(currentCollaboratedTasks.split(",")));
-                    // Remove the taskId from the list
                     collaboratedTasksList.remove(tag);
-                    // Convert the list back to a comma-separated string
                     String updatedCollaboratedTasks = TextUtils.join(",", collaboratedTasksList);
-                    // Set "NIL" if the collaborated tasks are empty
                     if (updatedCollaboratedTasks.isEmpty()) {
                         updatedCollaboratedTasks = "NIL";
                     }
+
                     // Update the collaborator's collaborated tasks in the database
                     collaboratorUser.setCollaboratedtasks(updatedCollaboratedTasks);
-                    usersRef.child(collaboratorUsername).setValue(collaboratorUser);
+                    usersRef.child(collaboratorUsername).child("collaboratedtasks").setValue(updatedCollaboratedTasks);
+
+                    // Update the collaborators field of the Task object
+                    collaborators = TextUtils.join(",", selectedUsers);
                 }
-
-                else if (selectedUsers.contains(collaboratorUser)) {
-                    // If the collaborator in selectedUsers
-                    String currentCollaboratedTasks = collaboratorUser.getCollaboratedtasks();
-                    String updatedCollaboratedTasks;
-                    List<String> collaboratedTasksList = new ArrayList<>(Arrays.asList(currentCollaboratedTasks.split(",")));
-
-                    // If the current collaborated tasks are "NIL," set to the new tag
-                    if ("NIL".equals(currentCollaboratedTasks)) {
-                        updatedCollaboratedTasks = tag;
-                    }
-                    else {
-                        for (String collabTask : collaboratedTasksList) {
-                            if (collabTask == tag) {
-                                collaboratedTasksList.add(tag);
-                            }
-                        }
-                        updatedCollaboratedTasks = TextUtils.join(",", collaboratedTasksList);
-                    }
-                    // Update the collaborator's collaborated tasks in the database
-                    collaboratorUser.setCollaboratedtasks(updatedCollaboratedTasks);
-                    usersRef.child(collaboratorUsername).setValue(collaboratorUser);
-                }
-
             }
         }
-        else {
-            Log.v("updateCollaborators", "Entering else portion");
-            for (User selectedUser : selectedUsers) {
-                String currentCollaboratedTasks = selectedUser.getCollaboratedtasks();
-                String updatedCollaboratedTasks;
-                if ("NIL".equals(currentCollaboratedTasks)) {
-                    updatedCollaboratedTasks = tag;
-                } else {
-                    // Append the tag to the current collaborated tasks
-                    updatedCollaboratedTasks = currentCollaboratedTasks + "," + tag;
-                }
 
+        // Now, we need to handle selectedUsers regardless of collaboratorUsersList size
+        for (User selectedUser : selectedUsers) {
+            String currentCollaboratedTasks = selectedUser.getCollaboratedtasks();
+            Log.v("collab string", selectedUser.getUsername() + ", " + currentCollaboratedTasks);
+
+            // If the current collaborated tasks are "NIL," set to the new tag
+            if ("NIL".equals(currentCollaboratedTasks)) {
                 // Update the collaborator's collaborated tasks in the database
-                selectedUser.setCollaboratedtasks(updatedCollaboratedTasks);
-                usersRef.child(selectedUser.getUsername()).child("collaboratedtasks").setValue(updatedCollaboratedTasks);
+                selectedUser.setCollaboratedtasks(tag);
+                usersRef.child(selectedUser.getUsername()).child("collaboratedtasks").setValue(tag);
+            } else {
+                List<String> collaboratedTasksList = new ArrayList<>(Arrays.asList(currentCollaboratedTasks.split(",")));
+
+                // Check if the tag already exists in the collaboratedTasksList
+                if (!collaboratedTasksList.contains(tag)) {
+                    // If the tag doesn't exist, add it to the list
+                    collaboratedTasksList.add(tag);
+                    // Convert the list back to a comma-separated string
+                    String updatedCollaboratedTasks = TextUtils.join(",", collaboratedTasksList);
+                    // Update the collaborator's collaborated tasks in the database
+                    selectedUser.setCollaboratedtasks(updatedCollaboratedTasks);
+                    usersRef.child(selectedUser.getUsername()).child("collaboratedtasks").setValue(updatedCollaboratedTasks);
+                }
+                // If the tag already exists in the collaboratedTasksList, no changes needed
             }
+        }
+
+        // Finally, update the collaborators field of the Task object
+        if (selectedUsers.isEmpty()) {
+            collaborators = "NIL";
+        } else {
+            collaborators = TextUtils.join(",", selectedUsers);
         }
     }
+
 
     private void fetchCollaboratorUsers() {
         DatabaseReference usersRef = FirebaseDatabase.getInstance().getReference("Users");
