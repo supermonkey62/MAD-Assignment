@@ -12,6 +12,7 @@
     <string name="login_text">Login</string>
     <string name="register_text">New User? Register Here!</string>
     <string name="username_text">Username</string>
+    <string name="display_name_text">Display Name</string>
     <string name="password_text">Password</string>
     <string name="login_page_text">Login Page</string>
 
@@ -40,5 +41,11 @@
     <string name="add_text">Add</string>
     <string name="date_format_text">Date (dd/mm/yyyy)</string>
 
+
+    <string name="Edit_Profile">Edit Profile Image</string>
+    <string name="Edit_Banner">Edit Banner</string>
+    <string name="Confirm_Edit">Confirm Edit</string>
+    <string name="Change_Password">Change Password</string>
+    <string name="Confirm_Password">Confirm Password Change</string>
 
 </resources>

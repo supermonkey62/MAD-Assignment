@@ -112,7 +112,7 @@ public class RegisterUser extends AppCompatActivity {
                                             + '/' + resources.getResourceEntryName(imageResId));
                                     String IMAGEURI = imageUri.toString();
 
-                                    User newUser = new User(username, password, username, IMAGEURI, 0, 0, "NIL");
+                                    User newUser = new User(username, password, username, IMAGEURI,"",0, 0, "NIL");
                                     UserCount newUserCount = new UserCount(100, 0, 0, 0, 0);
                                     Date date = new Date();
                                     Calendar calendar = Calendar.getInstance();
