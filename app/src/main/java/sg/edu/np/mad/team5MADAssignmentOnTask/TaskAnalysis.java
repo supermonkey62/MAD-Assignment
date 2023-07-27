@@ -131,12 +131,8 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         BarChart barChart = findViewById(R.id.Barchart1);
         barChart.setData(barData);
         barChart.setTouchEnabled(false);
-        barChart.getDescription().setText("Time Spent by Category");
-        barChart.getDescription().setTextSize(15);
+        barChart.getDescription().setEnabled(false);
 
-        int paddingTop = 40;
-        barChart.setExtraTopOffset(paddingTop);
-        barChart.getDescription().setPosition(barChart.getWidth()/2.5f, 45f);
 
         // Hide X-axis labels
         XAxis xAxis = barChart.getXAxis();
@@ -224,11 +220,7 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         barChartAverageSessionsPerCategory.setData(barData);
         barChartAverageSessionsPerCategory.setTouchEnabled(false);
         barChartAverageSessionsPerCategory.getDescription().setText("Average number of Sessions by Category");
-        barChartAverageSessionsPerCategory.getDescription().setTextSize(15);
-//        int paddingTop = 40;
-//        barChartAverageSessionsPerCategory.setExtraTopOffset(paddingTop);
-//        barChartAverageSessionsPerCategory.getDescription().setPosition(barChartAverageSessionsPerCategory.getWidth()/2.5f, 45f);
-
+        barChartAverageSessionsPerCategory.getDescription().setEnabled(false);
 
         // Hide X-axis labels
         XAxis xAxis = barChartAverageSessionsPerCategory.getXAxis();
@@ -312,11 +304,7 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         pieChart.setEntryLabelTextSize(0f);
         pieChart.getLegend().setEnabled(true);
         pieChart.setTouchEnabled(false);
-        pieChart.getDescription().setText("Number of Tasks by Category");
-        pieChart.getDescription().setTextSize(15);
-//        int paddingTop = 40;
-//        pieChart.setExtraTopOffset(paddingTop);
-//        pieChart.getDescription().setPosition(pieChart.getWidth()/2.5f, 45f);
+        pieChart.getDescription().setEnabled(false);
 
 
 
@@ -375,11 +363,7 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
 
 
         pieChart.setTouchEnabled(false);
-        pieChart.getDescription().setText("Completed Tasks by Category");
-        pieChart.getDescription().setTextSize(15);
-//        int paddingTop = 40;
-//        pieChart.setExtraTopOffset(paddingTop);
-//        pieChart.getDescription().setPosition(pieChart.getWidth()/2.5f, 45f);
+        pieChart.getDescription().setEnabled(false);
 
 
 
@@ -437,12 +421,7 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         // Get the LineChart reference and set the data
         LineChart lineChart = findViewById(R.id.lineChart);
         lineChart.setData(lineData);
-        lineChart.getDescription().setText("Number of Completed Tasks each Month");
-        lineChart.getDescription().setTextSize(15);
-//        int paddingTop = 40;
-//        lineChart.setExtraTopOffset(paddingTop);
-//        lineChart.getDescription().setPosition(lineChart.getWidth()/2.5f, 45f);
-
+        lineChart.getDescription().setEnabled(false);
 
         // Customize x-axis labels
         XAxis xAxis = lineChart.getXAxis();
@@ -549,11 +528,7 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         // Get the BarChart reference and set the data
         BarChart barChartAverageTimePerCategory = findViewById(R.id.barChartAverageTimePerCategory);
         barChartAverageTimePerCategory.setData(barData);
-        barChartAverageTimePerCategory.getDescription().setText("Average Time By Category");
-        barChartAverageTimePerCategory.getDescription().setTextSize(15);
-//        int paddingTop = 40;
-//        barChartAverageTimePerCategory.setExtraTopOffset(paddingTop);
-//        barChartAverageTimePerCategory.getDescription().setPosition(barChartAverageTimePerCategory.getWidth()/2.5f, 45f);
+        barChartAverageTimePerCategory.getDescription().setEnabled(false);
 
         barChartAverageTimePerCategory.setTouchEnabled(false);
 
