@@ -1,6 +1,6 @@
 # MAD-Assignment
 
-Introduction
+Stage 1 Description: <br>
 On Task is a productivity app where users are able to take control and manage their day to day tasks through utlising the features in the app, such as logging their tasks, setting timers to complete these tasks, and gaining a overview of their work week and events to aid in their time management and work completion.
 
 Description
@@ -32,6 +32,56 @@ Shows a more detailed overview of today's task, with their description. Allow us
 6. Timer | Ernqi<br>
 Allow user to set and track the time spent on doing their task while leaving the app running, effectively logging these times for further analytics use in Stage 2.
 
+Stage 2 Description: <br>
+On Task: Time Management & Productivity
+
+Are you constantly juggling between work, studies, and personal commitments, struggling to keep up with the fast-paced world around you? Look no further! Introducing On Task, the all-in-one productivity app designed to empower busy individuals like you to take control of your time and achieve your goals effortlessly.
+
+Effortless Time Management
+
+On Task revolutionizes the way you manage your time. With its intuitive and user-friendly interface, you can effortlessly set up tasks and events, helping you plan your schedule ahead. Say goodbye to chaotic days and missed appointments; with On Task, you'll always be one step ahead of your commitments.
+
+Crystal Clear Scheduling
+
+Staying on top of your daily, weekly, and monthly schedule has never been easier. On Task provides you with clear and comprehensive calendar views, giving you a quick snapshot of what lies ahead. Whether it's a crucial deadline, an important meeting, or a personal milestone, On Task ensures you never miss a beat.
+
+Unlock Achievements, Celebrate Milestones
+
+We believe in celebrating every milestone, no matter how big or small. On Task rewards your hard work with a range of achievements. As you accomplish your tasks and meet your goals, you'll unlock unique titles, borders, and coins. Use your earned coins to customize your On Task profile and treat yourself to in-app wallpapers that resonate with your style.
+
+Insights to Boost Productivity
+
+On Task's task analysis feature provides invaluable insights into your productivity patterns. Visualize your time spent on various tasks, track the number of tasks completed, and identify areas where you can improve efficiency. By understanding your productivity trends, you can optimize your workflow and make the most of every moment.
+
+Connect and Motivate
+
+Productivity thrives in a supportive community, and On Task is no exception. Connect with friends and colleagues within the app, share your achievements, and cheer each other on. Together, you can stay motivated and accountable, ensuring everyone reaches their full potential.
+
+A Personalized Productivity Experience
+
+At On Task, we understand that productivity is not one-size-fits-all. That's why we empower you to customize your app experience. Choose from a wide selection of profile pictures to make your account truly unique. As you unlock achievements, you'll not only earn titles and borders but also the admiration of your peers.
+
+Join the On Task Community
+
+Discover the power of effective time management and see your productivity soar. Join the growing On Task community today and take charge of your life like never before. Whether you're a student, a professional, or anyone seeking a more organized life, On Task is your ultimate productivity partner.
+
+Don't let the chaos of life overwhelm you. Download On Task now and embrace a more organized, productive, and fulfilling life. With On Task, its the perfect companion for all your time management needs!
+
+On Task's Key Features:
+
+Task Planner: Seamlessly schedule your tasks and events, ensuring you never miss a deadline or appointment again. With On Task, you're in control of your time.
+
+Achievement System: Celebrate your accomplishments with a wide array of achievements. Showcase your progress with unique titles and borders.
+
+Task Analytics: Dive deep into your productivity habits with task analysis. Optimize your performance and make the most of your valuable time.
+
+Personalization: Customize your On Task profile with profile picture and banner. Let your achievements speak volumes about your hard work.
+
+About the Developers:
+We are a group of students from Ngee Ann Polytechnic, and developed On Task as part of our App Development Assignment. We hope On Task can benefit you guys in taking control of your schedules, and build towards managing your time!
+
+Join the On Task community today and embark on your journey towards a more organized, productive, and rewarding life. Download now!
+
 Stage 2 Features:
 
 1. Currency System | Jun Rong <br>
@@ -47,7 +97,19 @@ Allow users to find other users on the app by searching for their username to be
 Allows user to view their tasks in a weekly calendar layout, providing a simpler and easy summarised view of their work week.
 
 5. Task Collaboration | Kenneth<br>
-Allow users to colloborate on tasks, whereby the owner shares the task with collaborators.
+Allow users to colloborate on tasks, whereby the owner shares the task with collaborators. Users can utilise this feature to organise group work and projects, as well as keep in sync with project mates and have everyone on the same page.
+
+Stage 2 Improvements:
+
+1. Bottom Navigation Bar :<br>
+Utilised Fragments instead of activities such that transitioning from each app feature is seamless and easy.
+
+2. Colour Scheme:<br>
+Swapped the dull green colour for a darker aqua colour scheme.
+
+3. Text Input Layout/ Edit Texts:<br>
+Replaced EditTexts with TextInputLayouts, to provide a better input receiver that gives the user a clear understanding of which text box they are entering their inputs into.
+
 
 
 **Attributions for Images Used**
