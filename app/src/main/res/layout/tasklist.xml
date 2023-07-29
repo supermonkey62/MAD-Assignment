@@ -10,61 +10,56 @@
     app:cardElevation="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:layout_width="389dp"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:padding="16dp">
 
         <CheckBox
             android:id="@+id/checkbox"
             android:layout_width="238dp"
             android:layout_height="45dp"
+            android:layout_marginStart="13dp"
             android:text="This is a task"
-            android:textSize="20dp"
             android:textColor="@color/black"
-            app:layout_constraintBottom_toTopOf="@+id/taskdatetodo"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            android:textSize="20dp"
+            app:layout_constraintStart_toEndOf="@+id/tasktimer"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/tasktimer"
             android:layout_width="55dp"
-            android:layout_height="55dp"
+            android:layout_height="56dp"
+            android:layout_marginStart="8dp"
             android:clickable="true"
             app:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/checkbox"
+            app:layout_constraintEnd_toStartOf="@+id/checkbox"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.504"
             app:srcCompat="@android:drawable/ic_menu_recent_history" />
 
         <TextView
             android:id="@+id/taskdatetodo"
-            android:layout_width="222dp"
-            android:layout_height="30dp"
-            android:layout_marginTop="48dp"
+            android:layout_width="217dp"
+            android:layout_height="28dp"
+            android:layout_marginStart="13dp"
             android:text="TextView"
             android:textColor="@color/black"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintStart_toEndOf="@+id/tasktimer"
+            app:layout_constraintTop_toBottomOf="@+id/checkbox" />
 
         <TextView
             android:id="@+id/taskCollaboratorsText2"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
+            android:layout_width="298dp"
+            android:layout_height="38dp"
+            android:layout_marginStart="13dp"
             android:text="Collaborators"
+            android:visibility="gone"
             android:textColor="@color/black"
             android:textSize="15sp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/taskdatetodo"
-            app:layout_constraintVertical_bias="0.0" />
+            app:layout_constraintStart_toEndOf="@+id/tasktimer"
+            app:layout_constraintTop_toBottomOf="@+id/taskdatetodo" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>
