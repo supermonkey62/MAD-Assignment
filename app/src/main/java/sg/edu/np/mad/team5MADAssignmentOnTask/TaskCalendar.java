@@ -94,9 +94,13 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
         add.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Make addtask and addevent views visible
-                addtask.setVisibility(View.VISIBLE);
-                addevent.setVisibility(View.VISIBLE);
+                if (addtask.getVisibility() == View.VISIBLE && addevent.getVisibility() == View.VISIBLE) {
+                    addtask.setVisibility(View.GONE);
+                    addevent.setVisibility(View.GONE);
+                } else {
+                    addtask.setVisibility(View.VISIBLE);
+                    addevent.setVisibility(View.VISIBLE);
+                }
             }
         });
 

@@ -52,9 +52,9 @@
         android:backgroundTint="@color/white"
         android:src="@drawable/baseline_calendar_month_24"
         app:tint="@color/app_theme"
-        android:layout_gravity="center_horizontal"
+        android:layout_gravity="start"
         app:layout_anchor="@id/bottomAppBar"
-        android:layout_marginStart="120dp"
+        android:layout_marginStart="100dp"
         android:visibility="gone"
         />
 
@@ -69,10 +69,6 @@
         app:layout_anchor="@id/bottomAppBar"
         app:layout_anchorGravity="right"
         android:visibility="gone"
-        android:layout_marginEnd="120dp"/>
-
-
-
-
+        android:layout_marginEnd="100dp"/>
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

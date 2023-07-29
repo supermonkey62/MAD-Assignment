@@ -66,6 +66,8 @@
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         app:layout_constraintTop_toTopOf="@id/whitebox"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:startIconDrawable="@drawable/baseline_person_24"
         android:layout_marginTop="20dp">
 
@@ -89,6 +91,8 @@
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         app:layout_constraintTop_toBottomOf="@id/usernameInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:startIconDrawable="@drawable/baseline_lock_24"
         android:layout_marginTop="30dp">
 
@@ -111,6 +115,8 @@
         android:layout_marginStart="40dp"
         android:layout_marginEnd="40dp"
         app:layout_constraintTop_toBottomOf="@id/passwordInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:startIconDrawable="@drawable/baseline_lock_24"
         android:layout_marginTop="30dp">
 

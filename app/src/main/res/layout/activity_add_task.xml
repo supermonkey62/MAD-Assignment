@@ -63,6 +63,9 @@
         android:id="@+id/taskTitleInputLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:boxStrokeColor="@color/app_theme"
+        style="@style/CustomOutlinedBox"
+        app:boxStrokeWidth="2dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/taskdate"
         android:layout_marginStart="32dp"
@@ -74,12 +77,9 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/titleEdit"
-            style="@style/CustomOutlinedBox"
-            app:boxStrokeColor="@color/app_theme"
-            app:boxStrokeWidth="2dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/button_colour" />
+            android:inputType="text"/>
 
     </com.google.android.material.textfield.TextInputLayout>
 

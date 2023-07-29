@@ -1,8 +1,8 @@
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     android:background="@color/app_theme"
     tools:context=".FriendFragment">
@@ -11,26 +11,33 @@
         android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         android:text="Search Friend"
         android:textStyle="bold"
         android:textColor="@android:color/white"
         android:textSize="30sp"
-        android:padding="10dp" />
+        android:padding="10dp"
+        android:layout_marginTop="20dp"/>
 
     <SearchView
         android:id="@+id/friendSearch"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:padding="10dp"
-        android:queryHint="Search friend"/>
+        android:queryHint="Search friend"
+        app:layout_constraintTop_toBottomOf="@id/titleTextView"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/usersResult"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/friendSearch"
+        android:layout_marginBottom="90dp"
         android:background="@color/transparent"
         android:layout_weight="1"
         android:padding="15dp" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

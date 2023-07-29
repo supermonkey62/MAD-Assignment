@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     xmlns:tools="http://schemas.android.com/tools"
     app:cardElevation="8dp"
-    app:cardCornerRadius="24dp"
+    app:cardCornerRadius="8dp"
     android:layout_margin="8dp"
     android:id="@+id/main_container"
     android:backgroundTint="@color/white">

@@ -4,14 +4,17 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <TextView
         android:id="@+id/textView2"
         android:layout_width="96dp"
         android:layout_height="70dp"
         android:text="Tasks"
         android:textSize="34sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/tasksRecyclerView"
@@ -34,6 +37,5 @@
         android:layout_marginBottom="36dp"
         android:clickable="true"
         app:srcCompat="@android:drawable/ic_menu_add" />
-
 
 </RelativeLayout>

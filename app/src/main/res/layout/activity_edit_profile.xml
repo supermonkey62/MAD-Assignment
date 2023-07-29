@@ -114,7 +114,6 @@
             android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
             android:background="@color/white" />
-        <!--*******Edit Profile**********-->
         <TextView
             android:id="@+id/change_password"
             android:layout_width="match_parent"
@@ -143,7 +142,7 @@
             android:drawablePadding="10dp"
             android:drawableTint="@color/white"
 
-            android:text="Change Username"
+            android:text="Change Display Name"
             android:textColor="@color/white"
             android:textSize="18sp" />
 

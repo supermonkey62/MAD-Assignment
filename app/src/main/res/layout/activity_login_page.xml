@@ -95,6 +95,7 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="50dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/logintext">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -116,6 +117,7 @@
         android:layout_marginTop="30dp"
         android:layout_marginEnd="40dp"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/usernameInputLayout">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -132,10 +134,8 @@
         android:id="@+id/checkBox"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:layout_marginEnd="160dp"
         android:text="@string/remember_me"
-        app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginStart="40dp"
+        app:layout_constraintStart_toStartOf="@id/passwordInputLayout"
         app:layout_constraintTop_toBottomOf="@+id/passwordInputLayout" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
