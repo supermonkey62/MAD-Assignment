@@ -148,7 +148,7 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
 
     private void showUndoPopup() {
         Snackbar snackbar = Snackbar.make(((Activity) context).getWindow().getDecorView().findViewById(android.R.id.content),
-                        "Task removed", Snackbar.LENGTH_LONG)
+                        "Task Completed", Snackbar.LENGTH_LONG)
                 .setAction("Undo", new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
