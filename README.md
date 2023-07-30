@@ -118,17 +118,26 @@ Replaced EditTexts with TextInputLayouts, to provide a better input receiver tha
 Limited Usernames to only alphabets and numbers.
 
 
-**Attributions for Images Used**
-Login Page Productivity Image: <a href="https://www.freepik.com/free-vector/timing-project-scheduling_6976404.htm#query=productivity&position=3&from_view=search&track=sph">Image by pch.vector</a> on Freepik<br>
-App Icon: <a href="https://www.flaticon.com/free-icons/tasks" title="tasks icons">Tasks icons created by Freepik - Flaticon</a><br>
-Profile Picture Images: https://images.pexels.com/photos/1198802/pexels-photo-1198802.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1<br>
+### Attributions for Images 
+#### Login Page Productivity Image: 
+<a href="https://www.freepik.com/free-vector/timing-project-scheduling_6976404.htm#query=productivity&position=3&from_view=search&track=sph">Image by pch.vector</a> on Freepik<br>
+
+#### App Icon: 
+<a href="https://www.flaticon.com/free-icons/tasks" title="tasks icons">Tasks icons created by Freepik - Flaticon</a><br>
+
+#### Profile Picture Images: 
+https://images.pexels.com/photos/1198802/pexels-photo-1198802.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1<br>
 https://images.pexels.com/photos/516541/pexels-photo-516541.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1<br>
 https://images.pexels.com/photos/937980/pexels-photo-937980.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1<br>
 https://images.pexels.com/photos/1024967/pexels-photo-1024967.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1<br>
 https://images.pexels.com/photos/443446/pexels-photo-443446.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1<br>
+
+#### Time  of Day Greeting ( Not in use currently ) : 
 Morning.png: https://www.vecteezy.com/video/1305180-sunrise-timelapse-sun-rise-warm-morning-night-to-day<br>
 Afternoon.png:https://www.istockphoto.com/photos/peru-llama<br>
 Evening.png:https://pxhere.com/en/photo/913583<br>
+
+#### Profile Banners and Titles :
 https://static.vecteezy.com/system/resources/previews/008/014/115/original/tropical-leaves-background-design-summer-leaves-flat-illustration-simple-banner-with-copy-space-free-vector.jpg
 https://visme.co/blog/wp-content/uploads/2017/07/50-Beautiful-and-Minimalist-Presentation-Backgrounds-03.jpg
 https://media.istockphoto.com/id/1333010525/vector/simple-flat-pixel-art-illustration-of-cartoon-outdoor-landscape-background-pixel-arcade.jpg?s=612x612&w=0&k=20&c=uTGqB9fhmjzaNd17EGRHYU04_70K7a3M8ilRoJjDwtY=
@@ -139,13 +148,13 @@ https://www.pngwing.com/en/free-png-yyern
 https://www.pngwing.com/en/free-png-bhthw
 https://img.freepik.com/free-photo/brown-fabric-motion-texture_53876-95924.jpg?w=1380&t=st=1690446800~exp=1690447400~hmac=7791f32c71d816521dc99b98e2bb435c91abfdd4fcb2f833c0b45c1bc8ac1a98
 
-**Team Members' Names and Student ID**
+### Team Members' Names and Student ID
 
-Kenneth Wu , S10243259
+#### Kenneth Wu , S10243259
 
-Oh Ern Qi , S10243067
+#### Oh Ern Qi , S10243067
 
-Lee Jun Rong , S10242663
+#### Lee Jun Rong , S10242663
 
-Andrew Rimington , S10240137
+#### Andrew Rimington , S10240137
 
