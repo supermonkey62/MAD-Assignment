@@ -21,7 +21,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:srcCompat="@drawable/white_square_with_rounded_corners"
-        app:tint="@color/gray" />>
+        app:tint="#317873" />>
 
     <ImageView
         android:id="@+id/editUsername"
@@ -109,7 +109,7 @@
         android:layout_height="50dp"
         android:layout_marginTop="10dp"
         android:text="Username"
-        android:textColor="@color/black"
+        android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintLeft_toRightOf="@+id/image_view"
         app:layout_constraintRight_toRightOf="@id/banner"
@@ -135,6 +135,7 @@
         android:background="@drawable/rectangle_line"
         android:gravity="center"
         android:text="The Starter"
+        android:textColor="@color/white"
         app:layout_constraintLeft_toRightOf="@id/image_view"
         app:layout_constraintRight_toRightOf="@id/banner"
         app:layout_constraintTop_toBottomOf="@id/profileusername" />

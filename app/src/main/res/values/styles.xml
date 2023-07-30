@@ -2,7 +2,15 @@
 <resources>
     <style name="CustomOutlinedBox" parent="Widget.MaterialComponents.TextInputLayout.OutlinedBox">
         <item name="boxStrokeColor">@color/app_theme</item>
+
     </style>
+
+
+    <style name="CalendarViewCustomStyle" parent="Widget.MaterialComponents.MaterialCalendar">
+        <item name="colorAccent">@color/app_theme</item>
+    </style>
+
+
 
 
 </resources>

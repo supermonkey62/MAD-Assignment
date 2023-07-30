@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#335A44">
+    android:background="@color/app_theme">
 
 
     <ImageView
@@ -15,7 +15,7 @@
         android:layout_marginEnd="1dp"
         android:paddingStart="10dp"
         android:paddingEnd="10dp"
-        android:background="#335A44"
+        android:background="@color/app_theme"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/white_square_with_rounded_corners" />

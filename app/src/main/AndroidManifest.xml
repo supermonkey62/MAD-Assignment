@@ -18,18 +18,19 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".archivetasks"
-            android:exported="false" />
+            android:exported="false"
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".SearchForUsers"
             android:exported="false" />
         <activity
             android:name=".EditEvent"
             android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar"/>
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".AddEvent"
             android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".TaskAnalysis"
             android:exported="false"
@@ -41,15 +42,15 @@
         <activity
             android:name=".Choose_Item_Activity"
             android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".AchievementPage"
             android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ShopActivity"
             android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".RemoveTasks"
             android:exported="false" />
@@ -63,15 +64,15 @@
         <activity
             android:name=".EditTask"
             android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".AddTask"
             android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".TaskCalendar"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".MainPage"
             android:exported="false"
@@ -79,7 +80,7 @@
         <activity
             android:name=".RegisterUser"
             android:exported="false"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".TodoList"
             android:exported="false" />
@@ -90,11 +91,11 @@
         <activity
             android:name=".EditProfile"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/AppTheme"/>
         <activity
             android:name=".ChangeDisplayName"
             android:exported="false"
-            android:theme="@style/Theme.AppCompat.Light.NoActionBar" />
+            android:theme="@style/AppTheme" />
         <activity
             android:name=".ChooseImageForpfp"
             android:exported="false" />
@@ -104,7 +105,7 @@
         <activity
             android:name=".LoginPage"
             android:exported="true"
-            android:theme="@style/Theme.MaterialComponents.Light.NoActionBar">
+            android:theme="@style/AppTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

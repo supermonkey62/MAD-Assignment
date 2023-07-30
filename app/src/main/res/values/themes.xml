@@ -1,13 +1,13 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.MADAssignment" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:statusBarColor">@color/app_theme</item>
 
     </style>
 
     <style name="AppTheme" parent="Base.Theme.MADAssignment">
         <!-- Customize other attributes as needed -->
     </style>
-
 
     <style name="Theme.MADAssignment" parent="Base.Theme.MADAssignment" />
 </resources>
