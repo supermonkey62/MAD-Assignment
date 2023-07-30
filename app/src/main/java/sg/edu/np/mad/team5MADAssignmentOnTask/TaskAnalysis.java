@@ -19,6 +19,7 @@ import com.github.mikephil.charting.components.Description;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.LegendEntry;
 import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.BarData;
 import com.github.mikephil.charting.data.BarDataSet;
 import com.github.mikephil.charting.data.BarEntry;
@@ -138,9 +139,16 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         barChart.setTouchEnabled(false);
         barChart.getDescription().setEnabled(false);
 
+        YAxis yAxis = barChart.getAxisLeft();
+        yAxis.setAxisMinimum(0f);
+
+        YAxis yAxis1 = barChart.getAxisRight();
+        yAxis1.setAxisMinimum(0f);
+
 
         // Hide X-axis labels
         XAxis xAxis = barChart.getXAxis();
+        xAxis.setAxisMinimum(0f);
         xAxis.setDrawLabels(false);
         xAxis.setDrawGridLines(false);
 
@@ -228,9 +236,18 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         barChartAverageSessionsPerCategory.getDescription().setEnabled(false);
 
         // Hide X-axis labels
+        YAxis yAxis = barChartAverageSessionsPerCategory.getAxisLeft(); // Get the left Y-axis
+        yAxis.setAxisMinimum(0f);
+        YAxis yAxis1 = barChartAverageSessionsPerCategory.getAxisRight();
+        yAxis1.setAxisMinimum(0f);
+
+
+        // Hide X-axis labels
         XAxis xAxis = barChartAverageSessionsPerCategory.getXAxis();
+        xAxis.setAxisMinimum(0f);
         xAxis.setDrawLabels(false);
         xAxis.setDrawGridLines(false);
+
 
         Legend legend = barChartAverageSessionsPerCategory.getLegend();
         legend.setEnabled(true);
@@ -439,12 +456,23 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
         lineChart.setData(lineData);
         lineChart.getDescription().setEnabled(false);
 
+        YAxis yAxis =lineChart.getAxisLeft(); // Get the left Y-axis
+        yAxis.setAxisMinimum(0f);
+
+        YAxis yAxis1 = lineChart.getAxisRight();
+        yAxis1.setAxisMinimum(0f);
+
+
+
+
+
         // Customize x-axis labels
         XAxis xAxis = lineChart.getXAxis();
         xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
         xAxis.setDrawGridLines(false);
         xAxis.setGranularity(1f); // Set a minimum interval for displaying values to 1 (one month)
         xAxis.setValueFormatter(new IndexAxisValueFormatter(labels));
+        xAxis.setAxisMinimum(0f);
 
         lineChart.getAxisLeft().setEnabled(false);
 
@@ -567,10 +595,19 @@ public class TaskAnalysis extends AppCompatActivity implements TaskDataHolder.Ta
 
         barChartAverageTimePerCategory.setTouchEnabled(false);
 
+        YAxis yAxis = barChartAverageTimePerCategory.getAxisLeft(); // Get the left Y-axis
+        yAxis.setAxisMinimum(0f);
+
+        YAxis yAxis1 = barChartAverageTimePerCategory.getAxisRight();
+        yAxis1.setAxisMinimum(0f);
+
+
         // Hide X-axis labels
         XAxis xAxis = barChartAverageTimePerCategory.getXAxis();
+        xAxis.setAxisMinimum(0f);
         xAxis.setDrawLabels(false);
         xAxis.setDrawGridLines(false);
+
 
         // Hide the default legend
         barChartAverageTimePerCategory.getLegend().setEnabled(false);
