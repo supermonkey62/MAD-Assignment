@@ -16,12 +16,13 @@
 
         <CheckBox
             android:id="@+id/checkbox"
-            android:layout_width="238dp"
-            android:layout_height="45dp"
+            android:layout_width="237dp"
+            android:layout_height="35dp"
             android:layout_marginStart="13dp"
             android:text="This is a task"
             android:textColor="@color/black"
-            android:textSize="20dp"
+            android:textSize="18dp"
+            android:shadowColor="@color/app_theme"
             app:layout_constraintStart_toEndOf="@+id/tasktimer"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -29,7 +30,6 @@
             android:id="@+id/tasktimer"
             android:layout_width="55dp"
             android:layout_height="56dp"
-            android:layout_marginStart="8dp"
             android:clickable="true"
             app:backgroundTint="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -41,9 +41,9 @@
 
         <TextView
             android:id="@+id/taskdatetodo"
-            android:layout_width="217dp"
-            android:layout_height="28dp"
-            android:layout_marginStart="13dp"
+            android:layout_width="220dp"
+            android:layout_height="19dp"
+            android:layout_marginStart="46dp"
             android:text="TextView"
             android:textColor="@color/black"
             app:layout_constraintStart_toEndOf="@+id/tasktimer"
@@ -51,13 +51,21 @@
 
         <TextView
             android:id="@+id/taskCollaboratorsText2"
-            android:layout_width="298dp"
-            android:layout_height="38dp"
-            android:layout_marginStart="13dp"
+            android:layout_width="272dp"
+            android:layout_height="58dp"
+            android:layout_marginStart="46dp"
             android:text="Collaborators"
-            android:visibility="gone"
             android:textColor="@color/black"
-            android:textSize="15sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/tasktimer"
+            app:layout_constraintTop_toBottomOf="@+id/taskCategoryText" />
+
+        <TextView
+            android:id="@+id/taskCategoryText"
+            android:layout_width="263dp"
+            android:layout_height="22dp"
+            android:layout_marginStart="46dp"
+            android:text="TextView"
             app:layout_constraintStart_toEndOf="@+id/tasktimer"
             app:layout_constraintTop_toBottomOf="@+id/taskdatetodo" />
 

@@ -17,7 +17,7 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
     CheckBox task;
     FloatingActionButton tasktimerlink;
 
-    TextView dateoftask, collaboratorsTextView;
+    TextView dateoftask, collaboratorsTextView , categoryTextView;
     int sessions;
 
     boolean status;
@@ -31,6 +31,7 @@ public class TodoViewHolder extends RecyclerView.ViewHolder {
         tasktimerlink = view.findViewById(R.id.tasktimer);
         dateoftask = view.findViewById(R.id.taskdatetodo);
         collaboratorsTextView = view.findViewById(R.id.taskCollaboratorsText2);
+        categoryTextView = view.findViewById(R.id.taskCategoryText);
 
         tasktimerlink.setOnClickListener(new View.OnClickListener() {
             @Override

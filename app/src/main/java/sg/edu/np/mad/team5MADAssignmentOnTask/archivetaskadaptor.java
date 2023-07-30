@@ -43,11 +43,13 @@ public class archivetaskadaptor extends RecyclerView.Adapter<EventViewHolder> {
     public void onBindViewHolder(@NonNull EventViewHolder holder, int position) {
         Task task = taskList.get(position);
         holder.username = task.getUsername();
+        holder.category =task.getCategory();
         holder.date = task.getDate();
         holder.tag = task.getTag();
         holder.status = task.getStatus();
         holder.titlebox.setText(task.getTitle());
         holder.datebox.setText(task.getDate());
+        holder.timebox.setText(holder.category);
 
         if (task.getStatus() == true) {
             holder.itemView.setVisibility(View.VISIBLE);

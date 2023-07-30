@@ -1,6 +1,7 @@
 package sg.edu.np.mad.team5MADAssignmentOnTask;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -60,6 +61,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventViewHolder> {
         // Set the date box with the formatted start and end dates
         holder.datebox.setText(formattedStartDate + " - " + formattedEndDate);
         holder.timebox.setText(event.getStartTime() + " - " + event.getEndTime());
+        holder.timebox.setTextColor(Color.BLACK);
         holder.username = event.getUsername();
 
         holder.cardView.setOnClickListener(new View.OnClickListener() {
