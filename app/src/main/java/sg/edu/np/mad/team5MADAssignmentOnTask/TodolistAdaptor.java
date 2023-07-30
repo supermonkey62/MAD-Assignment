@@ -69,6 +69,7 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
         holder.category = task.getCategory();
         holder.collaborators = task.getCollaborators();
         holder.collaboratorsTextView.setVisibility(View.INVISIBLE);
+        holder.categoryTextView.setText(holder.category);
 
         if (task.getStatus() == false) {
             holder.itemView.setVisibility(View.VISIBLE);
@@ -78,10 +79,7 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
             holder.itemView.setLayoutParams(new RecyclerView.LayoutParams(0, 0));
         }
         if (task.getCollaborators() != null && !task.getCollaborators().equals("NIL")) {
-
             List<String> collaboratorsList = Arrays.asList(task.getCollaborators().split(","));
-
-
             StringBuilder collaboratorsStringBuilder = new StringBuilder();
             collaboratorsStringBuilder.append("Collab between " + holder.username + ", ");
             for (String collaborator : collaboratorsList) {
@@ -98,6 +96,8 @@ public class TodolistAdaptor extends RecyclerView.Adapter<TodoViewHolder> {
             // No collaborators, hide the collaborators TextView
             holder.collaboratorsTextView.setVisibility(View.GONE);
         }
+
+
 
 
 
