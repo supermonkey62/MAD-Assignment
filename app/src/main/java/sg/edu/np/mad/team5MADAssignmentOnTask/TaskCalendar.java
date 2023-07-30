@@ -16,6 +16,7 @@ import android.view.View;
 import android.widget.CalendarView;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
@@ -107,22 +108,76 @@ public class TaskCalendar extends AppCompatActivity implements TaskDataHolder.Ta
         addtask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Launch AddTask activity
-                Intent intent = new Intent(TaskCalendar.this, AddTask.class);
-                intent.putExtra("DATE", selectedDateString); // Pass any required data to the AddTask activity
-                intent.putExtra("USERNAME", username);
-                startActivity(intent);
+                if (selectedDateString == null || selectedDateString.isEmpty()) {
+                    android.icu.text.SimpleDateFormat dateFormat = new android.icu.text.SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    selectedDateString = dateFormat.format(new Date()); // Set it to today's date
+                }
+
+
+                android.icu.text.SimpleDateFormat dateFormat = new android.icu.text.SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                Date selectedDate = null;
+                try {
+                    selectedDate = dateFormat.parse(selectedDateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                Calendar currentDateCalendar = Calendar.getInstance();
+                currentDateCalendar.set(Calendar.HOUR_OF_DAY, 0);
+                currentDateCalendar.set(Calendar.MINUTE, 0);
+                currentDateCalendar.set(Calendar.SECOND, 0);
+                currentDateCalendar.set(Calendar.MILLISECOND, 0);
+                Date currentDate = currentDateCalendar.getTime();
+
+
+                if (selectedDate != null && selectedDate.before(currentDate)) {
+                    // Show a toast indicating that task cannot be added before today
+                    Toast.makeText(TaskCalendar.this, "Task cannot be added before today.", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    Intent intent = new Intent(TaskCalendar.this, AddTask.class);
+
+                    intent.putExtra("USERNAME", username);
+                    intent.putExtra("DATE", selectedDateString);
+                    startActivity(intent);
+                }
             }
         });
+
 
         addevent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Launch AddEvent activity
-                Intent intent = new Intent(TaskCalendar.this, AddEvent.class);
-                intent.putExtra("DATE", selectedDateString); // Pass any required data to the AddEvent activity
-                intent.putExtra("USERNAME", username);
-                startActivity(intent);
+
+                if (selectedDateString == null || selectedDateString.isEmpty()) {
+                    android.icu.text.SimpleDateFormat dateFormat = new android.icu.text.SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                    selectedDateString = dateFormat.format(new Date()); // Set it to today's date
+                }
+
+                android.icu.text.SimpleDateFormat dateFormat = new android.icu.text.SimpleDateFormat("dd/MM/yyyy", Locale.getDefault());
+                Date selectedDate = null;
+                try {
+                    selectedDate = dateFormat.parse(selectedDateString);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+                // Get the current date without time (only date part)
+                Calendar currentDateCalendar = Calendar.getInstance();
+                currentDateCalendar.set(Calendar.HOUR_OF_DAY, 0);
+                currentDateCalendar.set(Calendar.MINUTE, 0);
+                currentDateCalendar.set(Calendar.SECOND, 0);
+                currentDateCalendar.set(Calendar.MILLISECOND, 0);
+                Date currentDate = currentDateCalendar.getTime();
+
+
+                if (selectedDate != null && selectedDate.before(currentDate)) {
+                    Toast.makeText(TaskCalendar.this, "Event cannot be added before today.", Toast.LENGTH_SHORT).show();
+                } else {
+
+                    Intent intent = new Intent(TaskCalendar.this, AddEvent.class);
+                    intent.putExtra("USERNAME", username);
+                    startActivity(intent);
+                }
             }
         });
 
