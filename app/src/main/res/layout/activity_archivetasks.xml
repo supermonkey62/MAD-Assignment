@@ -21,8 +21,10 @@
         android:id="@+id/archive"
         android:layout_width="240dp"
         android:layout_height="67dp"
+        android:layout_marginTop="8dp"
         android:gravity="center"
         android:text="Archived Tasks"
+        android:textColor="@color/white"
         android:textSize="34sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -33,15 +35,14 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/ArchivetasksRecyclerView"
-        android:layout_width="406dp"
-        android:layout_height="660dp"
-        android:layout_marginTop="8dp"
-        android:nestedScrollingEnabled="true"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/archive" />
+        app:layout_constraintTop_toBottomOf="@id/archive"
+        app:layout_constraintVertical_bias="0.0"/>
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
