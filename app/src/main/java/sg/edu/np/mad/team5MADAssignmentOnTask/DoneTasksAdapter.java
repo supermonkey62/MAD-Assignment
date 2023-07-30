@@ -45,9 +45,11 @@ public class DoneTasksAdapter extends RecyclerView.Adapter<EventViewHolder> {
         holder.username = task.getUsername();
         holder.date = task.getDate();
         holder.tag = task.getTag();
+        holder.category = task.getCategory();
         holder.status = task.getStatus();
         holder.titlebox.setText(task.getTitle());
         holder.datebox.setText(task.getDate());
+        holder.timebox.setText(holder.category);
 
         if (task.getStatus() == true) {
             holder.itemView.setVisibility(View.VISIBLE);

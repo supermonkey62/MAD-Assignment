@@ -11,7 +11,7 @@ import sg.edu.np.mad.team5MADAssignmentOnTask.R;
 public class EventViewHolder extends RecyclerView.ViewHolder {
     TextView titlebox, datebox, timebox;
 
-    String username,date,tag;
+    String username,date,tag,category;
     public CardView cardView;
     boolean status;
 
