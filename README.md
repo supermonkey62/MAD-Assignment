@@ -148,6 +148,9 @@ https://www.pngwing.com/en/free-png-yyern
 https://www.pngwing.com/en/free-png-bhthw
 https://img.freepik.com/free-photo/brown-fabric-motion-texture_53876-95924.jpg?w=1380&t=st=1690446800~exp=1690447400~hmac=7791f32c71d816521dc99b98e2bb435c91abfdd4fcb2f833c0b45c1bc8ac1a98
 
+### State of Deployment :
+Full roll-out on Google Play Store and available to all users on Google Play.
+
 ### Team Members' Names and Student ID
 
 #### Kenneth Wu , S10243259
