@@ -67,7 +67,7 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
 
         type = "background";
         fetchandsort(username,type);
-        goal.setBackgroundResource(R.drawable.rectangle_line);
+        goal.setBackgroundResource(R.drawable.black_rectangle);
         title.setBackground(null);
         setButton.setEnabled(true);
 
@@ -78,7 +78,7 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
             public void onClick(View v) {
                 type = "outline";
                 fetchandsort(username,type);
-                title.setBackgroundResource(R.drawable.rectangle_line);
+                title.setBackgroundResource(R.drawable.black_rectangle);
                 goal.setBackground(null);
                 setButton.setBackgroundColor(Color.TRANSPARENT);
                 setButton.setEnabled(false);
@@ -92,7 +92,7 @@ public class Choose_Item_Activity extends AppCompatActivity implements CustomLis
             public void onClick(View view) {
                 type = "background";
                 fetchandsort(username,type);
-                goal.setBackgroundResource(R.drawable.rectangle_line);
+                goal.setBackgroundResource(R.drawable.black_rectangle);
                 title.setBackground(null);
                 setButton.setEnabled(true);
                 setButton.setTextColor(Color.WHITE);
